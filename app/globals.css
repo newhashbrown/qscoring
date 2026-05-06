@@ -269,7 +269,7 @@ nav {
   animation: ringFill 1.5s ease 0.8s forwards;
 }
 @keyframes ringFill {
-  to { stroke-dashoffset: 60; }
+  to { stroke-dashoffset: var(--target-offset, 60); }
 }
 .ring-number {
   position: absolute;
