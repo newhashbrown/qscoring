@@ -1,27 +1,8 @@
+import DemoCard from "./components/DemoCard";
 import EmailForm from "./components/EmailForm";
 
-type FactorRowProps = {
-  label: string;
-  value: number;
-  width: string;
-  color: "green" | "amber" | "red";
-  delay: string;
-};
-
-function FactorRow({ label, value, width, color, delay }: FactorRowProps) {
-  return (
-    <div className="factor">
-      <span className="factor-label">{label}</span>
-      <div className="factor-track">
-        <div
-          className={`factor-fill ${color}`}
-          style={{ ["--w" as string]: width, ["--delay" as string]: delay } as React.CSSProperties}
-        />
-      </div>
-      <span className="factor-val">{value}</span>
-    </div>
-  );
-}
+// Refresh the live NVDA demo score at most once per hour.
+export const revalidate = 3600;
 
 export default function Home() {
   return (
@@ -57,39 +38,9 @@ export default function Home() {
         <p className="form-note">Free early access. No credit card required.</p>
       </section>
 
-      {/* DEMO SCORE CARD */}
+      {/* DEMO SCORE CARD — live from FMP */}
       <section className="demo-section">
-        <div className="demo-card">
-          <div className="demo-header">
-            <div className="demo-ticker">
-              NVDA <span className="company">NVIDIA Corporation</span>
-            </div>
-            <div className="demo-price">
-              $135.40 <span className="change">+2.3%</span>
-            </div>
-          </div>
-          <div className="score-ring">
-            <div className="ring-container">
-              <svg viewBox="0 0 100 100" width="100" height="100">
-                <circle className="ring-bg" cx="50" cy="50" r="45" />
-                <circle className="ring-fill" cx="50" cy="50" r="45" />
-              </svg>
-              <div className="ring-number">79</div>
-            </div>
-            <div className="score-meta">
-              <h3>QScore Signal</h3>
-              <div className="signal">▲ Buy Long-Term</div>
-              <div className="confidence">Confidence: High</div>
-            </div>
-          </div>
-          <div className="factor-bars">
-            <FactorRow label="Value" value={62} width="62%" color="green" delay="0.9s" />
-            <FactorRow label="Growth" value={91} width="91%" color="green" delay="1s" />
-            <FactorRow label="Momentum" value={84} width="84%" color="green" delay="1.1s" />
-            <FactorRow label="Profitability" value={88} width="88%" color="green" delay="1.2s" />
-            <FactorRow label="Risk" value={55} width="55%" color="amber" delay="1.3s" />
-          </div>
-        </div>
+        <DemoCard />
       </section>
 
       {/* FEATURES */}
