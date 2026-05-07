@@ -78,14 +78,19 @@ export async function POST(req: Request) {
 
   // Fire-and-forget welcome email for new subscribers. We don't block the
   // 200 response on Resend's latency, and a Resend failure should never
-  // surface as a signup error to the user.
-  if (inserted && process.env.RESEND_API_KEY) {
+  // surface as a signup error to the user. sendEmail handles the missing-
+  // -RESEND_API_KEY case internally (returns ok:false silently).
+  if (inserted) {
     void sendEmail({
       to: email,
       subject: WELCOME_SUBJECT,
       html: welcomeHtml(),
       text: welcomeText(),
-    }).catch((err) => console.error("welcome email failed:", err));
+    })
+      .then((r) => {
+        if (!r.ok) console.error("welcome email failed:", r.error);
+      })
+      .catch((err) => console.error("welcome email exception:", err));
   }
 
   return NextResponse.json({ ok: true });
