@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { sendEmail } from "@/lib/email/send";
+import { WELCOME_SUBJECT, welcomeHtml, welcomeText } from "@/lib/email/welcome";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const ALLOWED_SOURCES = new Set(["waitlist", "early_access", "score_page", "footer"]);
@@ -54,16 +56,18 @@ export async function POST(req: Request) {
     );
   }
 
+  let inserted = false;
   try {
     // INSERT OR IGNORE returns success even if email already exists, so we
-    // don't leak which emails are signed up.
-    await db
+    // don't leak which emails are signed up. Capture meta.changes so we
+    // only send the welcome email to genuinely-new subscribers.
+    const result = await db
       .prepare(
         "INSERT OR IGNORE INTO subscribers (email, source, ip_hash, user_agent, country) VALUES (?, ?, ?, ?, ?)"
       )
       .bind(email, source, ipHash, userAgent || null, country)
       .run();
-    return NextResponse.json({ ok: true });
+    inserted = (result.meta?.changes ?? 0) > 0;
   } catch (err) {
     console.error("subscribe insert failed:", err);
     return NextResponse.json(
@@ -71,4 +75,18 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+
+  // Fire-and-forget welcome email for new subscribers. We don't block the
+  // 200 response on Resend's latency, and a Resend failure should never
+  // surface as a signup error to the user.
+  if (inserted && process.env.RESEND_API_KEY) {
+    void sendEmail({
+      to: email,
+      subject: WELCOME_SUBJECT,
+      html: welcomeHtml(),
+      text: welcomeText(),
+    }).catch((err) => console.error("welcome email failed:", err));
+  }
+
+  return NextResponse.json({ ok: true });
 }
