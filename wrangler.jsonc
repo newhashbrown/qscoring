@@ -11,6 +11,12 @@
   "ai": {
     "binding": "AI"
   },
+  // Plaintext vars must live here — vars added only through the dashboard
+  // get wiped on every Workers Builds redeploy. Secrets (RESEND_API_KEY,
+  // FMP_API_KEY) are managed separately and DO persist across deploys.
+  "vars": {
+    "EMAIL_FROM": "QScoring <noreply@qscoring.com>"
+  },
   "d1_databases": [
     {
       "binding": "DB",
