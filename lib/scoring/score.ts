@@ -1,6 +1,6 @@
 import { fmp } from "./fmp";
-import * as M from "./metrics";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
+import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
   CategoryScore,
   Confidence,
@@ -89,34 +89,38 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
   const km = kmR[0];
   const growth = growthR[0];
   const history = historyR ?? [];
+  const sector = profile.sector || null;
+
+  // Helper: build a metric entry given key, raw value, and the scoring fn applied to its sector stats.
+  const stat = (key: Parameters<typeof getStats>[0]) => getStats(key, sector);
 
   // ─── VALUE ─────────────────────────────────────────────────
   const valueMetrics: MetricScore[] = [
     {
       name: "P/E",
       raw: ratios?.priceToEarningsRatioTTM ?? null,
-      score: M.scorePE(ratios?.priceToEarningsRatioTTM ?? null),
+      score: scoreLower(ratios?.priceToEarningsRatioTTM, stat("pe"), { negativeIsBad: true, negativeScore: 8 }),
       weight: 1.2,
       format: "ratio",
     },
     {
       name: "P/B",
       raw: ratios?.priceToBookRatioTTM ?? null,
-      score: M.scorePB(ratios?.priceToBookRatioTTM ?? null),
+      score: scoreLower(ratios?.priceToBookRatioTTM, stat("pb"), { negativeIsBad: true, negativeScore: 5 }),
       weight: 1,
       format: "ratio",
     },
     {
       name: "P/S",
       raw: ratios?.priceToSalesRatioTTM ?? null,
-      score: M.scorePS(ratios?.priceToSalesRatioTTM ?? null),
+      score: scoreLower(ratios?.priceToSalesRatioTTM, stat("ps")),
       weight: 1,
       format: "ratio",
     },
     {
       name: "EV/EBITDA",
       raw: km?.evToEBITDATTM ?? null,
-      score: M.scoreEvEbitda(km?.evToEBITDATTM ?? null),
+      score: scoreLower(km?.evToEBITDATTM, stat("evEbitda"), { negativeIsBad: true, negativeScore: 5 }),
       weight: 1.2,
       format: "ratio",
     },
@@ -127,21 +131,21 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
     {
       name: "Revenue Growth",
       raw: growth?.revenueGrowth ?? null,
-      score: M.scoreRevenueGrowth(growth?.revenueGrowth ?? null),
+      score: scoreHigher(growth?.revenueGrowth, stat("revenueGrowth")),
       weight: 1.5,
       format: "percent",
     },
     {
       name: "EPS Growth",
       raw: growth?.epsgrowth ?? null,
-      score: M.scoreEpsGrowth(growth?.epsgrowth ?? null),
+      score: scoreHigher(growth?.epsgrowth, stat("epsGrowth")),
       weight: 1.5,
       format: "percent",
     },
     {
       name: "FCF Growth",
       raw: growth?.freeCashFlowGrowth ?? null,
-      score: M.scoreEpsGrowth(growth?.freeCashFlowGrowth ?? null),
+      score: scoreHigher(growth?.freeCashFlowGrowth, stat("fcfGrowth")),
       weight: 1,
       format: "percent",
     },
@@ -155,14 +159,32 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
   const goldenCross = maCrossover(quote?.priceAvg50 ?? null, quote?.priceAvg200 ?? null);
 
   const momentumMetrics: MetricScore[] = [
-    { name: "12-Month Return", raw: r12, score: M.scoreReturn12mo(r12), weight: 1.5, format: "percent" },
-    { name: "3-Month Return", raw: r3, score: M.scoreReturn3mo(r3), weight: 1.2, format: "percent" },
-    { name: "1-Month Return", raw: r1, score: M.scoreReturn1mo(r1), weight: 1, format: "percent" },
-    { name: "RSI (14)", raw: rsi, score: M.scoreRsi(rsi), weight: 1, format: "number" },
+    {
+      name: "12-Month Return",
+      raw: r12,
+      score: scoreHigher(r12, stat("return12mo")),
+      weight: 1.5,
+      format: "percent",
+    },
+    {
+      name: "3-Month Return",
+      raw: r3,
+      score: scoreHigher(r3, stat("return3mo")),
+      weight: 1.2,
+      format: "percent",
+    },
+    {
+      name: "1-Month Return",
+      raw: r1,
+      score: scoreHigher(r1, stat("return1mo")),
+      weight: 1,
+      format: "percent",
+    },
+    { name: "RSI (14)", raw: rsi, score: scoreRsi(rsi), weight: 1, format: "number" },
     {
       name: "50/200 MA",
       raw: goldenCross === null ? null : goldenCross ? 1 : 0,
-      score: M.scoreMaCross(goldenCross),
+      score: scoreMaCross(goldenCross),
       weight: 1,
       format: "number",
     },
@@ -173,42 +195,42 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
     {
       name: "ROE",
       raw: km?.returnOnEquityTTM ?? null,
-      score: M.scoreROE(km?.returnOnEquityTTM ?? null),
+      score: scoreHigher(km?.returnOnEquityTTM, stat("roe")),
       weight: 1.5,
       format: "percent",
     },
     {
       name: "ROA",
       raw: km?.returnOnAssetsTTM ?? null,
-      score: M.scoreROA(km?.returnOnAssetsTTM ?? null),
+      score: scoreHigher(km?.returnOnAssetsTTM, stat("roa")),
       weight: 1,
       format: "percent",
     },
     {
       name: "Gross Margin",
       raw: ratios?.grossProfitMarginTTM ?? null,
-      score: M.scoreMargin(ratios?.grossProfitMarginTTM ?? null),
+      score: scoreHigher(ratios?.grossProfitMarginTTM, stat("grossMargin")),
       weight: 1,
       format: "percent",
     },
     {
       name: "Operating Margin",
       raw: ratios?.operatingProfitMarginTTM ?? null,
-      score: M.scoreMargin(ratios?.operatingProfitMarginTTM ?? null),
+      score: scoreHigher(ratios?.operatingProfitMarginTTM, stat("operatingMargin")),
       weight: 1.2,
       format: "percent",
     },
     {
       name: "Net Margin",
       raw: ratios?.netProfitMarginTTM ?? null,
-      score: M.scoreMargin(ratios?.netProfitMarginTTM ?? null),
+      score: scoreHigher(ratios?.netProfitMarginTTM, stat("netMargin")),
       weight: 1,
       format: "percent",
     },
     {
       name: "FCF Yield",
       raw: km?.freeCashFlowYieldTTM ?? null,
-      score: M.scoreFcfYield(km?.freeCashFlowYieldTTM ?? null),
+      score: scoreHigher(km?.freeCashFlowYieldTTM, stat("fcfYield")),
       weight: 1.2,
       format: "percent",
     },
@@ -221,14 +243,14 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
     {
       name: "Beta",
       raw: profile.beta ?? null,
-      score: M.scoreBeta(profile.beta ?? null),
+      score: scoreBeta(profile.beta, stat("beta")),
       weight: 1,
       format: "number",
     },
     {
       name: "60-Day Volatility",
       raw: vol,
-      score: M.scoreVolatility(vol),
+      score: scoreLower(vol, stat("vol60")),
       weight: 1.2,
       format: "percent",
     },

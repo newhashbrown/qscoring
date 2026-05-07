@@ -4,7 +4,7 @@ import ScoreNav from "@/app/components/ScoreNav";
 export const metadata = {
   title: "Methodology — How the QScore Is Calculated",
   description:
-    "Full transparency on the QScore methodology: factor categories, scoring thresholds, weights, signal logic, data sources, limitations, and validation status.",
+    "Full transparency on the QScore methodology: factor categories, z-score normalization against the universe, weights, signal logic, data sources, limitations, and validation status.",
 };
 
 const TOC = [
@@ -18,36 +18,6 @@ const TOC = [
   { id: "validation", label: "8. Validation status" },
   { id: "disclaimers", label: "9. Disclaimers" },
 ];
-
-function ThresholdTable({
-  caption,
-  rows,
-  rawHeader = "Input",
-}: {
-  caption: string;
-  rawHeader?: string;
-  rows: Array<{ raw: string; score: number }>;
-}) {
-  return (
-    <table className="method-table">
-      <caption>{caption}</caption>
-      <thead>
-        <tr>
-          <th>{rawHeader}</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((r) => (
-          <tr key={r.raw}>
-            <td>{r.raw}</td>
-            <td className="score-cell">{r.score}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
 
 export default function MethodologyPage() {
   return (
@@ -63,9 +33,9 @@ export default function MethodologyPage() {
           <h1>How the QScore is calculated</h1>
           <p className="method-lede">
             We don&apos;t think it&apos;s reasonable to charge for a stock score that we won&apos;t fully
-            explain. Every input, threshold, weight, and decision rule that feeds the QScore is
-            documented below — along with what it can&apos;t do yet, and our commitment not to start
-            collecting subscriptions until we&apos;ve published a real backtest.
+            explain. Every input, weight, and decision rule that feeds the QScore is documented
+            below — along with what it can&apos;t do yet, and our commitment not to start collecting
+            subscriptions until we&apos;ve published a real backtest.
           </p>
         </header>
 
@@ -94,6 +64,14 @@ export default function MethodologyPage() {
                 <td>Value · Growth · Momentum · Profitability · Risk</td>
               </tr>
               <tr>
+                <th>Normalization</th>
+                <td>
+                  Each metric is z-scored against the distribution of the same metric across the
+                  ticker&apos;s sector (with a fall-back to the full universe of large-cap US stocks
+                  when the sector has too few names).
+                </td>
+              </tr>
+              <tr>
                 <th>Two horizons</th>
                 <td>
                   A long-term composite (weighted toward fundamentals) and a short-term composite
@@ -114,7 +92,7 @@ export default function MethodologyPage() {
               </tr>
               <tr>
                 <th>Universe</th>
-                <td>US-listed equities. Coverage gaps exist on the data plan we&apos;re currently using — see <a href="#limitations">limitations</a>.</td>
+                <td>Large-cap US-listed equities (NASDAQ + NYSE, market cap above $15B). Coverage gaps exist outside this — see <a href="#limitations">limitations</a>.</td>
               </tr>
             </tbody>
           </table>
@@ -124,79 +102,35 @@ export default function MethodologyPage() {
         <section id="factors">
           <h2>2. The five factor categories</h2>
           <p>
-            Each category is built from several underlying metrics. Every metric is mapped to a
-            0–100 score using a piecewise linear function with the thresholds shown below. Within a
-            category, metric scores are averaged with light weighting (2:1 at most). Missing metrics
-            are dropped from the average rather than penalized — this avoids punishing companies
-            that don&apos;t have meaningful book value, for example, but it also feeds into our
-            <a href="#confidence"> confidence rating</a>.
+            Each category is built from several underlying metrics. Every metric is converted to a
+            0–100 score by{" "}
+            <a href="#combining">z-scoring it against the ticker&apos;s sector</a>, with the
+            ticker&apos;s standard deviations from the sector mean mapped linearly to a score
+            (z=0 → 50, z=±3 → 100/0). Within a category, metric scores are averaged with light
+            weighting (no metric weighs more than 1.5× another). Missing metrics are dropped from
+            the average rather than penalized — this avoids punishing companies that don&apos;t
+            have meaningful book value, for example, but it feeds into our{" "}
+            <a href="#confidence">confidence rating</a>.
           </p>
 
           <h3 id="factor-value">Value (lower multiples → higher score)</h3>
           <p>
             What the market is willing to pay for the company per dollar of earnings, book value,
-            sales, and EBITDA. Roots in Graham &amp; Dodd&apos;s <em>Security Analysis</em> (1934) and
-            formalized as the HML factor in Fama–French (1993). The premise: cheap stocks tend to
-            outperform expensive stocks over long horizons, on average.
+            sales, and EBITDA. Roots in Graham &amp; Dodd&apos;s <em>Security Analysis</em> (1934)
+            and formalized as the HML factor in Fama–French (1993). The premise: cheap stocks tend
+            to outperform expensive stocks over long horizons, on average.
           </p>
           <p className="metric-list-inline">
-            <strong>Metrics:</strong> P/E (TTM), P/B, P/S, EV/EBITDA
+            <strong>Metrics:</strong> P/E (TTM), P/B, P/S, EV/EBITDA. Negative values (loss-making
+            companies, distressed book values, negative EBITDA) get a fixed low score; everything
+            else is z-scored against the sector with the sign inverted (lower raw value → higher
+            score).
           </p>
-          <div className="threshold-grid">
-            <ThresholdTable
-              caption="P/E (TTM)"
-              rawHeader="P/E"
-              rows={[
-                { raw: "≤ 5", score: 100 },
-                { raw: "12", score: 85 },
-                { raw: "20", score: 60 },
-                { raw: "30", score: 35 },
-                { raw: "50", score: 15 },
-                { raw: "≥ 100", score: 0 },
-              ]}
-            />
-            <ThresholdTable
-              caption="P/B"
-              rawHeader="P/B"
-              rows={[
-                { raw: "≤ 0.5", score: 100 },
-                { raw: "1.5", score: 80 },
-                { raw: "3", score: 55 },
-                { raw: "6", score: 30 },
-                { raw: "12", score: 10 },
-                { raw: "≥ 30", score: 0 },
-              ]}
-            />
-            <ThresholdTable
-              caption="P/S"
-              rawHeader="P/S"
-              rows={[
-                { raw: "≤ 0.5", score: 100 },
-                { raw: "2", score: 80 },
-                { raw: "5", score: 55 },
-                { raw: "10", score: 30 },
-                { raw: "20", score: 10 },
-                { raw: "≥ 40", score: 0 },
-              ]}
-            />
-            <ThresholdTable
-              caption="EV/EBITDA"
-              rawHeader="EV/EBITDA"
-              rows={[
-                { raw: "≤ 5", score: 100 },
-                { raw: "10", score: 80 },
-                { raw: "15", score: 55 },
-                { raw: "25", score: 30 },
-                { raw: "40", score: 10 },
-                { raw: "≥ 80", score: 0 },
-              ]}
-            />
-          </div>
           <p className="caveat">
             <strong>Known weakness:</strong> P/B becomes meaningless for companies that have bought
-            back enough stock to drive book value near zero (Apple&apos;s P/B is currently ~40). The
-            other three value metrics partially offset this, but a sector-relative adjustment would
-            do better.
+            back enough stock to drive book value near zero (Apple&apos;s P/B is currently ~40).
+            Sector z-scoring partially mitigates this by comparing each tech mega-cap only to other
+            tech mega-caps, but the ratio itself is fundamentally noisy in those situations.
           </p>
 
           <h3 id="factor-growth">Growth (higher growth → higher score)</h3>
@@ -207,36 +141,9 @@ export default function MethodologyPage() {
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> Revenue growth (YoY), EPS growth (YoY), Free cash flow growth
-            (YoY)
+            (YoY). Each is z-scored against the sector — a 10% growth rate in Energy means
+            something different than a 10% growth rate in Technology.
           </p>
-          <div className="threshold-grid">
-            <ThresholdTable
-              caption="Revenue growth"
-              rawHeader="YoY growth"
-              rows={[
-                { raw: "≤ −30%", score: 0 },
-                { raw: "−5%", score: 25 },
-                { raw: "0%", score: 40 },
-                { raw: "8%", score: 60 },
-                { raw: "20%", score: 80 },
-                { raw: "40%", score: 95 },
-                { raw: "≥ 70%", score: 100 },
-              ]}
-            />
-            <ThresholdTable
-              caption="EPS growth"
-              rawHeader="YoY growth"
-              rows={[
-                { raw: "≤ −50%", score: 0 },
-                { raw: "−10%", score: 20 },
-                { raw: "0%", score: 40 },
-                { raw: "10%", score: 60 },
-                { raw: "25%", score: 80 },
-                { raw: "50%", score: 95 },
-                { raw: "≥ 100%", score: 100 },
-              ]}
-            />
-          </div>
           <p className="caveat">
             <strong>Known weakness:</strong> annual figures lag intra-year reality by up to 12
             months. Quarterly fundamentals would be more responsive but introduce more noise.
@@ -251,38 +158,14 @@ export default function MethodologyPage() {
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> 12-month total return, 3-month return, 1-month return, RSI(14),
-            50-day vs 200-day moving-average position
+            50-day vs 200-day moving-average position. Returns are z-scored against the sector;
+            RSI uses a fixed non-monotonic curve (low RSI = oversold rebound potential, mid-high =
+            healthy momentum, extreme high = overbought risk); the MA crossover is a binary
+            golden-cross / death-cross indicator.
           </p>
-          <div className="threshold-grid">
-            <ThresholdTable
-              caption="12-month return"
-              rawHeader="Return"
-              rows={[
-                { raw: "≤ −50%", score: 0 },
-                { raw: "−20%", score: 25 },
-                { raw: "0%", score: 50 },
-                { raw: "+20%", score: 75 },
-                { raw: "+50%", score: 95 },
-                { raw: "≥ +100%", score: 100 },
-              ]}
-            />
-            <ThresholdTable
-              caption="RSI(14)"
-              rawHeader="RSI"
-              rows={[
-                { raw: "< 30 (oversold)", score: 60 },
-                { raw: "50 (neutral)", score: 50 },
-                { raw: "70 (healthy)", score: 88 },
-                { raw: "80 (overbought)", score: 70 },
-                { raw: "100 (extreme)", score: 20 },
-              ]}
-            />
-          </div>
           <p className="caveat">
             <strong>Known weakness:</strong> momentum factors fail at regime turns. A stock crashing
-            from a high RSI looks &ldquo;healthy&rdquo; right up until the moment it doesn&apos;t. The RSI
-            curve is shaped to penalize extreme overbought readings, but it can&apos;t catch sudden
-            reversals.
+            from a high RSI looks &ldquo;healthy&rdquo; right up until the moment it doesn&apos;t.
           </p>
 
           <h3 id="factor-profitability">Profitability (higher returns on capital → higher score)</h3>
@@ -292,50 +175,14 @@ export default function MethodologyPage() {
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> Return on equity (TTM), Return on assets (TTM), Gross margin,
-            Operating margin, Net margin, Free cash flow yield
+            Operating margin, Net margin, Free cash flow yield. All z-scored within sector. A 30%
+            gross margin is excellent in retail and unremarkable in software, and the score reflects
+            that.
           </p>
-          <div className="threshold-grid">
-            <ThresholdTable
-              caption="ROE (TTM)"
-              rawHeader="ROE"
-              rows={[
-                { raw: "≤ −20%", score: 0 },
-                { raw: "0%", score: 20 },
-                { raw: "5%", score: 35 },
-                { raw: "10%", score: 55 },
-                { raw: "18%", score: 80 },
-                { raw: "≥ 30%", score: 100 },
-              ]}
-            />
-            <ThresholdTable
-              caption="Margin (any)"
-              rawHeader="Margin"
-              rows={[
-                { raw: "≤ −10%", score: 0 },
-                { raw: "0%", score: 25 },
-                { raw: "5%", score: 40 },
-                { raw: "15%", score: 65 },
-                { raw: "30%", score: 90 },
-                { raw: "≥ 50%", score: 100 },
-              ]}
-            />
-            <ThresholdTable
-              caption="FCF Yield"
-              rawHeader="Yield"
-              rows={[
-                { raw: "≤ −5%", score: 0 },
-                { raw: "0%", score: 30 },
-                { raw: "3%", score: 55 },
-                { raw: "6%", score: 75 },
-                { raw: "10%", score: 90 },
-                { raw: "≥ 15%", score: 100 },
-              ]}
-            />
-          </div>
           <p className="caveat">
             <strong>Known weakness:</strong> aggressive buybacks can artificially inflate ROE by
             shrinking the equity base. Apple&apos;s ROE around 147% is real but largely an
-            accounting artifact. Including ROA and absolute margins partially mitigates this.
+            accounting artifact. ROA and absolute margins partially correct for this.
           </p>
 
           <h3 id="factor-risk">Risk (lower risk → higher score)</h3>
@@ -345,36 +192,13 @@ export default function MethodologyPage() {
             others.
           </p>
           <p className="metric-list-inline">
-            <strong>Metrics:</strong> Beta to S&amp;P 500, 60-day annualized realized volatility
+            <strong>Metrics:</strong> Beta to S&amp;P 500 (closer to 1.0 = higher score), 60-day
+            annualized realized volatility (lower = higher score, z-scored within sector).
           </p>
-          <div className="threshold-grid">
-            <ThresholdTable
-              caption="Beta (distance from 1.0)"
-              rawHeader="|β − 1|"
-              rows={[
-                { raw: "0 (β ≈ 1.0)", score: 100 },
-                { raw: "0.3", score: 85 },
-                { raw: "0.6", score: 60 },
-                { raw: "1.0", score: 35 },
-                { raw: "≥ 2.5", score: 0 },
-              ]}
-            />
-            <ThresholdTable
-              caption="60-day annualized vol"
-              rawHeader="σ"
-              rows={[
-                { raw: "≤ 10%", score: 100 },
-                { raw: "20%", score: 85 },
-                { raw: "30%", score: 65 },
-                { raw: "50%", score: 35 },
-                { raw: "≥ 150%", score: 0 },
-              ]}
-            />
-          </div>
           <p className="caveat">
-            <strong>Known weakness:</strong> beta is inherently backward-looking. A stock&apos;s beta
-            can shift dramatically through regime changes. We use beta as reported by FMP, which is
-            calculated against ~5 years of history.
+            <strong>Known weakness:</strong> beta is inherently backward-looking. A stock&apos;s
+            beta can shift dramatically through regime changes. We use beta as reported by FMP,
+            which is calculated against ~5 years of history.
           </p>
         </section>
 
@@ -382,17 +206,32 @@ export default function MethodologyPage() {
         <section id="combining">
           <h2>3. How factors combine into a composite</h2>
           <p>
-            Once each metric is on the 0–100 scale, the math is deliberately straightforward:
+            The math is deliberately simple — Chan&apos;s rule of thumb in <em>Quantitative
+            Trading</em> (2008) is to keep free parameters under five, so backtest results have a
+            chance of holding up out-of-sample. Z-score normalization gives us essentially zero
+            free parameters per metric, with the remaining choices being the category weights below.
           </p>
           <ol className="numbered-list">
             <li>
-              <strong>Aggregate within category.</strong> Average the metric scores in a category,
-              with light weighting (no metric weighs more than 1.5× another). Missing metrics are
-              skipped, not zeroed.
+              <strong>Z-score each raw metric</strong> against the distribution of that same metric
+              across the ticker&apos;s sector. If the sector has fewer than 15 covered names, fall
+              back to the full universe distribution. Statistics are winsorized at the 5th and 95th
+              percentile before computing mean and standard deviation, so a single outlier can&apos;t
+              skew the reference distribution.
             </li>
             <li>
-              <strong>Compute two composite scores</strong> using two different sets of weights,
-              one for each horizon:
+              <strong>Map the z-score to a 0–100 score.</strong> Linear: z=0 → 50, z=±1 → ~67/33,
+              z=±2 → ~83/17, clipped at z=±3 → 100/0. For metrics where lower is better (P/E, P/B,
+              volatility), the sign is inverted before mapping.
+            </li>
+            <li>
+              <strong>Aggregate within category.</strong> Weighted average of metric scores in the
+              category. Missing metrics are skipped (not zeroed) — they reduce the completeness
+              factor that feeds confidence.
+            </li>
+            <li>
+              <strong>Compute two composites</strong> using two different sets of category weights,
+              one per horizon:
             </li>
           </ol>
           <table className="method-table weight-table">
@@ -412,17 +251,8 @@ export default function MethodologyPage() {
             </tbody>
           </table>
           <p>
-            The headline <strong>composite QScore</strong> is the simple average of the long-term
-            and short-term scores. We chose flat averaging deliberately: any user-customizable
-            blend would be a separate product feature, not a default.
-          </p>
-          <p className="caveat">
-            <strong>Why piecewise mapping instead of z-scores against a population?</strong>{" "}
-            Z-score normalization is the correct quantitative answer once you have a stable
-            universe of scored stocks. We&apos;re using piecewise heuristic thresholds in the MVP
-            because they let us score a single ticker in isolation without first computing scores
-            for every other US stock. Once we have a complete universe and a backtest, we&apos;ll
-            switch to sector-relative z-scores and republish this page.
+            The headline composite QScore is the simple average of the two horizon scores. Any
+            user-customizable blend would be a separate product feature, not the default.
           </p>
         </section>
 
@@ -442,7 +272,7 @@ export default function MethodologyPage() {
             </thead>
             <tbody>
               <tr>
-                <td>Long-term score &lt; 30 <em>or</em> short-term score &lt; 30</td>
+                <td>Long-term &lt; 30 <em>or</em> short-term &lt; 30</td>
                 <td><strong>Short</strong></td>
               </tr>
               <tr>
@@ -474,7 +304,7 @@ export default function MethodologyPage() {
           <h2>5. Confidence</h2>
           <p>
             Confidence reflects two things: how complete the underlying data is, and how decisive
-            the resulting score is. A composite score of 50 with 40% missing data is genuinely less
+            the resulting score is. A composite of 50 with 40% missing data is genuinely less
             useful than a composite of 78 computed on complete data, and we say so.
           </p>
           <table className="method-table">
@@ -527,6 +357,7 @@ export default function MethodologyPage() {
               <tr><td>Underlying FMP data fetches</td><td>15 minutes (cache TTL)</td></tr>
               <tr><td>End-of-day prices</td><td>Updated by FMP after US market close</td></tr>
               <tr><td>TTM ratios &amp; key metrics</td><td>Updated by FMP after each quarterly filing (typically 40–60 day lag)</td></tr>
+              <tr><td>Universe stats (sector means/stds)</td><td>Refreshed periodically (target: daily; currently manual)</td></tr>
               <tr><td>AI commentary</td><td>Regenerated whenever the score changes</td></tr>
             </tbody>
           </table>
@@ -540,21 +371,25 @@ export default function MethodologyPage() {
           </p>
           <ul className="caveat-list">
             <li>
-              <strong>Universe coverage is incomplete.</strong> Our current FMP plan covers most
-              S&amp;P 500 and large/mid-cap names cleanly. Smaller-cap tickers, ADRs, and tickers
-              with exchange suffixes (BRK.B, BF.B) frequently return &ldquo;not in your data
-              plan&rdquo; errors. Upgrading our data plan fixes this.
+              <strong>The reference universe is large-cap only.</strong> Sector mean/std statistics
+              are computed from US-listed stocks with market cap above $15B. A small-cap value
+              stock will be z-scored against large-cap peers, which biases certain metrics.
+              Expanding the reference universe is on the roadmap.
             </li>
             <li>
-              <strong>No sector-relative adjustment yet.</strong> Tech mega-caps trade at
-              structurally higher multiples than industrials, but the current Value scoring is
-              absolute. Apple looks &ldquo;expensive&rdquo; on P/B because it almost has to. A
-              future revision will normalize each metric within its sector.
+              <strong>Universe stats refresh is currently manual.</strong> We rebuild the sector
+              statistics out-of-band rather than on a daily cron. Until that&apos;s automated,
+              statistics may lag the most recent quarterly filings by a few weeks.
+            </li>
+            <li>
+              <strong>Scoring outside the reference universe still works,</strong> but with
+              degraded precision — a small-cap or international ADR is z-scored against the closest
+              available sector.
             </li>
             <li>
               <strong>Trailing data lags reality.</strong> TTM fundamentals reflect the 12 months
-              ending at the most recent reported quarter, which is itself filed 30–60 days after
-              the quarter closes. A fast-moving turnaround story can score below where it deserves.
+              ending at the most recent reported quarter, which is filed 30–60 days after the
+              quarter closes. A fast-moving turnaround story can score below where it deserves.
             </li>
             <li>
               <strong>Backtest not yet published.</strong> Until the{" "}
@@ -569,7 +404,7 @@ export default function MethodologyPage() {
             <li>
               <strong>Score volatility on rebalance days.</strong> When a quarterly filing lands or
               an unusual price move resets the momentum window, scores can shift several points in
-              a single day. This is expected behavior, not a bug, but it can be confusing.
+              a single day. This is expected behavior, not a bug.
             </li>
             <li>
               <strong>Signal labels are not advice.</strong> &ldquo;Buy Long-Term&rdquo; means the
@@ -579,8 +414,8 @@ export default function MethodologyPage() {
             <li>
               <strong>Survivorship bias in any future backtest.</strong> Historical data we have
               access to includes only currently-listed companies. Stocks that went to zero are
-              missing from the dataset, which generally inflates backtested factor performance.
-              We will disclose this caveat alongside any reported backtest figures.
+              missing, which generally inflates backtested factor performance. We will disclose
+              this caveat alongside any reported backtest figures.
             </li>
             <li>
               <strong>The model is deterministic, not adaptive.</strong> The scoring weights are
@@ -605,9 +440,10 @@ export default function MethodologyPage() {
             </p>
             <ul>
               <li>Information coefficient (Spearman rank correlation between QScore and forward returns) for 1-month, 3-month, 6-month, and 12-month horizons</li>
-              <li>Long-short quintile-spread return time series with annualized return, volatility, and Sharpe</li>
+              <li>Long-short quintile-spread return time series with annualized return, volatility, and a Sharpe ratio of at least 1.5</li>
               <li>Drawdown profile of the top quintile vs SPY benchmark</li>
               <li>Rolling-window IC analysis to show factor stability over time</li>
+              <li>Look-ahead bias verification using the truncation-rerun method described in Chan (2008)</li>
               <li>An explicit list of survivorship-bias and look-ahead-bias caveats applied to the backtest</li>
             </ul>
             <p>

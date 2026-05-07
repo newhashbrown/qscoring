@@ -20,10 +20,22 @@ async function fmpGet<T>(
   const url = new URL(BASE + path);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v));
   url.searchParams.set("apikey", getApiKey());
-  const res = await fetch(url.toString(), {
-    next: { revalidate: 900 },
-  });
-  if (!res.ok) {
+
+  // Retry on 429 (rate limit) up to twice with exponential backoff. Other errors
+  // are surfaced immediately because retry won't help.
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const res = await fetch(url.toString(), {
+      next: { revalidate: 900 },
+    });
+    if (res.ok) return res.json() as Promise<T>;
+
+    if (res.status === 429 && attempt < maxAttempts) {
+      const waitMs = 2000 * Math.pow(2, attempt - 1); // 2s, 4s
+      await new Promise((r) => setTimeout(r, waitMs));
+      continue;
+    }
+
     const body = await res.text().catch(() => "");
     if (res.status === 402) {
       throw new Error(
@@ -35,7 +47,7 @@ async function fmpGet<T>(
     }
     throw new Error(`FMP ${path} → ${res.status}: ${body.slice(0, 200)}`);
   }
-  return res.json() as Promise<T>;
+  throw new Error(`FMP ${path}: exhausted retries`);
 }
 
 export type Profile = {

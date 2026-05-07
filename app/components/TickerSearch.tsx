@@ -14,24 +14,24 @@ export default function TickerSearch({ initialValue = "", size = "full" }: Props
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const ticker = value.trim().toUpperCase();
-    if (!ticker) return;
-    if (!/^[A-Z][A-Z0-9.-]{0,9}$/.test(ticker)) return;
-    router.push(`/score/${ticker}`);
+    const query = value.trim();
+    if (!query) return;
+    // Pass anything through; the score page validates and falls back to symbol
+    // search when the input is a company name like "Apple" instead of "AAPL".
+    router.push(`/score/${encodeURIComponent(query)}`);
   }
 
   return (
     <form className={`ticker-search ${size}`} onSubmit={onSubmit}>
       <input
         type="text"
-        placeholder={size === "compact" ? "AAPL" : "Enter a ticker — AAPL, NVDA, TSLA…"}
+        placeholder={size === "compact" ? "AAPL or Apple" : "Ticker or company name — AAPL, Apple, Tesla…"}
         value={value}
-        onChange={(e) => setValue(e.target.value.toUpperCase())}
+        onChange={(e) => setValue(e.target.value)}
         autoComplete="off"
         spellCheck={false}
-        autoCapitalize="characters"
-        aria-label="Stock ticker"
-        maxLength={10}
+        aria-label="Stock ticker or company name"
+        maxLength={48}
       />
       <button type="submit" aria-label="Get score">
         {size === "compact" ? "→" : "Get Score"}
