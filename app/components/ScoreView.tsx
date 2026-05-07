@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CategoryScore, MetricScore, ScoreResult, Signal } from "@/lib/scoring";
+import PriceChart from "./PriceChart";
 
 const SIGNAL_LABEL: Record<Signal, string> = {
   BUY_LONG_TERM: "Buy Long-Term",
@@ -125,6 +126,8 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
           </div>
         </div>
       </section>
+
+      <PriceChart ticker={data.ticker} />
 
       <section className="category-grid">
         {data.categories.map((c) => (
