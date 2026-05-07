@@ -40,15 +40,17 @@ export async function POST(req: Request) {
   const userAgent = (req.headers.get("user-agent") ?? "").slice(0, 200);
   const ipHash = ip ? await hashIp(ip) : null;
 
-  let db;
+  let cf;
   try {
-    db = getCloudflareContext().env.DB;
+    cf = getCloudflareContext();
   } catch {
     return NextResponse.json(
-      { ok: false, error: "Database not available" },
+      { ok: false, error: "Cloudflare context not available" },
       { status: 503 }
     );
   }
+
+  const db = cf?.env?.DB;
   if (!db) {
     return NextResponse.json(
       { ok: false, error: "Database binding missing" },
@@ -76,12 +78,12 @@ export async function POST(req: Request) {
     );
   }
 
-  // Fire-and-forget welcome email for new subscribers. We don't block the
-  // 200 response on Resend's latency, and a Resend failure should never
-  // surface as a signup error to the user. sendEmail handles the missing-
-  // -RESEND_API_KEY case internally (returns ok:false silently).
+  // Welcome email for new subscribers. Wrapped in ctx.waitUntil so the
+  // Cloudflare Worker stays alive past the response while Resend processes
+  // the request — without this, the worker terminates immediately on
+  // return and the fire-and-forget send is killed mid-flight.
   if (inserted) {
-    void sendEmail({
+    const emailPromise = sendEmail({
       to: email,
       subject: WELCOME_SUBJECT,
       html: welcomeHtml(),
@@ -91,6 +93,13 @@ export async function POST(req: Request) {
         if (!r.ok) console.error("welcome email failed:", r.error);
       })
       .catch((err) => console.error("welcome email exception:", err));
+
+    if (cf.ctx?.waitUntil) {
+      cf.ctx.waitUntil(emailPromise);
+    } else {
+      // Local dev fallback (no Worker ctx) — just await inline.
+      await emailPromise;
+    }
   }
 
   return NextResponse.json({ ok: true });
