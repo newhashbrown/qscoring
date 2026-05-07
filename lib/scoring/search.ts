@@ -22,6 +22,25 @@ type FmpSearchResp = Array<{
 
 const PREFERRED_EXCHANGES = new Set(["NASDAQ", "NYSE", "AMEX", "BATS", "ARCA", "CBOE"]);
 
+// Hard filter — we only score US-listed equities, so foreign exchanges and
+// crypto pairs are dropped from search results entirely. Users won't see
+// suggestions we can't actually score, and we avoid international tickers
+// like ASTRAMICRA.NS or 688270.SS overflowing the dropdown layout.
+const SCOREABLE_EXCHANGES = new Set([
+  "NASDAQ",
+  "NYSE",
+  "AMEX",
+  "BATS",
+  "ARCA",
+  "CBOE",
+  "OTC",
+  "OTCBB",
+  "OTCQB",
+  "OTCQX",
+  "PINK",
+  "PNK",
+]);
+
 // Brand → primary ticker. FMP's search doesn't know that "google" means
 // Alphabet (since Alphabet's official name doesn't contain "Google"), so the
 // most common queries return derivative ETFs instead. This map shortcuts the
@@ -192,13 +211,15 @@ export async function searchSymbols(query: string, limit = 8): Promise<SearchMat
   for (const d of [...symbolHits, ...nameHits]) {
     if (!d.symbol || seen.has(d.symbol)) continue;
     const currency = d.currency ?? "USD";
+    const exchange = d.exchange ?? d.exchangeFullName ?? "";
     if (NON_EQUITY_CURRENCIES.has(currency)) continue;
+    if (!SCOREABLE_EXCHANGES.has(exchange)) continue;
     if (DERIVATIVE_PRODUCT_PATTERN.test(d.name ?? "")) continue;
     seen.add(d.symbol);
     merged.push({
       symbol: d.symbol,
       name: d.name,
-      exchange: d.exchange ?? d.exchangeFullName ?? "",
+      exchange,
       currency,
     });
   }
