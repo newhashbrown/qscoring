@@ -19,9 +19,32 @@ const TOC = [
   { id: "disclaimers", label: "9. Disclaimers" },
 ];
 
+const methodologyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  headline: "QScore Methodology",
+  description:
+    "Full transparency on the QScore methodology: factor categories, z-score normalization against the universe, weights, signal logic, data sources, limitations, and validation status.",
+  author: { "@type": "Organization", name: "QScoring", url: "https://qscoring.com" },
+  publisher: { "@type": "Organization", name: "QScoring", url: "https://qscoring.com" },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": "https://qscoring.com/methodology",
+  },
+  proficiencyLevel: "Expert",
+  about: {
+    "@type": "Thing",
+    name: "Quantitative stock scoring methodology",
+  },
+};
+
 export default function MethodologyPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(methodologyJsonLd) }}
+      />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
 

@@ -9,17 +9,67 @@ import { findBestMatch } from "@/lib/scoring/search";
 
 export const revalidate = 900;
 
+const SIGNAL_LABEL_META: Record<string, string> = {
+  BUY_LONG_TERM: "Buy Long-Term",
+  BUY_SHORT_TERM: "Buy Short-Term",
+  HOLD: "Hold",
+  SHORT: "Short",
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
-  const t = decodeURIComponent(ticker).toUpperCase();
-  return {
-    title: `${t} Quant Score — QScoring`,
-    description: `QScoring quantitative analysis for ${t}: composite score, buy/hold/short signal, and factor breakdown across value, growth, momentum, profitability, and risk.`,
-  };
+  const decoded = decodeURIComponent(ticker).trim();
+  const t = decoded.toUpperCase();
+
+  // Non-ticker queries (e.g. /score/google → redirects to GOOGL) get generic
+  // metadata; the redirected ticker page renders its own specific metadata.
+  if (!isLikelyTicker(decoded)) {
+    return {
+      title: `${decoded} Quant Score — QScoring`,
+      description: `Search results and quantitative analysis for ${decoded} on QScoring.`,
+    };
+  }
+
+  try {
+    const result = await scoreTicker(t);
+    const signal = SIGNAL_LABEL_META[result.signal] ?? result.signal;
+    const cat = (n: string) =>
+      Math.round(result.categories.find((c) => c.name === n)?.score ?? 0);
+    const title = `${result.ticker} QScore ${result.composite}/100 — ${signal} | QScoring`;
+    const description =
+      `${result.companyName} (${result.ticker}) quantitative analysis. ` +
+      `QScore ${result.composite}/100, ${signal} signal, ${result.confidence} confidence. ` +
+      `Value ${cat("value")} · Growth ${cat("growth")} · Momentum ${cat("momentum")} · ` +
+      `Profitability ${cat("profitability")} · Risk ${cat("risk")}.`;
+    const url = `https://qscoring.com/score/${result.ticker}`;
+
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: {
+        title,
+        description,
+        url,
+        siteName: "QScoring",
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title,
+        description,
+      },
+    };
+  } catch {
+    return {
+      title: `${t} Quant Score — QScoring`,
+      description: `QScoring quantitative analysis for ${t}: composite score, buy/hold/short signal, and factor breakdown across value, growth, momentum, profitability, and risk.`,
+    };
+  }
 }
 
 // Names that need to be searched rather than scored directly.
@@ -97,8 +147,37 @@ export default async function TickerScorePage({
     );
   }
 
+  const signalProse = SIGNAL_LABEL_META[result.signal] ?? result.signal;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AnalysisNewsArticle",
+    headline: `${result.ticker} QScore: ${result.composite}/100, ${signalProse} signal`,
+    datePublished: result.generatedAt,
+    dateModified: result.generatedAt,
+    author: { "@type": "Organization", name: "QScoring", url: "https://qscoring.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "QScoring",
+      url: "https://qscoring.com",
+    },
+    about: {
+      "@type": "Corporation",
+      name: result.companyName,
+      tickerSymbol: result.ticker,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://qscoring.com/score/${result.ticker}`,
+    },
+    description: `Composite QScore ${result.composite}/100 with ${signalProse} signal at ${result.confidence} confidence.`,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
 
