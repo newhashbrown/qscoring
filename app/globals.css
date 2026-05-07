@@ -51,8 +51,8 @@ body {
   bottom: 20%; left: -200px;
 }
 
-/* ─── NAV ─── */
-nav {
+/* ─── NAV (landing) ─── */
+.landing-nav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 100;
   padding: 20px 40px;
@@ -502,7 +502,7 @@ footer .footer-links .sep {
 }
 
 @media (max-width: 600px) {
-  nav { padding: 16px 20px; }
+  .landing-nav { padding: 16px 20px; }
   .logo { font-size: 1.1rem; }
   .demo-card { padding: 24px; }
   .score-ring { flex-direction: column; text-align: center; gap: 20px; }

@@ -10,7 +10,7 @@ export default function Home() {
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
 
-      <nav>
+      <nav className="landing-nav">
         <div className="logo">
           QScoring<span>.com</span>
         </div>
