@@ -1,4 +1,4 @@
-import { fmp } from "./fmp";
+import { fmp, type FinancialGrowth, type KeyMetricsTtm, type PricePoint, type Profile, type Quote, type RatiosTtm } from "./fmp";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
@@ -28,6 +28,15 @@ const W_SHORT = {
   momentum: 0.4,
   risk: 0.25,
 } as const;
+
+export type FetchedTickerData = {
+  profile: Profile;
+  quote?: Quote;
+  ratios?: RatiosTtm;
+  km?: KeyMetricsTtm;
+  growth?: FinancialGrowth;
+  history: PricePoint[];
+};
 
 function aggregate(metrics: MetricScore[]): { score: number; completeness: number } {
   const scored = metrics.filter(
@@ -69,29 +78,50 @@ export function validateTicker(input: string): string {
   return cleaned;
 }
 
-export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
+/**
+ * Fetch all the FMP data needed to score a ticker. Each underlying call goes
+ * through Next.js fetch cache (15-minute TTL) so repeated calls within the
+ * window are free. Throws if the company profile is missing.
+ */
+export async function fetchTickerData(rawTicker: string): Promise<FetchedTickerData> {
   const ticker = validateTicker(rawTicker);
-
   const [profileR, quoteR, ratiosR, kmR, growthR, historyR] = await Promise.all([
     fmp.profile(ticker),
     fmp.quote(ticker),
     fmp.ratiosTtm(ticker),
     fmp.keyMetricsTtm(ticker),
-    fmp.financialGrowth(ticker).catch(() => [] as never),
-    fmp.historical(ticker).catch(() => [] as never),
+    fmp.financialGrowth(ticker).catch(() => [] as FinancialGrowth[]),
+    fmp.historical(ticker).catch(() => [] as PricePoint[]),
   ]);
-
   const profile = profileR[0];
   if (!profile) throw new Error(`No profile data found for ${ticker}`);
+  return {
+    profile,
+    quote: quoteR[0],
+    ratios: ratiosR[0],
+    km: kmR[0],
+    growth: growthR[0],
+    history: historyR ?? [],
+  };
+}
 
-  const quote = quoteR[0];
-  const ratios = ratiosR[0];
-  const km = kmR[0];
-  const growth = growthR[0];
-  const history = historyR ?? [];
+/**
+ * Compute a score from already-fetched ticker data. Splitting this out from
+ * fetchTickerData lets callers run the scoring math twice — once with the
+ * full price history and once with `historyOffset: 1` to get yesterday's
+ * snapshot — without hitting FMP twice.
+ */
+export function scoreFromFetched(
+  rawTicker: string,
+  data: FetchedTickerData,
+  opts: { historyOffset?: number } = {}
+): ScoreResult {
+  const ticker = validateTicker(rawTicker);
+  const offset = opts.historyOffset ?? 0;
+  const history = data.history.slice(offset);
+
+  const { profile, quote, ratios, km, growth } = data;
   const sector = profile.sector || null;
-
-  // Helper: build a metric entry given key, raw value, and the scoring fn applied to its sector stats.
   const stat = (key: Parameters<typeof getStats>[0]) => getStats(key, sector);
 
   // ─── VALUE ─────────────────────────────────────────────────
@@ -307,4 +337,9 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
     categories,
     generatedAt: new Date().toISOString(),
   };
+}
+
+export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
+  const data = await fetchTickerData(rawTicker);
+  return scoreFromFetched(rawTicker, data);
 }

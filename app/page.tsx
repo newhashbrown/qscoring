@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import DemoCard from "./components/DemoCard";
 import EmailForm from "./components/EmailForm";
+import TopMoversStrip from "./components/TopMoversStrip";
 
 // Refresh the live NVDA demo score at most once per hour.
 export const revalidate = 3600;
@@ -14,9 +16,14 @@ export default function Home() {
         <div className="logo">
           QScoring<span>.com</span>
         </div>
-        <a href="#signup" className="nav-cta">
-          Get Early Access
-        </a>
+        <div className="nav-actions">
+          <a href="/score" className="nav-link">
+            Try a Score
+          </a>
+          <a href="#signup" className="nav-cta">
+            Get Early Access
+          </a>
+        </div>
       </nav>
 
       {/* HERO */}
@@ -42,6 +49,11 @@ export default function Home() {
       <section className="demo-section">
         <DemoCard />
       </section>
+
+      {/* TOP MOVERS — biggest 24-hour QScore swings */}
+      <Suspense fallback={null}>
+        <TopMoversStrip />
+      </Suspense>
 
       {/* FEATURES */}
       <section className="features">
