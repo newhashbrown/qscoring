@@ -650,7 +650,7 @@ footer .footer-links .sep {
 }
 .search-option {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: minmax(72px, max-content) minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
   padding: 9px 12px;
@@ -668,6 +668,9 @@ footer .footer-links .sep {
   font-size: 0.92rem;
   color: var(--accent);
   letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .search-option .opt-name {
   font-size: 0.88rem;
@@ -675,6 +678,7 @@ footer .footer-links .sep {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
 }
 .search-option .opt-exchange {
   font-family: var(--mono);
@@ -682,10 +686,11 @@ footer .footer-links .sep {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 @media (max-width: 600px) {
   .search-option {
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: minmax(60px, max-content) minmax(0, 1fr);
   }
   .search-option .opt-exchange { display: none; }
 }
