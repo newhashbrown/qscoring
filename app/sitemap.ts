@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import popularTickers from "@/data/popular-tickers.json";
+import sitemapTickers from "@/data/sitemap-tickers.json";
 
 const SITE = "https://qscoring.com";
 
@@ -28,14 +29,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Dedupe and sort tickers so the output is stable across builds.
-  const tickers = Array.from(new Set(popularTickers as string[])).sort();
+  // Hand-curated popular tickers get the top priority — these are the names
+  // people actually search for. Rest of the universe gets standard priority.
+  const popular = new Set(popularTickers as string[]);
+  const all = Array.from(new Set([...(sitemapTickers as string[]), ...popular]));
 
-  const tickerPages: MetadataRoute.Sitemap = tickers.map((ticker) => ({
+  const tickerPages: MetadataRoute.Sitemap = all.sort().map((ticker) => ({
     url: `${SITE}/score/${ticker}`,
     lastModified: today,
     changeFrequency: "daily",
-    priority: 0.7,
+    priority: popular.has(ticker) ? 0.8 : 0.6,
   }));
 
   return [...staticPages, ...tickerPages];
