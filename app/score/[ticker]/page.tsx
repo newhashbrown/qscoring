@@ -6,8 +6,17 @@ import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
 import { findBestMatch } from "@/lib/scoring/search";
+import popularTickers from "@/data/popular-tickers.json";
 
 export const revalidate = 900;
+export const dynamicParams = true;
+
+// Pre-render the top-20 most-popular tickers at build time. The rest of the
+// universe stays dynamic — first request renders on demand and caches via ISR.
+// Top 20 keeps build time under control and FMP rate-limit risk small.
+export function generateStaticParams() {
+  return (popularTickers as string[]).slice(0, 20).map((ticker) => ({ ticker }));
+}
 
 const SIGNAL_LABEL_META: Record<string, string> = {
   BUY_LONG_TERM: "Buy Long-Term",
