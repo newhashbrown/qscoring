@@ -202,6 +202,51 @@ body {
   display: flex;
   justify-content: center;
 }
+.demo-carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  max-width: 520px;
+}
+.demo-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+.demo-link:hover .demo-card {
+  border-color: rgba(0, 212, 170, 0.2);
+}
+.demo-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.demo-dot {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.demo-dot:hover {
+  border-color: rgba(0, 212, 170, 0.3);
+  color: var(--text-dim);
+}
+.demo-dot.active {
+  background: var(--accent-dim);
+  border-color: rgba(0, 212, 170, 0.4);
+  color: var(--accent);
+}
 .demo-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
