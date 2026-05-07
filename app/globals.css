@@ -837,6 +837,60 @@ footer .disclaimer {
   margin-top: 24px;
 }
 
+/* Commentary */
+.commentary-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+}
+.commentary-card {
+  padding: 28px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+}
+.commentary-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.commentary-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.commentary-attribution {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.commentary-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.commentary-skeleton .line {
+  height: 14px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.04)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 4px;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* Error state */
 .score-error {
   position: relative;

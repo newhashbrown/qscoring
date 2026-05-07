@@ -1,11 +1,12 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
+import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
 
 export const revalidate = 900;
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -70,6 +71,11 @@ export default async function TickerScorePage({
 
       <main>
         <ScoreView data={result} />
+        <div className="commentary-wrap">
+          <Suspense fallback={<CommentarySkeleton />}>
+            <Commentary scoreResult={result} />
+          </Suspense>
+        </div>
       </main>
 
       <footer>
