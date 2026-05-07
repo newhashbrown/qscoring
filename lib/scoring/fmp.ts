@@ -6,6 +6,13 @@ function getApiKey(): string {
   return key;
 }
 
+// FMP's /stable/* endpoints use hyphens for class shares (BRK-B, BF-B), not the
+// dotted form most users type. Normalize before sending; the user-facing ticker
+// keeps whatever form they entered.
+function fmpSymbol(symbol: string): string {
+  return symbol.replace(/\./g, "-");
+}
+
 async function fmpGet<T>(
   path: string,
   params: Record<string, string | number> = {}
@@ -94,13 +101,14 @@ export type PricePoint = {
 };
 
 export const fmp = {
-  profile: (symbol: string) => fmpGet<Profile[]>("/profile", { symbol }),
-  quote: (symbol: string) => fmpGet<Quote[]>("/quote", { symbol }),
-  ratiosTtm: (symbol: string) => fmpGet<RatiosTtm[]>("/ratios-ttm", { symbol }),
+  profile: (symbol: string) => fmpGet<Profile[]>("/profile", { symbol: fmpSymbol(symbol) }),
+  quote: (symbol: string) => fmpGet<Quote[]>("/quote", { symbol: fmpSymbol(symbol) }),
+  ratiosTtm: (symbol: string) =>
+    fmpGet<RatiosTtm[]>("/ratios-ttm", { symbol: fmpSymbol(symbol) }),
   keyMetricsTtm: (symbol: string) =>
-    fmpGet<KeyMetricsTtm[]>("/key-metrics-ttm", { symbol }),
+    fmpGet<KeyMetricsTtm[]>("/key-metrics-ttm", { symbol: fmpSymbol(symbol) }),
   financialGrowth: (symbol: string) =>
-    fmpGet<FinancialGrowth[]>("/financial-growth", { symbol, limit: 1 }),
+    fmpGet<FinancialGrowth[]>("/financial-growth", { symbol: fmpSymbol(symbol), limit: 1 }),
   historical: (symbol: string) =>
-    fmpGet<PricePoint[]>("/historical-price-eod/light", { symbol }),
+    fmpGet<PricePoint[]>("/historical-price-eod/light", { symbol: fmpSymbol(symbol) }),
 };
