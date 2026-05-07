@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { CategoryScore, MetricScore, ScoreResult, Signal } from "@/lib/scoring";
 
 const SIGNAL_LABEL: Record<Signal, string> = {
@@ -132,7 +133,10 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
       </section>
 
       <p className="score-timestamp">
-        Generated {new Date(data.generatedAt).toLocaleString()}
+        Generated {new Date(data.generatedAt).toLocaleString()} ·{" "}
+        <Link href="/methodology" className="method-link">
+          How is this calculated?
+        </Link>
       </p>
     </div>
   );

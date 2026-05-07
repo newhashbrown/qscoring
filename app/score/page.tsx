@@ -35,6 +35,11 @@ export default function ScoreLandingPage() {
       </main>
 
       <footer>
+        <p className="footer-links">
+          <Link href="/methodology">Methodology</Link>
+          <span className="sep">·</span>
+          <Link href="/">Home</Link>
+        </p>
         <p className="disclaimer">
           QScoring provides quantitative analysis for informational and educational purposes only.
           It does not constitute investment advice, a recommendation, or a solicitation to buy or
