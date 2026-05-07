@@ -658,6 +658,16 @@ footer .footer-links .sep {
   .email-form { flex-direction: column; border-radius: 12px; }
   .email-form button { border-radius: 0; }
 }
+.form-error {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--red);
+  text-align: center;
+}
+.email-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 
 /* ─── SCORE NAV ─── */
 .score-nav {
