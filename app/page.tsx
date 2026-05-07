@@ -63,11 +63,11 @@ export default function Home() {
               time horizon, not a wall of charts.
             </p>
           </div>
-          <div className="feature-card">
+          <a href="/methodology" className="feature-card">
             <div className="feature-icon green">🔍</div>
             <h3>Transparent Methodology</h3>
-            <p>See exactly which factors drive the score. No black boxes. No hidden agendas. Just data.</p>
-          </div>
+            <p>See exactly which factors drive the score. Every threshold, weight, and rule is documented. No black boxes.</p>
+          </a>
           <div className="feature-card">
             <div className="feature-icon amber">🔔</div>
             <h3>Watchlist & Alerts</h3>
@@ -149,6 +149,11 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer>
+        <p className="footer-links">
+          <a href="/methodology">Methodology</a>
+          <span className="sep">·</span>
+          <a href="/score">Score a ticker</a>
+        </p>
         <p className="disclaimer">
           QScoring provides quantitative analysis for informational and educational purposes only.
           It does not constitute investment advice, a recommendation, or a solicitation to buy or
