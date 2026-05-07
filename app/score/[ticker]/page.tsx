@@ -1,10 +1,11 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
+import { findBestMatch } from "@/lib/scoring/search";
 
 export const revalidate = 900;
 
@@ -14,11 +15,25 @@ export async function generateMetadata({
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker } = await params;
-  const t = ticker.toUpperCase();
+  const t = decodeURIComponent(ticker).toUpperCase();
   return {
     title: `${t} Quant Score — QScoring`,
     description: `QScoring quantitative analysis for ${t}: composite score, buy/hold/short signal, and factor breakdown across value, growth, momentum, profitability, and risk.`,
   };
+}
+
+// Names that need to be searched rather than scored directly.
+function isLikelyTicker(s: string): boolean {
+  return /^[A-Z][A-Z0-9.-]{0,9}$/.test(s.toUpperCase());
+}
+
+async function resolveBySearch(query: string): Promise<string | null> {
+  try {
+    const match = await findBestMatch(query);
+    return match?.symbol ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export default async function TickerScorePage({
@@ -27,9 +42,19 @@ export default async function TickerScorePage({
   params: Promise<{ ticker: string }>;
 }) {
   const { ticker: rawTicker } = await params;
+  const decoded = decodeURIComponent(rawTicker).trim();
+
+  // If the input doesn't look like a ticker (e.g., "Apple", "Johnson & Johnson"),
+  // search FMP and redirect to the top match.
+  if (!isLikelyTicker(decoded)) {
+    const matchedSymbol = await resolveBySearch(decoded);
+    if (matchedSymbol) redirect(`/score/${matchedSymbol}`);
+    notFound();
+  }
+
   let ticker: string;
   try {
-    ticker = validateTicker(rawTicker);
+    ticker = validateTicker(decoded);
   } catch {
     notFound();
   }
@@ -39,6 +64,16 @@ export default async function TickerScorePage({
     result = await scoreTicker(ticker);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
+
+    // If FMP doesn't have data for this exact symbol, try fuzzy search before
+    // showing the error UI. Common case: user types "APPLE" instead of "AAPL".
+    if (/no profile|not found/i.test(message)) {
+      const matchedSymbol = await resolveBySearch(decoded);
+      if (matchedSymbol && matchedSymbol !== ticker) {
+        redirect(`/score/${matchedSymbol}`);
+      }
+    }
+
     return (
       <>
         <div className="glow-orb green" />
