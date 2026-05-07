@@ -11,6 +11,13 @@
   "ai": {
     "binding": "AI"
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "qscoring-db",
+      "database_id": "7b103f56-75a7-4099-86d9-3497ef51efaf"
+    }
+  ],
   "observability": {
     "enabled": true
   }

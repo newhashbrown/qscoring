@@ -4,29 +4,50 @@ import { useState, type FormEvent, type CSSProperties } from "react";
 
 type EmailFormProps = {
   buttonLabel?: string;
+  source?: "waitlist" | "early_access" | "score_page" | "footer";
   style?: CSSProperties;
   showSuccessInline?: boolean;
 };
 
 export default function EmailForm({
   buttonLabel = "Get Early Access",
+  source = "waitlist",
   style,
   showSuccessInline = true,
 }: EmailFormProps) {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (status === "submitting") return;
     const form = e.currentTarget;
     const input = form.querySelector<HTMLInputElement>("input[type=email]");
-    const email = input?.value ?? "";
+    const email = (input?.value ?? "").trim();
+    if (!email) return;
 
-    // TODO: Connect to email service (Resend, ConvertKit, Supabase)
-    console.log("Email captured:", email);
-    setSubmitted(true);
+    setStatus("submitting");
+    setErrorMsg("");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, source }),
+      });
+      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      if (res.ok && json.ok) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMsg(json.error ?? "Something went wrong. Try again?");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Try again?");
+    }
   }
 
-  if (submitted && showSuccessInline) {
+  if (status === "success" && showSuccessInline) {
     return (
       <p className="success-msg show" style={style}>
         You&apos;re on the list. We&apos;ll be in touch soon.
@@ -35,9 +56,16 @@ export default function EmailForm({
   }
 
   return (
-    <form className="email-form" style={style} onSubmit={handleSubmit}>
-      <input type="email" placeholder="you@email.com" required />
-      <button type="submit">{buttonLabel}</button>
-    </form>
+    <>
+      <form className="email-form" style={style} onSubmit={handleSubmit}>
+        <input type="email" placeholder="you@email.com" required />
+        <button type="submit" disabled={status === "submitting"}>
+          {status === "submitting" ? "…" : buttonLabel}
+        </button>
+      </form>
+      {status === "error" && (
+        <p className="form-error">{errorMsg}</p>
+      )}
+    </>
   );
 }
