@@ -1,5 +1,17 @@
 const BASE = "https://financialmodelingprep.com/stable";
 
+// Tiered cache TTLs, sized to how often each FMP endpoint actually changes.
+// Uniform 15-min caching across all endpoints used to wastefully refresh
+// fundamentals (which only update on quarterly filings) and EOD prices (which
+// only update once per market close), which made traffic spikes blow through
+// FMP's 300 req/min ceiling.
+const TTL = {
+  quote: 900,             // 15 min — real-time-ish intraday price
+  priceHistory: 21600,    // 6 h — EOD prices update once after US market close
+  profile: 86400,         // 24 h — sector/industry/beta rarely change
+  fundamentals: 86400,    // 24 h — TTM ratios & key metrics roll on quarterly filings
+} as const;
+
 function getApiKey(): string {
   const key = process.env.FMP_API_KEY;
   if (!key) throw new Error("FMP_API_KEY environment variable is not set");
@@ -15,7 +27,8 @@ function fmpSymbol(symbol: string): string {
 
 async function fmpGet<T>(
   path: string,
-  params: Record<string, string | number> = {}
+  params: Record<string, string | number> = {},
+  revalidateSeconds: number = TTL.quote
 ): Promise<T> {
   const url = new URL(BASE + path);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v));
@@ -26,7 +39,7 @@ async function fmpGet<T>(
   const maxAttempts = 3;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     const res = await fetch(url.toString(), {
-      next: { revalidate: 900 },
+      next: { revalidate: revalidateSeconds },
     });
     if (res.ok) return res.json() as Promise<T>;
 
@@ -113,14 +126,24 @@ export type PricePoint = {
 };
 
 export const fmp = {
-  profile: (symbol: string) => fmpGet<Profile[]>("/profile", { symbol: fmpSymbol(symbol) }),
-  quote: (symbol: string) => fmpGet<Quote[]>("/quote", { symbol: fmpSymbol(symbol) }),
+  profile: (symbol: string) =>
+    fmpGet<Profile[]>("/profile", { symbol: fmpSymbol(symbol) }, TTL.profile),
+  quote: (symbol: string) =>
+    fmpGet<Quote[]>("/quote", { symbol: fmpSymbol(symbol) }, TTL.quote),
   ratiosTtm: (symbol: string) =>
-    fmpGet<RatiosTtm[]>("/ratios-ttm", { symbol: fmpSymbol(symbol) }),
+    fmpGet<RatiosTtm[]>("/ratios-ttm", { symbol: fmpSymbol(symbol) }, TTL.fundamentals),
   keyMetricsTtm: (symbol: string) =>
-    fmpGet<KeyMetricsTtm[]>("/key-metrics-ttm", { symbol: fmpSymbol(symbol) }),
+    fmpGet<KeyMetricsTtm[]>("/key-metrics-ttm", { symbol: fmpSymbol(symbol) }, TTL.fundamentals),
   financialGrowth: (symbol: string) =>
-    fmpGet<FinancialGrowth[]>("/financial-growth", { symbol: fmpSymbol(symbol), limit: 1 }),
+    fmpGet<FinancialGrowth[]>(
+      "/financial-growth",
+      { symbol: fmpSymbol(symbol), limit: 1 },
+      TTL.fundamentals
+    ),
   historical: (symbol: string) =>
-    fmpGet<PricePoint[]>("/historical-price-eod/light", { symbol: fmpSymbol(symbol) }),
+    fmpGet<PricePoint[]>(
+      "/historical-price-eod/light",
+      { symbol: fmpSymbol(symbol) },
+      TTL.priceHistory
+    ),
 };
