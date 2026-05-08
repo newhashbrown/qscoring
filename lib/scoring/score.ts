@@ -53,11 +53,19 @@ function aggregate(metrics: MetricScore[]): { score: number; completeness: numbe
 }
 
 function deriveSignal(longScore: number, shortScore: number, momentum: number): Signal {
-  if (longScore < 30 || shortScore < 30) return "SHORT";
-  if (shortScore >= 65 && momentum >= 60) return "BUY_SHORT_TERM";
-  if (longScore >= 70) return "BUY_LONG_TERM";
-  if (longScore >= 60 && longScore > shortScore) return "BUY_LONG_TERM";
-  if (shortScore >= 60 && shortScore > longScore) return "BUY_SHORT_TERM";
+  // Round before comparing so the threshold checks here line up exactly with
+  // the integer values the UI shows. Without this, a raw 59.6 displays as 60
+  // but fails the `>= 60` check — which looked like a bug to anyone reading
+  // both the methodology and the score page side by side.
+  const lt = Math.round(longScore);
+  const st = Math.round(shortScore);
+  const mom = Math.round(momentum);
+
+  if (lt < 30 || st < 30) return "SHORT";
+  if (st >= 65 && mom >= 60) return "BUY_SHORT_TERM";
+  if (lt >= 70) return "BUY_LONG_TERM";
+  if (lt >= 60 && lt > st) return "BUY_LONG_TERM";
+  if (st >= 60 && st > lt) return "BUY_SHORT_TERM";
   return "HOLD";
 }
 
