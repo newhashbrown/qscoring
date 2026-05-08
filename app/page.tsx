@@ -164,6 +164,8 @@ export default function Home() {
         <p className="footer-links">
           <a href="/methodology">Methodology</a>
           <span className="sep">·</span>
+          <a href="/glossary">Glossary</a>
+          <span className="sep">·</span>
           <a href="/score">Score a ticker</a>
         </p>
         <p className="disclaimer">

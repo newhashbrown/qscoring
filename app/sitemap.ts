@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import popularTickers from "@/data/popular-tickers.json";
 import sitemapTickers from "@/data/sitemap-tickers.json";
+import { GLOSSARY } from "@/data/glossary";
 
 const SITE = "https://qscoring.com";
 
@@ -27,6 +28,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.85,
     },
+    {
+      url: `${SITE}/glossary`,
+      lastModified: today,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    ...GLOSSARY.map((t) => ({
+      url: `${SITE}/glossary/${t.slug}`,
+      lastModified: today,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
   ];
 
   // Hand-curated popular tickers get the top priority — these are the names
