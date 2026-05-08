@@ -1483,6 +1483,21 @@ footer .footer-links .sep {
   .pledge-box { padding: 22px 18px; }
 }
 
+/* Inline glossary cross-links inside score view headings/labels.
+   Inherit color so the heading still reads as a heading; only show
+   a dotted underline that brightens on hover. */
+.glossary-info-link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--border);
+  transition: border-bottom-color 0.15s, color 0.15s;
+}
+.glossary-info-link:hover,
+.glossary-info-link:focus-visible {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 /* Glossary */
 .glossary-index .method-eyebrow,
 .glossary-term .method-eyebrow {
