@@ -1,14 +1,11 @@
-import { scoreTicker } from "@/lib/scoring";
+import strongPicksData from "@/data/strong-picks.json";
 import DemoCarousel from "./DemoCarousel";
 import type { DemoData } from "./DemoCardView";
 
-const INITIAL_TICKER = "NVDA";
-
-// Fallback shown if FMP is unreachable on first server render so the landing
-// page never breaks. Once the client hydrates, the carousel will try to fetch
-// real data via /api/score and replace this card on the next cycle.
-const FALLBACK: DemoData = {
-  ticker: INITIAL_TICKER,
+// Static fallback shown if the prebuilt picks file is empty or missing.
+// Mirrors the shape of a real pick so the carousel renders normally.
+const STATIC_FALLBACK: DemoData = {
+  ticker: "NVDA",
   companyName: "NVIDIA Corporation",
   price: 135.4,
   changePercent: 2.3,
@@ -24,23 +21,14 @@ const FALLBACK: DemoData = {
   ],
 };
 
-export default async function DemoCard() {
-  let initial: DemoData;
-  try {
-    const result = await scoreTicker(INITIAL_TICKER);
-    initial = {
-      ticker: result.ticker,
-      companyName: result.companyName,
-      price: result.price,
-      changePercent: result.changePercent,
-      composite: result.composite,
-      signal: result.signal,
-      confidence: result.confidence,
-      categories: result.categories.map((c) => ({ name: c.name, label: c.label, score: c.score })),
-    };
-  } catch {
-    initial = FALLBACK;
-  }
+export default function DemoCard() {
+  // Read the prebuilt JSON synchronously at module load. The file is updated
+  // out-of-band by scripts/build-strong-picks.ts (run daily by a GitHub
+  // Action), so SSR never has to call FMP or do any scoring work.
+  const picks: DemoData[] =
+    strongPicksData.picks.length > 0
+      ? (strongPicksData.picks as DemoData[])
+      : [STATIC_FALLBACK];
 
-  return <DemoCarousel initial={initial} />;
+  return <DemoCarousel picks={picks} />;
 }
