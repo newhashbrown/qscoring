@@ -15,9 +15,13 @@
   // get wiped on every Workers Builds redeploy. Secrets (RESEND_API_KEY,
   // FMP_API_KEY) are managed separately and DO persist across deploys.
   "vars": {
-    "EMAIL_FROM": "QScoring <noreply@qscoring.com>",
-    "ADMIN_EMAIL": "gagansingh@njnyit.com"
+    "EMAIL_FROM": "QScoring <noreply@qscoring.com>"
   },
+  // ADMIN_EMAIL is managed as a secret (`wrangler secret put ADMIN_EMAIL`)
+  // — wrangler.jsonc `vars` propagation through Workers Builds turned out
+  // to be unreliable: the value never reached cf.env at runtime, so the
+  // admin-notification email path silently no-op'd. Secrets reach cf.env
+  // reliably (the same way RESEND_API_KEY does).
   "d1_databases": [
     {
       "binding": "DB",
