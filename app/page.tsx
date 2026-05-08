@@ -166,6 +166,8 @@ export default function Home() {
           <span className="sep">·</span>
           <a href="/glossary">Glossary</a>
           <span className="sep">·</span>
+          <a href="/scores">Categories</a>
+          <span className="sep">·</span>
           <a href="/score">Score a ticker</a>
         </p>
         <p className="disclaimer">

@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-08T19:17:58.293Z",
+  "generatedAt": "2026-05-08T23:32:11.111Z",
   "universeSize": 66,
   "picks": [
     {
       "ticker": "UNP",
       "companyName": "Union Pacific Corporation",
-      "price": 263.78,
-      "changePercent": -0.41904,
+      "price": 264.65,
+      "changePercent": -0.09060365,
       "composite": 62,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
@@ -41,8 +41,8 @@
     {
       "ticker": "GOOGL",
       "companyName": "Alphabet Inc.",
-      "price": 399.23001,
-      "changePercent": 0.31157,
+      "price": 400.8,
+      "changePercent": 0.70605,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -50,7 +50,7 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 49
+          "score": 48
         },
         {
           "name": "growth",
@@ -77,10 +77,10 @@
     {
       "ticker": "AAPL",
       "companyName": "Apple Inc.",
-      "price": 293.025,
-      "changePercent": 1.94301,
+      "price": 293.32,
+      "changePercent": 2.04564,
       "composite": 58,
-      "signal": "HOLD",
+      "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "categories": [
         {
@@ -111,10 +111,46 @@
       ]
     },
     {
+      "ticker": "MS",
+      "companyName": "Morgan Stanley",
+      "price": 193.04,
+      "changePercent": 1.50918,
+      "composite": 56,
+      "signal": "HOLD",
+      "confidence": "MEDIUM",
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 54
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 68
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 71
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 44
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 41
+        }
+      ]
+    },
+    {
       "ticker": "MSFT",
       "companyName": "Microsoft Corporation",
-      "price": 414.84,
-      "changePercent": -1.40932,
+      "price": 415.12,
+      "changePercent": -1.34278,
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -149,8 +185,8 @@
     {
       "ticker": "NVDA",
       "companyName": "NVIDIA Corporation",
-      "price": 215.54,
-      "changePercent": 1.91161,
+      "price": 215.2,
+      "changePercent": 1.75085,
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -185,8 +221,8 @@
     {
       "ticker": "AMGN",
       "companyName": "Amgen Inc.",
-      "price": 330.425,
-      "changePercent": 0.40566,
+      "price": 331.7,
+      "changePercent": 0.7931,
       "composite": 55,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -204,7 +240,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 53
+          "score": 54
         },
         {
           "name": "profitability",
@@ -221,8 +257,8 @@
     {
       "ticker": "JNJ",
       "companyName": "Johnson & Johnson",
-      "price": 221.49,
-      "changePercent": -0.45841,
+      "price": 221.32,
+      "changePercent": -0.53481,
       "composite": 55,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -255,46 +291,10 @@
       ]
     },
     {
-      "ticker": "MS",
-      "companyName": "Morgan Stanley",
-      "price": 191.235,
-      "changePercent": 0.56003,
-      "composite": 55,
-      "signal": "HOLD",
-      "confidence": "MEDIUM",
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 54
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 68
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 69
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 44
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 41
-        }
-      ]
-    },
-    {
       "ticker": "ADBE",
       "companyName": "Adobe Inc.",
-      "price": 252.23,
-      "changePercent": -1.66855,
+      "price": 253.04,
+      "changePercent": -1.35277,
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -329,8 +329,8 @@
     {
       "ticker": "AMZN",
       "companyName": "Amazon.com, Inc.",
-      "price": 272.82001,
-      "changePercent": 0.60848,
+      "price": 272.68,
+      "changePercent": 0.55685,
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -365,8 +365,8 @@
     {
       "ticker": "AVGO",
       "companyName": "Broadcom Inc.",
-      "price": 429.26,
-      "changePercent": 4.0479,
+      "price": 430,
+      "changePercent": 4.22726,
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -399,10 +399,10 @@
       ]
     },
     {
-      "ticker": "TXN",
-      "companyName": "Texas Instruments Incorporated",
-      "price": 290.35,
-      "changePercent": 1.79147,
+      "ticker": "INTU",
+      "companyName": "Intuit Inc.",
+      "price": 396.31,
+      "changePercent": -2.57387,
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -410,27 +410,27 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 51
+          "score": 58
         },
         {
           "name": "growth",
           "label": "Growth",
-          "score": 44
+          "score": 45
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 57
+          "score": 37
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 51
+          "score": 56
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 65
+          "score": 70
         }
       ]
     }

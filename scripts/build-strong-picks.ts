@@ -158,15 +158,30 @@ async function main() {
     }–${strong[0]?.composite ?? 0}`
   );
 
-  const output = {
-    generatedAt: new Date().toISOString(),
+  const generatedAt = new Date().toISOString();
+
+  const strongOutput = {
+    generatedAt,
     universeSize: PICKS_UNIVERSE.length,
     picks: strong,
   };
 
-  const outPath = path.resolve(process.cwd(), "data", "strong-picks.json");
-  fs.writeFileSync(outPath, JSON.stringify(output, null, 2) + "\n");
-  console.log(`Wrote ${strong.length} picks → ${outPath}`);
+  const strongPath = path.resolve(process.cwd(), "data", "strong-picks.json");
+  fs.writeFileSync(strongPath, JSON.stringify(strongOutput, null, 2) + "\n");
+  console.log(`Wrote ${strong.length} picks → ${strongPath}`);
+
+  // Full universe scoreboard powers the /scores/[category] landing pages.
+  // Sorted by ticker so diffs are stable day-to-day even when scores shift
+  // — only the numeric values change, not the row order.
+  const scoreboardOutput = {
+    generatedAt,
+    universeSize: PICKS_UNIVERSE.length,
+    picks: [...picks].sort((a, b) => a.ticker.localeCompare(b.ticker)),
+  };
+
+  const scoreboardPath = path.resolve(process.cwd(), "data", "scoreboard.json");
+  fs.writeFileSync(scoreboardPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
+  console.log(`Wrote ${picks.length} scoreboard rows → ${scoreboardPath}`);
 }
 
 main().catch((err) => {
