@@ -11,6 +11,16 @@ export type Mover = {
   signal: Signal;
   price: number;
   changePercent: number;
+  // Mirrors ScoreResult.generatedAt — the wall-clock time at which this
+  // ticker's snapshot was scored. Surfaced in the UI so any drift between
+  // the homepage mover card and the /score/[ticker] detail page is visible
+  // to users (and us) without needing to dig into headers.
+  generatedAt: string;
+};
+
+export type MoversBatch = {
+  generatedAt: string;
+  movers: Mover[];
 };
 
 // Universe scanned for biggest 24-hour QScore swings. Larger names tend to
@@ -60,6 +70,7 @@ async function moverFor(ticker: string): Promise<Mover | null> {
       signal: today.signal,
       price: today.price,
       changePercent: today.changePercent,
+      generatedAt: today.generatedAt,
     };
   } catch {
     return null;
@@ -68,14 +79,22 @@ async function moverFor(ticker: string): Promise<Mover | null> {
 
 /**
  * Returns the top-N tickers from MOVERS_UNIVERSE sorted by absolute QScore
- * change vs yesterday's snapshot. Today's snapshot uses the full price
- * history; yesterday's uses history shifted by one trading day. Fundamentals
- * are identical for both snapshots so the delta is driven by momentum and
- * (slightly) the realized-volatility component of risk.
+ * change vs yesterday's snapshot, plus the batch-level generatedAt the
+ * caller can surface alongside the cards. Today's snapshot uses the full
+ * price history; yesterday's uses history shifted by one trading day.
+ * Fundamentals are identical for both snapshots so the delta is driven by
+ * momentum and (slightly) the realized-volatility component of risk.
  */
-export async function computeMovers(top = 4): Promise<Mover[]> {
+export async function computeMovers(top = 4): Promise<MoversBatch> {
   const raw = await withConcurrency(MOVERS_UNIVERSE, CONCURRENCY, moverFor);
   const movers = raw.filter((m): m is Mover => m !== null && Number.isFinite(m.delta));
   movers.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
-  return movers.slice(0, top);
+  // The batch generatedAt is the most-recent per-ticker timestamp so a
+  // single stale row doesn't hide the freshness of the rest.
+  const generatedAt =
+    movers
+      .map((m) => m.generatedAt)
+      .sort()
+      .at(-1) ?? new Date().toISOString();
+  return { generatedAt, movers: movers.slice(0, top) };
 }

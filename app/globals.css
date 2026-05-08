@@ -108,6 +108,7 @@ body {
 }
 .movers-label {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   font-family: var(--mono);
@@ -117,6 +118,14 @@ body {
   color: var(--text-muted);
   margin-bottom: 18px;
   justify-content: center;
+}
+.movers-timestamp {
+  font-size: 0.68rem;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  opacity: 0.65;
+  text-transform: none;
+  cursor: help;
 }
 .movers-pulse {
   display: inline-block;

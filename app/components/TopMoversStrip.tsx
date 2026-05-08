@@ -14,19 +14,44 @@ function deltaLabel(delta: number): string {
   return rounded === 0 ? "—" : `${delta >= 0 ? "+" : "−"}${rounded}`;
 }
 
+// UTC timestamp for the snapshot caption — keeps SSR and CSR identical so
+// hydration matches without needing suppressHydrationWarning. Format is
+// stable enough to spot drift visually next to the detail page's
+// generatedAt.
+function formatBatchTimestamp(iso: string): string {
+  const d = new Date(iso);
+  const date = d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+  const time = d.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "UTC",
+  });
+  return `${date}, ${time} UTC`;
+}
+
 export default async function TopMoversStrip() {
-  let movers;
+  let batch;
   try {
-    movers = await computeMovers(4);
+    batch = await computeMovers(4);
   } catch {
     return null;
   }
-  if (!movers || movers.length === 0) return null;
+  if (!batch || batch.movers.length === 0) return null;
+
+  const { movers, generatedAt } = batch;
 
   return (
     <section className="movers-section">
       <div className="movers-label">
         <span className="movers-pulse" /> QScore Movers · Today
+        <span className="movers-timestamp" title={generatedAt}>
+          as of {formatBatchTimestamp(generatedAt)}
+        </span>
       </div>
       <div className="movers-grid">
         {movers.map((m) => {
