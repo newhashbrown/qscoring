@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { computeMovers } from "@/lib/scoring/movers";
 
-// Refresh once an hour. Heavy compute (35 tickers × 6 FMP calls) — but each
-// underlying fetch is cached, so repeated runs within the cache window are
-// effectively free.
-export const revalidate = 3600;
+// Refresh on the same 15-minute cadence as the score detail page. Movers
+// and detail pages share the same underlying FMP fetches via Next's data
+// cache, so this just keeps the rendered numbers in sync — without it,
+// movers can show a TSLA composite that's up to 45 minutes behind the
+// detail page's value, which looks like a bug to anyone comparing the two.
+// FMP load doesn't grow because the underlying fetches are cache-shared.
+export const revalidate = 900;
 
 function deltaLabel(delta: number): string {
   const rounded = Math.round(Math.abs(delta));
