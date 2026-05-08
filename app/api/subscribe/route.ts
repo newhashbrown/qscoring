@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { sendEmail } from "@/lib/email/send";
 import { WELCOME_SUBJECT, welcomeHtml, welcomeText } from "@/lib/email/welcome";
+import {
+  adminNotifyHtml,
+  adminNotifySubject,
+  adminNotifyText,
+} from "@/lib/email/admin-notify";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const ALLOWED_SOURCES = new Set(["waitlist", "early_access", "score_page", "footer"]);
@@ -78,12 +83,26 @@ export async function POST(req: Request) {
     );
   }
 
-  // Welcome email for new subscribers. Wrapped in ctx.waitUntil so the
-  // Cloudflare Worker stays alive past the response while Resend processes
-  // the request — without this, the worker terminates immediately on
-  // return and the fire-and-forget send is killed mid-flight.
+  // Welcome email + admin notification for new subscribers. Wrapped in
+  // ctx.waitUntil so the Cloudflare Worker stays alive past the response
+  // while Resend processes both requests — without this, the worker
+  // terminates immediately on return and the fire-and-forget sends are
+  // killed mid-flight.
   if (inserted) {
-    const emailPromise = sendEmail({
+    // Subscriber count is best-effort: if the COUNT query fails for any
+    // reason (D1 hiccup, schema mismatch), the admin email still goes out
+    // with totalCount=null. Never block the welcome path on this.
+    let totalCount: number | null = null;
+    try {
+      const row = await db
+        .prepare("SELECT COUNT(*) AS c FROM subscribers")
+        .first<{ c: number }>();
+      totalCount = row?.c ?? null;
+    } catch (err) {
+      console.error("subscriber count query failed:", err);
+    }
+
+    const welcomePromise = sendEmail({
       to: email,
       subject: WELCOME_SUBJECT,
       html: welcomeHtml(),
@@ -94,11 +113,42 @@ export async function POST(req: Request) {
       })
       .catch((err) => console.error("welcome email exception:", err));
 
+    const adminEmail =
+      ((cf.env as { ADMIN_EMAIL?: string } | undefined)?.ADMIN_EMAIL ?? "").trim();
+
+    const adminPromise = adminEmail
+      ? sendEmail({
+          to: adminEmail,
+          subject: adminNotifySubject(email),
+          html: adminNotifyHtml({
+            email,
+            source,
+            country,
+            ipHash,
+            userAgent,
+            totalCount,
+          }),
+          text: adminNotifyText({
+            email,
+            source,
+            country,
+            ipHash,
+            userAgent,
+            totalCount,
+          }),
+        })
+          .then((r) => {
+            if (!r.ok) console.error("admin notify email failed:", r.error);
+          })
+          .catch((err) => console.error("admin notify email exception:", err))
+      : Promise.resolve();
+
+    const emailWork = Promise.all([welcomePromise, adminPromise]);
     if (cf.ctx?.waitUntil) {
-      cf.ctx.waitUntil(emailPromise);
+      cf.ctx.waitUntil(emailWork);
     } else {
       // Local dev fallback (no Worker ctx) — just await inline.
-      await emailPromise;
+      await emailWork;
     }
   }
 
