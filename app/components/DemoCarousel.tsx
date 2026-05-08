@@ -6,7 +6,24 @@ import DemoCardView, { type DemoData } from "./DemoCardView";
 
 const CYCLE_MS = 4500;
 
-export default function DemoCarousel({ picks }: { picks: DemoData[] }) {
+// Render the snapshot date in UTC so SSR and CSR output match exactly.
+// Switching to a relative ("X minutes ago") label later would need a
+// suppressHydrationWarning hook to avoid a tz/ago drift on hydration.
+function formatSnapshotDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+type DemoCarouselProps = {
+  picks: DemoData[];
+  generatedAt: string | null;
+};
+
+export default function DemoCarousel({ picks, generatedAt }: DemoCarouselProps) {
   const safePicks = picks.length > 0 ? picks : [];
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -58,6 +75,13 @@ export default function DemoCarousel({ picks }: { picks: DemoData[] }) {
             </button>
           ))}
         </div>
+      )}
+
+      {generatedAt && (
+        <p className="demo-caption">
+          Quant snapshot · {formatSnapshotDate(generatedAt)} · refreshed daily ·
+          prices reflect last market close
+        </p>
       )}
     </div>
   );
