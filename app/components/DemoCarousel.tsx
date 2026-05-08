@@ -1,97 +1,38 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import DemoCardView, { type DemoData } from "./DemoCardView";
 
-const ROTATION = ["NVDA", "AAPL", "MSFT", "GOOGL", "META", "TSLA", "AMZN"] as const;
-const CYCLE_MS = 7000;
+const CYCLE_MS = 4500;
 
-type ScoreApiResponse = DemoData & { error?: string };
-
-function toDemoData(d: ScoreApiResponse): DemoData {
-  return {
-    ticker: d.ticker,
-    companyName: d.companyName,
-    price: d.price,
-    changePercent: d.changePercent,
-    composite: d.composite,
-    signal: d.signal,
-    confidence: d.confidence,
-    categories: d.categories.map((c) => ({ name: c.name, label: c.label, score: c.score })),
-  };
-}
-
-export default function DemoCarousel({ initial }: { initial: DemoData }) {
-  // Start at the index whose ticker matches the SSR'd initial card so we don't
-  // flash a different ticker on hydration.
-  const startIndex = Math.max(
-    0,
-    ROTATION.findIndex((t) => t === initial.ticker)
-  );
-  const [index, setIndex] = useState(startIndex);
-  const [cache] = useState(() => new Map<string, DemoData>([[initial.ticker, initial]]));
-  const [current, setCurrent] = useState<DemoData>(initial);
+export default function DemoCarousel({ picks }: { picks: DemoData[] }) {
+  // Single-pick or empty list: render a static card without any cycling
+  // chrome. The fallback path in DemoCard guarantees at least one entry.
+  const safePicks = picks.length > 0 ? picks : [];
+  const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const inflight = useRef(new Set<string>());
 
-  // Fetch a ticker if not cached. Tolerates failures silently — the carousel
-  // simply skips ahead next tick if a ticker can't be loaded.
-  async function ensureTicker(ticker: string): Promise<DemoData | null> {
-    if (cache.has(ticker)) return cache.get(ticker)!;
-    if (inflight.current.has(ticker)) return null;
-    inflight.current.add(ticker);
-    try {
-      const res = await fetch(`/api/score/${encodeURIComponent(ticker)}`);
-      if (!res.ok) return null;
-      const json = (await res.json()) as ScoreApiResponse;
-      if (json.error) return null;
-      const data = toDemoData(json);
-      cache.set(ticker, data);
-      return data;
-    } catch {
-      return null;
-    } finally {
-      inflight.current.delete(ticker);
-    }
-  }
-
-  // Cycle every CYCLE_MS while not paused.
+  // Cycle every CYCLE_MS while not paused. Skipped when there's only one
+  // pick so we don't burn a timer for nothing.
   useEffect(() => {
-    if (paused) return;
+    if (paused || safePicks.length <= 1) return;
     const id = setInterval(() => {
-      setIndex((i) => (i + 1) % ROTATION.length);
+      setIndex((i) => (i + 1) % safePicks.length);
     }, CYCLE_MS);
     return () => clearInterval(id);
-  }, [paused]);
+  }, [paused, safePicks.length]);
 
-  // When the index changes, swap the visible card to the cached value or
-  // load it. If load fails, advance to the next ticker.
+  // If picks shrinks (rare — only on a re-render with fewer items), keep the
+  // index in range.
   useEffect(() => {
-    let cancelled = false;
-    const ticker = ROTATION[index];
-    (async () => {
-      const data = await ensureTicker(ticker);
-      if (cancelled) return;
-      if (data) {
-        setCurrent(data);
-      } else {
-        // Skip this slot if it can't load.
-        setIndex((i) => (i + 1) % ROTATION.length);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+    if (index >= safePicks.length && safePicks.length > 0) {
+      setIndex(0);
+    }
+  }, [safePicks.length, index]);
 
-  // Prefetch the next ticker so the cycle is snappy.
-  useEffect(() => {
-    const next = ROTATION[(index + 1) % ROTATION.length];
-    void ensureTicker(next);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  if (safePicks.length === 0) return null;
+  const current = safePicks[Math.min(index, safePicks.length - 1)];
 
   return (
     <div
@@ -104,21 +45,23 @@ export default function DemoCarousel({ initial }: { initial: DemoData }) {
         <DemoCardView data={current} />
       </Link>
 
-      <div className="demo-dots" role="tablist" aria-label="Demo ticker carousel">
-        {ROTATION.map((t, i) => (
-          <button
-            key={t}
-            type="button"
-            role="tab"
-            aria-selected={i === index}
-            aria-label={`Show ${t}`}
-            className={`demo-dot ${i === index ? "active" : ""}`}
-            onClick={() => setIndex(i)}
-          >
-            {t}
-          </button>
-        ))}
-      </div>
+      {safePicks.length > 1 && (
+        <div className="demo-dots" role="tablist" aria-label="Strong picks carousel">
+          {safePicks.map((p, i) => (
+            <button
+              key={p.ticker}
+              type="button"
+              role="tab"
+              aria-selected={i === index}
+              aria-label={`Show ${p.ticker}`}
+              className={`demo-dot ${i === index ? "active" : ""}`}
+              onClick={() => setIndex(i)}
+            >
+              {p.ticker}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
