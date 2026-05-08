@@ -30,6 +30,8 @@ export async function generateMetadata({
 
   // Non-ticker queries (e.g. /score/google → redirects to GOOGL) get generic
   // metadata; the redirected ticker page renders its own specific metadata.
+  // The redirect is what actually controls indexing here, so robots can be
+  // omitted — Google won't index the redirected URL.
   if (!isLikelyTicker(decoded)) {
     return {
       title: `${decoded} Quant Score — QScoring`,
@@ -50,10 +52,20 @@ export async function generateMetadata({
       `Profitability ${cat("profitability")} · Risk ${cat("risk")}.`;
     const url = `https://qscoring.com/score/${result.ticker}`;
 
+    // LOW confidence means data completeness fell below 60% or a whole
+    // factor category had insufficient data. Indexing those pages dilutes
+    // site-wide quality signals — Google's Helpful Content updates penalise
+    // sites that ship thousands of thin, low-value pages. follow stays true
+    // so internal links from these pages still pass authority.
+    const isLowQuality = result.confidence === "LOW";
+
     return {
       title,
       description,
       alternates: { canonical: url },
+      robots: isLowQuality
+        ? { index: false, follow: true }
+        : undefined,
       openGraph: {
         title,
         description,
@@ -68,9 +80,12 @@ export async function generateMetadata({
       },
     };
   } catch {
+    // Score path failed entirely — page will render an error UI. We do not
+    // want that error UI indexed under the ticker URL.
     return {
       title: `${t} Quant Score — QScoring`,
       description: `QScoring quantitative analysis for ${t}: composite score, buy/hold/short signal, and factor breakdown across value, growth, momentum, profitability, and risk.`,
+      robots: { index: false, follow: true },
     };
   }
 }
