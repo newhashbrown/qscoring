@@ -1,14 +1,15 @@
+import { computeStrongPicks } from "@/lib/scoring/picks";
 import { scoreTicker } from "@/lib/scoring";
 import DemoCarousel from "./DemoCarousel";
 import type { DemoData } from "./DemoCardView";
 
-const INITIAL_TICKER = "NVDA";
+const FALLBACK_TICKER = "NVDA";
 
-// Fallback shown if FMP is unreachable on first server render so the landing
-// page never breaks. Once the client hydrates, the carousel will try to fetch
-// real data via /api/score and replace this card on the next cycle.
-const FALLBACK: DemoData = {
-  ticker: INITIAL_TICKER,
+// Static fallback shown if FMP is unreachable on first server render so the
+// landing page never breaks. Once the client hydrates and a later server
+// render succeeds, the carousel populates with real strong picks.
+const STATIC_FALLBACK: DemoData = {
+  ticker: FALLBACK_TICKER,
   companyName: "NVIDIA Corporation",
   price: 135.4,
   changePercent: 2.3,
@@ -24,23 +25,47 @@ const FALLBACK: DemoData = {
   ],
 };
 
-export default async function DemoCard() {
-  let initial: DemoData;
+async function loadPicks(): Promise<DemoData[]> {
   try {
-    const result = await scoreTicker(INITIAL_TICKER);
-    initial = {
-      ticker: result.ticker,
-      companyName: result.companyName,
-      price: result.price,
-      changePercent: result.changePercent,
-      composite: result.composite,
-      signal: result.signal,
-      confidence: result.confidence,
-      categories: result.categories.map((c) => ({ name: c.name, label: c.label, score: c.score })),
-    };
+    const picks = await computeStrongPicks(12);
+    if (picks.length > 0) {
+      return picks.map((p) => ({
+        ticker: p.ticker,
+        companyName: p.companyName,
+        price: p.price,
+        changePercent: p.changePercent,
+        composite: p.composite,
+        signal: p.signal,
+        confidence: p.confidence,
+        categories: p.categories,
+      }));
+    }
   } catch {
-    initial = FALLBACK;
+    // Fall through to single-ticker fallback below.
   }
 
-  return <DemoCarousel initial={initial} />;
+  // Last-resort fallback: try to score one well-covered ticker so the demo
+  // shows something real rather than the static placeholder.
+  try {
+    const r = await scoreTicker(FALLBACK_TICKER);
+    return [
+      {
+        ticker: r.ticker,
+        companyName: r.companyName,
+        price: r.price,
+        changePercent: r.changePercent,
+        composite: r.composite,
+        signal: r.signal,
+        confidence: r.confidence,
+        categories: r.categories.map((c) => ({ name: c.name, label: c.label, score: c.score })),
+      },
+    ];
+  } catch {
+    return [STATIC_FALLBACK];
+  }
+}
+
+export default async function DemoCard() {
+  const picks = await loadPicks();
+  return <DemoCarousel picks={picks} />;
 }
