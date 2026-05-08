@@ -30,5 +30,10 @@ export default function DemoCard() {
       ? (strongPicksData.picks as DemoData[])
       : [STATIC_FALLBACK];
 
-  return <DemoCarousel picks={picks} />;
+  return (
+    <DemoCarousel
+      picks={picks}
+      generatedAt={strongPicksData.picks.length > 0 ? strongPicksData.generatedAt : null}
+    />
+  );
 }
