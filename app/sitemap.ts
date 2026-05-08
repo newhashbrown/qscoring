@@ -5,6 +5,19 @@ import { GLOSSARY } from "@/data/glossary";
 
 const SITE = "https://qscoring.com";
 
+// Preferred-share series (CTA-PA, EFC-PC, JXN-PA, OAK-PA/PB, etc.) come back
+// from FMP with thin data — no analyst coverage, sparse fundamentals, no
+// useful price chart. Excluding them from the sitemap stops Google from
+// being asked to crawl pages that won't earn impressions and would otherwise
+// dilute the site-wide quality signal.
+//
+// Common-share class suffixes like BRK-A and BRK-B are NOT preferred shares
+// and remain in the sitemap — they're heavily traded and SEO-relevant.
+const PREFERRED_SHARE_RE = /-P[A-Z]$/;
+function isIndexableTicker(ticker: string): boolean {
+  return !PREFERRED_SHARE_RE.test(ticker);
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const today = now.toISOString().split("T")[0];
@@ -45,7 +58,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Hand-curated popular tickers get the top priority — these are the names
   // people actually search for. Rest of the universe gets standard priority.
   const popular = new Set(popularTickers as string[]);
-  const all = Array.from(new Set([...(sitemapTickers as string[]), ...popular]));
+  const all = Array.from(new Set([...(sitemapTickers as string[]), ...popular]))
+    .filter(isIndexableTicker);
 
   const tickerPages: MetadataRoute.Sitemap = all.sort().map((ticker) => ({
     url: `${SITE}/score/${ticker}`,
