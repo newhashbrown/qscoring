@@ -496,6 +496,11 @@ export default function MethodologyPage() {
       </main>
 
       <footer>
+        <p className="footer-links">
+          <a href="/glossary">Glossary</a>
+          <span className="sep">·</span>
+          <a href="/score">Score a ticker</a>
+        </p>
         <p>© 2026 QScoring.com. All rights reserved.</p>
       </footer>
     </>
