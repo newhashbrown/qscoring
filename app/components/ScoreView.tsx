@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { CategoryScore, MetricScore, ScoreResult, Signal } from "@/lib/scoring";
+import type { CategoryName, CategoryScore, MetricScore, ScoreResult, Signal } from "@/lib/scoring";
 import PriceChart from "./PriceChart";
 
 const SIGNAL_LABEL: Record<Signal, string> = {
@@ -7,6 +7,14 @@ const SIGNAL_LABEL: Record<Signal, string> = {
   BUY_SHORT_TERM: "Buy Short-Term",
   HOLD: "Hold",
   SHORT: "Short",
+};
+
+const CATEGORY_GLOSSARY: Record<CategoryName, string> = {
+  value: "/glossary/value-factor",
+  growth: "/glossary/growth-factor",
+  momentum: "/glossary/momentum-factor",
+  profitability: "/glossary/profitability-factor",
+  risk: "/glossary/risk-factor",
 };
 
 const SIGNAL_TONE: Record<Signal, "bullish" | "bearish" | "neutral"> = {
@@ -62,7 +70,15 @@ function CategoryCard({ category }: { category: CategoryScore }) {
   return (
     <div className="category-card">
       <div className="category-header">
-        <h3>{category.label}</h3>
+        <h3>
+          <Link
+            href={CATEGORY_GLOSSARY[category.name]}
+            className="glossary-info-link"
+            aria-label={`Learn more about the ${category.label} factor`}
+          >
+            {category.label}
+          </Link>
+        </h3>
         <div className="category-score">{Math.round(category.score)}</div>
       </div>
       <div className="metric-list">
@@ -111,9 +127,19 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
       <section className={`composite-panel tone-${tone}`}>
         <ScoreRing value={data.composite} />
         <div className="composite-meta">
-          <div className="composite-label">QScore Signal</div>
+          <div className="composite-label">
+            QScore{" "}
+            <Link href="/glossary/signal" className="glossary-info-link">
+              Signal
+            </Link>
+          </div>
           <div className={`composite-signal tone-${tone}`}>{SIGNAL_LABEL[data.signal]}</div>
-          <div className="composite-confidence">Confidence: {data.confidence}</div>
+          <div className="composite-confidence">
+            <Link href="/glossary/confidence" className="glossary-info-link">
+              Confidence
+            </Link>
+            : {data.confidence}
+          </div>
           <div className="composite-horizons">
             <div>
               <div className="horizon-label">Long-Term</div>
