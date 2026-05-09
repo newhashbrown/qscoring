@@ -5,9 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/score", "/score/", "/methodology"],
-        // Block the JSON API endpoints — they're for our frontend, not search
-        // engines, and there's no SEO value in indexing them.
+        // Only /api/* is blocked — the JSON endpoints feed our frontend,
+        // not search engines. Everything else is allowed by default;
+        // explicit Allow rules are unnecessary unless overriding Disallow.
         disallow: ["/api/"],
       },
     ],
