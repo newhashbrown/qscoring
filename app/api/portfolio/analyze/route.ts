@@ -3,7 +3,8 @@ import { scoreTicker } from "@/lib/scoring";
 import {
   MAX_PORTFOLIO_ENTRIES,
   analyzeBlend,
-  normalizeWeights,
+  deriveWeights,
+  type PortfolioMode,
   type PortfolioRow,
 } from "@/lib/portfolio";
 import scoreboardData from "@/data/scoreboard.json";
@@ -11,9 +12,11 @@ import type { ScoreboardPick } from "@/data/categories";
 
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 const SCORING_CONCURRENCY = 4;
+const VALID_MODES: readonly PortfolioMode[] = ["equal", "weights", "shares", "values"];
 
 type Body = {
-  entries?: Array<{ ticker?: string; rawWeight?: number }>;
+  mode?: string;
+  entries?: Array<{ ticker?: string; rawNumber?: number }>;
 };
 
 function lookupInScoreboard(ticker: string): ScoreboardPick | null {
@@ -40,9 +43,6 @@ async function liveScore(ticker: string): Promise<ScoreboardPick | null> {
         label: c.label,
         score: Math.round(c.score),
       })),
-      // Tag the sector so the portfolio analyzer's sector-breakdown view
-      // can group by it. ScoreboardPick doesn't normally carry sector;
-      // we attach it here for portfolio-context use only.
       ...(r.sector ? { sector: r.sector } : {}),
     } as ScoreboardPick;
   } catch (err) {
@@ -78,6 +78,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
+  const mode: PortfolioMode = VALID_MODES.includes(body.mode as PortfolioMode)
+    ? (body.mode as PortfolioMode)
+    : "weights";
+
   const rawEntries = Array.isArray(body.entries) ? body.entries : [];
   if (rawEntries.length === 0) {
     return NextResponse.json(
@@ -92,19 +96,17 @@ export async function POST(req: Request) {
     );
   }
 
-  // Validate + dedupe + cap. Server-side guard so a malformed client can't
-  // blow up the analyzer.
   const seen = new Set<string>();
-  const cleaned: Array<{ ticker: string; rawWeight?: number }> = [];
+  const cleaned: Array<{ ticker: string; rawNumber?: number }> = [];
   for (const e of rawEntries) {
     const ticker = String(e?.ticker ?? "").toUpperCase().trim();
     if (!TICKER_RE.test(ticker) || seen.has(ticker)) continue;
     seen.add(ticker);
-    const rawWeight =
-      typeof e?.rawWeight === "number" && Number.isFinite(e.rawWeight) && e.rawWeight > 0
-        ? e.rawWeight
+    const rawNumber =
+      typeof e?.rawNumber === "number" && Number.isFinite(e.rawNumber) && e.rawNumber > 0
+        ? e.rawNumber
         : undefined;
-    cleaned.push({ ticker, rawWeight });
+    cleaned.push({ ticker, rawNumber });
     if (cleaned.length >= MAX_PORTFOLIO_ENTRIES) break;
   }
   if (cleaned.length === 0) {
@@ -114,36 +116,45 @@ export async function POST(req: Request) {
     );
   }
 
-  const normalized = normalizeWeights(cleaned);
-
-  // For each ticker: scoreboard hit → pick, else live scoreTicker.
-  // Concurrency-bounded so a 30-name cold-cache call doesn't fire 180
-  // FMP requests in parallel.
-  const rows: PortfolioRow[] = await withConcurrency(
-    normalized,
+  // Score every ticker first — we need each ticker's price for "shares"
+  // mode and the score data for the analysis itself. Concurrency-bounded
+  // so a 30-name cold-cache call doesn't fire 180 FMP requests in parallel.
+  type Scored = { ticker: string; rawNumber?: number; pick: ScoreboardPick | null };
+  const scored: Scored[] = await withConcurrency(
+    cleaned,
     SCORING_CONCURRENCY,
-    async ({ ticker, weight }) => {
+    async ({ ticker, rawNumber }) => {
       const fromBoard = lookupInScoreboard(ticker);
-      if (fromBoard) return { ticker, weight, pick: fromBoard };
+      if (fromBoard) return { ticker, rawNumber, pick: fromBoard };
       const live = await liveScore(ticker);
-      if (live) return { ticker, weight, pick: live };
-      return {
-        ticker,
-        weight,
-        pick: null,
-        error: "No score available — ticker may be outside our coverage universe.",
-      };
+      return { ticker, rawNumber, pick: live };
     }
   );
+
+  // Derive weights now that prices are known.
+  const priceMap = new Map(
+    scored.filter((s) => s.pick).map((s) => [s.ticker, s.pick!.price])
+  );
+  const weights = deriveWeights(
+    scored.map((s) => ({ ticker: s.ticker, rawNumber: s.rawNumber })),
+    mode,
+    (t) => priceMap.get(t) ?? null
+  );
+  const weightByTicker = new Map(weights.map((w) => [w.ticker, w.weight]));
+
+  const rows: PortfolioRow[] = scored.map((s) => ({
+    ticker: s.ticker,
+    weight: weightByTicker.get(s.ticker) ?? 0,
+    pick: s.pick,
+    error: s.pick ? undefined : "No score available — ticker may be outside our coverage universe.",
+  }));
 
   const analysis = analyzeBlend(rows);
 
   return NextResponse.json(
-    { ok: true, analysis },
+    { ok: true, mode, analysis },
     {
       headers: {
-        // Don't cache portfolio analyses — input is user-specific so
-        // edge caching would leak holdings across users.
         "Cache-Control": "private, no-cache, no-store, max-age=0, must-revalidate",
       },
     }
