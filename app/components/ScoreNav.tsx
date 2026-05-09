@@ -44,12 +44,12 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
         <Image
           src="/logo.png"
           alt="QScoring"
-          width={313}
+          width={251}
           height={120}
           priority
-          // Source is the transparent-background V2 logo, resampled to
+          // Source is the transparent-background V3 logo, resampled to
           // 120px tall @ 2x retina = 60px display in the nav. Aspect
-          // ~2.6:1 (wordmark + hexagon mark side-by-side).
+          // ~2.1:1 (wordmark + hexagon mark, slightly squarer than V2).
           style={{ height: 60, width: "auto" }}
         />
       </Link>
