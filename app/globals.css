@@ -726,6 +726,18 @@ footer .footer-links .sep {
   flex-shrink: 0;
   font-size: 1.15rem;
 }
+/* When the logo is rendered as an Image (Logo-homepage.png) instead of
+   the inline text wordmark, drop the wordmark padding and let the image
+   define its own height. */
+.site-nav .logo.logo-image {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+.site-nav .logo.logo-image img {
+  display: block;
+  border-radius: 4px;
+}
 .site-nav-links {
   display: flex;
   list-style: none;

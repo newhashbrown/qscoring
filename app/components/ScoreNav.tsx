@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import TickerSearch from "./TickerSearch";
@@ -34,8 +35,22 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
 
   return (
     <nav className={`site-nav ${open ? "open" : ""}`}>
-      <Link href="/" className="logo" onClick={() => setOpen(false)}>
-        QScoring<span>.com</span>
+      <Link
+        href="/"
+        className="logo logo-image"
+        aria-label="QScoring.com home"
+        onClick={() => setOpen(false)}
+      >
+        <Image
+          src="/Logo-homepage.png"
+          alt="QScoring"
+          width={1291}
+          height={823}
+          priority
+          // Render at ~46px tall in the nav; Next/Image picks the right
+          // resampled size from the source intrinsic 1291x823.
+          style={{ height: 46, width: "auto" }}
+        />
       </Link>
 
       <ul className="site-nav-links" role="menubar">
