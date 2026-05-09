@@ -819,6 +819,607 @@ export const BLOG_POSTS: BlogPost[] = [
       </>
     ),
   },
+  {
+    slug: "pe-ratio-explained",
+    cluster: "stock-metrics",
+    title: "P/E ratio explained: how to read price-to-earnings (with real ticker examples)",
+    description:
+      "The price-to-earnings ratio is the most-cited valuation metric in finance — what it actually measures, how it's computed, where it misleads, and how QScoring uses it as one of four value-factor inputs.",
+    publishedAt: "2026-05-09",
+    readTimeMinutes: 6,
+    excerpt:
+      "Every stock-screener tool ranks P/E. Most readers see the number without knowing exactly what's in the numerator and denominator — or why a low P/E isn't always cheap. Here's the plain-English breakdown.",
+    Body: () => (
+      <>
+        <p>
+          The price-to-earnings ratio (P/E) is the single most-cited valuation metric in finance.
+          It tells you what the market is willing to pay for each dollar of a company&apos;s
+          earnings. A P/E of 20 means a stock is priced at 20 times its annual earnings per
+          share — pay $20 today for a $1/year claim on profits.
+        </p>
+        <p>
+          That sounds straightforward, but the metric has more nuance than the headline number
+          suggests. Different versions, different denominators, sector-specific norms, and
+          structural distortions (buybacks, one-time charges) all matter when reading a P/E in
+          context.
+        </p>
+
+        <h2>What the formula actually says</h2>
+        <p>
+          <code>P/E = Price ÷ Earnings per share</code>
+        </p>
+        <p>
+          Both inputs need a definition. <strong>Price</strong> is straightforward — it&apos;s
+          the current share price. <strong>Earnings per share</strong> is where the variations
+          come in:
+        </p>
+        <ul>
+          <li>
+            <strong>TTM (trailing twelve months) EPS</strong> — actual reported earnings for
+            the past four quarters. Backward-looking but real.
+          </li>
+          <li>
+            <strong>Forward EPS</strong> — analyst consensus estimate for the next twelve
+            months. Forward-looking but subject to estimate optimism bias.
+          </li>
+          <li>
+            <strong>CAPE / Shiller P/E</strong> — averages real earnings over ten years.
+            Smooths out cycle noise; mostly used for index-level analysis.
+          </li>
+        </ul>
+        <p>
+          QScoring uses <strong>TTM P/E</strong> from FMP&apos;s standardized fundamentals so
+          every ticker is computed the same way.
+        </p>
+
+        <h2>How to read it</h2>
+        <p>
+          The naive reading: lower is cheaper, higher is expensive. Mostly true, with three
+          important nuances:
+        </p>
+        <ul>
+          <li>
+            <strong>Sector matters enormously.</strong> A P/E of 35 is unremarkable in software
+            (where sector norms run high) and very expensive in banking (where sector norms run
+            low). This is why <Link href="/glossary/sector-normalization">sector
+            normalization</Link> is critical — comparing Apple&apos;s P/E to JPMorgan&apos;s is
+            like comparing the price-per-pound of a sports car to a tractor.
+          </li>
+          <li>
+            <strong>Negative earnings break the metric.</strong> A loss-making company has
+            negative EPS, which produces a negative P/E that&apos;s mathematically meaningful
+            but practically useless. QScoring assigns a fixed low value score to negative-P/E
+            stocks rather than ranking them as &ldquo;extremely cheap.&rdquo;
+          </li>
+          <li>
+            <strong>Cheap can be a trap.</strong> A P/E of 6 often signals the market expects
+            earnings to fall sharply. Pairing P/E with the{" "}
+            <Link href="/glossary/growth-factor">growth factor</Link> reveals whether the low
+            multiple reflects pessimism (potential opportunity) or accurate forecasting (a
+            value trap).
+          </li>
+        </ul>
+
+        <h2>How QScoring uses it</h2>
+        <p>
+          P/E TTM is one of four metrics in the QScoring{" "}
+          <Link href="/glossary/value-factor">value factor</Link>, alongside P/B, P/S, and
+          EV/EBITDA. Each is z-scored against the stock&apos;s sector with the sign inverted —
+          so a low P/E maps to a high value-factor score, and vice versa. Negative-P/E stocks
+          get a fixed low score rather than being thrown out, which keeps the ranking honest.
+        </p>
+        <p>
+          Browse the <Link href="/score">live ticker scores</Link> for any name and the
+          underlying P/E shows up in the value factor card&apos;s metric breakdown — both the
+          raw value and the 0-100 normalized score.
+        </p>
+
+        <h2>Real example</h2>
+        <p>
+          Take three names from the QScoring universe: a high-multiple growth stock like{" "}
+          <Link href="/score/NVDA">NVDA</Link>, a more moderate-multiple compounder like{" "}
+          <Link href="/score/AAPL">AAPL</Link>, and a value-tier financial like{" "}
+          <Link href="/score/JPM">JPM</Link>. The raw P/E numbers spread enormously across
+          those three. Sector normalization is what makes them comparable as factor signals —
+          NVDA&apos;s P/E is &ldquo;rich&rdquo; against semis but its growth profile is
+          extreme; JPM&apos;s P/E is &ldquo;normal&rdquo; against banks even though absolutely
+          it looks cheap.
+        </p>
+
+        <h2>Common mistakes</h2>
+        <ul>
+          <li>
+            <strong>Comparing P/E across sectors.</strong> Always compare to sector norms (or
+            use a sector-normalized score like the QScore value factor) before drawing
+            conclusions.
+          </li>
+          <li>
+            <strong>Treating forward P/E as ground truth.</strong> Analyst estimates have
+            systematic optimism bias. TTM is more conservative; CAPE is most conservative.
+          </li>
+          <li>
+            <strong>Ignoring buyback distortion.</strong> Aggressive buybacks shrink share
+            count, which mechanically inflates EPS and depresses P/E without any underlying
+            business improvement. Apple is the textbook case — see the{" "}
+            <Link href="/blog/aapl-vs-msft">AAPL vs MSFT analysis</Link> for the full
+            buyback-distortion discussion.
+          </li>
+          <li>
+            <strong>Reading P/E without growth context.</strong> A 30 P/E with 25% growth is
+            very different from a 30 P/E with 3% growth. Always pair value with growth.
+          </li>
+        </ul>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/glossary/pe-ratio">P/E ratio in the glossary</Link> — quick reference
+          </li>
+          <li>
+            <Link href="/glossary/value-factor">Value factor</Link> — the broader category P/E
+            feeds into
+          </li>
+          <li>
+            <Link href="/blog/how-to-read-a-qscore">How to read a QScore</Link> — the
+            five-factor walkthrough
+          </li>
+          <li>
+            <Link href="/methodology#factor-value">Methodology: value section</Link>
+          </li>
+          <li>
+            <Link href="/scores/high-growth-low-value">High-growth, low-value stocks</Link> —
+            names where the value factor (including P/E) is weak
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    slug: "rsi-explained",
+    cluster: "stock-metrics",
+    title: "RSI explained: how to read the Relative Strength Index (and where it fails)",
+    description:
+      "The Relative Strength Index is the most widely-used momentum oscillator in technical analysis. What the 0-100 scale measures, where the 30/70 thresholds come from, and how QScoring uses RSI inside the momentum factor.",
+    publishedAt: "2026-05-09",
+    readTimeMinutes: 6,
+    excerpt:
+      "RSI is the workhorse momentum oscillator — overbought above 70, oversold below 30. The reality is more nuanced: extreme readings can persist for weeks, and the indicator fails most spectacularly at regime turns.",
+    Body: () => (
+      <>
+        <p>
+          The Relative Strength Index (RSI) is a bounded oscillator that ranges from 0 to 100
+          and measures the magnitude of recent gains relative to recent losses. It was
+          developed by J. Welles Wilder Jr. in 1978 and remains one of the most widely-used
+          technical indicators five decades later.
+        </p>
+        <p>
+          The conventional reading is simple — above 70 is &ldquo;overbought,&rdquo; below 30
+          is &ldquo;oversold&rdquo; — but the simplicity hides where the indicator earns its
+          keep and where it fails. Here&apos;s how to read it without falling into either of
+          the two most common traps.
+        </p>
+
+        <h2>What the formula actually says</h2>
+        <p>
+          <code>RSI = 100 − 100 ÷ (1 + RS), where RS = avg gain ÷ avg loss over N days</code>
+        </p>
+        <p>
+          The default lookback is N = 14 trading days. &ldquo;Avg gain&rdquo; and &ldquo;avg
+          loss&rdquo; are exponential moving averages of up-days and down-days respectively
+          over that window. The bounded 0-100 scale comes from the formula structure — RS goes
+          from 0 (all losses) to infinity (all gains), and the transformation maps it cleanly
+          to 0-100.
+        </p>
+        <p>
+          QScoring uses RSI(14) — Wilder&apos;s original 14-day setting. Shorter windows (e.g.,
+          RSI(7)) are more sensitive to recent moves; longer windows (RSI(28)) are smoother but
+          slower.
+        </p>
+
+        <h2>How to read it</h2>
+        <p>
+          The textbook reading:
+        </p>
+        <ul>
+          <li><strong>RSI &gt; 70</strong> — overbought, pullback may be coming</li>
+          <li><strong>RSI &lt; 30</strong> — oversold, rebound may be coming</li>
+          <li><strong>RSI 30–70</strong> — neutral territory</li>
+        </ul>
+        <p>
+          That reading is right often enough to be useful but wrong often enough to be
+          dangerous. Two important nuances:
+        </p>
+        <ul>
+          <li>
+            <strong>Strong trends hold extreme RSI for weeks.</strong> A stock in a powerful
+            uptrend can keep RSI &gt; 70 for a month or more. &ldquo;Sell when RSI &gt;
+            70&rdquo; would have you exiting every meaningful rally early.
+          </li>
+          <li>
+            <strong>Divergence is the highest-information reading.</strong> When price makes a
+            new high but RSI doesn&apos;t, the underlying momentum is weakening even as the
+            tape looks strong — often the cleanest leading-indicator signal RSI produces.
+          </li>
+        </ul>
+
+        <h2>How QScoring uses it</h2>
+        <p>
+          RSI(14) is one of five inputs in the QScoring{" "}
+          <Link href="/glossary/momentum-factor">momentum factor</Link>, alongside 12-month,
+          3-month, and 1-month trailing returns and the 50-day vs 200-day moving-average
+          position.
+        </p>
+        <p>
+          Unlike the trailing-return metrics (which are sector-normalized), RSI uses a fixed
+          non-monotonic scoring curve. Low RSI scores well (oversold rebound potential),
+          mid-high RSI also scores well (healthy momentum), but extreme high RSI scores down
+          (overbought risk). The full mapping is documented on the{" "}
+          <Link href="/methodology#factor-momentum">methodology page</Link>.
+        </p>
+        <p>
+          That non-monotonic curve is intentional. Treating RSI linearly (&ldquo;higher is
+          better&rdquo;) would reward stocks at exactly the moment they&apos;re most
+          stretched. The curve says &ldquo;some momentum is good, too much is dangerous.&rdquo;
+        </p>
+
+        <h2>Real example</h2>
+        <p>
+          Browse a few <Link href="/score">live tickers</Link> and look at the RSI metric
+          inside the momentum factor card. Stocks that have rallied hard recently (e.g., the
+          AI-cycle leaders like <Link href="/score/NVDA">NVDA</Link> in strong-tape periods)
+          often show RSI in the 65–75 range. Stocks in pullbacks show RSI in the 30s. The
+          score for that metric will reflect the non-monotonic mapping — neither extreme
+          scores the highest.
+        </p>
+
+        <h2>Common mistakes</h2>
+        <ul>
+          <li>
+            <strong>Treating overbought as a sell signal in isolation.</strong> RSI &gt; 70 in
+            a confirmed uptrend often means &ldquo;continue to hold&rdquo; — the divergence is
+            the signal to act on, not the absolute level.
+          </li>
+          <li>
+            <strong>Treating oversold as a buy signal in isolation.</strong> RSI &lt; 30 in a
+            confirmed downtrend can persist for weeks while the stock continues falling. Pair
+            with trend confirmation before acting.
+          </li>
+          <li>
+            <strong>Using RSI on charts that are too short.</strong> RSI(14) on a 5-minute
+            chart is a different beast than RSI(14) on a daily chart — the former is mostly
+            noise, the latter is what most published research is calibrated against.
+          </li>
+          <li>
+            <strong>Reading RSI without market regime context.</strong> Like all momentum
+            indicators, RSI fails worst at regime turns. A high RSI just before a market top
+            looks identical to a high RSI in the middle of a healthy bull run.
+          </li>
+        </ul>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/glossary/rsi">RSI in the glossary</Link> — quick reference + formula
+          </li>
+          <li>
+            <Link href="/glossary/momentum-factor">Momentum factor</Link> — the broader
+            category RSI feeds into
+          </li>
+          <li>
+            <Link href="/methodology#factor-momentum">Methodology: momentum section</Link> —
+            full breakdown of all five inputs and the non-monotonic RSI curve
+          </li>
+          <li>
+            <Link href="/scores/high-momentum-stocks">High-momentum stocks</Link> — names
+            ranked by the momentum factor where RSI is one of the inputs
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    slug: "beta-explained",
+    cluster: "stock-metrics",
+    title: "Beta explained: what it measures, how it's computed, and why it can mislead",
+    description:
+      "Beta is the slope of a stock's returns regressed against the market — a measure of how much it moves with (or against) the index. CAPM said high beta should earn high returns; reality has been more interesting.",
+    publishedAt: "2026-05-09",
+    readTimeMinutes: 6,
+    excerpt:
+      "Beta has been finance education's go-to risk metric for sixty years. The textbook story is clean — and the empirical story is much messier. Here's what beta actually measures, where it works, and why high-beta stocks haven't paid off the way CAPM predicted.",
+    Body: () => (
+      <>
+        <p>
+          Beta is the slope of the regression line between a stock&apos;s returns and the
+          market&apos;s returns. A beta of 1.0 means the stock moves one-for-one with the
+          market: when the S&amp;P 500 rises 1%, the stock tends to rise 1%. A beta of 1.5
+          amplifies market moves by 50%; a beta of 0.5 dampens them.
+        </p>
+        <p>
+          The metric is simple, well-defined, and widely used. The complications are
+          empirical: the elegant theory that gave us beta — the Capital Asset Pricing Model —
+          made specific predictions about returns that haven&apos;t held up, which is why
+          beta&apos;s role in modern quant scoring is more nuanced than its textbook
+          presentation suggests.
+        </p>
+
+        <h2>What the formula actually says</h2>
+        <p>
+          <code>β = Cov(stock returns, market returns) ÷ Var(market returns)</code>
+        </p>
+        <p>
+          In English: how much the stock and market move together, scaled by how much the
+          market moves on its own. Computed from historical returns — usually three to five
+          years of monthly or weekly data.
+        </p>
+        <p>
+          Different providers use different lookback windows and frequencies, which is why a
+          stock&apos;s &ldquo;beta&rdquo; on Yahoo Finance, FMP, and Bloomberg can differ
+          slightly even at the same moment. QScoring uses the beta as reported by FMP,
+          computed against ~5 years of price history — long enough to be statistically stable,
+          short enough to reflect the current business profile.
+        </p>
+
+        <h2>How to read it</h2>
+        <ul>
+          <li><strong>β = 1.0</strong> — the stock is &ldquo;the market&rdquo; in volatility terms</li>
+          <li><strong>β &gt; 1.0</strong> — amplifies market moves; &ldquo;high beta&rdquo;</li>
+          <li><strong>β &lt; 1.0</strong> — dampens market moves; &ldquo;low beta&rdquo;</li>
+          <li><strong>β &lt; 0</strong> — moves opposite the market; rare, often utilities or precious-metals miners</li>
+        </ul>
+        <p>
+          The more interesting question is what to do with that information.
+        </p>
+
+        <h2>Where the textbook story breaks</h2>
+        <p>
+          The Capital Asset Pricing Model (Sharpe 1964, Lintner 1965) made a specific
+          prediction: high-beta stocks should earn higher returns to compensate investors for
+          the additional volatility. Investors are risk-averse; risk needs a price.
+        </p>
+        <p>
+          The empirical reality has been very different. High-beta stocks have, on average,
+          delivered <em>worse</em> risk-adjusted returns than low-beta stocks over multi-decade
+          periods. This is the &ldquo;low-volatility anomaly&rdquo; — possibly the most
+          well-replicated finding in factor research that contradicts the textbook. Frazzini
+          and Pedersen&apos;s 2014 paper &ldquo;Betting Against Beta&rdquo; is the canonical
+          modern treatment.
+        </p>
+        <p>
+          The implication: high beta isn&apos;t a free ticket to higher returns. If anything,
+          investors who are forced to lever up by buying high-beta stocks (because they
+          can&apos;t use leverage directly) bid those names up to overpriced levels.
+        </p>
+
+        <h2>How QScoring uses it</h2>
+        <p>
+          Beta is one of two inputs in the QScoring{" "}
+          <Link href="/glossary/risk-factor">risk factor</Link>, alongside 60-day annualized
+          realized volatility. Stocks with beta closer to 1.0 score higher than stocks with
+          extreme betas in either direction. This implements the spirit of the low-vol anomaly
+          — preferring stocks that don&apos;t over-amplify market noise — without trying to
+          chase pure low-vol exposure.
+        </p>
+        <p>
+          See the <Link href="/methodology#factor-risk">risk section of the methodology</Link>{" "}
+          for the full mapping curve and the regime-change weakness inherent in any
+          historically-computed beta.
+        </p>
+
+        <h2>Real example</h2>
+        <p>
+          High-beta names in our universe tend to be growth-tier semiconductors and
+          cyclical industrials. <Link href="/score/AMD">AMD</Link>,{" "}
+          <Link href="/score/TSLA">TSLA</Link>, and <Link href="/score/CAT">CAT</Link> often
+          run beta &gt; 1.5. Low-beta names tend to be mature consumer staples and utilities —
+          <Link href="/score/KO">KO</Link>, <Link href="/score/PG">PG</Link>, and{" "}
+          <Link href="/score/JNJ">JNJ</Link> typically run beta &lt; 0.7. Mega-cap tech like{" "}
+          <Link href="/score/MSFT">MSFT</Link> and <Link href="/score/AAPL">AAPL</Link> sits
+          near 1.0 — they essentially are the index in many ways.
+        </p>
+
+        <h2>Common mistakes</h2>
+        <ul>
+          <li>
+            <strong>Treating beta as forward-looking.</strong> It isn&apos;t. Beta is computed
+            from historical returns and assumes business profile and capital structure stayed
+            roughly stable. A company that just took on huge debt or pivoted into a new
+            business has a backward-looking beta that says nothing about the next year.
+          </li>
+          <li>
+            <strong>Assuming high beta = high return.</strong> CAPM says it should; the data
+            says it hasn&apos;t. Don&apos;t buy high-beta stocks just because you&apos;re
+            looking for &ldquo;more upside.&rdquo;
+          </li>
+          <li>
+            <strong>Ignoring the standard error.</strong> A beta computed from 5 years of
+            monthly data has meaningful confidence intervals. A reported beta of 1.2 might
+            really be &ldquo;between 0.95 and 1.45 with 95% confidence.&rdquo; Treat
+            single-decimal beta readings with appropriate skepticism.
+          </li>
+          <li>
+            <strong>Comparing betas across providers without checking methodology.</strong>{" "}
+            Different lookback windows produce materially different numbers. FMP, Yahoo, and
+            Bloomberg can disagree by 20%+ on the same stock at the same moment.
+          </li>
+        </ul>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/glossary/beta">Beta in the glossary</Link> — quick reference
+          </li>
+          <li>
+            <Link href="/glossary/risk-factor">Risk factor</Link> — the broader category beta
+            feeds into
+          </li>
+          <li>
+            <Link href="/blog/sharpe-ratio-explained">Sharpe ratio explained</Link> — the
+            risk-adjusted-return metric that operationalizes the low-vol anomaly
+          </li>
+          <li>
+            <Link href="/methodology#factor-risk">Methodology: risk section</Link>
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    slug: "sharpe-ratio-explained",
+    cluster: "stock-metrics",
+    title: "Sharpe ratio explained: the most-cited measure of risk-adjusted return",
+    description:
+      "The Sharpe ratio measures excess return per unit of volatility — finance's most-cited risk-adjusted return metric. What it measures, what counts as 'good,' and why a high Sharpe can be either signal or artifact.",
+    publishedAt: "2026-05-09",
+    readTimeMinutes: 6,
+    excerpt:
+      "Every quant strategy you'll ever read about reports its Sharpe ratio. The metric itself is decades old and well-defined; reading it well takes more nuance than 'higher is better.'",
+    Body: () => (
+      <>
+        <p>
+          The Sharpe ratio measures how much return a portfolio or strategy generates above the
+          risk-free rate, per unit of volatility. It&apos;s the single most widely-cited
+          risk-adjusted return metric in finance and the standard reporting unit for strategy
+          performance across academic papers, hedge funds, and institutional reports.
+        </p>
+        <p>
+          Developed by William Sharpe in 1966 (originally as the &ldquo;reward-to-variability
+          ratio&rdquo;), it gives a single number that lets you compare strategies with very
+          different return profiles on a common basis. A strategy returning 8% with 4%
+          volatility is generally preferable to one returning 12% with 16% volatility — even
+          though the second has a higher absolute return.
+        </p>
+
+        <h2>What the formula actually says</h2>
+        <p>
+          <code>Sharpe = (Strategy return − Risk-free rate) ÷ Strategy volatility</code>
+        </p>
+        <p>
+          The numerator is excess return over what you could earn risk-free (typically the
+          T-bill rate). The denominator is the standard deviation of the strategy&apos;s
+          returns over the same window. Both are usually annualized.
+        </p>
+        <p>
+          A Sharpe of 1.0 means the strategy earns one percentage point of excess return for
+          every percentage point of volatility — historically, that&apos;s roughly the
+          long-run market average.
+        </p>
+
+        <h2>What counts as &ldquo;good&rdquo;</h2>
+        <ul>
+          <li>
+            <strong>Sharpe &lt; 0.5</strong> — weak. Volatility doesn&apos;t justify the
+            return.
+          </li>
+          <li>
+            <strong>0.5–1.0</strong> — typical for index funds and most discretionary
+            strategies.
+          </li>
+          <li>
+            <strong>1.0–2.0</strong> — good. Sustained Sharpe &gt; 1.0 is what most
+            professional quant strategies aim for.
+          </li>
+          <li>
+            <strong>2.0–3.0</strong> — very good. Reachable by well-executed market-neutral or
+            multi-factor strategies.
+          </li>
+          <li>
+            <strong>&gt; 3.0</strong> — exceptional. Often a signal that something is wrong
+            with the calculation: look-ahead bias, survivorship bias, or in-sample fitting.
+          </li>
+        </ul>
+
+        <h2>Where the Sharpe ratio fails</h2>
+        <p>
+          Sharpe is useful but blunt. Three weaknesses worth knowing:
+        </p>
+        <ul>
+          <li>
+            <strong>Treats upside and downside the same.</strong> Volatility punishes a
+            strategy for moving up sharply just as much as for moving down sharply. The
+            <em> Sortino ratio</em> fixes this by penalizing only downside deviation.
+          </li>
+          <li>
+            <strong>Assumes returns are roughly normally distributed.</strong> Strategies with
+            rare large losses (selling out-of-the-money options, for example) can show a high
+            Sharpe right up until the tail event lands. The Sharpe is technically computed
+            correctly but understates true risk.
+          </li>
+          <li>
+            <strong>Sensitive to the measurement window.</strong> A strategy can have wildly
+            different Sharpes across different five-year windows. Single-window Sharpe figures
+            should be paired with rolling-window analysis to confirm stability.
+          </li>
+        </ul>
+
+        <h2>How QScoring uses it</h2>
+        <p>
+          Sharpe ratio isn&apos;t a per-stock metric, so it doesn&apos;t enter the individual
+          QScore directly. Where it matters is{" "}
+          <Link href="/methodology#validation">validation</Link>: the QScoring pledge commits
+          to publishing a long-short quintile-spread Sharpe of at least 1.5 before subscription
+          billing turns on. That bar is deliberately conservative — Sharpe 1.5 is solidly in
+          &ldquo;good&rdquo; territory for a publicly-disclosed factor strategy and high
+          enough that surviving look-ahead bias scrutiny is meaningful.
+        </p>
+        <p>
+          Until the formal backtest publishes, the{" "}
+          <Link href="/performance">live performance page</Link> tracks every QScore we
+          compute as it&apos;s captured — locked into public source control so the eventual
+          Sharpe calculation is transparent and auditable.
+        </p>
+
+        <h2>Common mistakes</h2>
+        <ul>
+          <li>
+            <strong>Trusting a single high Sharpe number.</strong> A backtested Sharpe of 4.0
+            is more often a calculation problem than a money-printing strategy. Look for the
+            rolling Sharpe, the worst-window Sharpe, and the look-ahead-bias verification
+            before believing the headline.
+          </li>
+          <li>
+            <strong>Comparing Sharpes across asset classes naively.</strong> A 1.5 Sharpe in
+            equities means something different than a 1.5 Sharpe in volatility-selling
+            strategies (the latter often has nasty left-tail risk Sharpe doesn&apos;t capture).
+          </li>
+          <li>
+            <strong>Ignoring the risk-free rate input.</strong> When rates are at 0%, the
+            numerator is just the strategy return. When rates are at 5%, a strategy returning
+            6% is barely earning excess return at all — the Sharpe drops sharply even though
+            the headline return is unchanged.
+          </li>
+          <li>
+            <strong>Treating Sharpe as the only measure that matters.</strong> Maximum
+            drawdown, time-to-recovery, and tail risk all matter. A 1.5 Sharpe with a 60%
+            drawdown is not the same product as a 1.5 Sharpe with a 12% drawdown.
+          </li>
+        </ul>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/glossary/sharpe-ratio">Sharpe ratio in the glossary</Link>
+          </li>
+          <li>
+            <Link href="/glossary/information-coefficient">Information coefficient</Link> —
+            the other validation metric that pairs with Sharpe in the QScoring pledge
+          </li>
+          <li>
+            <Link href="/blog/beta-explained">Beta explained</Link> — the metric that
+            originally tried to do what Sharpe ratio does
+          </li>
+          <li>
+            <Link href="/methodology#validation">Validation pledge</Link> — the specific
+            Sharpe bar QScoring commits to before billing turns on
+          </li>
+          <li>
+            <Link href="/performance">Live performance tracking</Link> — the dataset the
+            eventual Sharpe will be computed on
+          </li>
+        </ul>
+      </>
+    ),
+  },
 ];
 
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
