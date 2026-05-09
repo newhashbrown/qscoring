@@ -212,6 +212,97 @@ export default function PortfolioAnalyzer() {
   );
 }
 
+// Mapping signal → one-sentence explanation of what the QScore framework
+// is saying about that position. Carefully phrased as "what the model
+// thinks" rather than "what you should do" — see the disclaimer next to
+// the table. Tone classes drive the colored left-edge stripe.
+const SIGNAL_CONTEXT: Record<string, { phrase: string; tone: "bullish" | "bearish" | "neutral" }> = {
+  BUY_LONG_TERM: {
+    phrase:
+      "Model rates a Buy on the long-term composite. Holding aligns with the signal; adding aligns with it.",
+    tone: "bullish",
+  },
+  BUY_SHORT_TERM: {
+    phrase:
+      "Model rates a Buy on the short-term composite, driven by momentum. Holding aligns with the signal.",
+    tone: "bullish",
+  },
+  HOLD: {
+    phrase:
+      "Model has no decisive view. Neither buy nor short composite crosses its threshold.",
+    tone: "neutral",
+  },
+  SHORT: {
+    phrase:
+      "Model rates Short — the composite signals the position is unattractive on the current factor mix. Holding contradicts the signal.",
+    tone: "bearish",
+  },
+};
+
+function PerPositionTable({ rows }: { rows: PortfolioAnalysis["rows"] }) {
+  const scored = rows.filter((r) => r.pick !== null);
+  if (scored.length === 0) return null;
+  // Sort by composite descending so the strongest-rated holding is at the
+  // top and the weakest is at the bottom.
+  const sorted = [...scored].sort(
+    (a, b) => (b.pick?.composite ?? 0) - (a.pick?.composite ?? 0)
+  );
+
+  return (
+    <section className="portfolio-block portfolio-positions">
+      <h2>What the model says about each holding</h2>
+      <p className="portfolio-block-lede">
+        QScore signal per position, sorted by composite. This is{" "}
+        <strong>what the model says</strong> based on the five-factor breakdown — not a
+        personalized recommendation. Click any ticker for the full breakdown.
+      </p>
+
+      <div className="position-table" role="table" aria-label="Per-position QScore signals">
+        <div className="position-row position-head" role="row">
+          <span role="columnheader">Ticker</span>
+          <span role="columnheader">Weight</span>
+          <span role="columnheader">QScore</span>
+          <span role="columnheader">Signal</span>
+          <span role="columnheader">What the model says</span>
+        </div>
+        {sorted.map((r) => {
+          const ctx = SIGNAL_CONTEXT[r.pick?.signal ?? "HOLD"];
+          return (
+            <div key={r.ticker} className={`position-row tone-${ctx.tone}`} role="row">
+              <Link href={`/score/${r.ticker}`} className="position-ticker" role="cell">
+                {r.ticker}
+              </Link>
+              <span role="cell" className="position-weight">
+                {(r.weight * 100).toFixed(1)}%
+              </span>
+              <span
+                role="cell"
+                className={`position-composite tone-${ctx.tone}`}
+              >
+                {r.pick?.composite}
+              </span>
+              <span role="cell" className={`position-signal tone-${ctx.tone}`}>
+                {{ BUY_LONG_TERM: "Buy LT", BUY_SHORT_TERM: "Buy ST", HOLD: "Hold", SHORT: "Short" }[r.pick?.signal ?? "HOLD"]}
+              </span>
+              <span role="cell" className="position-context">
+                {ctx.phrase}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <p className="portfolio-positions-note">
+        <strong>Important:</strong> the &ldquo;Signal&rdquo; column is what the QScore framework
+        outputs based on factor scores — it&apos;s information, not investment advice. Whether
+        to buy, hold, sell, or trim a position depends on your tax situation, time horizon,
+        portfolio correlation, conviction, and risk tolerance — none of which the model knows
+        about.
+      </p>
+    </section>
+  );
+}
+
 function Result({ analysis }: { analysis: PortfolioAnalysis }) {
   const { aggregate, signalDistribution, sectorBreakdown, strongest, weakest, confidence, rows } =
     analysis;
@@ -341,6 +432,9 @@ function Result({ analysis }: { analysis: PortfolioAnalysis }) {
           </ul>
         </section>
       </div>
+
+      <PerPositionTable rows={rows} />
+
 
       {failedRows.length > 0 && (
         <section className="portfolio-block portfolio-failures">
