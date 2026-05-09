@@ -1,0 +1,304 @@
+"use client";
+
+import Link from "next/link";
+import { useState, type FormEvent } from "react";
+import {
+  MAX_PORTFOLIO_ENTRIES,
+  parsePortfolioInput,
+  type PortfolioAnalysis,
+} from "@/lib/portfolio";
+
+const SIGNAL_LABEL: Record<string, string> = {
+  BUY_LONG_TERM: "Buy Long-Term",
+  BUY_SHORT_TERM: "Buy Short-Term",
+  HOLD: "Hold",
+  SHORT: "Short",
+};
+
+const SIGNAL_TONE: Record<string, "bullish" | "bearish" | "neutral"> = {
+  BUY_LONG_TERM: "bullish",
+  BUY_SHORT_TERM: "bullish",
+  HOLD: "neutral",
+  SHORT: "bearish",
+};
+
+const FACTOR_LABEL: Record<string, string> = {
+  value: "Value",
+  growth: "Growth",
+  momentum: "Momentum",
+  profitability: "Profitability",
+  risk: "Risk",
+};
+
+function factorTone(score: number): "green" | "amber" | "red" {
+  if (score >= 65) return "green";
+  if (score >= 40) return "amber";
+  return "red";
+}
+
+const PLACEHOLDER = `# Paste tickers, one per line. Optional weight after the symbol.
+# No weights = equal-weight default. Comments start with #.
+
+AAPL 15
+NVDA 12
+MSFT 10
+GOOGL 8
+AMZN 8
+META 7
+JPM 5
+V 5`;
+
+type Status = "idle" | "submitting" | "success" | "error";
+
+export default function PortfolioAnalyzer() {
+  const [text, setText] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [parseErrors, setParseErrors] = useState<string[]>([]);
+  const [analysis, setAnalysis] = useState<PortfolioAnalysis | null>(null);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status === "submitting") return;
+    setStatus("submitting");
+    setErrorMessage("");
+    setAnalysis(null);
+
+    const parsed = parsePortfolioInput(text);
+    setParseErrors(parsed.errors);
+
+    if (parsed.entries.length === 0) {
+      setStatus("error");
+      setErrorMessage("No valid tickers found. Each line should be a ticker symbol like AAPL.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/portfolio/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          entries: parsed.entries.map((e) => ({
+            ticker: e.ticker,
+            rawWeight: e.rawWeight,
+          })),
+        }),
+      });
+      const json = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        analysis?: PortfolioAnalysis;
+        error?: string;
+      };
+      if (!res.ok || !json.ok || !json.analysis) {
+        setStatus("error");
+        setErrorMessage(json.error ?? `Analysis failed (HTTP ${res.status}).`);
+        return;
+      }
+      setAnalysis(json.analysis);
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setErrorMessage("Network error — try again in a moment.");
+    }
+  }
+
+  return (
+    <>
+      <form className="portfolio-form" onSubmit={handleSubmit}>
+        <label className="portfolio-label" htmlFor="portfolio-input">
+          Your portfolio
+          <span className="portfolio-hint">
+            One ticker per line, with optional weight (max {MAX_PORTFOLIO_ENTRIES} entries)
+          </span>
+        </label>
+        <textarea
+          id="portfolio-input"
+          className="portfolio-input"
+          rows={12}
+          spellCheck={false}
+          placeholder={PLACEHOLDER}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          disabled={status === "submitting"}
+        />
+        <div className="portfolio-actions">
+          <button
+            type="submit"
+            className="portfolio-submit"
+            disabled={status === "submitting" || text.trim().length === 0}
+          >
+            {status === "submitting" ? "Analyzing…" : "Analyze portfolio →"}
+          </button>
+          <span className="portfolio-stateless">
+            Stateless — we don&apos;t store your holdings.
+          </span>
+        </div>
+        {status === "error" && errorMessage && (
+          <p className="portfolio-error" role="alert">{errorMessage}</p>
+        )}
+        {parseErrors.length > 0 && (
+          <ul className="portfolio-parse-errors">
+            {parseErrors.map((e, i) => (
+              <li key={i}>{e}</li>
+            ))}
+          </ul>
+        )}
+      </form>
+
+      {analysis && <Result analysis={analysis} />}
+    </>
+  );
+}
+
+function Result({ analysis }: { analysis: PortfolioAnalysis }) {
+  const { aggregate, signalDistribution, sectorBreakdown, strongest, weakest, confidence, rows } =
+    analysis;
+  const compositeRounded = Math.round(aggregate.composite);
+  const compositeTone = factorTone(compositeRounded) === "green" ? "bullish" : factorTone(compositeRounded) === "red" ? "bearish" : "neutral";
+  const failedRows = rows.filter((r) => !r.pick);
+
+  return (
+    <section className="portfolio-result" aria-label="Portfolio analysis">
+      <header className="portfolio-result-head">
+        <div>
+          <p className="portfolio-eyebrow">Aggregate QScore</p>
+          <p className={`portfolio-composite tone-${compositeTone}`}>
+            {compositeRounded}
+            <span className="portfolio-composite-suffix">/100</span>
+          </p>
+        </div>
+        <div className="portfolio-coverage">
+          <p className="portfolio-eyebrow">Coverage</p>
+          <p className="portfolio-coverage-value">
+            {Math.round(confidence.coverageWeight * 100)}% of weight scored
+          </p>
+          {failedRows.length > 0 && (
+            <p className="portfolio-coverage-note">
+              {failedRows.length} ticker{failedRows.length === 1 ? "" : "s"} couldn&apos;t be scored
+            </p>
+          )}
+        </div>
+      </header>
+
+      <section className="portfolio-block">
+        <h2>Factor exposure</h2>
+        <p className="portfolio-block-lede">
+          Weighted average across your holdings. High scores (green) are tailwinds; low scores
+          (red) are drags on the composite.
+        </p>
+        <ul className="portfolio-factor-list">
+          {(["value", "growth", "momentum", "profitability", "risk"] as const).map((f) => {
+            const score = Math.round(aggregate.factors[f] ?? 0);
+            return (
+              <li key={f}>
+                <span className="portfolio-factor-label">{FACTOR_LABEL[f]}</span>
+                <div className="portfolio-factor-bar">
+                  <div
+                    className={`portfolio-factor-fill ${factorTone(score)}`}
+                    style={{ width: `${Math.max(2, score)}%` }}
+                  />
+                </div>
+                <span className={`portfolio-factor-score ${factorTone(score)}`}>{score}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="portfolio-block">
+        <h2>Signal mix</h2>
+        <p className="portfolio-block-lede">Distribution of signals across your portfolio (by weight).</p>
+        <ul className="portfolio-signal-list">
+          {(["BUY_LONG_TERM", "BUY_SHORT_TERM", "HOLD", "SHORT"] as const).map((sig) => {
+            const entry = signalDistribution[sig];
+            const pct = Math.round(entry.weight * 100);
+            return (
+              <li key={sig} className={`tone-${SIGNAL_TONE[sig]}`}>
+                <span className="portfolio-signal-label">{SIGNAL_LABEL[sig]}</span>
+                <span className="portfolio-signal-count">
+                  {entry.count} name{entry.count === 1 ? "" : "s"} · {pct}%
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      {sectorBreakdown.length > 0 && (
+        <section className="portfolio-block">
+          <h2>Sector concentration</h2>
+          <ul className="portfolio-sector-list">
+            {sectorBreakdown.map((s) => (
+              <li key={s.sector}>
+                <span className="portfolio-sector-name">{s.sector}</span>
+                <div className="portfolio-sector-bar">
+                  <div
+                    className="portfolio-sector-fill"
+                    style={{ width: `${Math.max(3, Math.round(s.weight * 100))}%` }}
+                  />
+                </div>
+                <span className="portfolio-sector-pct">{Math.round(s.weight * 100)}%</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <div className="portfolio-extremes">
+        <section className="portfolio-block">
+          <h2>Strongest holdings</h2>
+          <ul className="portfolio-extreme-list">
+            {strongest.map((r) => (
+              <li key={r.ticker}>
+                <Link href={`/score/${r.ticker}`} className="portfolio-extreme-row">
+                  <span className="portfolio-extreme-ticker">{r.ticker}</span>
+                  <span className="portfolio-extreme-name">{r.pick?.companyName}</span>
+                  <span className={`portfolio-extreme-score tone-${SIGNAL_TONE[r.pick?.signal ?? "HOLD"]}`}>
+                    {r.pick?.composite}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="portfolio-block">
+          <h2>Weakest holdings</h2>
+          <ul className="portfolio-extreme-list">
+            {weakest.map((r) => (
+              <li key={r.ticker}>
+                <Link href={`/score/${r.ticker}`} className="portfolio-extreme-row">
+                  <span className="portfolio-extreme-ticker">{r.ticker}</span>
+                  <span className="portfolio-extreme-name">{r.pick?.companyName}</span>
+                  <span className={`portfolio-extreme-score tone-${SIGNAL_TONE[r.pick?.signal ?? "HOLD"]}`}>
+                    {r.pick?.composite}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      {failedRows.length > 0 && (
+        <section className="portfolio-block portfolio-failures">
+          <h2>Couldn&apos;t score</h2>
+          <ul>
+            {failedRows.map((r) => (
+              <li key={r.ticker}>
+                <strong>{r.ticker}</strong> — {r.error ?? "no score available"}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <p className="portfolio-disclaimer">
+        Factor exposure analysis only — not investment advice, a recommendation, or a solicitation.
+        Aggregate QScore is a weighted average of individual factor scores; treat it as a structured
+        second opinion, not a strategy verdict. Read the{" "}
+        <Link href="/methodology">methodology</Link> for how factors are computed.
+      </p>
+    </section>
+  );
+}
