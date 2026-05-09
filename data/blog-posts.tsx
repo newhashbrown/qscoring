@@ -29,7 +29,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How to read a QScore: the five factors explained",
     description:
       "A plain-English walkthrough of the five factor categories that combine into every QScore — value, growth, momentum, profitability, and risk — and what each one is actually measuring under the hood.",
-    publishedAt: "2026-05-09",
+    publishedAt: "2026-05-08",
     readTimeMinutes: 6,
     excerpt:
       "Every QScore is a weighted average of five factor categories, each scored from 0 to 100 against the ticker's sector. Here's what each one is actually measuring, why it's there, and how to read the breakdown when the composite alone isn't enough.",
@@ -171,7 +171,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "What is the QScore? A transparent quant signal for any US stock",
     description:
       "QScoring takes the well-established Fama-French factor framework and turns it into a single 1–100 score with a clear signal — fully documented, no black boxes, and free until backtested.",
-    publishedAt: "2026-05-09",
+    publishedAt: "2026-05-08",
     readTimeMinutes: 5,
     excerpt:
       "The QScore distills decades of factor-investing research into a single number with a clear signal. Here's what it is, how it's built, what it isn't, and the validation pledge that keeps the methodology honest.",

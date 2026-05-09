@@ -3,20 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import DemoCardView, { type DemoData } from "./DemoCardView";
+import { marketCloseLabel } from "@/lib/market-date";
 
 const CYCLE_MS = 4500;
-
-// Render the snapshot date in UTC so SSR and CSR output match exactly.
-// Switching to a relative ("X minutes ago") label later would need a
-// suppressHydrationWarning hook to avoid a tz/ago drift on hydration.
-function formatSnapshotDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  });
-}
 
 type DemoCarouselProps = {
   picks: DemoData[];
@@ -79,8 +68,7 @@ export default function DemoCarousel({ picks, generatedAt }: DemoCarouselProps) 
 
       {generatedAt && (
         <p className="demo-caption">
-          Quant snapshot · {formatSnapshotDate(generatedAt)} · refreshed daily ·
-          prices reflect last market close
+          Quant snapshot from {marketCloseLabel(generatedAt)} · refreshed daily
         </p>
       )}
     </div>

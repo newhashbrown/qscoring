@@ -15,6 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { ScoreboardPick } from "@/data/categories";
+import { marketCloseDate } from "@/lib/market-date";
 
 export type Snapshot = {
   date: string; // YYYY-MM-DD (UTC)
@@ -101,23 +102,37 @@ export function summarizePerformance(): PerformanceSummary {
     };
   }
 
-  const firstDate = dates[0];
   const latestDate = dates[dates.length - 1];
   const latestSnapshot = loadSnapshot(latestDate);
 
   // Compute totals by reading every snapshot. Cheap because each is small
   // and the page revalidates daily.
   let totalObservations = 0;
+  let firstSnapshotGeneratedAt: string | null = null;
   for (const date of dates) {
     const snap = loadSnapshot(date);
-    if (snap) totalObservations += snap.picks.length;
+    if (!snap) continue;
+    totalObservations += snap.picks.length;
+    if (firstSnapshotGeneratedAt === null) {
+      firstSnapshotGeneratedAt = snap.generatedAt;
+    }
   }
 
+  // The "tracked since" date is the US market close the FIRST snapshot
+  // captures, not the UTC filename. The UTC date can be one calendar day
+  // ahead of the actual market session for snapshots committed late at
+  // night ET, which made the page read as "tracking since tomorrow."
+  const trackedSinceDate = firstSnapshotGeneratedAt
+    ? marketCloseDate(firstSnapshotGeneratedAt)
+    : null;
+
   const today = new Date().toISOString().split("T")[0];
-  const tradingDaysSinceFirst = tradingDaysBetween(firstDate, today);
+  const tradingDaysSinceFirst = trackedSinceDate
+    ? tradingDaysBetween(trackedSinceDate, today)
+    : 0;
 
   return {
-    trackedSinceDate: firstDate,
+    trackedSinceDate,
     daysCaptured: dates.length,
     totalObservations,
     averageTickersPerSnapshot:

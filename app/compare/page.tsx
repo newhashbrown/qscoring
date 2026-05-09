@@ -3,6 +3,7 @@ import ScoreNav from "@/app/components/ScoreNav";
 import { CURATED_PAIRS, pairToSlug } from "@/lib/compare";
 import scoreboardData from "@/data/scoreboard.json";
 import type { ScoreboardPick } from "@/data/categories";
+import { marketCloseLabel } from "@/lib/market-date";
 
 export const metadata = {
   title: "Compare Stocks Side by Side — QScore",
@@ -29,13 +30,7 @@ function findPick(ticker: string): ScoreboardPick | undefined {
 }
 
 export default function CompareIndexPage() {
-  const generatedAt = scoreboardData.generatedAt;
-  const dateLabel = new Date(generatedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+  const dateLabel = marketCloseLabel(scoreboardData.generatedAt);
 
   return (
     <>

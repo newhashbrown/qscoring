@@ -2,6 +2,7 @@ import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import { CATEGORIES } from "@/data/categories";
 import scoreboardData from "@/data/scoreboard.json";
+import { marketCloseLabel } from "@/lib/market-date";
 
 export const metadata = {
   title: "QScore Stock Categories — AI, Tech, Momentum, and More",
@@ -27,16 +28,9 @@ const collectionJsonLd = {
 };
 
 export default function ScoresIndexPage() {
-  // generatedAt timestamp from the prebuilt scoreboard. Helps users (and
-  // crawlers) understand the data freshness without needing to compute
-  // anything at SSR.
-  const generatedAt = scoreboardData.generatedAt;
-  const dateLabel = new Date(generatedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+  // Display the US market close date the snapshot reflects, not the raw
+  // UTC date of the script run — see lib/market-date.ts for the rationale.
+  const dateLabel = marketCloseLabel(scoreboardData.generatedAt);
 
   return (
     <>
