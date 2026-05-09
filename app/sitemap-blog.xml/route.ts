@@ -1,5 +1,5 @@
 import { urlsetXml, SITEMAP_HEADERS } from "@/lib/sitemap/xml";
-import { BLOG_POSTS } from "@/data/blog-posts";
+import { BLOG_POSTS, CLUSTER_SLUGS } from "@/data/blog-posts";
 
 const SITE = "https://qscoring.com";
 
@@ -15,6 +15,12 @@ export async function GET() {
       changefreq: "weekly" as const,
       priority: 0.85,
     },
+    ...CLUSTER_SLUGS.map((slug) => ({
+      loc: `${SITE}/blog/${slug}`,
+      lastmod: today,
+      changefreq: "weekly" as const,
+      priority: 0.8,
+    })),
     ...BLOG_POSTS.map((p) => ({
       loc: `${SITE}/blog/${p.slug}`,
       lastmod: p.publishedAt,
