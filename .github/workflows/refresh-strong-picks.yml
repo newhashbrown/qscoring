@@ -1,13 +1,21 @@
 name: Refresh strong picks
 
-# Daily rebuild of data/strong-picks.json. Hits the deployed /api/score
-# endpoint to leverage the production cache layer; commits and pushes only
-# if the file actually changed (so we don't churn deploys on no-op runs).
+# Daily rebuild of:
+#   - data/strong-picks.json     — homepage carousel + landing surfaces
+#   - data/scoreboard.json       — per-ticker rows for category, compare,
+#                                   portfolio, and watchlist-alert features
+#   - data/snapshots/YYYY-MM-DD.json — append-only locked snapshot for /performance
+#
+# Hits the deployed /api/score endpoint so it leverages the production
+# cache layer. Commits and pushes only if the data actually changed
+# (so no-op days don't churn deploys). After the push, sleeps to give
+# Cloudflare Workers Builds time to deploy, then triggers the watchlist
+# alert cron so users get a same-day digest of any signal flips.
 
 on:
   schedule:
-    # 09:30 UTC = ~4:30am ET, before US pre-market activity. Picks reflect
-    # the prior trading day's close.
+    # 09:30 UTC = ~4:30am ET, before US pre-market activity. Picks
+    # reflect the prior trading day's close.
     - cron: '30 9 * * *'
   workflow_dispatch:
 
@@ -17,6 +25,7 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -28,19 +37,50 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build strong picks
+      - name: Build strong picks + scoreboard + snapshot
         run: npm run strong-picks
         env:
           QSCORING_BASE: https://qscoring.com
 
       - name: Commit and push if changed
+        id: commit
         run: |
-          if [[ -z "$(git status --porcelain data/strong-picks.json)" ]]; then
-            echo "No change to strong picks — skipping commit."
+          # Stage all the daily-refresh data files (script writes three of them).
+          git add data/strong-picks.json data/scoreboard.json data/snapshots/
+          if git diff --staged --quiet; then
+            echo "No change to refresh data — skipping commit."
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/strong-picks.json
-          git commit -m "chore: refresh strong picks $(date -u +%Y-%m-%d)"
+          git commit -m "chore: refresh strong picks + scoreboard + snapshot $(date -u +%Y-%m-%d)"
           git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for Cloudflare deploy + trigger watchlist alerts
+        if: steps.commit.outputs.pushed == 'true'
+        # Cloudflare Workers Builds usually deploys within 1-2 minutes of a
+        # push. Sleep 4 min as a safety margin before hitting the alert
+        # endpoint — otherwise the cron would read the OLD scoreboard from
+        # the previous deploy and miss today's flips.
+        run: |
+          echo "Sleeping 240s to let Cloudflare deploy..."
+          sleep 240
+          # The endpoint requires Authorization: Bearer ${WATCHLIST_CRON_TOKEN}.
+          # WATCHLIST_CRON_TOKEN must be set in BOTH:
+          #   1. Cloudflare secret (so the worker can verify): wrangler secret put WATCHLIST_CRON_TOKEN
+          #   2. GitHub repo secret (so this workflow can authenticate): repo Settings → Secrets → Actions
+          # Same value in both places.
+          response=$(curl -sS -X POST https://qscoring.com/api/cron/watchlist-alerts \
+            -H "Authorization: Bearer ${{ secrets.WATCHLIST_CRON_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -w "\nHTTP_STATUS:%{http_code}")
+          echo "$response"
+          status=$(echo "$response" | tail -n 1 | sed 's/HTTP_STATUS://')
+          if [[ "$status" != "200" ]]; then
+            echo "Alert cron returned non-200 — failing soft (snapshot was still pushed successfully)."
+            # Don't exit non-zero; the snapshot is committed and that's the
+            # critical path. Alert delivery is best-effort and any error is
+            # surfaced in the response body for debugging.
+          fi
