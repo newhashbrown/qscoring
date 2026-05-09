@@ -1,11 +1,16 @@
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
-import { BLOG_POSTS } from "@/data/blog-posts";
+import {
+  BLOG_POSTS,
+  CLUSTERS,
+  CLUSTER_SLUGS,
+  postsInCluster,
+} from "@/data/blog-posts";
 
 export const metadata = {
-  title: "QScoring Blog — Factor Investing, Quant Scores, and How They Work",
+  title: "QScoring Blog — Factor Investing, Stock Comparisons, and Quant Methodology",
   description:
-    "Plain-English explainers on QScore methodology, factor investing fundamentals, and how to use the QScoring product day-to-day.",
+    "Plain-English explainers on QScore methodology, factor investing fundamentals, head-to-head stock comparisons, and individual financial metrics — all linked to live ticker scores.",
   alternates: { canonical: "https://qscoring.com/blog" },
 };
 
@@ -15,7 +20,7 @@ const blogJsonLd = {
   "@id": "https://qscoring.com/blog",
   name: "QScoring Blog",
   description:
-    "Explainers on factor investing, quant scoring methodology, and how to read the QScore.",
+    "Explainers on factor investing, quant scoring methodology, head-to-head stock comparisons, and individual financial metrics.",
   publisher: {
     "@type": "Organization",
     name: "QScoring",
@@ -31,7 +36,7 @@ const blogJsonLd = {
 };
 
 function formatDate(iso: string): string {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -40,8 +45,6 @@ function formatDate(iso: string): string {
 }
 
 export default function BlogIndexPage() {
-  const sorted = [...BLOG_POSTS].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
-
   return (
     <>
       <script
@@ -56,26 +59,56 @@ export default function BlogIndexPage() {
       <main className="methodology blog-index">
         <header className="method-header">
           <p className="method-eyebrow">Blog</p>
-          <h1>Factor investing, in plain English</h1>
+          <h1>Factor investing and quant scoring, in plain English</h1>
           <p className="method-lede">
-            Explainers on the QScore methodology, the academic factor research it draws from,
-            and how to use the product to think clearly about individual stocks.
+            Posts are organized into four clusters — pick the topic you&apos;re here for, or
+            browse the latest below. Every post is hand-written, evergreen where possible, and
+            cross-linked to the live product (methodology, glossary terms, ticker scores, and
+            head-to-head comparisons).
           </p>
         </header>
 
-        <ul className="blog-list">
-          {sorted.map((p) => (
-            <li key={p.slug}>
-              <Link href={`/blog/${p.slug}`} className="blog-list-item">
-                <span className="blog-list-meta">
-                  {formatDate(p.publishedAt)} · {p.readTimeMinutes} min read
+        <section className="blog-clusters">
+          {CLUSTER_SLUGS.map((slug) => {
+            const def = CLUSTERS[slug];
+            const count = postsInCluster(slug).length;
+            return (
+              <Link key={slug} href={`/blog/${slug}`} className="blog-cluster-card">
+                <span className="blog-cluster-title">{def.title}</span>
+                <span className="blog-cluster-desc">{def.description}</span>
+                <span className="blog-cluster-meta">
+                  {count} {count === 1 ? "post" : "posts"}
                 </span>
-                <span className="blog-list-title">{p.title}</span>
-                <span className="blog-list-excerpt">{p.excerpt}</span>
               </Link>
-            </li>
-          ))}
-        </ul>
+            );
+          })}
+        </section>
+
+        {CLUSTER_SLUGS.map((slug) => {
+          const def = CLUSTERS[slug];
+          const posts = postsInCluster(slug);
+          if (posts.length === 0) return null;
+          return (
+            <section key={slug} className="blog-cluster-section">
+              <h2>
+                <Link href={`/blog/${slug}`}>{def.title}</Link>
+              </h2>
+              <ul className="blog-list">
+                {posts.map((p) => (
+                  <li key={p.slug}>
+                    <Link href={`/blog/${p.slug}`} className="blog-list-item">
+                      <span className="blog-list-meta">
+                        {formatDate(p.publishedAt)} · {p.readTimeMinutes} min read
+                      </span>
+                      <span className="blog-list-title">{p.title}</span>
+                      <span className="blog-list-excerpt">{p.excerpt}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </main>
 
       <footer>

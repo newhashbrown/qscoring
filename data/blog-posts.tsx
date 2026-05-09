@@ -1,20 +1,83 @@
 /**
  * Blog post registry. Each post is a fully-typed entry with metadata
- * (title, description, publishedAt, excerpt) and a Body() React function
- * that renders the post content. The /blog index reads metadata for the
- * listing; /blog/[slug] looks up the post by slug and renders Body.
+ * (title, description, publishedAt, excerpt, cluster) and a Body() React
+ * function that renders the post content. The /blog index reads metadata
+ * for the listing; /blog/[slug] looks up the post by slug and renders Body.
  *
- * Posts here should be quality, hand-written, evergreen, and cross-linked
- * to live product surfaces (/methodology, /glossary/*, /scores, /compare).
- * Auto-generated ticker-specific posts can be added separately later if
- * we ever decide to do them — but the bar should be deliberately high so
- * the blog never reads like AI spam.
+ * Posts are organized into clusters for SEO topical-authority signaling
+ * (every post links to others in its cluster + to live product surfaces).
+ * Cluster-index pages live at /blog/{cluster-slug}.
+ *
+ * Quality bar is high: hand-written, evergreen where possible, deeply
+ * cross-linked to /methodology, /glossary/*, /scores, /compare, /score/*.
+ * Auto-generated ticker-month posts stay deferred — the Helpful Content
+ * penalty surface is real and we'd rather under-publish than dilute.
  */
 
 import Link from "next/link";
 
+export type BlogCluster =
+  | "qscore-methodology"
+  | "factor-investing"
+  | "stock-comparisons"
+  | "stock-metrics"
+  | "market-signals";
+
+export type ClusterDef = {
+  slug: BlogCluster;
+  title: string;
+  description: string;
+  intro: string;
+};
+
+export const CLUSTERS: Record<BlogCluster, ClusterDef> = {
+  "qscore-methodology": {
+    slug: "qscore-methodology",
+    title: "QScore methodology",
+    description:
+      "How the QScore is built — the five factors, how they combine, how the signal is derived, and what it means in practice.",
+    intro:
+      "Posts in this cluster explain the mechanics behind the QScore: what each factor measures, how they're weighted, and how the signal turns the composite into a directional verdict.",
+  },
+  "factor-investing": {
+    slug: "factor-investing",
+    title: "Factor investing",
+    description:
+      "Plain-English explainers on the academic factor framework that underlies the QScore.",
+    intro:
+      "Factor investing — the academic framework that powers most modern quant strategies. Posts here explain each factor in detail with real-world examples and link to the live ticker scores.",
+  },
+  "stock-comparisons": {
+    slug: "stock-comparisons",
+    title: "Stock comparisons",
+    description:
+      "Editorial analysis of head-to-head stock matchups using the QScore framework.",
+    intro:
+      "When two stocks compete in the same space, the QScore factor breakdowns reveal what the market is actually rewarding. These posts dig into the differences behind popular head-to-head matchups.",
+  },
+  "stock-metrics": {
+    slug: "stock-metrics",
+    title: "Stock metrics",
+    description:
+      "Deep-dive explainers on individual financial metrics — what they measure, how they're computed, and where they fail.",
+    intro:
+      "Every metric the QScore consumes has a story. These posts go beyond the glossary definition into how each metric is actually computed, when it's most useful, and the common pitfalls when reading it.",
+  },
+  "market-signals": {
+    slug: "market-signals",
+    title: "Market signals",
+    description:
+      "Reading QScore signals in the context of broader market regime and sector rotation.",
+    intro:
+      "Posts on how to interpret QScore signals in the context of broader market regime, sector rotation, and macro themes.",
+  },
+};
+
+export const CLUSTER_SLUGS = Object.keys(CLUSTERS) as BlogCluster[];
+
 export type BlogPost = {
   slug: string;
+  cluster: BlogCluster;
   title: string;
   description: string;
   publishedAt: string; // YYYY-MM-DD
@@ -26,6 +89,7 @@ export type BlogPost = {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "how-to-read-a-qscore",
+    cluster: "qscore-methodology",
     title: "How to read a QScore: the five factors explained",
     description:
       "A plain-English walkthrough of the five factor categories that combine into every QScore — value, growth, momentum, profitability, and risk — and what each one is actually measuring under the hood.",
@@ -168,6 +232,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "what-is-the-qscore",
+    cluster: "qscore-methodology",
     title: "What is the QScore? A transparent quant signal for any US stock",
     description:
       "QScoring takes the well-established Fama-French factor framework and turns it into a single 1–100 score with a clear signal — fully documented, no black boxes, and free until backtested.",
@@ -297,8 +362,471 @@ export const BLOG_POSTS: BlogPost[] = [
       </>
     ),
   },
+  {
+    slug: "nvda-vs-amd",
+    cluster: "stock-comparisons",
+    title: "NVDA vs AMD: how the QScore breakdown reveals two different AI bets",
+    description:
+      "NVIDIA and AMD both make the chips powering the AI buildout, but the QScore factor breakdown shows they're very different bets. A walkthrough of where they overlap, where they diverge, and what the live numbers say.",
+    publishedAt: "2026-05-08",
+    readTimeMinutes: 7,
+    excerpt:
+      "Same sector, similar narrative, very different factor profiles. Here's what the QScore breakdown reveals about NVDA vs AMD — and why treating them as interchangeable AI plays is the most common mistake.",
+    Body: () => (
+      <>
+        <p>
+          NVIDIA and AMD both make the chips powering the AI buildout. Both are in the
+          Semiconductor industry under the Technology sector. Both have ridden multi-year
+          rallies. The natural assumption is that they&apos;re interchangeable bets on the same
+          theme — buy one, you might as well have bought the other.
+        </p>
+        <p>
+          The QScore factor breakdown tells a different story. Open the{" "}
+          <Link href="/compare/nvda-vs-amd">live NVDA vs AMD comparison</Link> and the
+          composite scores tend to land within a few points of each other, but the underlying
+          factor mix is materially different. This post walks through where they overlap, where
+          they diverge, and how to read the breakdown without falling into the
+          &ldquo;they&apos;re the same trade&rdquo; trap.
+        </p>
+
+        <h2>Where they overlap</h2>
+        <p>
+          The headline similarity is real. Both companies sell GPUs into the data-center market.
+          Both have benefitted enormously from the post-2022 surge in AI compute spend. Both
+          trade as Tier-1 names in the Semiconductors industry, which means they get
+          sector-normalized against the same peer set when QScoring computes their factor
+          z-scores.
+        </p>
+        <p>
+          That sector normalization matters. A 30% revenue growth rate is treated very
+          differently in Semiconductors than in Utilities — and{" "}
+          <Link href="/glossary/sector-normalization">sector-relative scoring</Link> is what
+          lets the QScore tell you who&apos;s strong relative to peers, not just relative to a
+          generic benchmark. NVDA and AMD share the same peer denominator on every factor.
+        </p>
+
+        <h2>Where they diverge</h2>
+        <p>
+          The interesting differences show up factor by factor. The patterns we&apos;ve seen
+          most consistently:
+        </p>
+        <ul>
+          <li>
+            <strong>Value:</strong> AMD typically scores higher on value than NVDA. NVDA&apos;s
+            multi-year run has pushed its{" "}
+            <Link href="/glossary/pe-ratio">P/E ratio</Link>, P/S, and EV/EBITDA into the
+            upper end of the sector distribution. AMD has run too, but from a lower starting
+            multiple. If you&apos;re wired to think value-first, this is the gap that matters
+            most.
+          </li>
+          <li>
+            <strong>Growth:</strong> NVDA tends to score higher on growth — its data-center
+            segment compounded at multi-hundred-percent rates through 2023–2024 and the
+            trailing-twelve-month numbers reflect that. AMD&apos;s growth is strong by absolute
+            standards but smaller in magnitude.
+          </li>
+          <li>
+            <strong>Momentum:</strong> usually closer between the two, with NVDA pulling ahead
+            in periods when AI capex headlines dominate and AMD catching up when the trade
+            broadens out. The{" "}
+            <Link href="/glossary/momentum-factor">momentum factor</Link> in QScoring blends
+            12-month, 3-month, and 1-month returns with{" "}
+            <Link href="/glossary/rsi">RSI</Link> and moving-average position, so a single big
+            news day rarely flips this.
+          </li>
+          <li>
+            <strong>Profitability:</strong> NVDA is in a class of its own here — gross margins
+            in the 70%+ range and ROE that puts it near the top of the sector distribution. AMD
+            scores well but not at NVDA&apos;s tier.
+          </li>
+          <li>
+            <strong>Risk:</strong> both score lower on risk than the sector mean would suggest,
+            because the chip space is broadly more volatile than the index. Neither stock is a
+            low-vol play.
+          </li>
+        </ul>
+
+        <h2>The composite vs the factor pattern</h2>
+        <p>
+          A common pattern looks like this: NVDA composite slightly higher (driven by growth +
+          profitability), AMD composite close behind (lifted by value), and very different
+          shapes underneath. Two ways to read that:
+        </p>
+        <ul>
+          <li>
+            If you trust the value factor heavily, AMD looks more attractive on a risk-adjusted
+            basis even when its composite is the lower of the two.
+          </li>
+          <li>
+            If you weight growth and profitability heavily, NVDA wins on the factor signature
+            — even when both composites are within rounding distance.
+          </li>
+        </ul>
+        <p>
+          That&apos;s the value of looking past the headline number. Two stocks with the same
+          composite can be expressing very different bets.
+        </p>
+
+        <h2>Common mistake: treating them as interchangeable</h2>
+        <p>
+          The biggest analytical error we see is &ldquo;they both have similar QScores, so I
+          can pick whichever is cheaper.&rdquo; That works only if you&apos;re indifferent to
+          the factor exposure underneath. NVDA is a high-quality, high-growth, high-multiple
+          bet. AMD is a more value-tilted bet with comparable momentum. Holding both isn&apos;t
+          double-down on AI — it&apos;s a long-quality / long-value pair trade, which is a
+          different exposure than holding 2x of either alone.
+        </p>
+
+        <h2>How to read the live page</h2>
+        <p>
+          On the <Link href="/compare/nvda-vs-amd">live comparison page</Link>, the verdict box
+          at the top calls out the largest single factor gap and explains which side it favors.
+          The 8-row table shows composite, signal, confidence, price, long/short-term scores,
+          and all five factors, with the winner per row highlighted. Click into either ticker
+          for the full breakdown and AI commentary.
+        </p>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/blog/how-to-read-a-qscore">How to read a QScore</Link> — the
+            five-factor walkthrough
+          </li>
+          <li>
+            <Link href="/glossary/momentum-factor">Momentum factor</Link>, {" "}
+            <Link href="/glossary/value-factor">value factor</Link>, {" "}
+            <Link href="/glossary/profitability-factor">profitability factor</Link> in the
+            glossary
+          </li>
+          <li>
+            <Link href="/scores/ai-stocks">AI stocks category</Link> — both NVDA and AMD
+            ranked alongside other AI-exposed names
+          </li>
+          <li>
+            <Link href="/methodology#combining">Methodology: how factors combine</Link>
+          </li>
+        </ul>
+        <p>
+          Try a different pair of tickers? <Link href="/compare">Browse all comparisons</Link>{" "}
+          or type any pair into <code>/compare/AAA-vs-BBB</code>.
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "aapl-vs-msft",
+    cluster: "stock-comparisons",
+    title: "AAPL vs MSFT: which megacap looks better on the quant scorecard?",
+    description:
+      "Apple and Microsoft are roughly the same market cap, both core index holdings, both Tier-1 quality. Their QScores often land within a few points — but the factor signatures are very different. A breakdown.",
+    publishedAt: "2026-05-08",
+    readTimeMinutes: 7,
+    excerpt:
+      "Same size, same index weight, similar composite QScores — and very different bets underneath. Here's how AAPL and MSFT diverge on the factor breakdown, and what the typical pattern means for what you're actually owning.",
+    Body: () => (
+      <>
+        <p>
+          Apple and Microsoft are the two largest companies in the S&amp;P 500 by market cap.
+          Both are Tier-1 quality compounders. Both are core holdings of essentially every
+          large-cap fund and ETF. Their composite QScores typically land within a few points of
+          each other.
+        </p>
+        <p>
+          The factor signatures underneath are very different. Open the{" "}
+          <Link href="/compare/aapl-vs-msft">live AAPL vs MSFT comparison</Link> and the
+          breakdown reveals two distinct bets dressed up in similar headline numbers. This post
+          walks through what the differences actually mean.
+        </p>
+
+        <h2>The setup: same size, different shape</h2>
+        <p>
+          Apple sells hardware (iPhone, Mac, iPad, wearables) plus a fast-growing services
+          layer (App Store, Apple Music, iCloud, payments). Microsoft sells productivity
+          software (Office), cloud infrastructure (Azure), gaming (Xbox), enterprise tools
+          (Teams, GitHub), and an increasing AI surface area through OpenAI integration and
+          first-party Copilot products.
+        </p>
+        <p>
+          Both fall under the same Technology sector classification, so QScoring{" "}
+          <Link href="/glossary/sector-normalization">z-scores their metrics against the same
+          tech-megacap peer set</Link>. The shared denominator is what makes the factor
+          comparisons meaningful rather than apples-to-utilities.
+        </p>
+
+        <h2>Where they overlap</h2>
+        <ul>
+          <li>
+            <strong>Profitability:</strong> both extraordinary. Apple&apos;s ROE looks
+            astronomical (often 140%+) but is partly an artifact of years of aggressive
+            buybacks shrinking the equity denominator. Microsoft&apos;s ROE is high but more
+            &ldquo;structural.&rdquo; Both score in the upper tier of the profitability
+            distribution.
+          </li>
+          <li>
+            <strong>Risk:</strong> both score well — beta close to the market average and
+            realized volatility lower than smaller-cap tech peers. Neither is a high-vol play.
+          </li>
+          <li>
+            <strong>Confidence:</strong> both stocks have complete data coverage in QScoring,
+            so the confidence rating is generally HIGH or MEDIUM depending on whether the
+            composite lands in decisive (≥70 or ≤30) territory.
+          </li>
+        </ul>
+
+        <h2>Where they diverge</h2>
+        <ul>
+          <li>
+            <strong>Value:</strong> often comparable, with one notable trap. Apple&apos;s
+            price-to-book ratio runs near 40 because aggressive buybacks have driven book
+            value near zero — that&apos;s a metric distortion, not a true valuation signal.
+            QScoring sector-normalizes the value metrics, which partially mitigates this, but
+            the P/B reading on Apple genuinely is noisy. Microsoft&apos;s value metrics tend
+            to be cleaner reads.
+          </li>
+          <li>
+            <strong>Growth:</strong> Microsoft has typically scored higher on growth in recent
+            quarters, driven by Azure&apos;s sustained 25%+ growth and Copilot monetization.
+            Apple&apos;s growth has been more cyclical (depends on iPhone refresh cycle and
+            services attach rate). On a year-over-year revenue basis, MSFT often pulls ahead.
+          </li>
+          <li>
+            <strong>Momentum:</strong> regime-dependent. AI-narrative periods favor MSFT
+            (OpenAI, Copilot, Azure AI workloads). Hardware-refresh or services-strength
+            periods favor AAPL. The 12-month, 3-month, and 1-month returns blended into the{" "}
+            <Link href="/glossary/momentum-factor">momentum factor</Link> capture this
+            rotation.
+          </li>
+        </ul>
+
+        <h2>Reading the typical pattern</h2>
+        <p>
+          The most common pattern: composite scores within 3–5 points of each other,
+          profitability nearly identical, value comparable (with the AAPL P/B noise caveat),
+          growth and momentum slightly favoring MSFT in current AI-cycle conditions.
+        </p>
+        <p>
+          That means the headline composite undersells the difference. If you only look at the
+          number, AAPL and MSFT can look like the same bet. The factor breakdown shows MSFT as
+          a growth-and-cloud-tilted exposure and AAPL as a quality-and-buyback-yield exposure.
+          Both are defensible, neither is clearly &ldquo;better,&rdquo; but they&apos;re not
+          substitutable as factor positions.
+        </p>
+
+        <h2>Common mistake: ignoring the buyback distortion</h2>
+        <p>
+          Apple&apos;s capital return program has been the largest in corporate history. That
+          warps two metrics in particular: P/B (book value squeezed near zero) and ROE
+          (equity denominator shrunk artificially). Both make Apple look unusually expensive
+          on P/B and unusually profitable on ROE. The reality is more moderate.
+        </p>
+        <p>
+          QScoring&apos;s sector normalization helps because it&apos;s comparing Apple to
+          other mega-caps facing similar dynamics, but the distortion is real. When you read
+          Apple&apos;s value score, mentally weight it toward the P/E and P/S signals more
+          than P/B. When you read its profitability score, weight it toward gross margin and
+          operating margin more than ROE.
+        </p>
+
+        <h2>How to read the live page</h2>
+        <p>
+          The <Link href="/compare/aapl-vs-msft">live comparison page</Link> highlights the
+          largest factor gap in its verdict box. Use the per-row table to spot which factors
+          drive the composite difference. Open each ticker for the full metric-level breakdown
+          —{" "}
+          <Link href="/score/AAPL">AAPL detail</Link>,{" "}
+          <Link href="/score/MSFT">MSFT detail</Link> — to see the underlying P/E, P/B,
+          revenue growth, and so on.
+        </p>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/blog/how-to-read-a-qscore">How to read a QScore</Link>
+          </li>
+          <li>
+            <Link href="/glossary/value-factor">Value factor</Link>, {" "}
+            <Link href="/glossary/profitability-factor">profitability factor</Link>, {" "}
+            <Link href="/glossary/pe-ratio">P/E ratio</Link>
+          </li>
+          <li>
+            <Link href="/scores/large-cap-tech">Large-cap tech category</Link> — AAPL, MSFT,
+            and the rest of the megacap stack ranked
+          </li>
+          <li>
+            <Link href="/methodology#factor-value">Methodology: value section</Link> for the
+            P/B caveat in detail
+          </li>
+        </ul>
+        <p>
+          Want to compare a different pair? <Link href="/compare">All comparisons</Link>, or
+          type any two tickers into <code>/compare/AAA-vs-BBB</code>.
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "googl-vs-meta",
+    cluster: "stock-comparisons",
+    title: "GOOGL vs META: ad duopoly stocks under the QScore lens",
+    description:
+      "Search ads vs social ads. Two of the three largest digital advertising businesses on earth. Their QScore breakdowns reveal which one the model thinks is the cleaner factor bet today.",
+    publishedAt: "2026-05-08",
+    readTimeMinutes: 7,
+    excerpt:
+      "Both are ad-revenue platforms. Both ride the same digital-ad tailwind. Their composite QScores can land close — but the factor signatures show very different exposure profiles. Here's how to read the comparison.",
+    Body: () => (
+      <>
+        <p>
+          Alphabet (GOOGL) and Meta Platforms (META) together capture roughly half of US
+          digital advertising spend. Both are mega-cap platform businesses with multi-billion-
+          user reach, both lean heavily on ad-driven monetization, and both trade in the
+          Communication Services sector. The natural framing is &ldquo;they&apos;re the ad
+          duopoly, pick whichever you like.&rdquo;
+        </p>
+        <p>
+          The QScore factor breakdown reveals a more interesting picture. Open the{" "}
+          <Link href="/compare/googl-vs-meta">live GOOGL vs META comparison</Link> and the
+          composite scores often land close together, but the underlying factor mix tells
+          different stories. This post walks through what the comparison actually shows.
+        </p>
+
+        <h2>The setup: same business model, different revenue mix</h2>
+        <p>
+          Alphabet runs Search (the dominant global query engine), YouTube (the largest
+          video platform), Google Cloud (a distant third behind AWS and Azure but growing),
+          plus &ldquo;other bets&rdquo; like Waymo. Roughly 75–80% of revenue is still ad-
+          driven, but the cloud and subscription layers are climbing.
+        </p>
+        <p>
+          Meta runs Facebook, Instagram, WhatsApp, and Threads — a portfolio of social
+          properties — plus the Reality Labs division building AR/VR (still loss-making). Ad
+          revenue is closer to 95%+ of the total, with subscription services and the
+          metaverse buildout as small (and in Reality Labs&apos; case, deeply negative)
+          contributors.
+        </p>
+        <p>
+          Both fall under the same sector classification in QScoring, so the{" "}
+          <Link href="/glossary/sector-normalization">factor z-scoring</Link> compares them
+          against the same Communication Services peer set.
+        </p>
+
+        <h2>Where they overlap</h2>
+        <ul>
+          <li>
+            <strong>Risk:</strong> both score moderately well on risk. Beta near 1.0 (they
+            are the index in many ways) and realized volatility in line with sector peers.
+          </li>
+          <li>
+            <strong>Profitability:</strong> both have improved dramatically in recent
+            quarters — META in particular went through a margin recovery in 2023–2024 after
+            cutting costs aggressively. Both score in the upper tier of the sector
+            distribution on operating margin and ROE.
+          </li>
+          <li>
+            <strong>Sector:</strong> same Communication Services classification means
+            they&apos;re always compared against the same peer set, so factor differences
+            reflect business reality, not normalization artifacts.
+          </li>
+        </ul>
+
+        <h2>Where they diverge</h2>
+        <ul>
+          <li>
+            <strong>Value:</strong> usually comparable, sometimes slightly favoring META.
+            Both trade at premium multiples by historical standards but at reasonable
+            multiples relative to other mega-cap tech. Neither is &ldquo;cheap&rdquo;
+            absolutely; both are &ldquo;not bubble-priced&rdquo; relative to peers.
+          </li>
+          <li>
+            <strong>Growth:</strong> META has often pulled ahead on growth in recent
+            quarters — Reels monetization, ad-pricing recovery, and aggressive efficiency
+            gains have produced strong year-over-year revenue and EPS growth. GOOGL&apos;s
+            growth has been more steady but less explosive.
+          </li>
+          <li>
+            <strong>Momentum:</strong> highly regime-dependent. META rallied hard from late-
+            2022 lows; GOOGL has had its own AI-narrative cycles around Gemini and Cloud.
+            The <Link href="/glossary/momentum-factor">momentum factor</Link> captures
+            12-month, 3-month, and 1-month return blends — so the snapshot you see depends
+            on which stock has been running more recently.
+          </li>
+          <li>
+            <strong>Profitability detail:</strong> a closer look shows META&apos;s
+            improvement is partly margin recovery (so the level is high but the
+            <em> trajectory</em> is what&apos;s impressive), while GOOGL&apos;s is steadier
+            but with cloud investment weighing on consolidated margins.
+          </li>
+        </ul>
+
+        <h2>Reading the typical pattern</h2>
+        <p>
+          A common pattern: GOOGL slightly higher composite (broader business, steadier
+          growth, cloud optionality), META close behind (faster recent growth, comparable
+          profitability, lower revenue diversification). Both signals tend to land in
+          Hold-to-Buy territory in normal regimes; both can flip to short-term Buy when
+          momentum runs.
+        </p>
+        <p>
+          The factor signature difference matters more than the headline. GOOGL is a
+          diversification-and-cloud-optionality bet wrapped in an ad-revenue stock. META is
+          a concentrated ad-revenue play with high efficiency and still-developing AR/VR
+          optionality (currently a drag, theoretically a future asset).
+        </p>
+
+        <h2>Common mistake: assuming the &ldquo;ad duopoly&rdquo; framing</h2>
+        <p>
+          The shorthand &ldquo;Google and Meta own digital advertising&rdquo; is true at the
+          industry level but obscures the fact that their revenue exposure to a digital-ad
+          downturn is very different. META is roughly 95%+ exposed; GOOGL is closer to 75%
+          with growing cloud and subscription cushions. In a sharp ad-spend recession,
+          they&apos;d behave differently — and the QScore factor breakdown wouldn&apos;t
+          fully predict that, but the revenue diversification context matters when reading
+          which stock the model is more confident in.
+        </p>
+
+        <h2>How to read the live page</h2>
+        <p>
+          The <Link href="/compare/googl-vs-meta">live GOOGL vs META comparison</Link>{" "}
+          shows composite, signal, confidence, price, and all factor scores side by side.
+          The verdict box explains which side leads on composite and what the largest factor
+          driver is. Click into <Link href="/score/GOOGL">GOOGL detail</Link> or {" "}
+          <Link href="/score/META">META detail</Link> for the full underlying metrics — P/E,
+          revenue growth, RSI, and so on.
+        </p>
+
+        <h2>Related reads</h2>
+        <ul>
+          <li>
+            <Link href="/blog/how-to-read-a-qscore">How to read a QScore</Link>
+          </li>
+          <li>
+            <Link href="/blog/aapl-vs-msft">AAPL vs MSFT</Link> — another mega-cap pair
+            with similar composites and divergent factor signatures
+          </li>
+          <li>
+            <Link href="/glossary/momentum-factor">Momentum factor</Link>, {" "}
+            <Link href="/glossary/profitability-factor">profitability factor</Link>, {" "}
+            <Link href="/glossary/value-factor">value factor</Link>
+          </li>
+          <li>
+            <Link href="/scores/large-cap-tech">Large-cap tech category</Link>
+          </li>
+        </ul>
+        <p>
+          Want to compare a different pair? <Link href="/compare">All comparisons</Link>, or
+          type any two tickers into <code>/compare/AAA-vs-BBB</code>.
+        </p>
+      </>
+    ),
+  },
 ];
 
 export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
   BLOG_POSTS.map((p) => [p.slug, p])
 );
+
+export function postsInCluster(cluster: BlogCluster): BlogPost[] {
+  return BLOG_POSTS.filter((p) => p.cluster === cluster).sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt)
+  );
+}
