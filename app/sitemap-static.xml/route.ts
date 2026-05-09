@@ -38,6 +38,12 @@ export async function GET() {
       changefreq: "daily",
       priority: 0.85,
     },
+    {
+      loc: `${SITE}/portfolio`,
+      lastmod: today,
+      changefreq: "monthly",
+      priority: 0.9,
+    },
   ]);
 
   return new Response(xml, { headers: SITEMAP_HEADERS });
