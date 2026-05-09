@@ -1517,6 +1517,98 @@ footer .footer-links .sep {
   border-bottom-color: var(--accent);
 }
 
+/* Blog index + post template */
+.blog-index .blog-list {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.blog-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 26px;
+  background: var(--bg-card);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+.blog-list-item:hover {
+  background: rgba(0, 212, 170, 0.04);
+}
+.blog-list-item:hover .blog-list-title {
+  color: var(--accent);
+}
+.blog-list-meta {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.blog-list-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.15s;
+}
+.blog-list-excerpt {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.blog-post .blog-post-meta {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.blog-post-body {
+  margin-top: 32px;
+  max-width: 720px;
+}
+.blog-post-body h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 36px 0 14px;
+  color: var(--text);
+}
+.blog-post-body p {
+  color: var(--text-dim);
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+.blog-post-body p strong { color: var(--text); }
+.blog-post-body p em { color: var(--text-dim); font-style: italic; }
+.blog-post-body ul {
+  color: var(--text-dim);
+  line-height: 1.75;
+  margin: 0 0 18px 22px;
+}
+.blog-post-body ul li {
+  margin-bottom: 8px;
+}
+.blog-post-body ul li strong { color: var(--text); }
+.blog-post-body a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+  transition: border-bottom-style 0.15s;
+}
+.blog-post-body a:hover {
+  border-bottom-style: solid;
+}
+
 /* Watch button — sits between score view and commentary on /score/[ticker] */
 .watch-row {
   display: flex;
