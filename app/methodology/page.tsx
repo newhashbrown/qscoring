@@ -501,6 +501,8 @@ export default function MethodologyPage() {
           <span className="sep">·</span>
           <a href="/scores">Categories</a>
           <span className="sep">·</span>
+          <a href="/compare">Compare</a>
+          <span className="sep">·</span>
           <a href="/score">Score a ticker</a>
         </p>
         <p>© 2026 QScoring.com. All rights reserved.</p>
