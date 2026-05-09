@@ -44,12 +44,13 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
         <Image
           src="/logo.png"
           alt="QScoring"
-          width={144}
-          height={92}
+          width={292}
+          height={112}
           priority
-          // Source asset is pre-sized for ~46px display @ 2x retina.
-          // Aspect ratio matches the original 1291x823 source.
-          style={{ height: 46, width: "auto" }}
+          // Source PNG is auto-trimmed of its dark canvas padding so the
+          // wordmark + symbol fill the full image bounds. Display at 56px
+          // tall @ 2x retina; aspect ratio is ~2.6:1 after the trim.
+          style={{ height: 56, width: "auto" }}
         />
       </Link>
 
