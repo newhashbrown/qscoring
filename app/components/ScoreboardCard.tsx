@@ -16,6 +16,19 @@ const SIGNAL_TONE: Record<Signal, "bullish" | "bearish" | "neutral"> = {
   SHORT: "bearish",
 };
 
+// Compact labels for the 5-factor mini-grid. Full names ("Profitability"
+// etc.) blow past the ~50px per-column budget on a 260-280px card and
+// spill outside the card boundary. The short forms are unambiguous in
+// context — full labels are documented on the methodology and glossary
+// pages.
+const SHORT_LABEL: Record<string, string> = {
+  value: "VALUE",
+  growth: "GROWTH",
+  momentum: "MOMENT",
+  profitability: "PROFIT",
+  risk: "RISK",
+};
+
 function factorTone(score: number): "green" | "amber" | "red" {
   if (score >= 65) return "green";
   if (score >= 40) return "amber";
@@ -48,7 +61,9 @@ export default function ScoreboardCard({ pick }: { pick: ScoreboardPick }) {
       <ul className="scoreboard-factors">
         {pick.categories.map((c) => (
           <li key={c.name}>
-            <span className="factor-label">{c.label}</span>
+            <span className="factor-label" title={c.label}>
+              {SHORT_LABEL[c.name] ?? c.label.toUpperCase()}
+            </span>
             <span className={`factor-score ${factorTone(c.score)}`}>{c.score}</span>
           </li>
         ))}
