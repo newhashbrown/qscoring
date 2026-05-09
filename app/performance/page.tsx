@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import { summarizePerformance } from "@/lib/performance";
+import { formatMarketDate, marketCloseLabel } from "@/lib/market-date";
 
 export const metadata = {
   title: "Live Performance Tracking — QScore",
@@ -28,12 +29,7 @@ const performanceJsonLd = {
 
 function formatDate(iso: string | null): string {
   if (!iso) return "—";
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+  return formatMarketDate(iso);
 }
 
 export default function PerformancePage() {
@@ -148,9 +144,9 @@ export default function PerformancePage() {
           <section>
             <h2>Most recent snapshot</h2>
             <p>
-              Captured {formatDate(latestSnapshot.date)} at{" "}
-              {new Date(latestSnapshot.generatedAt).toISOString()}. Top 10 by composite — full
-              snapshot file lives at{" "}
+              Reflects the {marketCloseLabel(latestSnapshot.generatedAt)}.
+              Captured at {new Date(latestSnapshot.generatedAt).toISOString()}. Top 10 by
+              composite — full snapshot file lives at{" "}
               <code>data/snapshots/{latestSnapshot.date}.json</code> in the public repository.
             </p>
             <table className="method-table latest-snapshot-table">

@@ -195,7 +195,13 @@ async function main() {
   // every QScore and price below was committed to git at this date and can
   // be audited later against forward returns. The daily GitHub Action that
   // commits scoreboard.json also commits this file.
-  const snapshotDate = generatedAt.split("T")[0];
+  //
+  // Filename uses the US market close date in ET (not the raw UTC date)
+  // because the script runs around 09:30 UTC = ~5:30am ET, which is past
+  // midnight UTC for the previous trading day. Without the conversion the
+  // file would be named 2026-05-09.json for what is actually the May 8
+  // market close — visible to users as "Snapshot from tomorrow."
+  const snapshotDate = computeMarketCloseDate(generatedAt);
   const snapshotsDir = path.resolve(process.cwd(), "data", "snapshots");
   if (!fs.existsSync(snapshotsDir)) {
     fs.mkdirSync(snapshotsDir, { recursive: true });
@@ -203,6 +209,37 @@ async function main() {
   const snapshotPath = path.resolve(snapshotsDir, `${snapshotDate}.json`);
   fs.writeFileSync(snapshotPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
   console.log(`Wrote snapshot → ${snapshotPath}`);
+}
+
+// Inline copy of lib/market-date.ts's marketCloseDate — duplicated rather
+// than imported so this script has zero dependencies on the Next runtime
+// and runs fine under plain `tsx` in CI.
+function computeMarketCloseDate(generatedAtIso: string): string {
+  const fmt = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    hour12: false,
+  });
+  const parts = fmt.formatToParts(new Date(generatedAtIso)).reduce(
+    (acc, p) => {
+      acc[p.type] = p.value;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+  const etYear = parseInt(parts.year, 10);
+  const etMonth = parseInt(parts.month, 10);
+  const etDay = parseInt(parts.day, 10);
+  const etHour = parseInt(parts.hour, 10);
+  const target = new Date(Date.UTC(etYear, etMonth - 1, etDay));
+  if (etHour < 16) target.setUTCDate(target.getUTCDate() - 1);
+  while (target.getUTCDay() === 6 || target.getUTCDay() === 0) {
+    target.setUTCDate(target.getUTCDate() - 1);
+  }
+  return target.toISOString().split("T")[0];
 }
 
 main().catch((err) => {

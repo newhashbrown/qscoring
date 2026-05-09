@@ -12,6 +12,7 @@ import {
 } from "@/lib/compare";
 import scoreboardData from "@/data/scoreboard.json";
 import type { ScoreboardPick } from "@/data/categories";
+import { marketCloseLabel } from "@/lib/market-date";
 
 export function generateStaticParams() {
   return CURATED_PAIRS.map(([a, b]) => ({ pair: pairToSlug(a, b) }));
@@ -101,13 +102,7 @@ export default async function CompareTickersPage({
 
   const rows = buildComparisonRows(a, b);
   const reason = keyReason(a, b);
-  const generatedAt = scoreboardData.generatedAt;
-  const dateLabel = new Date(generatedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+  const dateLabel = marketCloseLabel(scoreboardData.generatedAt);
 
   const jsonLd = {
     "@context": "https://schema.org",

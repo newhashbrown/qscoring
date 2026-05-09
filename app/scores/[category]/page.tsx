@@ -9,6 +9,7 @@ import {
   type ScoreboardPick,
 } from "@/data/categories";
 import scoreboardData from "@/data/scoreboard.json";
+import { marketCloseLabel } from "@/lib/market-date";
 
 export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ category: c.slug }));
@@ -54,13 +55,7 @@ export default async function CategoryPage({
 
   const scoreboard = scoreboardData.picks as ScoreboardPick[];
   const picks = selectPicks(scoreboard, def.selector);
-  const generatedAt = scoreboardData.generatedAt;
-  const dateLabel = new Date(generatedAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    timeZone: "UTC",
-  });
+  const dateLabel = marketCloseLabel(scoreboardData.generatedAt);
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
