@@ -1945,6 +1945,10 @@ footer .footer-links .sep {
   border-radius: 10px;
   text-decoration: none;
   color: inherit;
+  /* Hard-clip so a too-wide grid child can never visually spill outside
+     the card boundary (the 5-factor mini-grid is the most likely culprit). */
+  overflow: hidden;
+  min-width: 0;
   transition: border-color 0.15s, transform 0.15s, background 0.15s;
 }
 .scoreboard-card.tone-bullish { border-left-color: var(--accent); }
@@ -2033,12 +2037,21 @@ footer .footer-links .sep {
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  /* Without min-width:0 a grid item adopts its content's intrinsic size
+     and can push the grid wider than its parent — caused the visible spill
+     where PROFITABILITY/RISK escaped the card boundary. */
+  min-width: 0;
+  overflow: hidden;
 }
 .scoreboard-factors .factor-label {
   font-size: 0.62rem;
   color: var(--text-muted);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .scoreboard-factors .factor-score {
   font-family: var(--mono);
