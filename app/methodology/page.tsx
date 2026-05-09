@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
+import { QSCORE_MODEL_VERSION } from "@/lib/scoring";
 
 export const metadata = {
   title: "Methodology — How the QScore Is Calculated",
@@ -52,7 +53,7 @@ export default function MethodologyPage() {
 
       <main className="methodology">
         <header className="method-header">
-          <p className="method-eyebrow">Methodology</p>
+          <p className="method-eyebrow">Methodology · QScore model {QSCORE_MODEL_VERSION}</p>
           <h1>How the QScore is calculated</h1>
           <p className="method-lede">
             We don&apos;t think it&apos;s reasonable to charge for a stock score that we won&apos;t fully
