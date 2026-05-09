@@ -19,6 +19,35 @@ const MAX_TICKER_LEN = 10;
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 
 /**
+ * Words that match the ticker regex (all-caps, 1-10 chars) but are
+ * never valid ticker symbols — they're brokerage UI vocabulary that
+ * gets accidentally pasted with table data. Filtering these out
+ * prevents the parser from treating "Total" / "Trade" / "Cash" as
+ * tickers and trying to score them.
+ *
+ * Real one-letter tickers (T = AT&T, F = Ford, M = Macy's, U = Unity)
+ * and common short tickers stay safe — only words specifically used as
+ * brokerage UI labels are listed here.
+ */
+const NOT_A_TICKER = new Set([
+  // Action / button labels
+  "TRADE", "BUY", "SELL", "TRANSFER", "ALERTS", "ALERT", "NOTIFY",
+  "ACTIONS", "ACTION", "ORDER", "ORDERS",
+  // Aggregate / summary rows
+  "TOTAL", "TOTALS", "SUBTOTAL", "SUM", "GRAND",
+  // Account labels
+  "CASH", "EQUITY", "MARGIN", "ACCOUNT", "BALANCE", "BUYING", "POWER",
+  // Column headers
+  "SYMBOL", "TICKER", "NAME", "PRICE", "QUANTITY", "QTY", "SHARES",
+  "WEIGHT", "VALUE", "GAIN", "LOSS", "CHANGE", "DAY", "DAYS", "PAID",
+  "AVERAGE", "AVG", "POSITION", "POSITIONS", "LAST",
+  // Section headers / counts
+  "VIEWING", "SHOWING", "PORTFOLIO", "HOLDINGS", "STOCKS", "ETFS",
+  // Common English in brokerage tables
+  "MONEY", "OPEN", "CLOSED", "FILLED", "PENDING",
+]);
+
+/**
  * What the second number on each input line means. Drives both parsing
  * and the post-scoring weight derivation in the API route.
  */
@@ -75,15 +104,22 @@ export function parsePortfolioInput(text: string, mode: PortfolioMode = "weights
     const ticker = parts[0]?.toUpperCase();
 
     if (!ticker || ticker.length < MIN_TICKER_LEN || ticker.length > MAX_TICKER_LEN) {
-      errors.push(`Line ${i + 1}: "${raw}" — invalid ticker shape`);
+      // Silently skip — most likely a header / blank-ish line.
       continue;
     }
     if (!TICKER_RE.test(ticker)) {
-      errors.push(`Line ${i + 1}: "${ticker}" — invalid ticker shape`);
+      // Silently skip — non-ticker text on the line.
+      continue;
+    }
+    if (NOT_A_TICKER.has(ticker)) {
+      // Brokerage UI text accidentally pasted (Trade, Total, Cash, etc.).
+      // Skip silently so a typical brokerage paste with header rows and
+      // button cells just works.
       continue;
     }
     if (seen.has(ticker)) {
-      errors.push(`Line ${i + 1}: "${ticker}" — duplicate, ignored`);
+      // Duplicate ticker — skip without emitting an error so brokerage
+      // pastes that repeat the symbol on multiple lines still parse.
       continue;
     }
 
@@ -104,8 +140,10 @@ export function parsePortfolioInput(text: string, mode: PortfolioMode = "weights
         .filter((n) => Number.isFinite(n) && n > 0);
 
       if (positiveNums.length === 0) {
-        // No usable number on this line — leave rawNumber undefined.
-        // deriveWeights() will handle it (filled with the explicit mean).
+        // No usable number — for shares/values/weights modes a line
+        // without a number is most likely brokerage text rather than a
+        // genuine entry. Skip silently rather than fill it in.
+        continue;
       } else if (positiveNums.length === 1) {
         rawNumber = positiveNums[0];
       } else if (mode === "shares") {
