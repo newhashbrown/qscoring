@@ -474,6 +474,15 @@ export default function MethodologyPage() {
               a transparent synthesis of well-established factor research — useful as a structured
               second opinion, but not validated as a standalone investment strategy.
             </p>
+            <p className="pledge-commitment">
+              <strong>What is live today:</strong>
+            </p>
+            <p>
+              The <Link href="/performance">live performance page</Link> publishes a daily, locked-in
+              snapshot of every QScore and price we compute. Each snapshot is committed to public
+              source control on the date shown — no revisionism is possible, and forward returns
+              against those snapshots are what feed the backtest pledge above as data accrues.
+            </p>
           </div>
         </section>
 

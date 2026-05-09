@@ -32,6 +32,12 @@ export async function GET() {
       changefreq: "monthly",
       priority: 0.75,
     },
+    {
+      loc: `${SITE}/performance`,
+      lastmod: today,
+      changefreq: "daily",
+      priority: 0.85,
+    },
   ]);
 
   return new Response(xml, { headers: SITEMAP_HEADERS });

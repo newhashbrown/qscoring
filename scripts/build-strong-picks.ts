@@ -188,6 +188,21 @@ async function main() {
   const scoreboardPath = path.resolve(process.cwd(), "data", "scoreboard.json");
   fs.writeFileSync(scoreboardPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
   console.log(`Wrote ${picks.length} scoreboard rows → ${scoreboardPath}`);
+
+  // Locked-in daily snapshot — append-only ledger that powers /performance.
+  // Same content as scoreboard.json, but date-stamped and never overwritten
+  // after the day passes. This is the no-look-ahead-by-construction record:
+  // every QScore and price below was committed to git at this date and can
+  // be audited later against forward returns. The daily GitHub Action that
+  // commits scoreboard.json also commits this file.
+  const snapshotDate = generatedAt.split("T")[0];
+  const snapshotsDir = path.resolve(process.cwd(), "data", "snapshots");
+  if (!fs.existsSync(snapshotsDir)) {
+    fs.mkdirSync(snapshotsDir, { recursive: true });
+  }
+  const snapshotPath = path.resolve(snapshotsDir, `${snapshotDate}.json`);
+  fs.writeFileSync(snapshotPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
+  console.log(`Wrote snapshot → ${snapshotPath}`);
 }
 
 main().catch((err) => {

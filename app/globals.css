@@ -1517,6 +1517,48 @@ footer .footer-links .sep {
   border-bottom-color: var(--accent);
 }
 
+/* Performance / forward-tracking page */
+.performance-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.perf-stat {
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+}
+.perf-stat-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.perf-stat-value {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+.horizon-ready {
+  color: var(--accent);
+  font-weight: 600;
+}
+.horizon-waiting {
+  color: var(--text-muted);
+}
+.latest-snapshot-table td a {
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
 /* Compare pages — index + side-by-side */
 .compare-index .compare-pairs-list {
   list-style: none;
