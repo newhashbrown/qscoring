@@ -42,13 +42,13 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
         onClick={() => setOpen(false)}
       >
         <Image
-          src="/Logo-homepage.png"
+          src="/logo.png"
           alt="QScoring"
-          width={1291}
-          height={823}
+          width={144}
+          height={92}
           priority
-          // Render at ~46px tall in the nav; Next/Image picks the right
-          // resampled size from the source intrinsic 1291x823.
+          // Source asset is pre-sized for ~46px display @ 2x retina.
+          // Aspect ratio matches the original 1291x823 source.
           style={{ height: 46, width: "auto" }}
         />
       </Link>
