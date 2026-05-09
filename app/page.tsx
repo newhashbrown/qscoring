@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import DemoCard from "./components/DemoCard";
 import EmailForm from "./components/EmailForm";
+import ScoreNav from "./components/ScoreNav";
 import TopMoversStrip from "./components/TopMoversStrip";
 
 // Refresh the live NVDA demo score at most once per hour.
@@ -12,19 +13,7 @@ export default function Home() {
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
 
-      <nav className="landing-nav">
-        <div className="logo">
-          QScoring<span>.com</span>
-        </div>
-        <div className="nav-actions">
-          <a href="/score" className="nav-link">
-            Try a Score
-          </a>
-          <a href="#signup" className="nav-cta">
-            Get Early Access
-          </a>
-        </div>
-      </nav>
+      <ScoreNav showSearch={false} />
 
       {/* HERO */}
       <section className="hero">
