@@ -1,5 +1,13 @@
 import Link from "next/link";
-import type { CategoryName, CategoryScore, MetricScore, ScoreResult, Signal } from "@/lib/scoring";
+import {
+  QSCORE_MODEL_VERSION,
+  confidenceReason,
+  type CategoryName,
+  type CategoryScore,
+  type MetricScore,
+  type ScoreResult,
+  type Signal,
+} from "@/lib/scoring";
 import PriceChart from "./PriceChart";
 
 const SIGNAL_LABEL: Record<Signal, string> = {
@@ -100,9 +108,40 @@ function CategoryCard({ category }: { category: CategoryScore }) {
   );
 }
 
+function formatGeneratedAt(iso: string): string {
+  // ISO formatter pinned to UTC so SSR and CSR match. Same trick used for
+  // the homepage carousel caption — switching to ET wall-clock would force
+  // a suppressHydrationWarning hook because user/server tz can differ.
+  const d = new Date(iso);
+  const date = d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+  const time = d.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "UTC",
+  });
+  return `${date}, ${time} UTC`;
+}
+
 export default function ScoreView({ data }: { data: ScoreResult }) {
   const tone = SIGNAL_TONE[data.signal];
   const changeUp = data.changePercent >= 0;
+
+  // Top driver computation: highest-scoring factor is the strongest piece
+  // pulling the composite up; lowest is what's holding it back. Tie-break
+  // by category name for stability.
+  const sortedByScore = [...data.categories].sort(
+    (a, b) => b.score - a.score || a.name.localeCompare(b.name)
+  );
+  const topPositive = sortedByScore[0];
+  const topNegative = sortedByScore[sortedByScore.length - 1];
+
+  const reason = confidenceReason(data.confidence, data.composite, data.categories);
 
   return (
     <div className="score-page">
@@ -153,12 +192,59 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
         </div>
       </section>
 
+      <section className="score-insight" aria-label="Quick takeaway">
+        <div className="insight-head">
+          <span className="insight-eyebrow">What this says</span>
+          <span className="insight-meta">
+            QScore model {QSCORE_MODEL_VERSION} · Generated {formatGeneratedAt(data.generatedAt)}
+          </span>
+        </div>
+
+        <div className="insight-grid">
+          <div className="insight-driver positive">
+            <span className="insight-driver-label">Top positive driver</span>
+            <Link
+              href={CATEGORY_GLOSSARY[topPositive.name]}
+              className="insight-driver-value"
+            >
+              <strong>{topPositive.label}</strong>
+              <span className="insight-driver-score">{Math.round(topPositive.score)}/100</span>
+            </Link>
+          </div>
+          <div className="insight-driver negative">
+            <span className="insight-driver-label">Top negative driver</span>
+            <Link
+              href={CATEGORY_GLOSSARY[topNegative.name]}
+              className="insight-driver-value"
+            >
+              <strong>{topNegative.label}</strong>
+              <span className="insight-driver-score">{Math.round(topNegative.score)}/100</span>
+            </Link>
+          </div>
+        </div>
+
+        <p className="insight-confidence">
+          <strong>{data.confidence} confidence:</strong> {reason}{" "}
+          <Link href="/glossary/confidence" className="glossary-info-link">
+            What does confidence mean?
+          </Link>
+        </p>
+      </section>
+
       <PriceChart ticker={data.ticker} />
 
       <section className="category-grid">
         {data.categories.map((c) => (
           <CategoryCard key={c.name} category={c} />
         ))}
+      </section>
+
+      <section className="related-links" aria-label="Related pages">
+        <span className="related-eyebrow">Related</span>
+        <Link href="/compare">Compare {data.ticker} to another ticker →</Link>
+        <Link href="/scores">Browse stocks by category →</Link>
+        <Link href="/methodology">Read the full methodology →</Link>
+        <Link href="/glossary">Glossary of factors and metrics →</Link>
       </section>
 
       <p className="score-timestamp">
