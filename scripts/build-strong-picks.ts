@@ -62,6 +62,8 @@ type ApiResponse = {
   composite: number;
   signal: Signal;
   confidence: Confidence;
+  longTermScore: number;
+  shortTermScore: number;
   categories: ApiCategory[];
   error?: string;
 };
@@ -74,6 +76,8 @@ type Pick = {
   composite: number;
   signal: Signal;
   confidence: Confidence;
+  longTermScore: number;
+  shortTermScore: number;
   categories: Array<{ name: CategoryName; label: string; score: number }>;
 };
 
@@ -124,6 +128,8 @@ async function fetchScore(ticker: string): Promise<Pick | null> {
       composite: Math.round(data.composite),
       signal: data.signal,
       confidence: data.confidence,
+      longTermScore: Math.round(data.longTermScore),
+      shortTermScore: Math.round(data.shortTermScore),
       categories: data.categories.map((c) => ({
         name: c.name,
         label: c.label,

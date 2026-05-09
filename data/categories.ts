@@ -15,6 +15,8 @@ export type ScoreboardPick = {
   composite: number;
   signal: Signal;
   confidence: "HIGH" | "MEDIUM" | "LOW";
+  longTermScore?: number;
+  shortTermScore?: number;
   categories: Array<{ name: CategoryName; label: string; score: number }>;
 };
 

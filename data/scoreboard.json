@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-08T23:32:11.111Z",
+  "generatedAt": "2026-05-09T00:15:31.063Z",
   "universeSize": 66,
   "picks": [
     {
@@ -10,6 +10,8 @@
       "composite": 58,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
+      "longTermScore": 57,
+      "shortTermScore": 60,
       "categories": [
         {
           "name": "value",
@@ -46,6 +48,8 @@
       "composite": 43,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 42,
+      "shortTermScore": 45,
       "categories": [
         {
           "name": "value",
@@ -82,6 +86,8 @@
       "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 50,
+      "shortTermScore": 43,
       "categories": [
         {
           "name": "value",
@@ -118,6 +124,8 @@
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 58,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -154,6 +162,8 @@
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 45,
+      "shortTermScore": 54,
       "categories": [
         {
           "name": "value",
@@ -190,6 +200,8 @@
       "composite": 55,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 55,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
@@ -226,6 +238,8 @@
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 49,
+      "shortTermScore": 59,
       "categories": [
         {
           "name": "value",
@@ -262,6 +276,8 @@
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 56,
       "categories": [
         {
           "name": "value",
@@ -298,6 +314,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 42,
       "categories": [
         {
           "name": "value",
@@ -334,6 +352,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 43,
+      "shortTermScore": 51,
       "categories": [
         {
           "name": "value",
@@ -370,6 +390,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
@@ -406,6 +428,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 48,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -442,6 +466,8 @@
       "composite": 44,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 40,
       "categories": [
         {
           "name": "value",
@@ -478,6 +504,8 @@
       "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 44,
+      "shortTermScore": 54,
       "categories": [
         {
           "name": "value",
@@ -514,6 +542,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
@@ -550,6 +580,8 @@
       "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 50,
+      "shortTermScore": 53,
       "categories": [
         {
           "name": "value",
@@ -586,6 +618,8 @@
       "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 55,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -622,6 +656,8 @@
       "composite": 40,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 35,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -658,6 +694,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -694,6 +732,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 48,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -730,6 +770,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -766,6 +808,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -802,6 +846,8 @@
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 50,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -838,6 +884,8 @@
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
+      "longTermScore": 55,
+      "shortTermScore": 64,
       "categories": [
         {
           "name": "value",
@@ -874,6 +922,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 45,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -910,6 +960,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -946,6 +998,8 @@
       "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 53,
       "categories": [
         {
           "name": "value",
@@ -982,6 +1036,8 @@
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 56,
+      "shortTermScore": 51,
       "categories": [
         {
           "name": "value",
@@ -1018,6 +1074,8 @@
       "composite": 44,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 43,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -1054,6 +1112,8 @@
       "composite": 55,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 57,
       "categories": [
         {
           "name": "value",
@@ -1090,6 +1150,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 54,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -1126,6 +1188,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 51,
       "categories": [
         {
           "name": "value",
@@ -1162,6 +1226,8 @@
       "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 54,
       "categories": [
         {
           "name": "value",
@@ -1198,6 +1264,8 @@
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 52,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -1234,6 +1302,8 @@
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 57,
+      "shortTermScore": 42,
       "categories": [
         {
           "name": "value",
@@ -1270,6 +1340,8 @@
       "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 49,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -1306,6 +1378,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 55,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -1342,6 +1416,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 49,
+      "shortTermScore": 52,
       "categories": [
         {
           "name": "value",
@@ -1378,6 +1454,8 @@
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 59,
       "categories": [
         {
           "name": "value",
@@ -1414,6 +1492,8 @@
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 58,
+      "shortTermScore": 54,
       "categories": [
         {
           "name": "value",
@@ -1450,6 +1530,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 43,
       "categories": [
         {
           "name": "value",
@@ -1486,6 +1568,8 @@
       "composite": 41,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 44,
+      "shortTermScore": 38,
       "categories": [
         {
           "name": "value",
@@ -1522,6 +1606,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -1558,6 +1644,8 @@
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 57,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
@@ -1594,6 +1682,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 48,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -1630,6 +1720,8 @@
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 49,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -1666,6 +1758,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 49,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -1695,42 +1789,6 @@
       ]
     },
     {
-      "ticker": "PFE",
-      "companyName": "Pfizer Inc.",
-      "price": 25.67,
-      "changePercent": -3.05891,
-      "composite": 52,
-      "signal": "HOLD",
-      "confidence": "MEDIUM",
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 58
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 36
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 57
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 58
-        }
-      ]
-    },
-    {
       "ticker": "PG",
       "companyName": "The Procter & Gamble Company",
       "price": 146.42,
@@ -1738,6 +1796,8 @@
       "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 49,
+      "shortTermScore": 43,
       "categories": [
         {
           "name": "value",
@@ -1774,6 +1834,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 52,
+      "shortTermScore": 51,
       "categories": [
         {
           "name": "value",
@@ -1810,6 +1872,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 51,
       "categories": [
         {
           "name": "value",
@@ -1846,6 +1910,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 46,
+      "shortTermScore": 56,
       "categories": [
         {
           "name": "value",
@@ -1882,6 +1948,8 @@
       "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 51,
+      "shortTermScore": 41,
       "categories": [
         {
           "name": "value",
@@ -1918,6 +1986,8 @@
       "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 56,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -1954,6 +2024,8 @@
       "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 52,
+      "shortTermScore": 54,
       "categories": [
         {
           "name": "value",
@@ -1990,6 +2062,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -2026,6 +2100,8 @@
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 50,
+      "shortTermScore": 43,
       "categories": [
         {
           "name": "value",
@@ -2062,6 +2138,8 @@
       "composite": 42,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 35,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -2098,6 +2176,8 @@
       "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 53,
+      "shortTermScore": 56,
       "categories": [
         {
           "name": "value",
@@ -2134,6 +2214,8 @@
       "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 46,
+      "shortTermScore": 52,
       "categories": [
         {
           "name": "value",
@@ -2170,6 +2252,8 @@
       "composite": 62,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
+      "longTermScore": 62,
+      "shortTermScore": 61,
       "categories": [
         {
           "name": "value",
@@ -2206,6 +2290,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 57,
+      "shortTermScore": 45,
       "categories": [
         {
           "name": "value",
@@ -2242,6 +2328,8 @@
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 52,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -2278,6 +2366,8 @@
       "composite": 41,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 45,
+      "shortTermScore": 37,
       "categories": [
         {
           "name": "value",
@@ -2314,6 +2404,8 @@
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -2350,6 +2442,8 @@
       "composite": 45,
       "signal": "HOLD",
       "confidence": "MEDIUM",
+      "longTermScore": 45,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
