@@ -12,6 +12,7 @@ export async function GET() {
 
   const xml = sitemapIndexXml([
     { loc: `${SITE}/sitemap-static.xml`, lastmod: today },
+    { loc: `${SITE}/sitemap-blog.xml`, lastmod: today },
     { loc: `${SITE}/sitemap-categories.xml`, lastmod: today },
     { loc: `${SITE}/sitemap-compare.xml`, lastmod: today },
     { loc: `${SITE}/sitemap-glossary.xml`, lastmod: today },
