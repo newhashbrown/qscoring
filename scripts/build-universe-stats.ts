@@ -5,11 +5,14 @@
  * with light winsorization at the 5th/95th percentile to limit the impact of extreme
  * outliers (e.g. a P/E of 1000 on a single odd ticker).
  *
- * Run with:  npm run universe-stats
- * Output:    data/universe-stats.json
+ * Run locally with:  npm run universe-stats
+ * Run nightly via:   .github/workflows/refresh-universe-stats.yml
+ * Output:            data/universe-stats.json
  *
- * Universe definition: large-cap US-listed stocks (market cap > $10B, actively trading)
- * fetched from FMP's /stable/company-screener endpoint, capped at 600 names.
+ * Universe definition: mid+large-cap US-listed stocks (market cap > $2B, actively
+ * trading) fetched from FMP's /stable/company-screener endpoint, capped at 800 names.
+ * Mid-caps were added in May 2026 — under-followed names are exactly where a
+ * quantitative second opinion adds the most value vs free analyst-driven alternatives.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -32,13 +35,17 @@ function loadEnv() {
 }
 loadEnv();
 
-const MIN_MARKET_CAP = 15_000_000_000;
-const MAX_UNIVERSE_SIZE = 350;
+const MIN_MARKET_CAP = 2_000_000_000;
+const MAX_UNIVERSE_SIZE = 800;
 // FMP Starter is ~300 calls/min. Each ticker fires 5 parallel calls (skipping
-// profile since the screener already gives sector+beta). Be conservative:
-// one ticker per cycle, 4s pacing → ~75 calls/min, well under the limit.
+// profile since the screener already gives sector+beta). At 2.5s pacing we
+// run ~24 tickers/min × 5 calls = 120 calls/min — comfortably under the
+// 300/min ceiling with headroom for retries and concurrent traffic.
+//
+// Total runtime for an 800-name universe: ~33 minutes. Fine for a nightly
+// cron triggered after market close.
 const CONCURRENCY = 1;
-const BATCH_DELAY_MS = 4000;
+const BATCH_DELAY_MS = 2500;
 
 type MetricKey =
   | "pe" | "pb" | "ps" | "evEbitda"
@@ -228,7 +235,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     universe: {
       size: allMetrics.length,
-      criteria: `marketCap > $${MIN_MARKET_CAP / 1e9}B, US-listed (NASDAQ/NYSE), actively trading`,
+      criteria: `marketCap > $${MIN_MARKET_CAP / 1e9}B (mid+large cap), US-listed (NASDAQ/NYSE), actively trading, capped at ${MAX_UNIVERSE_SIZE} names`,
     },
     metrics: universeMetrics,
     sectors: sectorOut,

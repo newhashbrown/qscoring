@@ -1,0 +1,55 @@
+name: Refresh universe stats
+
+# Nightly rebuild of data/universe-stats.json — sector means and standard
+# deviations used by the QScore engine for z-score normalization. The
+# previous manual cadence was a ticking reliability risk: stale stats
+# silently drift the scores without anyone noticing. Automated nightly
+# refresh keeps every score grounded in the most recent quarter of
+# fundamentals.
+
+on:
+  schedule:
+    # 02:00 UTC = ~10pm ET, after the US market close. Stats produced here
+    # feed the next morning's strong-picks / scoreboard refresh at 09:30 UTC.
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    # The script paces FMP calls at ~24 tickers/min for an 800-name universe,
+    # so a full run takes ~35 minutes. Give it an hour ceiling.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build universe stats
+        run: npm run universe-stats
+        env:
+          # FMP_API_KEY must be added under
+          # GitHub → Settings → Secrets and variables → Actions → New repository secret
+          # The value is the same key already in Cloudflare's secret store.
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+
+      - name: Commit and push if changed
+        run: |
+          if [[ -z "$(git status --porcelain data/universe-stats.json)" ]]; then
+            echo "No change to universe stats — skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/universe-stats.json
+          git commit -m "chore: refresh universe stats $(date -u +%Y-%m-%d)"
+          git push

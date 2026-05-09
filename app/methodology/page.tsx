@@ -90,7 +90,7 @@ export default function MethodologyPage() {
                 <th>Normalization</th>
                 <td>
                   Each metric is z-scored against the distribution of the same metric across the
-                  ticker&apos;s sector (with a fall-back to the full universe of large-cap US stocks
+                  ticker&apos;s sector (with a fall-back to the full universe of mid+large-cap US stocks
                   when the sector has too few names).
                 </td>
               </tr>
@@ -115,7 +115,7 @@ export default function MethodologyPage() {
               </tr>
               <tr>
                 <th>Universe</th>
-                <td>Large-cap US-listed equities (NASDAQ + NYSE, market cap above $15B). Coverage gaps exist outside this — see <a href="#limitations">limitations</a>.</td>
+                <td>US-listed equities (NASDAQ + NYSE, market cap above $2B — mid-cap and larger), capped at 800 names per refresh. Coverage gaps exist outside this — see <a href="#limitations">limitations</a>.</td>
               </tr>
             </tbody>
           </table>
@@ -380,7 +380,7 @@ export default function MethodologyPage() {
               <tr><td>Real-time quote (FMP)</td><td>15 minutes (matches the page-level cache)</td></tr>
               <tr><td>End-of-day price history (FMP)</td><td>6 hours (FMP only updates this once per US market close)</td></tr>
               <tr><td>Company profile, TTM ratios &amp; key metrics, growth (FMP)</td><td>24 hours (these only change on quarterly filings — caching them aggressively keeps us under FMP&apos;s rate limit during traffic spikes without affecting score freshness)</td></tr>
-              <tr><td>Universe stats (sector means/stds)</td><td>Refreshed periodically (target: daily; currently manual)</td></tr>
+              <tr><td>Universe stats (sector means/stds)</td><td>Nightly cron at 02:00 UTC (post-close); commits the refreshed file to public source control if anything changed</td></tr>
               <tr><td>AI commentary</td><td>Regenerated whenever the score changes</td></tr>
             </tbody>
           </table>
@@ -394,20 +394,16 @@ export default function MethodologyPage() {
           </p>
           <ul className="caveat-list">
             <li>
-              <strong>The reference universe is large-cap only.</strong> Sector mean/std statistics
-              are computed from US-listed stocks with market cap above $15B. A small-cap value
-              stock will be z-scored against large-cap peers, which biases certain metrics.
-              Expanding the reference universe is on the roadmap.
-            </li>
-            <li>
-              <strong>Universe stats refresh is currently manual.</strong> We rebuild the sector
-              statistics out-of-band rather than on a daily cron. Until that&apos;s automated,
-              statistics may lag the most recent quarterly filings by a few weeks.
+              <strong>The reference universe is mid-cap and larger.</strong> Sector mean/std statistics
+              are computed from US-listed stocks with market cap above $2B (capped at 800 names).
+              A micro-cap value stock will be z-scored against mid+large-cap peers, which biases
+              certain metrics. Expanding to small- and micro-cap coverage is on the roadmap once
+              we can confirm FMP&apos;s data quality holds up at that tier.
             </li>
             <li>
               <strong>Scoring outside the reference universe still works,</strong> but with
-              degraded precision — a small-cap or international ADR is z-scored against the closest
-              available sector.
+              degraded precision — a micro-cap or international ADR is z-scored against the closest
+              available sector mean.
             </li>
             <li>
               <strong>Trailing data lags reality.</strong> TTM fundamentals reflect the 12 months
