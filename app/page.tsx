@@ -38,8 +38,8 @@ export default function Home() {
           One clear signal.
         </h1>
         <p className="sub">
-          Enter any stock ticker and get an instant Quant Score powered by fundamentals,
-          momentum, and sentiment — with a clear buy, hold, or short signal.
+          Enter any stock ticker and get an instant Quant Score powered by value, growth,
+          momentum, profitability, and risk factors — with a clear buy, hold, or short signal.
         </p>
         <EmailForm buttonLabel="Get Early Access" />
         <p className="form-note">Free early access. No credit card required.</p>
@@ -122,8 +122,8 @@ export default function Home() {
           <div>
             <h3>Get your Quant Score</h3>
             <p>
-              Our model analyzes fundamentals, technicals, and sentiment to generate a composite
-              score from 1 to 100.
+              Our model analyzes fundamentals (value, growth, profitability) along with momentum
+              and risk to generate a composite score from 1 to 100.
             </p>
           </div>
         </div>
