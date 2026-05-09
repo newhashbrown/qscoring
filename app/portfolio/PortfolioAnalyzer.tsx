@@ -6,6 +6,7 @@ import {
   MAX_PORTFOLIO_ENTRIES,
   parsePortfolioInput,
   type PortfolioAnalysis,
+  type PortfolioMode,
 } from "@/lib/portfolio";
 
 const SIGNAL_LABEL: Record<string, string> = {
@@ -36,21 +37,62 @@ function factorTone(score: number): "green" | "amber" | "red" {
   return "red";
 }
 
-const PLACEHOLDER = `# Paste tickers, one per line. Optional weight after the symbol.
-# No weights = equal-weight default. Comments start with #.
+const MODE_PLACEHOLDER: Record<PortfolioMode, string> = {
+  equal: `# Equal-weight mode — just paste tickers, one per line.
+# Comments start with #.
+
+AAPL
+NVDA
+MSFT
+GOOGL
+AMZN`,
+  weights: `# Weights mode — TICKER WEIGHT, one per line.
+# Weights can be percentages or any positive numbers; we normalize.
 
 AAPL 15
 NVDA 12
 MSFT 10
 GOOGL 8
-AMZN 8
-META 7
-JPM 5
-V 5`;
+AMZN 8`,
+  shares: `# Shares mode — TICKER QUANTITY, one per line.
+# We multiply by the current price to get position value, then derive weights.
+# Pasting a brokerage row works too — we take the first number after the symbol.
+
+AAPL 10
+NVDA 6
+MSFT 3
+MO 50
+PFE 25`,
+  values: `# Dollar values mode — TICKER VALUE, one per line.
+# Use the dollar amount of the position; we normalize across the portfolio.
+# $ signs and 1,234.56-style commas are fine.
+
+AAPL $2,150.40
+NVDA $2,732.00
+MSFT $1,245.36
+MO $1,021.80`,
+};
+
+const MODE_LABEL: Record<PortfolioMode, string> = {
+  equal: "Equal weight",
+  weights: "Weights",
+  shares: "Shares",
+  values: "Dollar values",
+};
+
+const MODE_HINT: Record<PortfolioMode, string> = {
+  equal: "Just tickers, one per line. Equal weight per holding.",
+  weights: "TICKER WEIGHT per line. Weights are normalized to sum to 100%.",
+  shares: "TICKER QUANTITY per line. We multiply by current price to derive weights.",
+  values: "TICKER VALUE per line. Use the dollar value of each position.",
+};
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+const MODES: PortfolioMode[] = ["equal", "weights", "shares", "values"];
+
 export default function PortfolioAnalyzer() {
+  const [mode, setMode] = useState<PortfolioMode>("shares");
   const [text, setText] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -64,7 +106,7 @@ export default function PortfolioAnalyzer() {
     setErrorMessage("");
     setAnalysis(null);
 
-    const parsed = parsePortfolioInput(text);
+    const parsed = parsePortfolioInput(text, mode);
     setParseErrors(parsed.errors);
 
     if (parsed.entries.length === 0) {
@@ -78,9 +120,10 @@ export default function PortfolioAnalyzer() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          mode,
           entries: parsed.entries.map((e) => ({
             ticker: e.ticker,
-            rawWeight: e.rawWeight,
+            rawNumber: e.rawNumber,
           })),
         }),
       });
@@ -105,10 +148,29 @@ export default function PortfolioAnalyzer() {
   return (
     <>
       <form className="portfolio-form" onSubmit={handleSubmit}>
+        <fieldset className="portfolio-mode-row">
+          <legend className="portfolio-label">Input format</legend>
+          <div className="portfolio-mode-options">
+            {MODES.map((m) => (
+              <label key={m} className={`portfolio-mode-pill ${mode === m ? "active" : ""}`}>
+                <input
+                  type="radio"
+                  name="portfolio-mode"
+                  value={m}
+                  checked={mode === m}
+                  onChange={() => setMode(m)}
+                />
+                {MODE_LABEL[m]}
+              </label>
+            ))}
+          </div>
+          <p className="portfolio-mode-hint">{MODE_HINT[mode]}</p>
+        </fieldset>
+
         <label className="portfolio-label" htmlFor="portfolio-input">
           Your portfolio
           <span className="portfolio-hint">
-            One ticker per line, with optional weight (max {MAX_PORTFOLIO_ENTRIES} entries)
+            Max {MAX_PORTFOLIO_ENTRIES} entries — paste a brokerage row or just the values
           </span>
         </label>
         <textarea
@@ -116,7 +178,7 @@ export default function PortfolioAnalyzer() {
           className="portfolio-input"
           rows={12}
           spellCheck={false}
-          placeholder={PLACEHOLDER}
+          placeholder={MODE_PLACEHOLDER[mode]}
           value={text}
           onChange={(e) => setText(e.target.value)}
           disabled={status === "submitting"}

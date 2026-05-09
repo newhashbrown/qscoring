@@ -18,10 +18,16 @@ const MIN_TICKER_LEN = 1;
 const MAX_TICKER_LEN = 10;
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 
+/**
+ * What the second number on each input line means. Drives both parsing
+ * and the post-scoring weight derivation in the API route.
+ */
+export type PortfolioMode = "equal" | "weights" | "shares" | "values";
+
 export type PortfolioInputEntry = {
   ticker: string;
-  /** Optional weight as the user supplied it. Normalized later. */
-  rawWeight?: number;
+  /** The second number on the input line, interpreted per the mode. */
+  rawNumber?: number;
 };
 
 export type PortfolioParsed = {
@@ -36,13 +42,16 @@ export type PortfolioParsed = {
  *   "AAPL,10"
  *   "AAPL 10%"
  *   "AAPL  10.5"
- * Lines starting with # are treated as comments and skipped.
+ *   "AAPL 10 195.40 ..."   ← brokerage paste; we take the FIRST number
  *
- * Returns up to MAX_PORTFOLIO_ENTRIES + an error list for any malformed
- * lines so the UI can show inline feedback instead of silently dropping
- * input.
+ * Lines starting with # are treated as comments and skipped. Currency
+ * symbols and thousand-separator commas inside numbers are stripped.
+ *
+ * The second number's *meaning* (weight / shares / dollar value) is
+ * decided at analysis time by the mode the user picked in the UI — the
+ * parser just captures the raw number.
  */
-export function parsePortfolioInput(text: string): PortfolioParsed {
+export function parsePortfolioInput(text: string, mode: PortfolioMode = "weights"): PortfolioParsed {
   const errors: string[] = [];
   const entries: PortfolioInputEntry[] = [];
   const seen = new Set<string>();
@@ -52,11 +61,18 @@ export function parsePortfolioInput(text: string): PortfolioParsed {
     const raw = lines[i].trim();
     if (!raw || raw.startsWith("#")) continue;
 
-    // Accept "AAPL", "AAPL 10", "AAPL, 10", "AAPL  10%"
-    const cleaned = raw.replace(/[,]/g, " ").replace(/%/g, "").replace(/\s+/g, " ").trim();
-    const parts = cleaned.split(" ");
+    // Strip leading $ and intra-number commas (1,353.14 → 1353.14), then
+    // collapse all separators (commas, tabs, spaces, percent signs) into
+    // single spaces so brokerage-paste rows tokenize cleanly.
+    const cleaned = raw
+      .replace(/(\d),(?=\d{3}\b)/g, "$1") // 1,353.14 → 1353.14
+      .replace(/\$/g, "")
+      .replace(/[,\t]/g, " ")
+      .replace(/%/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const parts = cleaned.split(" ").filter(Boolean);
     const ticker = parts[0]?.toUpperCase();
-    const rawWeightStr = parts[1];
 
     if (!ticker || ticker.length < MIN_TICKER_LEN || ticker.length > MAX_TICKER_LEN) {
       errors.push(`Line ${i + 1}: "${raw}" — invalid ticker shape`);
@@ -71,18 +87,45 @@ export function parsePortfolioInput(text: string): PortfolioParsed {
       continue;
     }
 
-    let rawWeight: number | undefined;
-    if (rawWeightStr !== undefined) {
-      const w = Number(rawWeightStr);
-      if (!Number.isFinite(w) || w <= 0) {
-        errors.push(`Line ${i + 1}: "${rawWeightStr}" — invalid weight`);
-        continue;
+    // Equal-weight mode ignores any number on the line — only the ticker
+    // matters. For the other three modes, pick the right column from the
+    // tokens. The picker is mode-aware so a brokerage row paste works:
+    //   - Shares: first INTEGER token (Qty column is typically an integer
+    //     like 6, 50, 1000 while everything around it has decimals)
+    //   - Values: LARGEST positive number (Value$ column is typically the
+    //     biggest dollar amount on the row)
+    //   - Weights: only meaningful with clean 2-column input — falls back
+    //     to first positive number for ambiguous multi-col pasts
+    let rawNumber: number | undefined;
+    if (mode !== "equal") {
+      const positiveNums = parts
+        .slice(1)
+        .map(Number)
+        .filter((n) => Number.isFinite(n) && n > 0);
+
+      if (positiveNums.length === 0) {
+        // No usable number on this line — leave rawNumber undefined.
+        // deriveWeights() will handle it (filled with the explicit mean).
+      } else if (positiveNums.length === 1) {
+        rawNumber = positiveNums[0];
+      } else if (mode === "shares") {
+        // Find the first integer-valued positive number — that's almost
+        // always the Qty column. Fall back to the first number if there's
+        // no integer (rare; fractional-share portfolios).
+        const firstInt = positiveNums.find((n) => Number.isInteger(n));
+        rawNumber = firstInt !== undefined ? firstInt : positiveNums[0];
+      } else if (mode === "values") {
+        // The position-value column is the largest number on a typical
+        // brokerage row.
+        rawNumber = Math.max(...positiveNums);
+      } else {
+        // weights mode with ambiguous multi-column input: first number.
+        rawNumber = positiveNums[0];
       }
-      rawWeight = w;
     }
 
     seen.add(ticker);
-    entries.push({ ticker, rawWeight });
+    entries.push({ ticker, rawNumber });
 
     if (entries.length >= MAX_PORTFOLIO_ENTRIES) {
       errors.push(
@@ -95,32 +138,62 @@ export function parsePortfolioInput(text: string): PortfolioParsed {
   return { entries, errors };
 }
 
-export function normalizeWeights(entries: PortfolioInputEntry[]): Array<{
-  ticker: string;
-  weight: number;
-}> {
+/**
+ * Convert per-entry raw numbers into normalized weights that sum to 1.0.
+ * The raw number's interpretation depends on mode:
+ *   - "equal":   ignore any number; equal weight per entry
+ *   - "weights": use raw number as weight directly (then normalize)
+ *   - "shares":  multiply rawShares × currentPrice (passed in priceFor) to
+ *                get position value, then normalize over the portfolio
+ *   - "values":  use raw number as dollar position value, then normalize
+ *
+ * For shares mode, priceFor() must be a synchronous lookup callable —
+ * supplied by the API route after each ticker has been scored.
+ */
+export function deriveWeights(
+  entries: PortfolioInputEntry[],
+  mode: PortfolioMode,
+  priceFor?: (ticker: string) => number | null
+): Array<{ ticker: string; weight: number }> {
   if (entries.length === 0) return [];
 
-  const anyExplicit = entries.some((e) => typeof e.rawWeight === "number");
-  if (!anyExplicit) {
-    // Equal-weight default
+  // Equal mode: trivial.
+  if (mode === "equal") {
     const w = 1 / entries.length;
     return entries.map((e) => ({ ticker: e.ticker, weight: w }));
   }
 
-  // If any weights are explicit, treat missing as equal-weight share of the
-  // remaining proportion. Simpler approach: missing weights default to the
-  // average of the explicit weights, then renormalize to sum to 1.
-  const explicit = entries.filter((e) => typeof e.rawWeight === "number");
-  const explicitMean =
-    explicit.reduce((s, e) => s + (e.rawWeight as number), 0) / explicit.length;
+  // Compute a "score" per entry whose meaning depends on mode. Then
+  // normalize over entries with positive scores; entries with no usable
+  // score get the average of the rest so they don't drop out silently.
+  const scores: Array<{ ticker: string; raw: number | null }> = entries.map((e) => {
+    if (e.rawNumber === undefined) return { ticker: e.ticker, raw: null };
+    if (mode === "weights" || mode === "values") {
+      return { ticker: e.ticker, raw: e.rawNumber };
+    }
+    // shares mode
+    const price = priceFor?.(e.ticker);
+    if (price === null || price === undefined || !Number.isFinite(price) || price <= 0) {
+      return { ticker: e.ticker, raw: null };
+    }
+    return { ticker: e.ticker, raw: e.rawNumber * price };
+  });
 
-  const filled = entries.map((e) => ({
-    ticker: e.ticker,
-    weight: typeof e.rawWeight === "number" ? e.rawWeight : explicitMean,
+  const explicit = scores.filter((s): s is { ticker: string; raw: number } => s.raw !== null);
+  if (explicit.length === 0) {
+    // No usable numbers — fall back to equal weight so the user sees
+    // something rather than an empty analysis.
+    const w = 1 / entries.length;
+    return entries.map((e) => ({ ticker: e.ticker, weight: w }));
+  }
+  const explicitMean = explicit.reduce((s, e) => s + e.raw, 0) / explicit.length;
+
+  const filled = scores.map((s) => ({
+    ticker: s.ticker,
+    raw: s.raw ?? explicitMean,
   }));
-  const total = filled.reduce((s, e) => s + e.weight, 0);
-  return filled.map((e) => ({ ticker: e.ticker, weight: e.weight / total }));
+  const total = filled.reduce((s, e) => s + e.raw, 0);
+  return filled.map((e) => ({ ticker: e.ticker, weight: e.raw / total }));
 }
 
 export type PortfolioRow = {
