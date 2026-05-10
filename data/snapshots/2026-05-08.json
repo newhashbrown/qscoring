@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T01:33:21.786Z",
+  "generatedAt": "2026-05-10T10:46:40.716Z",
   "universeSize": 66,
   "picks": [
     {
@@ -75,6 +75,44 @@
           "name": "risk",
           "label": "Risk",
           "score": 47
+        }
+      ]
+    },
+    {
+      "ticker": "ABT",
+      "companyName": "Abbott Laboratories",
+      "price": 84.3,
+      "changePercent": -3.11458,
+      "composite": 46,
+      "signal": "HOLD",
+      "confidence": "MEDIUM",
+      "longTermScore": 50,
+      "shortTermScore": 43,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 52
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 42
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 29
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 48
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 60
         }
       ]
     },
@@ -725,6 +763,44 @@
       ]
     },
     {
+      "ticker": "DHR",
+      "companyName": "Danaher Corporation",
+      "price": 171.16,
+      "changePercent": -2.56177,
+      "composite": 47,
+      "signal": "HOLD",
+      "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 46,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 44
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 40
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 37
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 47
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 62
+        }
+      ]
+    },
+    {
       "ticker": "DIS",
       "companyName": "The Walt Disney Company",
       "price": 107.985,
@@ -1261,11 +1337,11 @@
       "companyName": "McDonald's Corporation",
       "price": 275.75,
       "changePercent": -2.80054,
-      "composite": 49,
+      "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 49,
-      "shortTermScore": 48,
+      "shortTermScore": 45,
       "categories": [
         {
           "name": "value",
@@ -1280,7 +1356,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 39
+          "score": 32
         },
         {
           "name": "profitability",
@@ -2013,6 +2089,44 @@
           "name": "risk",
           "label": "Risk",
           "score": 66
+        }
+      ]
+    },
+    {
+      "ticker": "TMO",
+      "companyName": "Thermo Fisher Scientific Inc.",
+      "price": 465,
+      "changePercent": -2.0145,
+      "composite": 47,
+      "signal": "HOLD",
+      "confidence": "MEDIUM",
+      "longTermScore": 47,
+      "shortTermScore": 47,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 49
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 41
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 46
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 45
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 52
         }
       ]
     },
