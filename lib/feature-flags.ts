@@ -17,4 +17,4 @@
  * Set to false to hide site-wide. The MarketStrip component returns null
  * when the flag is off so removal is invisible to the rest of the layout.
  */
-export const MARKET_STRIP_ENABLED = true;
+export const MARKET_STRIP_ENABLED = false;
