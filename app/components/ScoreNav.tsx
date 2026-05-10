@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import TickerSearch from "./TickerSearch";
 
@@ -20,8 +21,17 @@ type Props = {
   showSearch?: boolean;
 };
 
+function isActive(pathname: string | null, href: string): boolean {
+  if (!pathname) return false;
+  // Exact root only matches root; everything else matches if the pathname
+  // starts with the link's href so /score/AAPL highlights the "Score" link.
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(href + "/");
+}
+
 export default function ScoreNav({ ticker, showSearch = true }: Props) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   // Close the mobile menu on Escape so keyboard users aren't trapped.
   useEffect(() => {
@@ -47,26 +57,27 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
           width={251}
           height={120}
           priority
-          // Source is the transparent-background V3 logo, resampled to
-          // 120px tall @ 2x retina = 60px display in the nav. Aspect
-          // ~2.1:1 (wordmark + hexagon mark, slightly squarer than V2).
           style={{ height: 60, width: "auto" }}
         />
       </Link>
 
       <ul className="site-nav-links" role="menubar">
-        {PRIMARY_LINKS.map((l) => (
-          <li key={l.href} role="none">
-            <Link
-              href={l.href}
-              role="menuitem"
-              className="site-nav-link"
-              onClick={() => setOpen(false)}
-            >
-              {l.label}
-            </Link>
-          </li>
-        ))}
+        {PRIMARY_LINKS.map((l) => {
+          const active = isActive(pathname, l.href);
+          return (
+            <li key={l.href} role="none">
+              <Link
+                href={l.href}
+                role="menuitem"
+                aria-current={active ? "page" : undefined}
+                className={`site-nav-link ${active ? "active" : ""}`}
+                onClick={() => setOpen(false)}
+              >
+                {l.label}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
       <div className="site-nav-tail">
