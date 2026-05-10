@@ -705,6 +705,70 @@ footer .footer-links .sep {
 .score-nav .logo { text-decoration: none; }
 .score-nav .nav-cta { font-size: 0.8rem; padding: 9px 18px; }
 
+/* Market context strip — sits above the sticky nav. Renders four US
+   equity index quotes plus the QScore Universe Average. Scrolls away
+   with content (not sticky); the nav below sticks to top. Toggled site-
+   wide via MARKET_STRIP_ENABLED in lib/feature-flags.ts. */
+.market-strip {
+  position: relative;
+  z-index: 99;
+  background: rgba(10, 14, 23, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.market-strip::-webkit-scrollbar { display: none; }
+.market-strip-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 8px 24px;
+  min-width: max-content;
+}
+.market-strip-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.market-strip-label {
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+.market-strip-level {
+  color: var(--text);
+  font-weight: 600;
+}
+.market-strip-change {
+  font-size: 0.72rem;
+}
+.market-strip-change.up { color: var(--accent); }
+.market-strip-change.down { color: var(--red); }
+.market-strip-change.neutral { color: var(--text-muted); }
+
+/* QScore Avg gets a subtle separator + accent border to flag it as
+   the proprietary signal in the row. */
+.market-strip-qscore {
+  padding-left: 20px;
+  border-left: 1px solid var(--border);
+}
+.market-strip-qscore .market-strip-label {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .market-strip-row { padding: 8px 16px; gap: 18px; justify-content: flex-start; }
+  .market-strip-item { font-size: 0.72rem; }
+  .market-strip-label { font-size: 0.62rem; }
+}
+
 /* Universal site nav — used by every page including the homepage. Has the
    logo, six primary destinations with active-route highlighting, optional
    ticker search, and the early-access CTA. Collapses to a hamburger on
