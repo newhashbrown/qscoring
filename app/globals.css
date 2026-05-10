@@ -706,8 +706,9 @@ footer .footer-links .sep {
 .score-nav .nav-cta { font-size: 0.8rem; padding: 9px 18px; }
 
 /* Universal site nav — used by every page including the homepage. Has the
-   logo, six primary destinations, optional ticker search, and the early-
-   access CTA. Collapses to a hamburger on tablet/mobile. */
+   logo, six primary destinations with active-route highlighting, optional
+   ticker search, and the early-access CTA. Collapses to a hamburger on
+   tablet/mobile. */
 .site-nav {
   position: sticky;
   top: 0;
@@ -715,50 +716,73 @@ footer .footer-links .sep {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 28px;
-  padding: 14px 32px;
-  background: rgba(10, 14, 23, 0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  gap: 32px;
+  padding: 12px 32px;
+  background: rgba(10, 14, 23, 0.92);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .site-nav .logo {
   text-decoration: none;
   flex-shrink: 0;
   font-size: 1.15rem;
 }
-/* When the logo is rendered as an Image (Logo-homepage.png) instead of
-   the inline text wordmark, drop the wordmark padding and let the image
-   define its own height. */
+/* Logo as Image — the source PNG is alpha-keyed so only the actual mark +
+   wordmark are opaque; the surrounding canvas is fully transparent. */
 .site-nav .logo.logo-image {
   display: inline-flex;
   align-items: center;
   line-height: 1;
+  opacity: 0.96;
+  transition: opacity 0.15s;
 }
-.site-nav .logo.logo-image img {
-  display: block;
-}
+.site-nav .logo.logo-image:hover { opacity: 1; }
+.site-nav .logo.logo-image img { display: block; }
 .site-nav-links {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 22px;
+  gap: 6px;
   flex: 1;
   min-width: 0;
 }
 .site-nav-links li { display: inline-block; }
 .site-nav-link {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: var(--text-dim);
   text-decoration: none;
-  transition: color 0.15s;
-  padding: 6px 0;
+  transition: color 0.15s, background 0.15s;
+  padding: 8px 14px;
   display: inline-block;
   white-space: nowrap;
+  border-radius: 6px;
+  position: relative;
 }
 .site-nav-link:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+/* Active-route highlight — accent color + subtle bottom rule keeps the
+   current page obvious without overpowering the rest of the nav. */
+.site-nav-link.active {
   color: var(--accent);
+  font-weight: 600;
+}
+.site-nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.site-nav-link.active:hover {
+  background: rgba(0, 212, 170, 0.08);
 }
 .site-nav-tail {
   display: flex;
