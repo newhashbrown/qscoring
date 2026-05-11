@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-10T10:46:40.716Z",
+  "generatedAt": "2026-05-11T12:30:09.542Z",
   "universeSize": 66,
   "picks": [
     {
       "ticker": "AAPL",
       "companyName": "Apple Inc.",
-      "price": 293.32,
-      "changePercent": 2.04564,
+      "price": 293.257,
+      "changePercent": 2.02373,
       "composite": 58,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -510,7 +510,7 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 39
+          "score": 40
         },
         {
           "name": "growth",
@@ -537,8 +537,8 @@
     {
       "ticker": "CMCSA",
       "companyName": "Comcast Corporation",
-      "price": 25.4,
-      "changePercent": -3.20122,
+      "price": 25.395,
+      "changePercent": -3.22028,
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -879,8 +879,8 @@
     {
       "ticker": "GOOGL",
       "companyName": "Alphabet Inc.",
-      "price": 400.8,
-      "changePercent": 0.70605,
+      "price": 400.713,
+      "changePercent": 0.68419,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -1487,8 +1487,8 @@
     {
       "ticker": "MSFT",
       "companyName": "Microsoft Corporation",
-      "price": 415.12,
-      "changePercent": -1.34278,
+      "price": 415.06,
+      "changePercent": -1.35704,
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1525,8 +1525,8 @@
     {
       "ticker": "NFLX",
       "companyName": "Netflix, Inc.",
-      "price": 87.49,
-      "changePercent": -0.86119,
+      "price": 87.477,
+      "changePercent": -0.87592,
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1639,8 +1639,8 @@
     {
       "ticker": "NVDA",
       "companyName": "NVIDIA Corporation",
-      "price": 215.2,
-      "changePercent": 1.75085,
+      "price": 215.217,
+      "changePercent": 1.75889,
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
