@@ -1,0 +1,48 @@
+name: Weekly forward-track recap
+
+# Builds data/recaps/{date}.json from the last 7 days of snapshot files,
+# commits it, and lets Cloudflare Workers Builds redeploy. The /blog/recaps
+# index reads the recaps directory at request time so the new file appears
+# without code changes.
+#
+# Cron: Mondays at 14:00 UTC = ~10am ET. Runs after Friday's market close
+# has been captured + the weekend. Pairs prior Friday's snapshot with this
+# Friday's snapshot for a clean 7-trading-day forward-return window.
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  recap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build weekly recap
+        run: npm run weekly-recap
+
+      - name: Commit and push if changed
+        run: |
+          if [[ -z "$(git status --porcelain data/recaps/)" ]]; then
+            echo "No new recap data — skipping commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/recaps/
+          git commit -m "chore: weekly recap $(date -u +%Y-%m-%d)"
+          git push

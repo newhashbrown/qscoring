@@ -2525,6 +2525,114 @@ footer .footer-links .sep {
   border: 0;
 }
 
+/* Weekly recap detail pages — /blog/recaps/[week] */
+.recap-page .recap-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 28px 0;
+}
+.recap-page .recap-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.recap-page .recap-stat-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.recap-page .recap-stat-value {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.recap-page .recap-stat-value.up { color: var(--accent); }
+.recap-page .recap-stat-value.down { color: var(--red); }
+.recap-page .recap-stat-value.flat { color: var(--text-muted); }
+
+.recap-page .recap-hits td.up,
+.recap-page .recap-hits td.down,
+.recap-page .recap-hits td.flat,
+.recap-page .recap-mover-return.up,
+.recap-page .recap-mover-return.down,
+.recap-page .recap-mover-return.flat {
+  font-family: var(--mono);
+  font-weight: 600;
+}
+.recap-page .recap-hits td.up,
+.recap-page .recap-mover-return.up { color: var(--accent); }
+.recap-page .recap-hits td.down,
+.recap-page .recap-mover-return.down { color: var(--red); }
+.recap-page .recap-hits td.flat,
+.recap-page .recap-mover-return.flat { color: var(--text-muted); }
+
+.recap-page .recap-note {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: rgba(255, 184, 0, 0.06);
+  border: 1px solid rgba(255, 184, 0, 0.2);
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.recap-page .recap-extremes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+.recap-page .recap-mover-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.recap-page .recap-mover-row {
+  display: grid;
+  grid-template-columns: 60px 1fr auto auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.recap-page .recap-mover-row:hover { background: rgba(0, 212, 170, 0.04); }
+.recap-page .recap-mover-list li:last-child .recap-mover-row { border-bottom: 0; }
+.recap-page .recap-mover-ticker { font-family: var(--mono); font-weight: 600; color: var(--text); }
+.recap-page .recap-mover-name {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.recap-page .recap-mover-signal {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+.recap-page .recap-mover-return {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  text-align: right;
+}
+
 /* Performance / forward-tracking page */
 .performance-stats {
   display: grid;

@@ -11,7 +11,8 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "universe-stats": "tsx scripts/build-universe-stats.ts",
     "sitemap-tickers": "tsx scripts/build-sitemap-tickers.ts",
-    "strong-picks": "tsx scripts/build-strong-picks.ts"
+    "strong-picks": "tsx scripts/build-strong-picks.ts",
+    "weekly-recap": "tsx scripts/build-weekly-recap.ts"
   },
   "dependencies": {
     "next": "16.2.5",
