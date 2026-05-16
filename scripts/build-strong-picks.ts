@@ -209,6 +209,50 @@ async function main() {
   const snapshotPath = path.resolve(snapshotsDir, `${snapshotDate}.json`);
   fs.writeFileSync(snapshotPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
   console.log(`Wrote snapshot → ${snapshotPath}`);
+
+  // Persist a queryable copy to D1 so /performance and future history charts
+  // can read by ticker without scanning every snapshot JSON. Best-effort —
+  // the JSON file above is the no-look-ahead source of truth, so a D1 write
+  // failure must not fail the workflow or block the git commit.
+  await persistSnapshotToD1(snapshotDate, picks);
+}
+
+async function persistSnapshotToD1(snapshotDate: string, picks: Pick[]): Promise<void> {
+  const token = process.env.SNAPSHOT_CRON_TOKEN;
+  if (!token) {
+    console.warn("SNAPSHOT_CRON_TOKEN not set — skipping D1 persistence.");
+    return;
+  }
+  if (picks.length === 0) {
+    console.warn("No picks to persist — skipping D1 persistence.");
+    return;
+  }
+
+  const url = `${BASE}/api/cron/persist-snapshot`;
+  const body = JSON.stringify({ snapshotDate, picks });
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body,
+      signal: ctrl.signal,
+    });
+    const text = await res.text();
+    if (!res.ok) {
+      console.warn(`D1 persist failed HTTP ${res.status}: ${text.slice(0, 200)}`);
+      return;
+    }
+    console.log(`D1 persist OK: ${text}`);
+  } catch (err) {
+    console.warn(`D1 persist threw: ${err instanceof Error ? err.message : err}`);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 // Inline copy of lib/market-date.ts's marketCloseDate — duplicated rather
