@@ -233,12 +233,6 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
         <Link href="/glossary">Glossary of factors and metrics →</Link>
       </section>
 
-      <p className="score-timestamp">
-        Generated {new Date(data.generatedAt).toLocaleString()} ·{" "}
-        <Link href="/methodology" className="method-link">
-          How is this calculated?
-        </Link>
-      </p>
     </div>
   );
 }
