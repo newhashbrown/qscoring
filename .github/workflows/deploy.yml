@@ -1,0 +1,44 @@
+name: Deploy to Cloudflare Workers
+
+# Triggers on code changes to main. Data-only pushes (data/**) are
+# excluded — the Cloudflare Workers Builds GitHub App handles those
+# via the refresh-strong-picks workflow.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "lib/**"
+      - "public/**"
+      - "migrations/**"
+      - "package*.json"
+      - "wrangler.jsonc"
+      - "open-next.config.ts"
+      - "next.config.*"
+      - "tsconfig.json"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build & deploy
+        run: npm run deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 89df760ebec4b6f5cd5b4680b75d3732
