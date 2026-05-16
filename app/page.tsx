@@ -2,7 +2,16 @@ import { Suspense } from "react";
 import DemoCard from "./components/DemoCard";
 import EmailForm from "./components/EmailForm";
 import ScoreNav from "./components/ScoreNav";
+import ScoreRing from "./components/ScoreRing";
 import TopMoversStrip from "./components/TopMoversStrip";
+
+const FACTOR_SAMPLES = [
+  { label: "Value", score: 72 },
+  { label: "Growth", score: 85 },
+  { label: "Momentum", score: 66 },
+  { label: "Profitability", score: 91 },
+  { label: "Risk", score: 38 },
+] as const;
 
 // Refresh the live NVDA demo score at most once per hour.
 export const revalidate = 3600;
@@ -46,50 +55,58 @@ export default function Home() {
 
       {/* FEATURES */}
       <section className="features">
-        <h2>What you get with QScoring</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon green">📊</div>
-            <h3>Composite Quant Score</h3>
+        <h2>Five factors. One clear signal.</h2>
+        <p className="features-sub">
+          Value, growth, momentum, profitability, and risk — synthesized into a single composite
+          score so you get signal, not noise.
+        </p>
+
+        <div className="features-showcase">
+          {/* Composite card */}
+          <div className="showcase-composite">
+            <div className="showcase-eyebrow">Composite QScore</div>
+            <ScoreRing value={74} size={112} animate />
+            <div className="showcase-signal">Buy Long-Term</div>
+            <div className="showcase-horizons">
+              <span>Long-Term <strong>78</strong></span>
+              <span>Short-Term <strong>71</strong></span>
+            </div>
+            <p className="showcase-note">Illustrative sample</p>
+          </div>
+
+          {/* Factor chips */}
+          <div className="showcase-factors">
+            {FACTOR_SAMPLES.map(({ label, score }) => (
+              <div key={label} className="factor-chip">
+                <ScoreRing value={score} size={56} animate />
+                <span className="factor-chip-label">{label}</span>
+              </div>
+            ))}
+            <a href="/methodology" className="factor-chip factor-chip-cta">
+              <span className="factor-chip-cta-text">Full methodology →</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Secondary: non-visual features */}
+        <div className="features-secondary">
+          <div className="feature-sec">
+            <h3>Directional signals</h3>
             <p>
-              Five factor categories — value, growth, momentum, profitability, and risk —
-              distilled into a single 1–100 score for any US stock.
+              Buy Short-Term, Buy Long-Term, Hold, or Short — calibrated to your time horizon,
+              not a wall of charts.
             </p>
           </div>
-          <div className="feature-card">
-            <div className="feature-icon amber">🎯</div>
-            <h3>Directional Signals</h3>
+          <div className="feature-sec">
+            <h3>Instant results</h3>
             <p>
-              Buy Short-Term, Buy Long-Term, Hold, or Short. Clear guidance calibrated to your
-              time horizon, not a wall of charts.
+              No setup. No dashboard. Type a ticker and get your score in seconds.
             </p>
           </div>
-          <a href="/methodology" className="feature-card">
-            <div className="feature-icon green">🔍</div>
-            <h3>Transparent Methodology</h3>
-            <p>See exactly which factors drive the score. Every threshold, weight, and rule is documented. No black boxes.</p>
-          </a>
-          <div className="feature-card">
-            <div className="feature-icon amber">🔔</div>
-            <h3>Watchlist & Alerts</h3>
+          <div className="feature-sec">
+            <h3>Zero ads. Zero noise.</h3>
             <p>
-              Track the stocks you care about. Get notified when scores shift or signals change so
-              you never miss a move.
-            </p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon green">⚡</div>
-            <h3>Instant Results</h3>
-            <p>
-              No accounts to set up, no dashboards to configure. Type a ticker, get your score.
-              Analysis in seconds, not hours.
-            </p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon red">🚫</div>
-            <h3>Zero Ads. Zero Noise.</h3>
-            <p>
-              Subscription-powered means we work for you, not advertisers. Clean interface, no
+              Subscription-powered. We work for you, not advertisers — clean interface, no
               upsells, no sponsored content.
             </p>
           </div>
