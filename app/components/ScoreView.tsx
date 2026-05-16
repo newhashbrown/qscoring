@@ -9,6 +9,7 @@ import {
   type Signal,
 } from "@/lib/scoring";
 import PriceChart from "./PriceChart";
+import ScoreRing from "./ScoreRing";
 
 const SIGNAL_LABEL: Record<Signal, string> = {
   BUY_LONG_TERM: "Buy Long-Term",
@@ -47,32 +48,6 @@ function scoreColor(score: number | null): "green" | "amber" | "red" {
   return "red";
 }
 
-function ScoreRing({ value, size = 140 }: { value: number; size?: number }) {
-  const radius = 45;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (value / 100) * circumference;
-  return (
-    <div className="ring-container" style={{ width: size, height: size }}>
-      <svg viewBox="0 0 100 100" width={size} height={size}>
-        <circle className="ring-bg" cx="50" cy="50" r={radius} />
-        <circle
-          className="ring-fill"
-          cx="50"
-          cy="50"
-          r={radius}
-          style={{
-            strokeDasharray: circumference,
-            strokeDashoffset: offset,
-            animation: "none",
-          }}
-        />
-      </svg>
-      <div className="ring-number" style={{ fontSize: size * 0.32 }}>
-        {value}
-      </div>
-    </div>
-  );
-}
 
 function CategoryCard({ category }: { category: CategoryScore }) {
   return (
@@ -197,6 +172,17 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
           <span className="insight-eyebrow">What this says</span>
           <span className="insight-meta">
             QScore model {QSCORE_MODEL_VERSION} · Generated {formatGeneratedAt(data.generatedAt)}
+            {data.staleSince ? (
+              <>
+                {" "}·{" "}
+                <span
+                  className="stale-pill"
+                  title="One or more upstream data fetches failed and the last cached payload was used instead."
+                >
+                  Data as of {formatGeneratedAt(data.staleSince)}
+                </span>
+              </>
+            ) : null}
           </span>
         </div>
 
