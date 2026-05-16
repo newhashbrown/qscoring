@@ -69,7 +69,7 @@ function CategoryCard({ category }: { category: CategoryScore }) {
           <div key={m.name} className="metric-row">
             <span className="metric-name">{m.name}</span>
             <span className="metric-raw">{formatRaw(m)}</span>
-            <div className="metric-track">
+            <div className="metric-track" aria-hidden="true">
               <div
                 className={`metric-fill ${scoreColor(m.score)}`}
                 style={{ width: m.score === null ? "0%" : `${m.score}%` }}
@@ -133,7 +133,9 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
         <div className="score-price">
           <div className="price-value">${data.price.toFixed(2)}</div>
           <div className={`price-change ${changeUp ? "up" : "down"}`}>
-            {changeUp ? "▲" : "▼"} {Math.abs(data.changePercent).toFixed(2)}%
+            <span aria-hidden="true">{changeUp ? "▲" : "▼"}</span>
+            <span className="visually-hidden">{changeUp ? "Up" : "Down"}</span>
+            {" "}{Math.abs(data.changePercent).toFixed(2)}%
           </div>
         </div>
       </header>
@@ -180,6 +182,7 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
                   title="One or more upstream data fetches failed and the last cached payload was used instead."
                 >
                   Data as of {formatGeneratedAt(data.staleSince)}
+                  <span className="visually-hidden"> (stale: one or more upstream data fetches failed; last cached payload shown)</span>
                 </span>
               </>
             ) : null}
