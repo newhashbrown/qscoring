@@ -2,8 +2,8 @@
 
 :root {
   --bg: #0A0E17;
-  --bg-card: #111827;
-  --bg-card-hover: #1a2332;
+  --bg-card: #141c2e;
+  --bg-card-hover: #1c2740;
   --accent: #00D4AA;
   --accent-dim: rgba(0, 212, 170, 0.15);
   --accent-glow: rgba(0, 212, 170, 0.3);
@@ -14,7 +14,7 @@
   --text: #E8ECF1;
   --text-dim: #7B8794;
   --text-muted: #4A5568;
-  --border: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.09);
   --font: var(--font-dm-sans), -apple-system, sans-serif;
   --mono: var(--font-jetbrains-mono), monospace;
 }
