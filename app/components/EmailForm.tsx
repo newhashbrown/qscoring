@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, type CSSProperties } from "react";
+import { useId, useState, type FormEvent, type CSSProperties } from "react";
 
 type EmailFormProps = {
   buttonLabel?: string;
@@ -15,6 +15,7 @@ export default function EmailForm({
   style,
   showSuccessInline = true,
 }: EmailFormProps) {
+  const inputId = useId();
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -58,7 +59,14 @@ export default function EmailForm({
   return (
     <>
       <form className="email-form" style={style} onSubmit={handleSubmit}>
-        <input type="email" placeholder="you@email.com" required />
+        <label htmlFor={inputId} className="visually-hidden">Email address</label>
+        <input
+          id={inputId}
+          type="email"
+          placeholder="you@email.com"
+          autoComplete="email"
+          required
+        />
         <button type="submit" disabled={status === "submitting"}>
           {status === "submitting" ? "…" : buttonLabel}
         </button>
