@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-05-11T12:30:09.542Z",
+  "generatedAt": "2026-05-15T11:35:49.858Z",
   "universeSize": 66,
   "picks": [
     {
       "ticker": "AAPL",
       "companyName": "Apple Inc.",
-      "price": 293.257,
-      "changePercent": 2.02373,
+      "price": 298.21,
+      "changePercent": -0.22083,
       "composite": 58,
-      "signal": "BUY_SHORT_TERM",
+      "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 57,
-      "shortTermScore": 60,
+      "shortTermScore": 59,
       "categories": [
         {
           "name": "value",
@@ -26,7 +26,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 55
+          "score": 52
         },
         {
           "name": "profitability",
@@ -36,25 +36,25 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 83
+          "score": 85
         }
       ]
     },
     {
       "ticker": "ABBV",
       "companyName": "AbbVie Inc.",
-      "price": 201.55,
-      "changePercent": -0.57225,
-      "composite": 43,
+      "price": 210.825,
+      "changePercent": 1.11511,
+      "composite": 45,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 42,
-      "shortTermScore": 45,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 27
+          "score": 26
         },
         {
           "name": "growth",
@@ -64,30 +64,30 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 45
+          "score": 54
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 52
+          "score": 51
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 47
+          "score": 49
         }
       ]
     },
     {
       "ticker": "ABT",
       "companyName": "Abbott Laboratories",
-      "price": 84.3,
-      "changePercent": -3.11458,
+      "price": 84.89,
+      "changePercent": 1.26446,
       "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 50,
-      "shortTermScore": 43,
+      "longTermScore": 49,
+      "shortTermScore": 42,
       "categories": [
         {
           "name": "value",
@@ -102,7 +102,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 29
+          "score": 28
         },
         {
           "name": "profitability",
@@ -112,20 +112,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 60
+          "score": 59
         }
       ]
     },
     {
       "ticker": "ADBE",
       "companyName": "Adobe Inc.",
-      "price": 253.04,
-      "changePercent": -1.35277,
-      "composite": 54,
+      "price": 237.01,
+      "changePercent": 0.39819,
+      "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 58,
-      "shortTermScore": 50,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -140,12 +140,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 39
+          "score": 36
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 69
+          "score": 70
         },
         {
           "name": "risk",
@@ -157,13 +157,13 @@
     {
       "ticker": "AMD",
       "companyName": "Advanced Micro Devices, Inc.",
-      "price": 455.19,
-      "changePercent": 11.44053,
+      "price": 449.7,
+      "changePercent": 0.94276,
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 45,
-      "shortTermScore": 54,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
@@ -195,18 +195,18 @@
     {
       "ticker": "AMGN",
       "companyName": "Amgen Inc.",
-      "price": 331.7,
-      "changePercent": 0.7931,
-      "composite": 55,
+      "price": 336.23,
+      "changePercent": -0.06538862,
+      "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 55,
-      "shortTermScore": 55,
+      "shortTermScore": 57,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 51
+          "score": 50
         },
         {
           "name": "growth",
@@ -216,7 +216,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 54
+          "score": 57
         },
         {
           "name": "profitability",
@@ -233,18 +233,18 @@
     {
       "ticker": "AMZN",
       "companyName": "Amazon.com, Inc.",
-      "price": 272.68,
-      "changePercent": 0.55685,
-      "composite": 54,
+      "price": 267.22,
+      "changePercent": -1.07726,
+      "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 49,
-      "shortTermScore": 59,
+      "shortTermScore": 56,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 49
+          "score": 50
         },
         {
           "name": "growth",
@@ -254,7 +254,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 73
+          "score": 66
         },
         {
           "name": "profitability",
@@ -271,18 +271,18 @@
     {
       "ticker": "AVGO",
       "companyName": "Broadcom Inc.",
-      "price": 430,
-      "changePercent": 4.22726,
-      "composite": 54,
+      "price": 439.79,
+      "changePercent": 5.51837,
+      "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 53,
-      "shortTermScore": 56,
+      "longTermScore": 52,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 40
+          "score": 39
         },
         {
           "name": "growth",
@@ -292,7 +292,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 56
+          "score": 53
         },
         {
           "name": "profitability",
@@ -302,20 +302,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 60
+          "score": 59
         }
       ]
     },
     {
       "ticker": "AXP",
       "companyName": "American Express Company",
-      "price": 315.98,
-      "changePercent": -0.85036,
-      "composite": 47,
+      "price": 312.77,
+      "changePercent": 1.02064,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 51,
-      "shortTermScore": 42,
+      "shortTermScore": 40,
       "categories": [
         {
           "name": "value",
@@ -330,7 +330,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 30
+          "score": 24
         },
         {
           "name": "profitability",
@@ -340,25 +340,25 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 48
+          "score": 49
         }
       ]
     },
     {
       "ticker": "BA",
       "companyName": "The Boeing Company",
-      "price": 237.36,
-      "changePercent": 2.7399,
-      "composite": 47,
+      "price": 229.21,
+      "changePercent": -4.734,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 43,
-      "shortTermScore": 51,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 31
+          "score": 32
         },
         {
           "name": "growth",
@@ -368,7 +368,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 47
+          "score": 41
         },
         {
           "name": "profitability",
@@ -378,20 +378,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 57
+          "score": 56
         }
       ]
     },
     {
       "ticker": "BAC",
       "companyName": "Bank of America Corporation",
-      "price": 51.31,
-      "changePercent": -2.72986,
+      "price": 49.85,
+      "changePercent": 0.03009933,
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 51,
-      "shortTermScore": 44,
+      "shortTermScore": 43,
       "categories": [
         {
           "name": "value",
@@ -406,7 +406,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 33
+          "score": 29
         },
         {
           "name": "profitability",
@@ -423,13 +423,13 @@
     {
       "ticker": "BLK",
       "companyName": "BlackRock, Inc.",
-      "price": 1084.83,
-      "changePercent": 1.60058,
-      "composite": 47,
+      "price": 1104.03,
+      "changePercent": 0.9076,
+      "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 48,
-      "shortTermScore": 46,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -444,7 +444,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 49
+          "score": 51
         },
         {
           "name": "profitability",
@@ -454,20 +454,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 35
+          "score": 36
         }
       ]
     },
     {
       "ticker": "BRK-B",
       "companyName": "Berkshire Hathaway Inc.",
-      "price": 475.66,
-      "changePercent": 0.12208,
-      "composite": 44,
+      "price": 484.06,
+      "changePercent": -0.30071,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 47,
-      "shortTermScore": 40,
+      "longTermScore": 48,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
@@ -482,7 +482,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 25
+          "score": 35
         },
         {
           "name": "profitability",
@@ -499,18 +499,18 @@
     {
       "ticker": "CAT",
       "companyName": "Caterpillar Inc.",
-      "price": 897.45,
-      "changePercent": 0.1965,
-      "composite": 49,
+      "price": 920.22,
+      "changePercent": 1.98604,
+      "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 44,
-      "shortTermScore": 54,
+      "shortTermScore": 53,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 40
+          "score": 39
         },
         {
           "name": "growth",
@@ -520,7 +520,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 75
+          "score": 73
         },
         {
           "name": "profitability",
@@ -537,13 +537,13 @@
     {
       "ticker": "CMCSA",
       "companyName": "Comcast Corporation",
-      "price": 25.395,
-      "changePercent": -3.22028,
-      "composite": 48,
+      "price": 25.17,
+      "changePercent": 0.92221,
+      "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 53,
-      "shortTermScore": 44,
+      "longTermScore": 52,
+      "shortTermScore": 41,
       "categories": [
         {
           "name": "value",
@@ -558,7 +558,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 37
+          "score": 28
         },
         {
           "name": "profitability",
@@ -575,18 +575,18 @@
     {
       "ticker": "COST",
       "companyName": "Costco Wholesale Corporation",
-      "price": 1008.79,
-      "changePercent": -0.3231,
-      "composite": 52,
+      "price": 1041.25,
+      "changePercent": 0.79084,
+      "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 50,
-      "shortTermScore": 53,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 48
+          "score": 47
         },
         {
           "name": "growth",
@@ -596,7 +596,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 48
+          "score": 54
         },
         {
           "name": "profitability",
@@ -613,13 +613,13 @@
     {
       "ticker": "CRM",
       "companyName": "Salesforce, Inc.",
-      "price": 181.82,
-      "changePercent": -2.42567,
+      "price": 167.58,
+      "changePercent": 1.0492,
       "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 55,
-      "shortTermScore": 50,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -634,12 +634,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 38
+          "score": 36
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 54
+          "score": 55
         },
         {
           "name": "risk",
@@ -651,18 +651,18 @@
     {
       "ticker": "CRWD",
       "companyName": "CrowdStrike Holdings, Inc.",
-      "price": 527.77,
-      "changePercent": 4.36012,
-      "composite": 40,
+      "price": 579.95,
+      "changePercent": 3.08939,
+      "composite": 39,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 35,
-      "shortTermScore": 46,
+      "longTermScore": 34,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 16
+          "score": 14
         },
         {
           "name": "growth",
@@ -672,7 +672,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 49
+          "score": 45
         },
         {
           "name": "profitability",
@@ -689,13 +689,13 @@
     {
       "ticker": "CVX",
       "companyName": "Chevron Corporation",
-      "price": 181.45,
-      "changePercent": -0.57534,
-      "composite": 47,
+      "price": 186.6,
+      "changePercent": 0.32258,
+      "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 47,
-      "shortTermScore": 48,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -710,7 +710,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 50
+          "score": 52
         },
         {
           "name": "profitability",
@@ -727,13 +727,13 @@
     {
       "ticker": "DE",
       "companyName": "Deere & Company",
-      "price": 574.84,
-      "changePercent": -0.98184,
+      "price": 574.64,
+      "changePercent": -1.03505,
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 48,
-      "shortTermScore": 48,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -748,7 +748,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 49
+          "score": 51
         },
         {
           "name": "profitability",
@@ -765,18 +765,18 @@
     {
       "ticker": "DHR",
       "companyName": "Danaher Corporation",
-      "price": 171.16,
-      "changePercent": -2.56177,
-      "composite": 47,
+      "price": 164.54,
+      "changePercent": -0.87355,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 47,
-      "shortTermScore": 46,
+      "longTermScore": 48,
+      "shortTermScore": 45,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 44
+          "score": 45
         },
         {
           "name": "growth",
@@ -786,25 +786,25 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 37
+          "score": 34
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 47
+          "score": 48
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 62
+          "score": 63
         }
       ]
     },
     {
       "ticker": "DIS",
       "companyName": "The Walt Disney Company",
-      "price": 107.985,
-      "changePercent": -0.6212,
+      "price": 105.45,
+      "changePercent": 0.52431,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -824,35 +824,35 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 44
+          "score": 42
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 43
+          "score": 44
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 51
+          "score": 52
         }
       ]
     },
     {
       "ticker": "GE",
       "companyName": "GE Aerospace",
-      "price": 297.15,
-      "changePercent": -1.81079,
-      "composite": 50,
+      "price": 291.54,
+      "changePercent": -1.07563,
+      "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 50,
-      "shortTermScore": 50,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 43
+          "score": 44
         },
         {
           "name": "growth",
@@ -862,7 +862,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 50
+          "score": 42
         },
         {
           "name": "profitability",
@@ -872,20 +872,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 40
+          "score": 41
         }
       ]
     },
     {
       "ticker": "GOOGL",
       "companyName": "Alphabet Inc.",
-      "price": 400.713,
-      "changePercent": 0.68419,
+      "price": 401.07,
+      "changePercent": -0.38498,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 55,
-      "shortTermScore": 64,
+      "shortTermScore": 65,
       "categories": [
         {
           "name": "value",
@@ -900,7 +900,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 78
+          "score": 82
         },
         {
           "name": "profitability",
@@ -910,20 +910,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 56
+          "score": 55
         }
       ]
     },
     {
       "ticker": "GS",
       "companyName": "The Goldman Sachs Group, Inc.",
-      "price": 936.48,
-      "changePercent": 1.14595,
-      "composite": 48,
+      "price": 968.96,
+      "changePercent": 1.41718,
+      "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 45,
-      "shortTermScore": 50,
+      "longTermScore": 46,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
@@ -938,7 +938,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 62
+          "score": 74
         },
         {
           "name": "profitability",
@@ -948,20 +948,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 41
+          "score": 42
         }
       ]
     },
     {
       "ticker": "HD",
       "companyName": "The Home Depot, Inc.",
-      "price": 317.45,
-      "changePercent": -1.6086,
-      "composite": 51,
+      "price": 304.35,
+      "changePercent": 0.59494,
+      "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 53,
-      "shortTermScore": 48,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -976,35 +976,35 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 33
+          "score": 29
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 53
+          "score": 54
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 73
+          "score": 72
         }
       ]
     },
     {
       "ticker": "HON",
       "companyName": "Honeywell International Inc.",
-      "price": 213.12,
-      "changePercent": -1.3653,
-      "composite": 53,
+      "price": 217.72,
+      "changePercent": -0.11011,
+      "composite": 54,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 53,
-      "shortTermScore": 53,
+      "shortTermScore": 54,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 54
+          "score": 53
         },
         {
           "name": "growth",
@@ -1014,7 +1014,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 45
+          "score": 48
         },
         {
           "name": "profitability",
@@ -1024,25 +1024,25 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 73
+          "score": 72
         }
       ]
     },
     {
       "ticker": "INTU",
       "companyName": "Intuit Inc.",
-      "price": 396.31,
-      "changePercent": -2.57387,
-      "composite": 54,
+      "price": 378.29,
+      "changePercent": 1.7702,
+      "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 56,
-      "shortTermScore": 51,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 58
+          "score": 59
         },
         {
           "name": "growth",
@@ -1062,25 +1062,25 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 70
+          "score": 71
         }
       ]
     },
     {
       "ticker": "ISRG",
       "companyName": "Intuitive Surgical, Inc.",
-      "price": 450.06,
-      "changePercent": -0.75636,
-      "composite": 44,
+      "price": 428.06,
+      "changePercent": -0.97393,
+      "composite": 43,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 43,
-      "shortTermScore": 46,
+      "longTermScore": 42,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 12
+          "score": 14
         },
         {
           "name": "growth",
@@ -1090,35 +1090,35 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 42
+          "score": 39
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 56
+          "score": 57
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 53
+          "score": 48
         }
       ]
     },
     {
       "ticker": "JNJ",
       "companyName": "Johnson & Johnson",
-      "price": 221.32,
-      "changePercent": -0.53481,
-      "composite": 55,
-      "signal": "HOLD",
+      "price": 230.8,
+      "changePercent": 0.16492,
+      "composite": 56,
+      "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 53,
-      "shortTermScore": 57,
+      "shortTermScore": 60,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 48
+          "score": 47
         },
         {
           "name": "growth",
@@ -1128,7 +1128,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 59
+          "score": 66
         },
         {
           "name": "profitability",
@@ -1138,20 +1138,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 67
+          "score": 65
         }
       ]
     },
     {
       "ticker": "JPM",
       "companyName": "JPMorgan Chase & Co.",
-      "price": 302.1,
-      "changePercent": -1.36154,
+      "price": 299.91,
+      "changePercent": -0.11324,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 54,
-      "shortTermScore": 47,
+      "shortTermScore": 48,
       "categories": [
         {
           "name": "value",
@@ -1166,7 +1166,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 33
+          "score": 35
         },
         {
           "name": "profitability",
@@ -1183,18 +1183,18 @@
     {
       "ticker": "KO",
       "companyName": "The Coca-Cola Company",
-      "price": 78.42,
-      "changePercent": -0.0254972,
-      "composite": 51,
+      "price": 80.45,
+      "changePercent": 0.23673,
+      "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 51,
-      "shortTermScore": 51,
+      "longTermScore": 52,
+      "shortTermScore": 53,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 53
+          "score": 52
         },
         {
           "name": "growth",
@@ -1204,7 +1204,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 53
+          "score": 58
         },
         {
           "name": "profitability",
@@ -1221,18 +1221,18 @@
     {
       "ticker": "LLY",
       "companyName": "Eli Lilly and Company",
-      "price": 948.45,
-      "changePercent": -2.71909,
-      "composite": 53,
+      "price": 1008.04,
+      "changePercent": -0.75905,
+      "composite": 55,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 51,
-      "shortTermScore": 54,
+      "shortTermScore": 59,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 25
+          "score": 22
         },
         {
           "name": "growth",
@@ -1242,7 +1242,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 59
+          "score": 72
         },
         {
           "name": "profitability",
@@ -1252,20 +1252,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 36
+          "score": 35
         }
       ]
     },
     {
       "ticker": "LMT",
       "companyName": "Lockheed Martin Corporation",
-      "price": 506.51,
-      "changePercent": -1.15142,
+      "price": 520.41,
+      "changePercent": 0.09039505,
       "composite": 50,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 52,
-      "shortTermScore": 48,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
@@ -1280,7 +1280,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 44
+          "score": 46
         },
         {
           "name": "profitability",
@@ -1297,13 +1297,13 @@
     {
       "ticker": "MA",
       "companyName": "Mastercard Incorporated",
-      "price": 495.48,
-      "changePercent": -1.08995,
-      "composite": 50,
+      "price": 489.94,
+      "changePercent": -0.14267,
+      "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 57,
-      "shortTermScore": 42,
+      "shortTermScore": 41,
       "categories": [
         {
           "name": "value",
@@ -1318,7 +1318,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 20
+          "score": 19
         },
         {
           "name": "profitability",
@@ -1335,8 +1335,8 @@
     {
       "ticker": "MCD",
       "companyName": "McDonald's Corporation",
-      "price": 275.75,
-      "changePercent": -2.80054,
+      "price": 274.97,
+      "changePercent": -0.26478,
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1366,15 +1366,15 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 64
+          "score": 65
         }
       ]
     },
     {
       "ticker": "META",
       "companyName": "Meta Platforms, Inc.",
-      "price": 609.63,
-      "changePercent": -1.16405,
+      "price": 618.43,
+      "changePercent": 0.29191,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1394,7 +1394,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 38
+          "score": 36
         },
         {
           "name": "profitability",
@@ -1411,18 +1411,18 @@
     {
       "ticker": "MRK",
       "companyName": "Merck & Co., Inc.",
-      "price": 111.38,
-      "changePercent": -0.81923,
-      "composite": 51,
+      "price": 113.42,
+      "changePercent": -0.02644337,
+      "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 49,
-      "shortTermScore": 52,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 50
+          "score": 49
         },
         {
           "name": "growth",
@@ -1432,7 +1432,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 58
+          "score": 65
         },
         {
           "name": "profitability",
@@ -1449,13 +1449,13 @@
     {
       "ticker": "MS",
       "companyName": "Morgan Stanley",
-      "price": 193.04,
-      "changePercent": 1.50918,
-      "composite": 56,
-      "signal": "HOLD",
+      "price": 194.52,
+      "changePercent": 0.35598,
+      "composite": 57,
+      "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 53,
-      "shortTermScore": 59,
+      "shortTermScore": 61,
       "categories": [
         {
           "name": "value",
@@ -1470,7 +1470,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 71
+          "score": 74
         },
         {
           "name": "profitability",
@@ -1480,15 +1480,15 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 41
+          "score": 44
         }
       ]
     },
     {
       "ticker": "MSFT",
       "companyName": "Microsoft Corporation",
-      "price": 415.06,
-      "changePercent": -1.35704,
+      "price": 409.43,
+      "changePercent": 1.04144,
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1498,7 +1498,7 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 56
+          "score": 57
         },
         {
           "name": "growth",
@@ -1508,7 +1508,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 39
+          "score": 38
         },
         {
           "name": "profitability",
@@ -1525,8 +1525,8 @@
     {
       "ticker": "NFLX",
       "companyName": "Netflix, Inc.",
-      "price": 87.477,
-      "changePercent": -0.87592,
+      "price": 86.94,
+      "changePercent": -0.70809,
       "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1546,7 +1546,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 35
+          "score": 34
         },
         {
           "name": "profitability",
@@ -1563,13 +1563,13 @@
     {
       "ticker": "NKE",
       "companyName": "NIKE, Inc.",
-      "price": 44.14,
-      "changePercent": -0.60797,
+      "price": 42.02,
+      "changePercent": -0.75579,
       "composite": 41,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 44,
-      "shortTermScore": 38,
+      "shortTermScore": 37,
       "categories": [
         {
           "name": "value",
@@ -1584,25 +1584,25 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 27
+          "score": 25
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 40
+          "score": 41
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 53
+          "score": 54
         }
       ]
     },
     {
       "ticker": "NOW",
       "companyName": "ServiceNow, Inc.",
-      "price": 91.18,
-      "changePercent": -2.57506,
+      "price": 90.5,
+      "changePercent": 3.96324,
       "composite": 48,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1639,18 +1639,18 @@
     {
       "ticker": "NVDA",
       "companyName": "NVIDIA Corporation",
-      "price": 215.217,
-      "changePercent": 1.75889,
+      "price": 235.74,
+      "changePercent": 4.38826,
       "composite": 56,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 57,
-      "shortTermScore": 55,
+      "longTermScore": 56,
+      "shortTermScore": 56,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 42
+          "score": 40
         },
         {
           "name": "growth",
@@ -1660,7 +1660,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 54
+          "score": 58
         },
         {
           "name": "profitability",
@@ -1677,13 +1677,13 @@
     {
       "ticker": "ORCL",
       "companyName": "Oracle Corporation",
-      "price": 195.94,
-      "changePercent": 0.69377,
-      "composite": 48,
+      "price": 195.68,
+      "changePercent": 3.11973,
+      "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 48,
-      "shortTermScore": 48,
+      "longTermScore": 47,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -1698,7 +1698,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 50
+          "score": 48
         },
         {
           "name": "profitability",
@@ -1715,18 +1715,18 @@
     {
       "ticker": "PANW",
       "companyName": "Palo Alto Networks, Inc.",
-      "price": 207.88,
-      "changePercent": 5.7752,
-      "composite": 50,
+      "price": 238.21,
+      "changePercent": 4.57439,
+      "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 49,
-      "shortTermScore": 50,
+      "longTermScore": 48,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 48
+          "score": 45
         },
         {
           "name": "growth",
@@ -1736,7 +1736,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 47
+          "score": 44
         },
         {
           "name": "profitability",
@@ -1753,13 +1753,13 @@
     {
       "ticker": "PEP",
       "companyName": "PepsiCo, Inc.",
-      "price": 154.62,
-      "changePercent": -1.06853,
-      "composite": 48,
+      "price": 148.67,
+      "changePercent": -0.40196,
+      "composite": 47,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 49,
-      "shortTermScore": 47,
+      "shortTermScore": 46,
       "categories": [
         {
           "name": "value",
@@ -1774,7 +1774,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 46
+          "score": 44
         },
         {
           "name": "profitability",
@@ -1791,12 +1791,12 @@
     {
       "ticker": "PFE",
       "companyName": "Pfizer Inc.",
-      "price": 25.67,
-      "changePercent": -3.05891,
+      "price": 25.75,
+      "changePercent": -0.80894,
       "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 52,
+      "longTermScore": 51,
       "shortTermScore": 53,
       "categories": [
         {
@@ -1812,7 +1812,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 57
+          "score": 55
         },
         {
           "name": "profitability",
@@ -1829,13 +1829,13 @@
     {
       "ticker": "PG",
       "companyName": "The Procter & Gamble Company",
-      "price": 146.42,
-      "changePercent": 0.24647,
+      "price": 142.74,
+      "changePercent": 0.35152,
       "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 49,
-      "shortTermScore": 43,
+      "shortTermScore": 42,
       "categories": [
         {
           "name": "value",
@@ -1850,12 +1850,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 37
+          "score": 34
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 53
+          "score": 54
         },
         {
           "name": "risk",
@@ -1867,13 +1867,13 @@
     {
       "ticker": "QCOM",
       "companyName": "QUALCOMM Incorporated",
-      "price": 219.09,
-      "changePercent": 8.16588,
+      "price": 200.08,
+      "changePercent": -6.14064,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 52,
-      "shortTermScore": 51,
+      "longTermScore": 51,
+      "shortTermScore": 50,
       "categories": [
         {
           "name": "value",
@@ -1888,25 +1888,25 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 51
+          "score": 53
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 53
+          "score": 54
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 54
+          "score": 49
         }
       ]
     },
     {
       "ticker": "RTX",
       "companyName": "RTX Corporation",
-      "price": 176.09,
-      "changePercent": -0.39032,
+      "price": 175.68,
+      "changePercent": -1.36433,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1926,7 +1926,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 49
+          "score": 48
         },
         {
           "name": "profitability",
@@ -1936,15 +1936,15 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 50
+          "score": 51
         }
       ]
     },
     {
       "ticker": "SBUX",
       "companyName": "Starbucks Corporation",
-      "price": 104.93,
-      "changePercent": 0.64262,
+      "price": 106.4,
+      "changePercent": 0.42473,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -1964,7 +1964,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 62
+          "score": 64
         },
         {
           "name": "profitability",
@@ -1974,15 +1974,15 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 68
+          "score": 69
         }
       ]
     },
     {
       "ticker": "SPGI",
       "companyName": "S&P Global Inc.",
-      "price": 420.12,
-      "changePercent": -1.99683,
+      "price": 403.92,
+      "changePercent": -0.64691,
       "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -2019,18 +2019,18 @@
     {
       "ticker": "T",
       "companyName": "AT&T Inc.",
-      "price": 25.16,
-      "changePercent": -0.39588,
+      "price": 24.66,
+      "changePercent": -0.32336,
       "composite": 53,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 56,
-      "shortTermScore": 50,
+      "shortTermScore": 49,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 63
+          "score": 64
         },
         {
           "name": "growth",
@@ -2040,12 +2040,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 42
+          "score": 41
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 56
+          "score": 57
         },
         {
           "name": "risk",
@@ -2057,13 +2057,13 @@
     {
       "ticker": "TGT",
       "companyName": "Target Corporation",
-      "price": 125.25,
-      "changePercent": -0.50048,
-      "composite": 53,
+      "price": 123.08,
+      "changePercent": 1.31709,
+      "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 52,
-      "shortTermScore": 54,
+      "shortTermScore": 53,
       "categories": [
         {
           "name": "value",
@@ -2078,7 +2078,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 54
+          "score": 53
         },
         {
           "name": "profitability",
@@ -2088,25 +2088,25 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 66
+          "score": 65
         }
       ]
     },
     {
       "ticker": "TMO",
       "companyName": "Thermo Fisher Scientific Inc.",
-      "price": 465,
-      "changePercent": -2.0145,
-      "composite": 47,
+      "price": 448.21,
+      "changePercent": 0.48876,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 47,
-      "shortTermScore": 47,
+      "shortTermScore": 45,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 49
+          "score": 50
         },
         {
           "name": "growth",
@@ -2116,12 +2116,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 46
+          "score": 40
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 45
+          "score": 46
         },
         {
           "name": "risk",
@@ -2133,13 +2133,13 @@
     {
       "ticker": "TMUS",
       "companyName": "T-Mobile US, Inc.",
-      "price": 193.63,
-      "changePercent": -0.29351,
-      "composite": 47,
+      "price": 188.19,
+      "changePercent": -1.09838,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 50,
-      "shortTermScore": 43,
+      "longTermScore": 51,
+      "shortTermScore": 42,
       "categories": [
         {
           "name": "value",
@@ -2154,7 +2154,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 35
+          "score": 33
         },
         {
           "name": "profitability",
@@ -2164,20 +2164,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 41
+          "score": 42
         }
       ]
     },
     {
       "ticker": "TSLA",
       "companyName": "Tesla, Inc.",
-      "price": 428.35,
-      "changePercent": 4.02147,
-      "composite": 42,
+      "price": 443.3,
+      "changePercent": -0.44243,
+      "composite": 39,
       "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 35,
-      "shortTermScore": 48,
+      "longTermScore": 34,
+      "shortTermScore": 44,
       "categories": [
         {
           "name": "value",
@@ -2192,7 +2192,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 65
+          "score": 55
         },
         {
           "name": "profitability",
@@ -2202,25 +2202,25 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 39
+          "score": 38
         }
       ]
     },
     {
       "ticker": "TXN",
       "companyName": "Texas Instruments Incorporated",
-      "price": 287.8,
-      "changePercent": 0.89749,
-      "composite": 54,
+      "price": 308.17,
+      "changePercent": 0.59738,
+      "composite": 55,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 53,
-      "shortTermScore": 56,
+      "shortTermScore": 57,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 51
+          "score": 50
         },
         {
           "name": "growth",
@@ -2230,7 +2230,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 57
+          "score": 60
         },
         {
           "name": "profitability",
@@ -2247,18 +2247,18 @@
     {
       "ticker": "UNH",
       "companyName": "UnitedHealth Group Incorporated",
-      "price": 379.98,
-      "changePercent": 2.76951,
-      "composite": 49,
+      "price": 399.09,
+      "changePercent": -0.516,
+      "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 46,
-      "shortTermScore": 52,
+      "shortTermScore": 56,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 52
+          "score": 51
         },
         {
           "name": "growth",
@@ -2268,7 +2268,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 64
+          "score": 73
         },
         {
           "name": "profitability",
@@ -2285,18 +2285,18 @@
     {
       "ticker": "UNP",
       "companyName": "Union Pacific Corporation",
-      "price": 264.65,
-      "changePercent": -0.09060365,
-      "composite": 62,
+      "price": 269.34,
+      "changePercent": 1.77215,
+      "composite": 61,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 62,
-      "shortTermScore": 61,
+      "longTermScore": 61,
+      "shortTermScore": 60,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 56
+          "score": 55
         },
         {
           "name": "growth",
@@ -2306,12 +2306,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 56
+          "score": 52
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 73
+          "score": 72
         },
         {
           "name": "risk",
@@ -2323,13 +2323,13 @@
     {
       "ticker": "V",
       "companyName": "Visa Inc.",
-      "price": 318.79,
-      "changePercent": -0.78892,
-      "composite": 51,
+      "price": 322.52,
+      "changePercent": 0.68996,
+      "composite": 52,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 57,
-      "shortTermScore": 45,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -2344,7 +2344,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 30
+          "score": 34
         },
         {
           "name": "profitability",
@@ -2354,15 +2354,15 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 50
+          "score": 51
         }
       ]
     },
     {
       "ticker": "VZ",
       "companyName": "Verizon Communications Inc.",
-      "price": 47.22,
-      "changePercent": 0.27607,
+      "price": 47.06,
+      "changePercent": -0.31773,
       "composite": 51,
       "signal": "HOLD",
       "confidence": "MEDIUM",
@@ -2399,13 +2399,13 @@
     {
       "ticker": "WFC",
       "companyName": "Wells Fargo & Company",
-      "price": 75.64,
-      "changePercent": -4.44669,
-      "composite": 41,
+      "price": 73.79,
+      "changePercent": 0.36042,
+      "composite": 40,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 45,
-      "shortTermScore": 37,
+      "shortTermScore": 35,
       "categories": [
         {
           "name": "value",
@@ -2420,7 +2420,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 24
+          "score": 20
         },
         {
           "name": "profitability",
@@ -2437,18 +2437,18 @@
     {
       "ticker": "WMT",
       "companyName": "Walmart Inc.",
-      "price": 130.43,
-      "changePercent": 0.17665,
-      "composite": 48,
+      "price": 132.46,
+      "changePercent": 0.75302,
+      "composite": 49,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 47,
-      "shortTermScore": 50,
+      "shortTermScore": 51,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 51
+          "score": 50
         },
         {
           "name": "growth",
@@ -2458,7 +2458,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 54
+          "score": 56
         },
         {
           "name": "profitability",
@@ -2468,20 +2468,20 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 52
+          "score": 53
         }
       ]
     },
     {
       "ticker": "XOM",
       "companyName": "Exxon Mobil Corporation",
-      "price": 144.39,
-      "changePercent": -1.49406,
-      "composite": 45,
+      "price": 152.76,
+      "changePercent": 0.78512,
+      "composite": 46,
       "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 45,
-      "shortTermScore": 44,
+      "shortTermScore": 47,
       "categories": [
         {
           "name": "value",
@@ -2496,7 +2496,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 48
+          "score": 55
         },
         {
           "name": "profitability",
@@ -2506,7 +2506,7 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 40
+          "score": 41
         }
       ]
     }
