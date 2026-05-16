@@ -199,12 +199,12 @@ body {
 .hero {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 120px 24px 80px;
+  justify-content: flex-start;
+  padding: clamp(60px, 10vh, 100px) 24px 80px;
   text-align: center;
 }
 .hero-badge {
