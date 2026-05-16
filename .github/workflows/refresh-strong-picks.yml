@@ -41,6 +41,11 @@ jobs:
         run: npm run strong-picks
         env:
           QSCORING_BASE: https://qscoring.com
+          # Token enables the post-write D1 persistence call to
+          # /api/cron/persist-snapshot. If unset, the script logs a
+          # warning and skips D1 persist — JSON commit still proceeds,
+          # so missing this secret is non-fatal during onboarding.
+          SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
 
       - name: Commit and push if changed
         id: commit

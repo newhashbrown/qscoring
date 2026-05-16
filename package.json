@@ -12,7 +12,8 @@
     "universe-stats": "tsx scripts/build-universe-stats.ts",
     "sitemap-tickers": "tsx scripts/build-sitemap-tickers.ts",
     "strong-picks": "tsx scripts/build-strong-picks.ts",
-    "weekly-recap": "tsx scripts/build-weekly-recap.ts"
+    "weekly-recap": "tsx scripts/build-weekly-recap.ts",
+    "backfill-snapshots": "tsx scripts/backfill-snapshots.ts"
   },
   "dependencies": {
     "next": "16.2.5",
