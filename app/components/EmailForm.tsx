@@ -67,12 +67,17 @@ export default function EmailForm({
           autoComplete="email"
           required
         />
-        <button type="submit" disabled={status === "submitting"}>
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          aria-busy={status === "submitting"}
+          aria-label={status === "submitting" ? "Submitting…" : undefined}
+        >
           {status === "submitting" ? "…" : buttonLabel}
         </button>
       </form>
       {status === "error" && (
-        <p className="form-error">{errorMsg}</p>
+        <p className="form-error" role="alert">{errorMsg}</p>
       )}
     </>
   );

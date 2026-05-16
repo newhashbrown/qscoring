@@ -15,7 +15,12 @@ export default function ScoreRing({ value, size = 140, animate = false }: Props)
     : { strokeDasharray: circumference, strokeDashoffset: offset, animation: "none" };
 
   return (
-    <div className="ring-container" style={{ width: size, height: size }}>
+    <div
+      className="ring-container"
+      style={{ width: size, height: size }}
+      role="img"
+      aria-label={`Score: ${value} out of 100`}
+    >
       <svg viewBox="0 0 100 100" width={size} height={size}>
         <circle className="ring-bg" cx="50" cy="50" r={radius} />
         <circle className="ring-fill" cx="50" cy="50" r={radius} style={fillStyle} />
