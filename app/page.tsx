@@ -49,6 +49,7 @@ export default function Home() {
       </section>
 
       {/* TOP MOVERS — biggest 24-hour QScore swings */}
+      <div className="section-divider" />
       <Suspense fallback={null}>
         <TopMoversStrip />
       </Suspense>
@@ -114,6 +115,7 @@ export default function Home() {
       </section>
 
       {/* HOW IT WORKS */}
+      <div className="section-divider" />
       <section className="how-it-works">
         <h2>How it works</h2>
         <div className="step">
@@ -156,6 +158,7 @@ export default function Home() {
       </section>
 
       {/* BOTTOM CTA */}
+      <div className="section-divider" />
       <section className="cta-bottom" id="signup">
         <h2>Be first in line.</h2>
         <p>Join the waitlist and get free early access when we launch.</p>
