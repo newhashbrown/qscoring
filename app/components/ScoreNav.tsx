@@ -61,14 +61,13 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
         />
       </Link>
 
-      <ul className="site-nav-links" role="menubar">
+      <ul className="site-nav-links">
         {PRIMARY_LINKS.map((l) => {
           const active = isActive(pathname, l.href);
           return (
-            <li key={l.href} role="none">
+            <li key={l.href}>
               <Link
                 href={l.href}
-                role="menuitem"
                 aria-current={active ? "page" : undefined}
                 className={`site-nav-link ${active ? "active" : ""}`}
                 onClick={() => setOpen(false)}
@@ -79,6 +78,13 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
           );
         })}
       </ul>
+
+      {/* Ticker search shown in the expanded hamburger menu on mobile */}
+      {showSearch && (
+        <div className="site-nav-mobile-search">
+          <TickerSearch initialValue={ticker ?? ""} size="compact" />
+        </div>
+      )}
 
       <div className="site-nav-tail">
         {showSearch && (

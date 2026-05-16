@@ -190,23 +190,25 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer>
-        <p className="footer-links">
-          <a href="/methodology">Methodology</a>
-          <span className="sep">·</span>
-          <a href="/performance">Performance</a>
-          <span className="sep">·</span>
-          <a href="/blog">Blog</a>
-          <span className="sep">·</span>
-          <a href="/glossary">Glossary</a>
-          <span className="sep">·</span>
-          <a href="/scores">Categories</a>
-          <span className="sep">·</span>
-          <a href="/compare">Compare</a>
-          <span className="sep">·</span>
-          <a href="/portfolio">Portfolio</a>
-          <span className="sep">·</span>
-          <a href="/score">Score a ticker</a>
-        </p>
+        <nav aria-label="Footer">
+          <p className="footer-links">
+            <a href="/methodology">Methodology</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/performance">Performance</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/blog">Blog</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/glossary">Glossary</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/scores">Categories</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/compare">Compare</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/portfolio">Portfolio</a>
+            <span className="sep" aria-hidden="true">·</span>
+            <a href="/score">Score a ticker</a>
+          </p>
+        </nav>
         <p className="disclaimer">
           QScoring provides quantitative analysis for informational and educational purposes only.
           It does not constitute investment advice, a recommendation, or a solicitation to buy or

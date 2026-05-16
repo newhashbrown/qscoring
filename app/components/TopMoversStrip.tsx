@@ -66,7 +66,7 @@ export default async function TopMoversStrip() {
               </div>
               <div className="mover-score">{m.composite}</div>
               <div className="mover-meta">
-                <span className="mover-name">{m.companyName}</span>
+                <span className="mover-name" title={m.companyName}>{m.companyName}</span>
               </div>
             </Link>
           );

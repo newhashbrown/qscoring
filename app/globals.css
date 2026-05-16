@@ -13,7 +13,7 @@
   --amber-dim: rgba(255, 179, 71, 0.15);
   --text: #E8ECF1;
   --text-dim: #7B8794;
-  --text-muted: #4A5568;
+  --text-muted: #778999;   /* min ~4.7:1 on bg-card, ~5.4:1 on body — WCAG AA */
   --border: rgba(255, 255, 255, 0.09);
   --font: var(--font-dm-sans), -apple-system, sans-serif;
   --mono: var(--font-jetbrains-mono), monospace;
@@ -27,7 +27,7 @@ body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
+  overflow-x: clip; /* clip avoids creating a stacking context unlike hidden, keeping position:sticky intact */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -125,7 +125,6 @@ body {
   color: var(--text-muted);
   opacity: 0.65;
   text-transform: none;
-  cursor: help;
 }
 .movers-pulse {
   display: inline-block;
@@ -356,6 +355,9 @@ body {
   font-weight: 500;
   letter-spacing: 0.5px;
   padding: 5px 10px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s;
@@ -576,7 +578,7 @@ body {
 .showcase-horizons strong { color: var(--accent); }
 .showcase-note {
   font-size: 0.68rem;
-  color: rgba(123, 135, 148, 0.45);
+  color: var(--text-muted);
   margin: 0;
 }
 /* Factor chips grid: 2-col, 5 chips + 1 CTA = 6 */
@@ -953,6 +955,7 @@ footer .footer-links .sep {
   flex-shrink: 0;
 }
 .site-nav-search { display: flex; }
+.site-nav-mobile-search { display: none; }
 .site-nav .nav-cta {
   font-size: 0.82rem;
   padding: 9px 18px;
@@ -994,6 +997,13 @@ footer .footer-links .sep {
   .site-nav-search { display: none; }
   .site-nav-toggle { display: flex; }
   .site-nav.open .site-nav-links { display: flex; }
+  .site-nav.open .site-nav-mobile-search {
+    display: flex;
+    order: 4;
+    flex-basis: 100%;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
   .site-nav.open .site-nav-link {
     padding: 12px 4px;
     font-size: 1rem;
@@ -1396,7 +1406,8 @@ footer .footer-links .sep {
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.5px;
-  padding: 6px 12px;
+  padding: 10px 12px;
+  min-height: 44px;
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.15s;
@@ -3402,4 +3413,26 @@ footer .footer-links .sep {
   .composite-meta { text-align: center; }
   .composite-horizons { justify-content: center; }
   .metric-row { grid-template-columns: 1fr 60px 1fr 32px; }
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Ring and bar visuals communicate their final value via CSS custom
+     properties; skip the tween and apply the final state immediately. */
+  .ring-fill {
+    animation: none !important;
+    stroke-dashoffset: var(--target-offset, 0) !important;
+  }
+  .factor-fill {
+    animation: none !important;
+    width: var(--w) !important;
+  }
 }
