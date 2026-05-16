@@ -92,6 +92,13 @@ export default function Home() {
         {/* Secondary: non-visual features */}
         <div className="features-secondary">
           <div className="feature-sec">
+            <div className="feature-sec-icon" aria-hidden="true">
+              {/* Trending-up arrow — directional signal */}
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="2,14 7,9 11,12 18,5" />
+                <polyline points="13,5 18,5 18,10" />
+              </svg>
+            </div>
             <h3>Directional signals</h3>
             <p>
               Buy Short-Term, Buy Long-Term, Hold, or Short — calibrated to your time horizon,
@@ -99,12 +106,25 @@ export default function Home() {
             </p>
           </div>
           <div className="feature-sec">
+            <div className="feature-sec-icon" aria-hidden="true">
+              {/* Zap / bolt — instant results */}
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="13,2 4,11 10,11 7,18 16,9 10,9" />
+              </svg>
+            </div>
             <h3>Instant results</h3>
             <p>
               No setup. No dashboard. Type a ticker and get your score in seconds.
             </p>
           </div>
           <div className="feature-sec">
+            <div className="feature-sec-icon" aria-hidden="true">
+              {/* Shield-check — no ads, subscriber protected */}
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 2L3.5 5v5c0 3.5 2.8 6.8 6.5 7.9 3.7-1.1 6.5-4.4 6.5-7.9V5L10 2z" />
+                <polyline points="7.5,10 9.5,12 13,8" />
+              </svg>
+            </div>
             <h3>Zero ads. Zero noise.</h3>
             <p>
               Subscription-powered. We work for you, not advertisers — clean interface, no
