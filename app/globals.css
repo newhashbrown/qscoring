@@ -1459,6 +1459,44 @@ footer .footer-links .sep {
   100% { background-position: -200% 0; }
 }
 
+/* ─── SCORE PAGE SKELETON ─── */
+.skel-line {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+.skel-ring {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+.score-error-back {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.score-error-back:hover { text-decoration: underline; }
+.score-error-retry {
+  background: none;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
 /* ─── METHODOLOGY ─── */
 .methodology {
   position: relative;
@@ -2332,6 +2370,19 @@ footer .footer-links .sep {
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--text-muted);
+}
+/* Shown when one or more upstream FMP fetches failed and the D1 stale
+   cache was served instead. Amber so it reads as "heads up, not live"
+   without alarming users — the score itself is still valid, just based
+   on the last successfully cached payload. */
+.stale-pill {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid color-mix(in oklch, #d97706 60%, transparent);
+  border-radius: 999px;
+  color: #d97706;
+  background: color-mix(in oklch, #d97706 8%, transparent);
+  cursor: help;
 }
 .insight-grid {
   display: grid;
