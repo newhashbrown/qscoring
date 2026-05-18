@@ -3,6 +3,7 @@ import DemoCard from "./components/DemoCard";
 import EmailForm from "./components/EmailForm";
 import ScoreNav from "./components/ScoreNav";
 import ScoreRing from "./components/ScoreRing";
+import TickerSearch from "./components/TickerSearch";
 import TopMoversStrip from "./components/TopMoversStrip";
 
 const FACTOR_SAMPLES = [
@@ -26,9 +27,6 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="hero-badge">
-          <span className="dot" /> Launching Summer 2026
-        </div>
         <h1>
           One ticker.
           <br />
@@ -39,8 +37,7 @@ export default function Home() {
           Enter any stock ticker and get an instant Quant Score powered by value, growth,
           momentum, profitability, and risk factors — with a clear buy, hold, or short signal.
         </p>
-        <EmailForm buttonLabel="Get Early Access" />
-        <p className="form-note">Free early access. No credit card required.</p>
+        <TickerSearch size="full" />
       </section>
 
       {/* DEMO SCORE CARD — live from FMP */}
@@ -180,10 +177,10 @@ export default function Home() {
       {/* BOTTOM CTA */}
       <div className="section-divider" />
       <section className="cta-bottom" id="signup">
-        <h2>Be first in line.</h2>
-        <p>Join the waitlist and get free early access when we launch.</p>
+        <h2>Stay ahead of the market.</h2>
+        <p>Get weekly quant score digests and new feature updates delivered to your inbox.</p>
         <EmailForm
-          buttonLabel="Join Waitlist"
+          buttonLabel="Subscribe"
           style={{ margin: "0 auto", animation: "none" }}
         />
       </section>
