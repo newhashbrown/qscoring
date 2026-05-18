@@ -34,4 +34,8 @@ export type ScoreResult = {
   shortTermScore: number;
   categories: CategoryScore[];
   generatedAt: string;
+  // Present when one or more underlying FMP fetches failed and the stale
+  // D1 cache was served instead. ISO timestamp of the oldest cached
+  // payload used. Null/undefined means the score is fully live.
+  staleSince?: string | null;
 };

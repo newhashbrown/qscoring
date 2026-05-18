@@ -1,4 +1,17 @@
+import { readCache, recordStale, writeCacheAsync } from "./fmp-cache";
+
 const BASE = "https://financialmodelingprep.com/stable";
+
+// Thrown for FMP responses where stale data won't help: the ticker isn't in
+// the plan (402) or doesn't exist (404). These bubble straight to the caller
+// so users see the helpful message instead of stale data from a delisted or
+// out-of-plan symbol.
+class FmpUnavailableError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "FmpUnavailableError";
+  }
+}
 
 // Tiered cache TTLs, sized to how often each FMP endpoint actually changes.
 // Uniform 15-min caching across all endpoints used to wastefully refresh
@@ -25,10 +38,10 @@ function fmpSymbol(symbol: string): string {
   return symbol.replace(/\./g, "-");
 }
 
-async function fmpGet<T>(
+async function fmpFetchLive<T>(
   path: string,
-  params: Record<string, string | number> = {},
-  revalidateSeconds: number = TTL.quote
+  params: Record<string, string | number>,
+  revalidateSeconds: number
 ): Promise<T> {
   const url = new URL(BASE + path);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, String(v));
@@ -51,16 +64,48 @@ async function fmpGet<T>(
 
     const body = await res.text().catch(() => "");
     if (res.status === 402) {
-      throw new Error(
+      throw new FmpUnavailableError(
         "This ticker isn't included in the current data plan. Try a major US-listed equity like AAPL, NVDA, or MSFT."
       );
     }
     if (res.status === 404) {
-      throw new Error("Ticker not found. Double-check the symbol and try again.");
+      throw new FmpUnavailableError(
+        "Ticker not found. Double-check the symbol and try again."
+      );
     }
     throw new Error(`FMP ${path} → ${res.status}: ${body.slice(0, 200)}`);
   }
   throw new Error(`FMP ${path}: exhausted retries`);
+}
+
+async function fmpGet<T>(
+  path: string,
+  params: Record<string, string | number> = {},
+  revalidateSeconds: number = TTL.quote,
+  cacheKey?: string
+): Promise<T> {
+  try {
+    const data = await fmpFetchLive<T>(path, params, revalidateSeconds);
+    if (cacheKey) writeCacheAsync(cacheKey, data);
+    return data;
+  } catch (err) {
+    // "Ticker doesn't exist / not in plan" — stale data won't help.
+    if (err instanceof FmpUnavailableError) throw err;
+
+    // Transient (429-exhausted, 5xx, network): serve last-known-good if any.
+    if (cacheKey) {
+      const stale = await readCache<T>(cacheKey);
+      if (stale) {
+        const msg = err instanceof Error ? err.message : String(err);
+        console.warn(
+          `fmp_cache: serving stale ${cacheKey} (fetched ${stale.fetchedAt}) — live failed: ${msg}`
+        );
+        recordStale(cacheKey, stale.fetchedAt);
+        return stale.data;
+      }
+    }
+    throw err;
+  }
 }
 
 export type Profile = {
@@ -126,24 +171,48 @@ export type PricePoint = {
 };
 
 export const fmp = {
-  profile: (symbol: string) =>
-    fmpGet<Profile[]>("/profile", { symbol: fmpSymbol(symbol) }, TTL.profile),
-  quote: (symbol: string) =>
-    fmpGet<Quote[]>("/quote", { symbol: fmpSymbol(symbol) }, TTL.quote),
-  ratiosTtm: (symbol: string) =>
-    fmpGet<RatiosTtm[]>("/ratios-ttm", { symbol: fmpSymbol(symbol) }, TTL.fundamentals),
-  keyMetricsTtm: (symbol: string) =>
-    fmpGet<KeyMetricsTtm[]>("/key-metrics-ttm", { symbol: fmpSymbol(symbol) }, TTL.fundamentals),
-  financialGrowth: (symbol: string) =>
-    fmpGet<FinancialGrowth[]>(
+  profile: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<Profile[]>("/profile", { symbol: s }, TTL.profile, `profile:${s}`);
+  },
+  quote: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<Quote[]>("/quote", { symbol: s }, TTL.quote, `quote:${s}`);
+  },
+  ratiosTtm: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<RatiosTtm[]>(
+      "/ratios-ttm",
+      { symbol: s },
+      TTL.fundamentals,
+      `ratiosTtm:${s}`
+    );
+  },
+  keyMetricsTtm: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<KeyMetricsTtm[]>(
+      "/key-metrics-ttm",
+      { symbol: s },
+      TTL.fundamentals,
+      `keyMetricsTtm:${s}`
+    );
+  },
+  financialGrowth: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<FinancialGrowth[]>(
       "/financial-growth",
-      { symbol: fmpSymbol(symbol), limit: 1 },
-      TTL.fundamentals
-    ),
-  historical: (symbol: string) =>
-    fmpGet<PricePoint[]>(
+      { symbol: s, limit: 1 },
+      TTL.fundamentals,
+      `financialGrowth:${s}`
+    );
+  },
+  historical: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<PricePoint[]>(
       "/historical-price-eod/light",
-      { symbol: fmpSymbol(symbol) },
-      TTL.priceHistory
-    ),
+      { symbol: s },
+      TTL.priceHistory,
+      `historical:${s}`
+    );
+  },
 };

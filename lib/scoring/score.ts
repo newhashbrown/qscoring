@@ -1,4 +1,5 @@
 import { fmp, type FinancialGrowth, type KeyMetricsTtm, type PricePoint, type Profile, type Quote, type RatiosTtm } from "./fmp";
+import { withStalenessTracking } from "./fmp-cache";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
@@ -348,6 +349,10 @@ export function scoreFromFetched(
 }
 
 export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
-  const data = await fetchTickerData(rawTicker);
-  return scoreFromFetched(rawTicker, data);
+  const { result, oldestStaleAt } = await withStalenessTracking(async () => {
+    const data = await fetchTickerData(rawTicker);
+    return scoreFromFetched(rawTicker, data);
+  });
+  result.staleSince = oldestStaleAt;
+  return result;
 }
