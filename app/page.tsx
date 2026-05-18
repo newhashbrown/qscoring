@@ -4,7 +4,7 @@ import EmailForm from "./components/EmailForm";
 import ScoreNav from "./components/ScoreNav";
 import ScoreRing from "./components/ScoreRing";
 import TickerSearch from "./components/TickerSearch";
-import TopMoversStrip from "./components/TopMoversStrip";
+import TopMoversStrip, { TopMoversStripSkeleton } from "./components/TopMoversStrip";
 
 const FACTOR_SAMPLES = [
   { label: "Value", score: 72 },
@@ -47,7 +47,7 @@ export default function Home() {
 
       {/* TOP MOVERS — biggest 24-hour QScore swings */}
       <div className="section-divider" />
-      <Suspense fallback={null}>
+      <Suspense fallback={<TopMoversStripSkeleton />}>
         <TopMoversStrip />
       </Suspense>
 

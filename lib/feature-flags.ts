@@ -16,5 +16,9 @@
  *
  * Set to false to hide site-wide. The MarketStrip component returns null
  * when the flag is off so removal is invisible to the rest of the layout.
+ *
+ * Re-enabled now that fmpGet has stale-while-error fallback via D1
+ * (lib/scoring/fmp-cache.ts) — an FMP rate-limit no longer blanks the
+ * page; the strip serves the last cached quotes instead.
  */
-export const MARKET_STRIP_ENABLED = false;
+export const MARKET_STRIP_ENABLED = true;

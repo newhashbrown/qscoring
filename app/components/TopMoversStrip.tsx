@@ -34,6 +34,36 @@ function formatBatchTimestamp(iso: string): string {
   return `${date}, ${time} UTC`;
 }
 
+function SkeletonMoverCard() {
+  return (
+    <div className="mover-card">
+      <div className="mover-top">
+        <div className="skel-line" style={{ width: 48, height: 16, borderRadius: 3 }} />
+        <div className="skel-line" style={{ width: 32, height: 14, borderRadius: 3 }} />
+      </div>
+      <div className="skel-line" style={{ width: 52, height: 32, borderRadius: 4 }} />
+      <div className="skel-line" style={{ width: 120, height: 12, borderRadius: 3 }} />
+    </div>
+  );
+}
+
+export function TopMoversStripSkeleton() {
+  return (
+    <section className="movers-section">
+      <div className="movers-label">
+        <span className="movers-pulse" style={{ opacity: 0.3, animationPlayState: "paused" }} />
+        QScore Movers · Today
+      </div>
+      <div className="movers-grid">
+        <SkeletonMoverCard />
+        <SkeletonMoverCard />
+        <SkeletonMoverCard />
+        <SkeletonMoverCard />
+      </div>
+    </section>
+  );
+}
+
 export default async function TopMoversStrip() {
   let batch;
   try {
