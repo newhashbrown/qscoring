@@ -1268,14 +1268,29 @@ footer .footer-links .sep {
   margin-bottom: 8px;
 }
 .composite-signal {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
   font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+  margin-bottom: 14px;
 }
-.composite-signal.tone-bullish { color: var(--accent); }
-.composite-signal.tone-bearish { color: var(--red); }
-.composite-signal.tone-neutral { color: var(--amber); }
+.composite-signal.tone-bullish {
+  color: var(--accent);
+  background: rgba(0, 212, 170, 0.1);
+  border: 1.5px solid rgba(0, 212, 170, 0.25);
+}
+.composite-signal.tone-bearish {
+  color: var(--red);
+  background: rgba(255, 71, 87, 0.08);
+  border: 1.5px solid rgba(255, 71, 87, 0.22);
+}
+.composite-signal.tone-neutral {
+  color: var(--amber);
+  background: rgba(255, 179, 71, 0.08);
+  border: 1.5px solid rgba(255, 179, 71, 0.22);
+}
 .composite-confidence {
   font-size: 0.95rem;
   color: var(--text-dim);
@@ -3426,7 +3441,7 @@ footer .footer-links .sep {
   .composite-panel .ring-container svg { width: 90px; height: 90px; }
   .composite-panel .ring-number { font-size: 28px !important; }
   .composite-meta { min-width: 0; }
-  .composite-signal { font-size: 1.25rem; }
+  .composite-signal { font-size: 1.1rem; padding: 8px 16px; }
   .composite-confidence { margin-bottom: 16px; }
   .composite-horizons { gap: 16px; }
   .horizon-value { font-size: 1.3rem; }
