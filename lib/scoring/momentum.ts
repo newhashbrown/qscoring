@@ -21,7 +21,17 @@ export function periodReturn(history: PricePoint[], days: number): number | null
   if (sorted.length <= days) return null;
   const latest = sorted[0]?.price;
   const past = sorted[days]?.price;
-  if (!latest || !past) return null;
+  if (latest == null || past == null) return null;
+  // A literal 0 on a real ticker is almost certainly an FMP data-quality
+  // issue (delisted, halted with bogus row) — we still drop the metric, but
+  // surface it in logs so operators can spot upstream data rot rather than
+  // silently shrinking the per-ticker metric set.
+  if (latest === 0 || past === 0) {
+    console.warn(
+      `periodReturn: zero price in history (latest=${latest}, past=${past}) for ${days}d window`
+    );
+    return null;
+  }
   return (latest - past) / past;
 }
 
@@ -30,8 +40,17 @@ export const return3mo = (h: PricePoint[]) => periodReturn(h, TRADING_DAYS.THREE
 export const return12mo = (h: PricePoint[]) => periodReturn(h, TRADING_DAYS.TWELVE_MONTHS);
 
 /**
- * Wilder's RSI(14): standard 14-period relative strength index.
- * Uses simple average of gains/losses over the most recent 14 day-to-day moves.
+ * RSI(14) — simple-average variant.
+ *
+ * Computes gains/losses across the most recent 14 day-to-day moves and divides
+ * by the period. This is NOT Wilder's smoothed RSI (which seeds an initial
+ * 14-period average and then applies an exponential update of weight 1/14).
+ * The simple variant is more reactive at the edges and will diverge from the
+ * RSI shown on TradingView, Bloomberg, or most brokerage charts by a few
+ * points after extended trends.
+ *
+ * Documented here intentionally — keep this consistent with the methodology
+ * page if you ever publish per-metric formulas.
  */
 export function rsi14(history: PricePoint[]): number | null {
   const sorted = newestFirst(history);
