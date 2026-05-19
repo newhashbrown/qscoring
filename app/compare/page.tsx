@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
+import CompareForm, { type UniverseEntry } from "@/app/components/CompareForm";
 import { CURATED_PAIRS, pairToSlug } from "@/lib/compare";
 import scoreboardData from "@/data/scoreboard.json";
 import type { ScoreboardPick } from "@/data/categories";
@@ -29,6 +30,15 @@ function findPick(ticker: string): ScoreboardPick | undefined {
   return (scoreboardData.picks as ScoreboardPick[]).find((p) => p.ticker === ticker);
 }
 
+// Sorted alphabetically so dropdown ordering is predictable for users.
+// scoreboard.json is the source of truth for "tickers we can render fast"
+// — keeping the autocomplete in sync with it guarantees the destination
+// /compare/[pair] page hits the scoreboard fast-path instead of falling
+// back to a live FMP score.
+const UNIVERSE: ReadonlyArray<UniverseEntry> = (scoreboardData.picks as ScoreboardPick[])
+  .map((p) => ({ symbol: p.ticker, name: p.companyName, sector: p.sector }))
+  .sort((x, y) => x.symbol.localeCompare(y.symbol));
+
 export default function CompareIndexPage() {
   const dateLabel = marketCloseLabel(scoreboardData.generatedAt);
 
@@ -49,11 +59,14 @@ export default function CompareIndexPage() {
           <h1>Side-by-side QScore comparisons</h1>
           <p className="method-lede">
             Compare any two US-listed equities on the same value / growth / momentum / profitability /
-            risk framework. Curated head-to-head pairs are below — the URL pattern is{" "}
-            <code>/compare/AAA-vs-BBB</code> if you want to compare any two tickers directly.
+            risk framework. Type two tickers below, or pick from the curated head-to-head pairs — the
+            URL pattern is <code>/compare/AAA-vs-BBB</code> if you want to deep-link directly.
           </p>
         </header>
 
+        <CompareForm universe={UNIVERSE} />
+
+        <h2 className="compare-section-heading">Curated pairs</h2>
         <ul className="compare-pairs-list">
           {CURATED_PAIRS.map(([a, b]) => {
             const pickA = findPick(a);
