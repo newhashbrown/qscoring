@@ -67,18 +67,30 @@ export async function POST(req: Request) {
     );
   }
 
-  // Pull the entire watchlist. At our scale this is fine; if it ever
-  // grows past tens of thousands of rows, paginate by ticker.
+  // Pull the watchlist with a hard cap. 5000 rows comfortably fits in a
+  // single D1 response and processes inside the Worker CPU budget; past
+  // that we need to paginate by ticker. When we approach the cap we log a
+  // structured warning so the cap can be raised (or pagination added)
+  // before silent data loss kicks in.
+  const WATCHLIST_QUERY_LIMIT = 5000;
+  const WATCHLIST_WARN_THRESHOLD = Math.floor(WATCHLIST_QUERY_LIMIT * 0.8);
   let rows: WatchlistRow[] = [];
   try {
     const result = await db
       .prepare(
         `SELECT id, email, ticker, last_signal, last_composite,
                 unsubscribe_token, notification_count
-         FROM watchlist_entries`
+         FROM watchlist_entries
+         LIMIT ?`
       )
+      .bind(WATCHLIST_QUERY_LIMIT)
       .all<WatchlistRow>();
     rows = (result.results ?? []) as WatchlistRow[];
+    if (rows.length >= WATCHLIST_WARN_THRESHOLD) {
+      console.warn(
+        `watchlist-alerts: ${rows.length}/${WATCHLIST_QUERY_LIMIT} rows — approaching cap, time to paginate`
+      );
+    }
   } catch (err) {
     console.error("watchlist query failed:", err);
     return NextResponse.json(
