@@ -14,6 +14,7 @@ Scoped against the user's global code-review and security rules. Findings are cl
 | `RESEND_API_KEY`        | Cloudflare secret                 | Yes — read via `cf.env` first, falls back to `process.env` |
 | `ADMIN_EMAIL`           | Cloudflare secret                 | Yes — comment in `wrangler.jsonc` calls out that dashboard `vars` get wiped on redeploy |
 | `WATCHLIST_CRON_TOKEN`  | Cloudflare secret + GHA repo secret | Yes — both copies must match |
+| `SNAPSHOT_CRON_TOKEN`   | Cloudflare secret + GHA repo secret | Yes — both copies must match; gates `/api/cron/persist-snapshot` |
 | `EMAIL_FROM`            | Wrangler `vars` (plaintext OK)    | Yes |
 
 - ✅ `.env` and `.env.example` exist; the `.env` file is git-ignored per `.gitignore`.
@@ -38,8 +39,10 @@ Scoped against the user's global code-review and security rules. Findings are cl
 
 ## 3. Authentication / Authorization
 
-- ✅ The only authenticated endpoint is `POST /api/cron/watchlist-alerts`, gated by `Authorization: Bearer ${WATCHLIST_CRON_TOKEN}`.
-- ⚠️ **MEDIUM** — Token comparison uses plain `===` (`app/api/cron/watchlist-alerts/route.ts`). Switch to a constant-time compare via `crypto.subtle.timingSafeEqual`-style helper. Even though the token is high-entropy, this is a free win and aligns with the user's security rule "Authentication/authorization verified."
+- ✅ Two authenticated endpoints, both Bearer-gated:
+  - `POST /api/cron/watchlist-alerts` — `WATCHLIST_CRON_TOKEN`
+  - `POST /api/cron/persist-snapshot` — `SNAPSHOT_CRON_TOKEN`
+- ⚠️ **MEDIUM** — Token comparison uses plain `===` in **both** cron route handlers. Switch to a constant-time compare via `crypto.subtle.timingSafeEqual`-style helper. Even though the tokens are high-entropy, this is a free win and aligns with the user's security rule "Authentication/authorization verified."
 - ✅ No user accounts. Email is the only identifier; per-row tokens authenticate sensitive actions (unsubscribe).
 
 ## 4. XSS / output encoding
@@ -103,6 +106,7 @@ Scoped against the user's global code-review and security rules. Findings are cl
 | `fmp_cache` table has no eviction               | LOW      | Add a periodic `DELETE WHERE fetched_at < datetime('now','-30 days')` once the universe expands. |
 | GHA → Cloudflare deploy race                    | MEDIUM   | `refresh-strong-picks.yml` sleeps 240 s before hitting the cron endpoint. If Workers Builds takes longer than 4 min, the cron reads stale scoreboard. Mitigation: poll the deploy webhook or check a deployed git SHA before issuing the curl. |
 | `WATCHLIST_CRON_TOKEN` rotation                 | MEDIUM   | Two copies (Cloudflare secret + GHA secret) must rotate together. Document the rotation runbook. |
+| `SNAPSHOT_CRON_TOKEN` rotation                  | MEDIUM   | Same two-copy structure as `WATCHLIST_CRON_TOKEN`. Runbook must cover both tokens. |
 | Long-tail watches silently skip alerts          | LOW      | Documented in code. Either expand universe or add live `scoreTicker()` for off-universe rows once FMP plan allows. |
 | Resend hard outage                              | LOW      | Welcome/admin emails are best-effort with `waitUntil`; failures log and drop. Acceptable for now but a Resend status check could feed a fall-back queue later. |
 | Cloudflare AI binding declared but unused       | LOW      | Either wire it or remove from `wrangler.jsonc` to keep config truthful. |
@@ -135,9 +139,9 @@ Scoped against the user's global code-review and security rules. Findings are cl
 - [ ] **HIGH** — Configure Cloudflare Rate Limiting on `/api/subscribe`, `/api/watch`, `/api/portfolio/analyze`, `/api/score/*`.
 - [ ] **HIGH** — Add at least the minimum recommended test suite above.
 - [ ] **MEDIUM** — Salt the IP hash via a Cloudflare secret.
-- [ ] **MEDIUM** — Switch cron-token comparison to constant-time.
+- [ ] **MEDIUM** — Switch cron-token comparison to constant-time (covers both `WATCHLIST_CRON_TOKEN` and `SNAPSHOT_CRON_TOKEN`).
 - [ ] **MEDIUM** — Confirm `QSCORE_MODEL_VERSION` is embedded in every snapshot file.
-- [ ] **MEDIUM** — Document `WATCHLIST_CRON_TOKEN` rotation runbook.
+- [ ] **MEDIUM** — Document cron-token rotation runbook (covers both `WATCHLIST_CRON_TOKEN` and `SNAPSHOT_CRON_TOKEN`).
 - [ ] **LOW** — Confirm/configure HSTS + standard security headers at the Cloudflare zone level.
 - [ ] **LOW** — HTML-escape `ticker` in the unsubscribe response page.
 - [ ] **LOW** — Replace error-message regex in `/api/score/[ticker]` with typed-error discrimination.
