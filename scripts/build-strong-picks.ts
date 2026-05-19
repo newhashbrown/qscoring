@@ -9,6 +9,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { marketCloseDate } from "../lib/market-date";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
@@ -201,7 +202,7 @@ async function main() {
   // midnight UTC for the previous trading day. Without the conversion the
   // file would be named 2026-05-09.json for what is actually the May 8
   // market close — visible to users as "Snapshot from tomorrow."
-  const snapshotDate = computeMarketCloseDate(generatedAt);
+  const snapshotDate = marketCloseDate(generatedAt);
   const snapshotsDir = path.resolve(process.cwd(), "data", "snapshots");
   if (!fs.existsSync(snapshotsDir)) {
     fs.mkdirSync(snapshotsDir, { recursive: true });
@@ -253,37 +254,6 @@ async function persistSnapshotToD1(snapshotDate: string, picks: Pick[]): Promise
   } finally {
     clearTimeout(timer);
   }
-}
-
-// Inline copy of lib/market-date.ts's marketCloseDate — duplicated rather
-// than imported so this script has zero dependencies on the Next runtime
-// and runs fine under plain `tsx` in CI.
-function computeMarketCloseDate(generatedAtIso: string): string {
-  const fmt = new Intl.DateTimeFormat("en-US", {
-    timeZone: "America/New_York",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    hour12: false,
-  });
-  const parts = fmt.formatToParts(new Date(generatedAtIso)).reduce(
-    (acc, p) => {
-      acc[p.type] = p.value;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
-  const etYear = parseInt(parts.year, 10);
-  const etMonth = parseInt(parts.month, 10);
-  const etDay = parseInt(parts.day, 10);
-  const etHour = parseInt(parts.hour, 10);
-  const target = new Date(Date.UTC(etYear, etMonth - 1, etDay));
-  if (etHour < 16) target.setUTCDate(target.getUTCDate() - 1);
-  while (target.getUTCDay() === 6 || target.getUTCDay() === 0) {
-    target.setUTCDate(target.getUTCDate() - 1);
-  }
-  return target.toISOString().split("T")[0];
 }
 
 main().catch((err) => {
