@@ -43,6 +43,7 @@ function aggregate(metrics: MetricScore[]): { score: number; completeness: numbe
   const scored = metrics.filter(
     (m): m is MetricScore & { score: number } => m.score !== null && Number.isFinite(m.score)
   );
+  const totalWeight = metrics.reduce((s, m) => s + m.weight, 0);
   if (scored.length === 0) return { score: 50, completeness: 0 };
   let weightSum = 0;
   let scoreSum = 0;
@@ -50,7 +51,16 @@ function aggregate(metrics: MetricScore[]): { score: number; completeness: numbe
     weightSum += m.weight;
     scoreSum += m.weight * m.score;
   }
-  return { score: scoreSum / weightSum, completeness: scored.length / metrics.length };
+  // Weighted completeness: the fraction of the category's total weight that
+  // returned a real score. Count-based completeness used to misreport when a
+  // high-weight metric (e.g. Revenue Growth at 1.5) was missing alongside a
+  // low-weight one (e.g. FCF Growth at 1.0) — both counted as "1 missing"
+  // even though effective coverage was much lower. deriveConfidence reads
+  // this to gate HIGH-confidence labels.
+  return {
+    score: scoreSum / weightSum,
+    completeness: totalWeight > 0 ? weightSum / totalWeight : 0,
+  };
 }
 
 function deriveSignal(longScore: number, shortScore: number, momentum: number): Signal {
@@ -282,7 +292,7 @@ export function scoreFromFetched(
     {
       name: "Beta",
       raw: profile.beta ?? null,
-      score: scoreBeta(profile.beta, stat("beta")),
+      score: scoreBeta(profile.beta),
       weight: 1,
       format: "number",
     },
