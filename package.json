@@ -13,7 +13,8 @@
     "sitemap-tickers": "tsx scripts/build-sitemap-tickers.ts",
     "strong-picks": "tsx scripts/build-strong-picks.ts",
     "weekly-recap": "tsx scripts/build-weekly-recap.ts",
-    "backfill-snapshots": "tsx scripts/backfill-snapshots.ts"
+    "backfill-snapshots": "tsx scripts/backfill-snapshots.ts",
+    "test": "tsx --test lib/scoring/zscore.test.ts"
   },
   "dependencies": {
     "next": "16.2.5",
@@ -26,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "playwright": "^1.60.0",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5",

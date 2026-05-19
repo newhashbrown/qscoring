@@ -121,7 +121,7 @@ export function scoreBeta(value: number | null | undefined, stats: MetricStats |
 export function scoreRsi(value: number | null | undefined): number | null {
   if (value === null || value === undefined || !Number.isFinite(value)) return null;
   if (value < 30) return 60;
-  if (value <= 50) return 50 + ((value - 30) / 20) * 0;
+  if (value <= 50) return 60 - ((value - 30) / 20) * 10; // 60→50
   if (value <= 70) return 50 + ((value - 50) / 20) * 38; // 50→88
   if (value <= 80) return 88 - ((value - 70) / 10) * 18; // 88→70
   return Math.max(20, 70 - ((value - 80) / 20) * 50); // 70→20
