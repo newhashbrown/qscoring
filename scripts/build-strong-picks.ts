@@ -9,7 +9,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { marketCloseDate } from "../lib/market-date";
+import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
@@ -150,6 +150,16 @@ async function sleep(ms: number): Promise<void> {
 }
 
 async function main() {
+  // Weekend crons resolve marketCloseDate to the prior Friday and used to
+  // rewrite that frozen snapshot with a fresh `generatedAt` (and minor
+  // float drift from re-scored cache reads). Skip the entire run on
+  // non-trading days — also saves ~7 minutes of FMP-paced API calls per
+  // weekend day. FORCE_RUN=1 overrides for local debugging.
+  if (!isUsTradingDay(new Date()) && process.env.FORCE_RUN !== "1") {
+    console.log("Non-trading day in ET — exiting without API calls or writes. Set FORCE_RUN=1 to override.");
+    return;
+  }
+
   console.log(`Scanning ${PICKS_UNIVERSE.length} tickers via ${BASE}…`);
   const picks: Pick[] = [];
   for (const ticker of PICKS_UNIVERSE) {
@@ -211,14 +221,24 @@ async function main() {
     fs.mkdirSync(snapshotsDir, { recursive: true });
   }
   const snapshotPath = path.resolve(snapshotsDir, `${snapshotDate}.json`);
-  fs.writeFileSync(snapshotPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
-  console.log(`Wrote snapshot → ${snapshotPath}`);
+  // Enforce the append-only contract: once a date's snapshot is committed
+  // it represents the no-look-ahead state for that close. Re-running (e.g.
+  // a Mon-morning cron whose marketCloseDate still resolves to Fri because
+  // it's before today's close) must not silently rewrite the frozen file.
+  if (fs.existsSync(snapshotPath)) {
+    console.log(`Snapshot ${snapshotDate}.json already exists — preserving frozen copy, skipping D1 persist.`);
+  } else {
+    fs.writeFileSync(snapshotPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
+    console.log(`Wrote snapshot → ${snapshotPath}`);
 
-  // Persist a queryable copy to D1 so /performance and future history charts
-  // can read by ticker without scanning every snapshot JSON. Best-effort —
-  // the JSON file above is the no-look-ahead source of truth, so a D1 write
-  // failure must not fail the workflow or block the git commit.
-  await persistSnapshotToD1(snapshotDate, picks);
+    // Persist a queryable copy to D1 so /performance and future history
+    // charts can read by ticker without scanning every snapshot JSON.
+    // Best-effort — the JSON file above is the no-look-ahead source of
+    // truth, so a D1 write failure must not fail the workflow or block
+    // the git commit. Only persist on first write so we don't double-
+    // insert into D1 if the script re-runs.
+    await persistSnapshotToD1(snapshotDate, picks);
+  }
 }
 
 async function persistSnapshotToD1(snapshotDate: string, picks: Pick[]): Promise<void> {

@@ -14,7 +14,7 @@
     "strong-picks": "tsx scripts/build-strong-picks.ts",
     "weekly-recap": "tsx scripts/build-weekly-recap.ts",
     "backfill-snapshots": "tsx scripts/backfill-snapshots.ts",
-    "test": "tsx --test lib/scoring/zscore.test.ts"
+    "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts"
   },
   "dependencies": {
     "next": "16.2.6",

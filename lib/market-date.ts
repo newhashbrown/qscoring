@@ -112,3 +112,19 @@ export function formatMarketDateShort(yyyymmdd: string): string {
 export function marketCloseLabel(generatedAtIso: string): string {
   return `${formatMarketDate(marketCloseDate(generatedAtIso))} market close`;
 }
+
+const WEEKDAY_ET = new Intl.DateTimeFormat("en-US", {
+  timeZone: "America/New_York",
+  weekday: "short",
+});
+
+/**
+ * True when the given instant falls on a US trading day (Mon–Fri in ET).
+ * Holidays are intentionally ignored — same scope decision as
+ * marketCloseDate(): worst case is a wasted run on a holiday, not a
+ * corrupted snapshot.
+ */
+export function isUsTradingDay(date: Date): boolean {
+  const weekday = WEEKDAY_ET.format(date);
+  return weekday !== "Sat" && weekday !== "Sun";
+}
