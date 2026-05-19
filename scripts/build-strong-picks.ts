@@ -58,6 +58,7 @@ type ApiCategory = {
 type ApiResponse = {
   ticker: string;
   companyName: string;
+  sector?: string;
   price: number;
   changePercent: number;
   composite: number;
@@ -72,6 +73,7 @@ type ApiResponse = {
 type Pick = {
   ticker: string;
   companyName: string;
+  sector?: string;
   price: number;
   changePercent: number;
   composite: number;
@@ -124,6 +126,7 @@ async function fetchScore(ticker: string): Promise<Pick | null> {
     return {
       ticker: data.ticker,
       companyName: data.companyName,
+      ...(data.sector ? { sector: data.sector } : {}),
       price: data.price,
       changePercent: data.changePercent,
       composite: Math.round(data.composite),

@@ -269,10 +269,9 @@ function pickFactorScore(p: ScoreboardPick, name: CategoryName): number {
 }
 
 function pickSector(p: ScoreboardPick): string {
-  // ScoreboardPick doesn't carry sector today — we leave the field for the
-  // caller to populate from a side lookup if available. Default bucket is
+  // Older snapshots predate the scoreboard carrying sector; fall back to
   // "Unknown" so the UI never renders an empty group.
-  return (p as ScoreboardPick & { sector?: string }).sector ?? "Unknown";
+  return p.sector ?? "Unknown";
 }
 
 export function analyzeBlend(rows: PortfolioRow[]): PortfolioAnalysis {
