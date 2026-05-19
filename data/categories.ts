@@ -10,6 +10,7 @@ import type { CategoryName, Signal } from "@/lib/scoring";
 export type ScoreboardPick = {
   ticker: string;
   companyName: string;
+  sector?: string;
   price: number;
   changePercent: number;
   composite: number;
