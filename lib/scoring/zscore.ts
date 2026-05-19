@@ -95,15 +95,17 @@ export function scoreLower(
 
 /**
  * Beta is special — the "ideal" raw value is ~1.0 (moves with the market).
- * Score based on distance from 1, lower distance → higher score, z-scored
- * against the universe of betas (so a beta of exactly 1 isn't necessarily
- * a perfect 100 if many stocks cluster there).
+ * Score based on distance from 1 via a fixed piecewise table rather than
+ * z-scoring against the universe. Beta is a market-neutral construct: "good"
+ * is anchored to 1.0 by definition, not by the universe's recent average. A
+ * z-score against universe-wide beta would make scores drift as the market
+ * regime changes, which is misleading here. The universe-stats `beta` row
+ * is still computed by the nightly job but intentionally unused.
  */
-export function scoreBeta(value: number | null | undefined, stats: MetricStats | null): number | null {
+export function scoreBeta(value: number | null | undefined): number | null {
   if (value === null || value === undefined || !Number.isFinite(value)) return null;
   // Distance from 1, then score lower-is-better.
-  // We don't have stats for the distance; approximate using beta stats and
-  // map to a score directly: |β-1|=0 → ~85, |β-1|=1 → ~50, |β-1|=2 → ~15.
+  // |β-1|=0 → 90, |β-1|=1 → 35, |β-1|=2 → 10.
   const dist = Math.abs(value - 1);
   if (dist <= 0.1) return 90;
   if (dist <= 0.3) return 75;
