@@ -1,22 +1,76 @@
 @import "tailwindcss";
 
 :root {
+  /* Direction B · Precision Terminal — see design-system/MASTER.md */
+
+  /* Surface palette (navy chrome) */
   --bg: #0A0E17;
+  --bg-2: #0F172A;
   --bg-card: #141c2e;
   --bg-card-hover: #1c2740;
-  --accent: #00D4AA;
-  --accent-dim: rgba(0, 212, 170, 0.15);
-  --accent-glow: rgba(0, 212, 170, 0.3);
-  --red: #FF4757;
-  --red-dim: rgba(255, 71, 87, 0.15);
-  --amber: #FFB347;
-  --amber-dim: rgba(255, 179, 71, 0.15);
-  --text: #E8ECF1;
-  --text-dim: #7B8794;
+  --surface: #1A2238;
+  --surface-2: #1E293B;
+
+  /* Brand palette (gold — chrome only: CTAs, eyebrows, focus rings, badges) */
+  --gold: #F59E0B;
+  --gold-bright: #FBBF24;
+  --gold-dim: rgba(245, 158, 11, 0.12);
+  --gold-soft: rgba(245, 158, 11, 0.22);
+  --on-gold: #1C1409;
+
+  /* Signal palette (data — locked to score band semantics) */
+  --signal-buy: #34D399;
+  --signal-buy-dim: rgba(52, 211, 153, 0.12);
+  --signal-buy-soft: rgba(52, 211, 153, 0.22);
+  --signal-hold: #FBBF24;
+  --signal-hold-dim: rgba(251, 191, 36, 0.12);
+  --signal-short: #F87171;
+  --signal-short-dim: rgba(248, 113, 113, 0.12);
+
+  /* Legacy aliases — --accent points at buy signal so data displays
+     (score ring, factor bars, signal pills) read the same color without
+     editing every selector. Chrome that should be gold is migrated below. */
+  --accent: var(--signal-buy);
+  --accent-dim: var(--signal-buy-dim);
+  --accent-glow: var(--signal-buy-soft);
+  --red: var(--signal-short);
+  --red-dim: var(--signal-short-dim);
+  --amber: var(--signal-hold);
+  --amber-dim: var(--signal-hold-dim);
+
+  /* Text */
+  --text: #F8FAFC;
+  --text-dim: #CBD5E1;
   --text-muted: #778999;   /* min ~4.7:1 on bg-card, ~5.4:1 on body — WCAG AA */
   --border: rgba(255, 255, 255, 0.09);
-  --font: var(--font-dm-sans), -apple-system, sans-serif;
-  --mono: var(--font-jetbrains-mono), monospace;
+  --border-strong: rgba(203, 213, 225, 0.16);
+
+  /* Type */
+  --font: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+}
+
+/* Tabular figures helper — apply to numeric data */
+.num,
+.demo-price,
+.factor-val,
+.ring-number {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,26 +116,27 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .logo {
-  font-family: var(--mono);
-  font-size: 1.3rem;
+  font-family: var(--font);
+  font-size: 1.0625rem;
   font-weight: 600;
-  color: var(--accent);
-  letter-spacing: -0.5px;
+  color: var(--text);
+  letter-spacing: -0.01em;
 }
 .logo span { color: var(--text-dim); font-weight: 400; }
 .nav-cta {
-  padding: 10px 24px;
-  background: var(--accent);
-  color: var(--bg);
+  padding: 10px 22px;
+  background: var(--gold);
+  color: var(--on-gold);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: background var(--dur-base), transform var(--dur-fast), box-shadow var(--dur-fast);
 }
-.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); }
+.nav-cta:hover { background: var(--gold-bright); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3); }
+.nav-cta:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
 
 /* ─── NAV ACTIONS ─── */
 .landing-nav .nav-actions {
@@ -96,7 +151,7 @@ body {
   text-decoration: none;
   transition: color 0.15s;
 }
-.landing-nav .nav-link:hover { color: var(--accent); }
+.landing-nav .nav-link:hover { color: var(--gold-bright); }
 
 /* ─── TOP MOVERS STRIP ─── */
 .movers-section {
@@ -206,7 +261,30 @@ body {
   padding: clamp(60px, 10vh, 100px) 24px 80px;
   text-align: center;
 }
-
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-soft);
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--gold-bright);
+  margin-bottom: 32px;
+  animation: fadeInUp 0.6s ease;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  background: var(--gold-bright);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
 .hero h1 {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 700;
@@ -216,7 +294,7 @@ body {
   margin-bottom: 24px;
   animation: fadeInUp 0.6s ease 0.1s both;
 }
-.hero h1 .accent { color: var(--accent); }
+.hero h1 .accent { color: var(--gold); }
 .hero p.sub {
   font-size: clamp(1rem, 2vw, 1.25rem);
   color: var(--text-dim);
@@ -244,8 +322,8 @@ body {
   transition: border-color 0.3s;
 }
 .email-form:focus-within {
-  border-color: rgba(0, 212, 170, 0.4);
-  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.08);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 0 3px var(--gold-dim);
 }
 .email-form input {
   flex: 1;
@@ -259,19 +337,25 @@ body {
 }
 .email-form input::placeholder { color: var(--text-muted); }
 .email-form button {
-  padding: 16px 28px;
-  background: var(--accent);
-  color: var(--bg);
+  padding: 16px 26px;
+  background: var(--gold);
+  color: var(--on-gold);
   border: none;
   font-family: var(--font);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
+  transition: background var(--dur-base);
 }
-.email-form button:hover { background: #00e6b8; }
-
+.email-form button:hover:not(:disabled) { background: var(--gold-bright); }
+.email-form button:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
+.form-note {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  animation: fadeInUp 0.6s ease 0.4s both;
+}
 .success-msg {
   display: none;
   color: var(--accent);
@@ -662,12 +746,12 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: var(--accent-dim);
-  border: 1px solid rgba(0, 212, 170, 0.2);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-soft);
   font-family: var(--mono);
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--accent);
+  color: var(--gold-bright);
   flex-shrink: 0;
 }
 .step h3 {
@@ -908,7 +992,7 @@ footer .footer-links .sep {
 /* Active-route highlight — accent color + subtle bottom rule keeps the
    current page obvious without overpowering the rest of the nav. */
 .site-nav-link.active {
-  color: var(--accent);
+  color: var(--gold-bright);
   font-weight: 600;
 }
 .site-nav-link.active::after {
@@ -918,11 +1002,11 @@ footer .footer-links .sep {
   right: 14px;
   bottom: -2px;
   height: 2px;
-  background: var(--accent);
+  background: var(--gold);
   border-radius: 1px;
 }
 .site-nav-link.active:hover {
-  background: rgba(0, 212, 170, 0.08);
+  background: var(--gold-dim);
 }
 .site-nav-tail {
   display: flex;
@@ -998,8 +1082,8 @@ footer .footer-links .sep {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .ticker-search:focus-within {
-  border-color: rgba(0, 212, 170, 0.4);
-  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.08);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 0 3px var(--gold-dim);
 }
 .ticker-search input {
   flex: 1;
@@ -1015,17 +1099,18 @@ footer .footer-links .sep {
 .ticker-search input::placeholder { color: var(--text-muted); font-family: var(--font); letter-spacing: 0; }
 .ticker-search button {
   padding: 0 22px;
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--gold);
+  color: var(--on-gold);
   border: none;
   font-family: var(--font);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.2s;
+  transition: background var(--dur-base);
 }
-.ticker-search button:hover { background: #00e6b8; }
+.ticker-search button:hover { background: var(--gold-bright); }
+.ticker-search button:focus-visible { outline: 3px solid var(--gold-bright); outline-offset: 2px; }
 
 .ticker-search.compact { max-width: 360px; margin: 0 auto; }
 .ticker-search.compact input { padding: 10px 14px; font-size: 0.9rem; }
@@ -1130,7 +1215,7 @@ footer .footer-links .sep {
   max-width: 720px;
   margin-bottom: 20px;
 }
-.search-h1 .accent { color: var(--accent); }
+.search-h1 .accent { color: var(--gold); }
 .search-sub {
   font-size: 1rem;
   color: var(--text-dim);
@@ -1172,8 +1257,8 @@ footer .footer-links .sep {
 }
 .popular-chip:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(0, 212, 170, 0.3);
-  color: var(--accent);
+  border-color: var(--gold-soft);
+  color: var(--gold-bright);
 }
 
 /* ─── SCORE DETAIL PAGE ─── */
@@ -1615,8 +1700,8 @@ footer .footer-links .sep {
   font-family: var(--mono);
   font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--accent);
+  letter-spacing: 0.16em;
+  color: var(--gold-bright);
   margin-bottom: 12px;
 }
 .methodology h1 {
@@ -1662,7 +1747,7 @@ footer .footer-links .sep {
   font-size: 0.92rem;
   transition: color 0.15s;
 }
-.method-toc li a:hover { color: var(--accent); }
+.method-toc li a:hover { color: var(--gold-bright); }
 
 .methodology section {
   margin-bottom: 56px;
@@ -1684,7 +1769,7 @@ footer .footer-links .sep {
 }
 .methodology p { margin-bottom: 14px; color: var(--text-dim); }
 .methodology p strong { color: var(--text); }
-.methodology a { color: var(--accent); text-decoration: none; transition: color 0.15s; }
+.methodology a { color: var(--gold-bright); text-decoration: none; transition: color 0.15s; }
 .methodology a:hover { text-decoration: underline; }
 .methodology code {
   font-family: var(--mono);
@@ -1692,7 +1777,7 @@ footer .footer-links .sep {
   background: rgba(255, 255, 255, 0.05);
   padding: 2px 6px;
   border-radius: 4px;
-  color: var(--accent);
+  color: var(--gold-bright);
 }
 .methodology em { color: var(--text-dim); font-style: italic; }
 

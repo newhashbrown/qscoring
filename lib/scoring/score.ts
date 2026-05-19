@@ -353,6 +353,5 @@ export async function scoreTicker(rawTicker: string): Promise<ScoreResult> {
     const data = await fetchTickerData(rawTicker);
     return scoreFromFetched(rawTicker, data);
   });
-  result.staleSince = oldestStaleAt;
-  return result;
+  return { ...result, staleSince: oldestStaleAt };
 }
