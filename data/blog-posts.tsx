@@ -24,6 +24,9 @@ import Link from "next/link";
 const CreditScoringBreakdownBody = dynamic(
   () => import("@/app/blog/bodies/credit-scoring-breakdown")
 );
+const PredictingLoanDefaultsBody = dynamic(
+  () => import("@/app/blog/bodies/predicting-loan-defaults")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1443,6 +1446,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "Most explanations of credit scoring stop at \"lenders look at your income and credit history.\" That's not wrong — it's just not useful. So we pulled 32,437 real loan applications, trained a working model, and looked at what the numbers actually say.",
     Body: CreditScoringBreakdownBody,
+  },
+  {
+    slug: "predicting-loan-defaults",
+    cluster: "factor-investing",
+    title: "Predicting loan defaults: what the data tells us banks miss",
+    description:
+      "We trained logistic regression and random forest on 67,463 real loan applications. Every headline feature lenders publish is statistically flat against default. Even random forest barely beats random — and that's the lesson.",
+    publishedAt: "2026-05-21",
+    readTimeMinutes: 13,
+    excerpt:
+      "The previous credit-risk dataset was generous: AUC 0.87 with simple logistic regression. This one isn't. 67,463 loans, 35 features, and even random forest gets to AUC 0.527 — barely above random. Data quality beats model choice, every single time.",
+    Body: PredictingLoanDefaultsBody,
   },
 ];
 
