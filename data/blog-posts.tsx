@@ -14,7 +14,16 @@
  * penalty surface is real and we'd rather under-publish than dilute.
  */
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+// Lazy-loaded post Bodies. Keeping large Body() components out of the
+// startup bundle avoids hitting the Cloudflare Workers 400ms startup CPU
+// budget — the registry below stays metadata-light, and each body is
+// loaded as a separate chunk only when its slug is rendered.
+const CreditScoringBreakdownBody = dynamic(
+  () => import("@/app/blog/bodies/credit-scoring-breakdown")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -83,7 +92,10 @@ export type BlogPost = {
   publishedAt: string; // YYYY-MM-DD
   readTimeMinutes: number;
   excerpt: string;
-  Body: () => React.ReactNode;
+  // ComponentType (not `() => ReactNode`) so dynamic-imported bodies
+  // (via next/dynamic) are assignable; inline `() => (<>...</>)` bodies
+  // remain assignable because their narrower signature widens cleanly.
+  Body: React.ComponentType<Record<string, never>>;
 };
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -1419,6 +1431,18 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
       </>
     ),
+  },
+  {
+    slug: "how-credit-scoring-models-actually-work",
+    cluster: "factor-investing",
+    title: "How credit scoring models actually work: a data-driven breakdown",
+    description:
+      "We trained a credit scoring model on 32,437 real loan applications. Here's what actually predicts default — by loan grade, income, home ownership, and loan-to-income ratio — with a working logistic regression that scores AUC 0.871.",
+    publishedAt: "2026-05-21",
+    readTimeMinutes: 11,
+    excerpt:
+      "Most explanations of credit scoring stop at \"lenders look at your income and credit history.\" That's not wrong — it's just not useful. So we pulled 32,437 real loan applications, trained a working model, and looked at what the numbers actually say.",
+    Body: CreditScoringBreakdownBody,
   },
 ];
 
