@@ -27,6 +27,9 @@ const CreditScoringBreakdownBody = dynamic(
 const PredictingLoanDefaultsBody = dynamic(
   () => import("@/app/blog/bodies/predicting-loan-defaults")
 );
+const DetectingCreditCardFraudBody = dynamic(
+  () => import("@/app/blog/bodies/detecting-credit-card-fraud")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1458,6 +1461,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "The previous credit-risk dataset was generous: AUC 0.87 with simple logistic regression. This one isn't. 67,463 loans, 35 features, and even random forest gets to AUC 0.527 — barely above random. Data quality beats model choice, every single time.",
     Body: PredictingLoanDefaultsBody,
+  },
+  {
+    slug: "detecting-credit-card-fraud",
+    cluster: "factor-investing",
+    title: "Detecting credit card fraud: when 99.8% accuracy means your model caught nothing",
+    description:
+      "We trained logistic regression and random forest on 284,807 European card transactions (0.173% fraud rate). ROC AUC said one model was better. PR-AUC said the opposite. With extreme class imbalance, only one of those metrics tells the truth.",
+    publishedAt: "2026-05-21",
+    readTimeMinutes: 14,
+    excerpt:
+      "A model that predicts \"not fraud\" for every transaction in this dataset is right 99.83% of the time and catches zero fraud. We trained two real fraud models on 284,807 transactions and looked at which evaluation metric actually tells the truth.",
+    Body: DetectingCreditCardFraudBody,
   },
 ];
 
