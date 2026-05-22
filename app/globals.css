@@ -1940,6 +1940,92 @@ footer .footer-links .sep {
 }
 
 /* Blog cluster grid (top of /blog) + per-cluster sections */
+/* "Latest posts" surface at the top of /blog — pulls the newest writing
+   across all clusters so readers don't have to drill into a cluster page
+   to find it. Re-renders hourly so the "New" badge stays current. */
+.blog-latest {
+  margin-top: 36px;
+  margin-bottom: 56px;
+}
+.blog-latest-heading {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+  font-weight: 600;
+}
+.blog-latest-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.blog-latest-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 22px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold-bright);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.blog-latest-card:hover {
+  background: rgba(251, 191, 36, 0.04);
+  transform: translateY(-1px);
+}
+.blog-latest-card:hover .blog-latest-title {
+  color: var(--gold-bright);
+}
+.blog-latest-meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.blog-latest-title {
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.35;
+  transition: color 0.15s;
+}
+.blog-latest-excerpt {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.blog-new-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0A0E17;
+  background: var(--gold-bright);
+  border-radius: 4px;
+  font-family: var(--mono);
+}
+
 .blog-clusters {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

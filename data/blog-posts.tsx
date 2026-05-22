@@ -1485,3 +1485,27 @@ export function postsInCluster(cluster: BlogCluster): BlogPost[] {
     b.publishedAt.localeCompare(a.publishedAt)
   );
 }
+
+/**
+ * Most-recently published posts across all clusters, newest first.
+ * Used by the /blog index to surface "what's new" without forcing readers
+ * to scroll through cluster sections.
+ */
+export function latestPosts(limit = 6): BlogPost[] {
+  return [...BLOG_POSTS]
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, limit);
+}
+
+/**
+ * True if a post was published within the last `daysWindow` days. Used to
+ * decide whether to show the "New" badge on the blog index. Anchored at
+ * UTC noon to match the date-formatter and avoid timezone slop on the
+ * day-boundary.
+ */
+export function isRecent(publishedAt: string, daysWindow = 14): boolean {
+  const published = new Date(`${publishedAt}T12:00:00Z`).getTime();
+  const now = Date.now();
+  const ageDays = (now - published) / (1000 * 60 * 60 * 24);
+  return ageDays >= 0 && ageDays < daysWindow;
+}
