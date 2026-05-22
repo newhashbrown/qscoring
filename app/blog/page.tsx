@@ -4,6 +4,8 @@ import {
   BLOG_POSTS,
   CLUSTERS,
   CLUSTER_SLUGS,
+  isRecent,
+  latestPosts,
   postsInCluster,
 } from "@/data/blog-posts";
 
@@ -13,6 +15,10 @@ export const metadata = {
     "Plain-English explainers on QScore methodology, factor investing fundamentals, head-to-head stock comparisons, and individual financial metrics — all linked to live ticker scores.",
   alternates: { canonical: "https://qscoring.com/blog" },
 };
+
+// Re-render hourly so the "New" badge reflects current time without
+// depending on push-triggered rebuilds.
+export const revalidate = 3600;
 
 const blogJsonLd = {
   "@context": "https://schema.org",
@@ -67,6 +73,29 @@ export default function BlogIndexPage() {
             head-to-head comparisons).
           </p>
         </header>
+
+        <section className="blog-latest" aria-labelledby="latest-heading">
+          <h2 id="latest-heading" className="blog-latest-heading">
+            Latest posts
+          </h2>
+          <ul className="blog-latest-list">
+            {latestPosts(6).map((p) => {
+              const recent = isRecent(p.publishedAt);
+              return (
+                <li key={p.slug}>
+                  <Link href={`/blog/${p.slug}`} className="blog-latest-card">
+                    <span className="blog-latest-meta">
+                      {formatDate(p.publishedAt)} · {p.readTimeMinutes} min read
+                      {recent ? <span className="blog-new-badge">New</span> : null}
+                    </span>
+                    <span className="blog-latest-title">{p.title}</span>
+                    <span className="blog-latest-excerpt">{p.excerpt}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
 
         <section className="blog-clusters">
           {CLUSTER_SLUGS.map((slug) => {
