@@ -30,6 +30,9 @@ const PredictingLoanDefaultsBody = dynamic(
 const DetectingCreditCardFraudBody = dynamic(
   () => import("@/app/blog/bodies/detecting-credit-card-fraud")
 );
+const TestingStockFactorsSp500Body = dynamic(
+  () => import("@/app/blog/bodies/testing-stock-factors-sp500")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1473,6 +1476,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "A model that predicts \"not fraud\" for every transaction in this dataset is right 99.83% of the time and catches zero fraud. We trained two real fraud models on 284,807 transactions and looked at which evaluation metric actually tells the truth.",
     Body: DetectingCreditCardFraudBody,
+  },
+  {
+    slug: "testing-stock-factors-sp500",
+    cluster: "factor-investing",
+    title: "Do stock factors actually work? Testing momentum, low volatility, and reversal on 5 years of S&P 500 data",
+    description:
+      "We tested three classic price-based factors on 619,040 days of S&P 500 data from 2013–2018: momentum, low volatility, and short-term reversal. Two worked weakly, one had the wrong sign, none were statistically significant. Here's what 5 years of real data tells us about factor investing.",
+    publishedAt: "2026-05-22",
+    readTimeMinutes: 15,
+    excerpt:
+      "After three posts on credit-side modeling, here's the equity-side test. 619,040 daily price rows. 474 names. Five years. Three factors. Momentum +3.9% annualized, low vol -6.4% (wrong sign), reversal +2.8%. The honest version of factor investing.",
+    Body: TestingStockFactorsSp500Body,
   },
 ];
 
