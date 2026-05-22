@@ -2189,6 +2189,34 @@ footer .footer-links .sep {
   border-bottom-style: solid;
 }
 
+/* Comments section (Giscus / GitHub Discussions) at the bottom of every blog post. */
+.blog-comments {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  max-width: 720px;
+}
+.blog-comments-heading {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+.blog-comments-hint {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  margin: 0 0 18px;
+  line-height: 1.55;
+}
+/* Giscus injects an iframe inside .giscus-wrapper. Reserve room so the
+   page doesn't reflow when the script loads. */
+.giscus-wrapper {
+  min-height: 240px;
+}
+
 /* Portfolio analyzer — /portfolio page */
 .portfolio-form {
   max-width: 720px;
