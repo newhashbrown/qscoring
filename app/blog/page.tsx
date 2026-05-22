@@ -3,7 +3,7 @@ import ScoreNav from "@/app/components/ScoreNav";
 import {
   BLOG_POSTS,
   CLUSTERS,
-  CLUSTER_SLUGS,
+  clustersByRecency,
   isRecent,
   latestPosts,
   postsInCluster,
@@ -98,7 +98,7 @@ export default function BlogIndexPage() {
         </section>
 
         <section className="blog-clusters">
-          {CLUSTER_SLUGS.map((slug) => {
+          {clustersByRecency().map((slug) => {
             const def = CLUSTERS[slug];
             const count = postsInCluster(slug).length;
             return (
@@ -113,10 +113,9 @@ export default function BlogIndexPage() {
           })}
         </section>
 
-        {CLUSTER_SLUGS.map((slug) => {
+        {clustersByRecency().map((slug) => {
           const def = CLUSTERS[slug];
           const posts = postsInCluster(slug);
-          if (posts.length === 0) return null;
           return (
             <section key={slug} className="blog-cluster-section">
               <h2>
