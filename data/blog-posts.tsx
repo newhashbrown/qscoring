@@ -33,6 +33,9 @@ const DetectingCreditCardFraudBody = dynamic(
 const TestingStockFactorsSp500Body = dynamic(
   () => import("@/app/blog/bodies/testing-stock-factors-sp500")
 );
+const TestingStockFactorsCryptoBody = dynamic(
+  () => import("@/app/blog/bodies/testing-stock-factors-crypto")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1488,6 +1491,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "After three posts on credit-side modeling, here's the equity-side test. 619,040 daily price rows. 474 names. Five years. Three factors. Momentum +3.9% annualized, low vol -6.4% (wrong sign), reversal +2.8%. The honest version of factor investing.",
     Body: TestingStockFactorsSp500Body,
+  },
+  {
+    slug: "testing-stock-factors-crypto",
+    cluster: "factor-investing",
+    title: "Do stock factors work in crypto? Testing momentum, low volatility, and reversal on 1,050 tokens",
+    description:
+      "We tested the same three classic equity factors on 1,050 cryptocurrencies over 6 years and 1.6M daily price rows. Two are dramatically stronger in crypto than in equities; one flipped sign entirely. Same framework, different asset class, different answers.",
+    publishedAt: "2026-05-22",
+    readTimeMinutes: 15,
+    excerpt:
+      "After testing factors on 5 years of S&P 500 data and finding nothing significant, we pointed the same machinery at 1,050 cryptos over 6 years. Momentum IC went from +0.016 to +0.111 (t-stat +3.80). Low-vol flipped sign. Reversal flipped sign and lost 20%/year. The honest crypto version of factor investing.",
+    Body: TestingStockFactorsCryptoBody,
   },
 ];
 
