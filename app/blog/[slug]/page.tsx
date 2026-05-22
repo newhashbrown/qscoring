@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import GiscusComments from "@/app/components/GiscusComments";
 import ScoreNav from "@/app/components/ScoreNav";
 import { BLOG_POSTS, BLOG_POSTS_BY_SLUG } from "@/data/blog-posts";
 
@@ -80,6 +81,21 @@ export default async function BlogPostPage({
     },
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://qscoring.com/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://qscoring.com/blog" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://qscoring.com/blog/${post.slug}`,
+      },
+    ],
+  };
+
   const Body = post.Body;
 
   return (
@@ -87,6 +103,10 @@ export default async function BlogPostPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
@@ -108,6 +128,20 @@ export default async function BlogPostPage({
         <article className="blog-post-body">
           <Body />
         </article>
+
+        <section
+          className="blog-comments"
+          aria-labelledby={`comments-${post.slug}`}
+        >
+          <h2 id={`comments-${post.slug}`} className="blog-comments-heading">
+            Discussion
+          </h2>
+          <p className="blog-comments-hint">
+            Comments are powered by GitHub Discussions. Sign in with GitHub to
+            join the conversation.
+          </p>
+          <GiscusComments />
+        </section>
 
         <p className="back-to-top">
           <Link href="/blog">← All posts</Link>
