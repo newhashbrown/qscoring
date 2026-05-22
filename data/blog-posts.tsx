@@ -1524,3 +1524,25 @@ export function isRecent(publishedAt: string, daysWindow = 14): boolean {
   const ageDays = (now - published) / (1000 * 60 * 60 * 24);
   return ageDays >= 0 && ageDays < daysWindow;
 }
+
+/**
+ * Most-recent publishedAt across a cluster's posts, as YYYY-MM-DD. Empty
+ * string when the cluster has no posts (sorts last under lexicographic
+ * descending order). Used to order clusters on the /blog index so the
+ * cluster with the freshest content surfaces first.
+ */
+export function clusterMostRecentDate(cluster: BlogCluster): string {
+  const posts = postsInCluster(cluster);
+  return posts.length > 0 ? posts[0].publishedAt : "";
+}
+
+/**
+ * CLUSTER_SLUGS reordered so the cluster with the most-recent post comes
+ * first; clusters with no posts are dropped (the route still exists for
+ * SEO, but there's no point linking to an empty page from the index).
+ */
+export function clustersByRecency(): BlogCluster[] {
+  return CLUSTER_SLUGS
+    .filter((slug) => postsInCluster(slug).length > 0)
+    .sort((a, b) => clusterMostRecentDate(b).localeCompare(clusterMostRecentDate(a)));
+}
