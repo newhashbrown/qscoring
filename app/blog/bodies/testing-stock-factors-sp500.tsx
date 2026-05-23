@@ -1,22 +1,6 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { captionLabel, captionStyle, figureStyle, imgStyle } from "./styles";
 
-const figureStyle: CSSProperties = { margin: "32px 0" };
-const imgStyle: CSSProperties = {
-  width: "100%",
-  height: "auto",
-  borderRadius: 10,
-  border: "1px solid var(--border)",
-  background: "var(--bg-card)",
-  display: "block",
-};
-const captionStyle: CSSProperties = {
-  marginTop: 12,
-  fontSize: "0.85rem",
-  color: "var(--text-muted)",
-  lineHeight: 1.55,
-};
-const captionLabel: CSSProperties = { color: "var(--text-dim)" };
 const base = "/blog/testing-stock-factors-sp500";
 
 export default function TestingStockFactorsSp500Body() {
