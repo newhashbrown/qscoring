@@ -15,7 +15,12 @@
   // get wiped on every Workers Builds redeploy. Secrets (RESEND_API_KEY,
   // FMP_API_KEY) are managed separately and DO persist across deploys.
   "vars": {
-    "EMAIL_FROM": "QScoring <noreply@qscoring.com>"
+    "EMAIL_FROM": "QScoring <noreply@qscoring.com>",
+    // Clerk publishable key — safe to commit, designed to ship in client
+    // bundles. Currently the dev/test instance key (neat-parrot-87);
+    // rotate this when promoting to a production Clerk instance.
+    // The matching CLERK_SECRET_KEY lives as a wrangler secret.
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bmVhdC1wYXJyb3QtODcuY2xlcmsuYWNjb3VudHMuZGV2JA"
   },
   // ADMIN_EMAIL is managed as a secret (`wrangler secret put ADMIN_EMAIL`)
   // — wrangler.jsonc `vars` propagation through Workers Builds turned out
