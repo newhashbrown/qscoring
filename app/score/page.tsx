@@ -4,6 +4,21 @@ import TickerSearch from "../components/TickerSearch";
 
 const POPULAR = ["AAPL", "NVDA", "TSLA", "MSFT", "GOOGL", "AMZN", "META", "BRK.B"];
 
+export const metadata = {
+  title: "Score Any Stock — QScore Lookup — QScoring",
+  description:
+    "Enter any US-listed ticker — AAPL, NVDA, TSLA, or any symbol — and get the QScore, signal, confidence, and full factor breakdown across value, growth, momentum, profitability, and risk.",
+  alternates: { canonical: "https://qscoring.com/score" },
+  openGraph: {
+    title: "Score Any Stock — QScore Lookup",
+    description:
+      "Type a ticker and get an instant QScore — composite score, directional signal, and full factor breakdown.",
+    url: "https://qscoring.com/score",
+    siteName: "QScoring",
+    type: "website" as const,
+  },
+};
+
 export default function ScoreLandingPage() {
   return (
     <>

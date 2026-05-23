@@ -88,11 +88,30 @@ export default async function GlossaryTermPage({
 
   const related = getRelatedTerms(term);
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://qscoring.com/" },
+      { "@type": "ListItem", position: 2, name: "Glossary", item: "https://qscoring.com/glossary" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: term.title,
+        item: `https://qscoring.com/glossary/${term.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(termJsonLd(term)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

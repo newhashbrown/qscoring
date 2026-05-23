@@ -12,8 +12,6 @@ export async function GET() {
     GLOSSARY.map((t) => ({
       loc: `${SITE}/glossary/${t.slug}`,
       lastmod: today,
-      changefreq: "monthly" as const,
-      priority: 0.6,
     }))
   );
 

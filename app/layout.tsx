@@ -7,7 +7,7 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -33,12 +33,30 @@ export const metadata: Metadata = {
   },
 };
 
+// Site-wide Organization schema — gives Google a stable entity to attach
+// brand-name SERPs, Knowledge Graph entries, and logo rich results to.
+// Finance is YMYL, so entity recognition matters more than for generic sites.
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://qscoring.com/#org",
+  name: "QScoring",
+  url: "https://qscoring.com",
+  logo: "https://qscoring.com/logo.png",
+  description:
+    "Quantitative stock scoring with transparent methodology: value, growth, momentum, profitability, and risk factors combined into a single QScore.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetBrainsMono.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {/* Market context strip — toggled by MARKET_STRIP_ENABLED in
             lib/feature-flags.ts. Wrapped in Suspense so a slow FMP
             response never blocks the rest of the page render. */}

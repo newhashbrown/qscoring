@@ -7,43 +7,15 @@ export const revalidate = 3600;
 export async function GET() {
   const today = new Date().toISOString().split("T")[0];
 
+  // changefreq and priority are ignored by major search engines (Google
+  // publicly stated this) — keep only loc and lastmod.
   const xml = urlsetXml([
-    {
-      loc: `${SITE}/`,
-      lastmod: today,
-      changefreq: "daily",
-      priority: 1.0,
-    },
-    {
-      loc: `${SITE}/score`,
-      lastmod: today,
-      changefreq: "daily",
-      priority: 0.9,
-    },
-    {
-      loc: `${SITE}/methodology`,
-      lastmod: today,
-      changefreq: "monthly",
-      priority: 0.85,
-    },
-    {
-      loc: `${SITE}/glossary`,
-      lastmod: today,
-      changefreq: "monthly",
-      priority: 0.75,
-    },
-    {
-      loc: `${SITE}/performance`,
-      lastmod: today,
-      changefreq: "daily",
-      priority: 0.85,
-    },
-    {
-      loc: `${SITE}/portfolio`,
-      lastmod: today,
-      changefreq: "monthly",
-      priority: 0.9,
-    },
+    { loc: `${SITE}/`, lastmod: today },
+    { loc: `${SITE}/score`, lastmod: today },
+    { loc: `${SITE}/methodology`, lastmod: today },
+    { loc: `${SITE}/glossary`, lastmod: today },
+    { loc: `${SITE}/performance`, lastmod: today },
+    { loc: `${SITE}/portfolio`, lastmod: today },
   ]);
 
   return new Response(xml, { headers: SITEMAP_HEADERS });

@@ -9,17 +9,10 @@ export async function GET() {
   const today = new Date().toISOString().split("T")[0];
 
   const xml = urlsetXml([
-    {
-      loc: `${SITE}/scores`,
-      lastmod: today,
-      changefreq: "daily" as const,
-      priority: 0.85,
-    },
+    { loc: `${SITE}/scores`, lastmod: today },
     ...CATEGORIES.map((c) => ({
       loc: `${SITE}/scores/${c.slug}`,
       lastmod: today,
-      changefreq: "daily" as const,
-      priority: 0.7,
     })),
   ]);
 

@@ -116,11 +116,30 @@ export default async function CompareTickersPage({
     ],
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://qscoring.com/" },
+      { "@type": "ListItem", position: 2, name: "Compare", item: "https://qscoring.com/compare" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: `${a.ticker} vs ${b.ticker}`,
+        item: `https://qscoring.com/compare/${pairToSlug(a.ticker, b.ticker)}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
