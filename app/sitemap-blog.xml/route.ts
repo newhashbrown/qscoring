@@ -21,35 +21,19 @@ export async function GET() {
   const recapDates = listRecapDates();
 
   const xml = urlsetXml([
-    {
-      loc: `${SITE}/blog`,
-      lastmod: today,
-      changefreq: "weekly" as const,
-      priority: 0.85,
-    },
+    { loc: `${SITE}/blog`, lastmod: today },
     ...CLUSTER_SLUGS.map((slug) => ({
       loc: `${SITE}/blog/${slug}`,
       lastmod: today,
-      changefreq: "weekly" as const,
-      priority: 0.8,
     })),
-    {
-      loc: `${SITE}/blog/recaps`,
-      lastmod: today,
-      changefreq: "weekly" as const,
-      priority: 0.85,
-    },
+    { loc: `${SITE}/blog/recaps`, lastmod: today },
     ...BLOG_POSTS.map((p) => ({
       loc: `${SITE}/blog/${p.slug}`,
       lastmod: p.publishedAt,
-      changefreq: "monthly" as const,
-      priority: 0.75,
     })),
     ...recapDates.map((d) => ({
       loc: `${SITE}/blog/recaps/${d}`,
       lastmod: d,
-      changefreq: "monthly" as const,
-      priority: 0.7,
     })),
   ]);
 

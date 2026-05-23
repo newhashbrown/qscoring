@@ -99,11 +99,31 @@ export default async function RecapDetailPage({
     },
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://qscoring.com/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://qscoring.com/blog" },
+      { "@type": "ListItem", position: 3, name: "Weekly recaps", item: "https://qscoring.com/blog/recaps" },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: `Week ending ${dateLabel}`,
+        item: `https://qscoring.com/blog/recaps/${recap.weekEnding}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

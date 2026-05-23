@@ -20,8 +20,6 @@ export async function GET() {
     tickers.map((ticker) => ({
       loc: `${SITE}/score/${ticker}`,
       lastmod: today,
-      changefreq: "daily" as const,
-      priority: 0.8,
     }))
   );
 

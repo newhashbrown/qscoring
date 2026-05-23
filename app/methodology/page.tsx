@@ -6,6 +6,7 @@ export const metadata = {
   title: "Methodology — How the QScore Is Calculated",
   description:
     "Full transparency on the QScore methodology: factor categories, z-score normalization against the universe, weights, signal logic, data sources, limitations, and validation status.",
+  alternates: { canonical: "https://qscoring.com/methodology" },
 };
 
 const TOC = [

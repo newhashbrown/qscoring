@@ -31,12 +31,13 @@ export async function generateMetadata({
 
   // Non-ticker queries (e.g. /score/google → redirects to GOOGL) get generic
   // metadata; the redirected ticker page renders its own specific metadata.
-  // The redirect is what actually controls indexing here, so robots can be
-  // omitted — Google won't index the redirected URL.
+  // The redirect is the primary indexing control; the explicit noindex is
+  // defense-in-depth in case the URL is shared or leaks before redirecting.
   if (!isLikelyTicker(decoded)) {
     return {
       title: `${decoded} Quant Score — QScoring`,
       description: `Search results and quantitative analysis for ${decoded} on QScoring.`,
+      robots: { index: false, follow: false },
     };
   }
 
@@ -45,7 +46,7 @@ export async function generateMetadata({
     const signal = SIGNAL_LABEL_META[result.signal] ?? result.signal;
     const cat = (n: string) =>
       Math.round(result.categories.find((c) => c.name === n)?.score ?? 0);
-    const title = `${result.ticker} QScore ${result.composite}/100 — ${signal} | QScoring`;
+    const title = `${result.ticker} QScore ${result.composite}/100 — ${signal} — QScoring`;
     const description =
       `${result.companyName} (${result.ticker}) quantitative analysis. ` +
       `QScore ${result.composite}/100, ${signal} signal, ${result.confidence} confidence. ` +
@@ -191,11 +192,30 @@ export default async function TickerScorePage({
     description: `Composite QScore ${result.composite}/100 with ${signalProse} signal at ${result.confidence} confidence.`,
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://qscoring.com/" },
+      { "@type": "ListItem", position: 2, name: "Score", item: "https://qscoring.com/score" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: result.ticker,
+        item: `https://qscoring.com/score/${result.ticker}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

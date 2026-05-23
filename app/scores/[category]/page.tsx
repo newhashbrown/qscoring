@@ -30,10 +30,17 @@ export async function generateMetadata({
     };
   }
   const url = `https://qscoring.com/scores/${def.slug}`;
+
+  // Empty categories produce thin pages — indexing them dilutes site-wide
+  // quality signal. follow stays true so internal links still pass.
+  const scoreboard = scoreboardData.picks as ScoreboardPick[];
+  const isEmpty = selectPicks(scoreboard, def.selector).length === 0;
+
   return {
     title: `${def.title} — QScore Rankings`,
     description: def.shortDescription,
     alternates: { canonical: url },
+    robots: isEmpty ? { index: false, follow: true } : undefined,
     openGraph: {
       title: `${def.title} — QScore Rankings`,
       description: def.shortDescription,
@@ -72,11 +79,30 @@ export default async function CategoryPage({
     })),
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://qscoring.com/" },
+      { "@type": "ListItem", position: 2, name: "Categories", item: "https://qscoring.com/scores" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: def.title,
+        item: `https://qscoring.com/scores/${def.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
