@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
@@ -53,17 +54,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetBrainsMono.variable}`}>
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        {/* Market context strip — toggled by MARKET_STRIP_ENABLED in
-            lib/feature-flags.ts. Wrapped in Suspense so a slow FMP
-            response never blocks the rest of the page render. */}
-        <Suspense fallback={null}>
-          <MarketStrip />
-        </Suspense>
-        {children}
+        <ClerkProvider>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+          />
+          {/* Market context strip — toggled by MARKET_STRIP_ENABLED in
+              lib/feature-flags.ts. Wrapped in Suspense so a slow FMP
+              response never blocks the rest of the page render. */}
+          <Suspense fallback={null}>
+            <MarketStrip />
+          </Suspense>
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );
