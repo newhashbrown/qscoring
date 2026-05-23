@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Show,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -92,9 +98,17 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
             <TickerSearch initialValue={ticker ?? ""} size="compact" />
           </div>
         )}
-        <Link href="/#signup" className="nav-cta" onClick={() => setOpen(false)}>
-          Get Early Access
-        </Link>
+        <Show when="signed-out">
+          <SignInButton mode="modal">
+            <button type="button" className="nav-signin">Sign in</button>
+          </SignInButton>
+          <SignUpButton mode="modal">
+            <button type="button" className="nav-cta">Sign up</button>
+          </SignUpButton>
+        </Show>
+        <Show when="signed-in">
+          <UserButton />
+        </Show>
       </div>
 
       <button
