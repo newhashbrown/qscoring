@@ -1,5 +1,11 @@
 import { clerkMiddleware } from "@clerk/nextjs/server";
 
+// Using middleware.ts (NOT Next 16's new proxy.ts) on purpose: proxy.ts
+// is locked to the Node.js runtime, which OpenNext on Cloudflare Workers
+// cannot execute. middleware.ts runs on the Edge runtime, which Clerk's
+// SDK supports natively. The Clerk CLI generated proxy.ts by default;
+// we renamed because of the deploy target.
+
 /**
  * Clerk middleware runs on every matched route but does NOT gate anything
  * by default. QScoring is a public-read content + score lookup product —
