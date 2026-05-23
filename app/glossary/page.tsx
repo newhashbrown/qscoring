@@ -6,6 +6,7 @@ export const metadata = {
   title: "Glossary — Quant Investing & QScore Terminology",
   description:
     "Plain-English definitions of QScore concepts (composite, signal, factor categories) and general quant finance terms (P/E, RSI, beta, Sharpe ratio, information coefficient).",
+  alternates: { canonical: "https://qscoring.com/glossary" },
 };
 
 const glossaryJsonLd = {
