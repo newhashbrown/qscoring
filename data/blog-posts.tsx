@@ -36,6 +36,9 @@ const TestingStockFactorsSp500Body = dynamic(
 const TestingStockFactorsCryptoBody = dynamic(
   () => import("@/app/blog/bodies/testing-stock-factors-crypto")
 );
+const StockMarketAroundMemorialDayBody = dynamic(
+  () => import("@/app/blog/bodies/stock-market-around-memorial-day")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1503,6 +1506,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "After testing factors on 5 years of S&P 500 data and finding nothing significant, we pointed the same machinery at 1,050 cryptos over 6 years. Momentum IC went from +0.016 to +0.111 (t-stat +3.80). Low-vol flipped sign. Reversal flipped sign and lost 20%/year. The honest crypto version of factor investing.",
     Body: TestingStockFactorsCryptoBody,
+  },
+  {
+    slug: "stock-market-around-memorial-day",
+    cluster: "market-signals",
+    title: "How the stock market behaves before and after Memorial Day",
+    description:
+      "We pulled 36 years of S&P 500 daily closes (1990–2025) and ran an event study on the 5 trading days before and after Memorial Day. Mean returns of +0.40% pre and +0.52% post, with a 67% pre-week hit rate — but neither survives a comparison against 10,000 random 5-day windows (p = 0.54, p = 0.42).",
+    publishedAt: "2026-05-23",
+    readTimeMinutes: 8,
+    excerpt:
+      "Pre-holiday drift is one of the oldest claims in market lore. We pulled 36 years of S&P 500 data around Memorial Day, compared it to 10,000 random 5-day windows, and the honest answer is: the direction matches the folklore, the magnitude is small, and the statistical test says \"not really.\"",
+    Body: StockMarketAroundMemorialDayBody,
   },
 ];
 
