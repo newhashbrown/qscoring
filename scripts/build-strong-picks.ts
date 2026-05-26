@@ -1,11 +1,19 @@
 /**
  * Builds data/strong-picks.json — the homepage carousel's preranked list
  * of high-composite tickers. Hits the deployed /api/score endpoint rather
- * than calling FMP directly, so it uses the production cache layer and
- * doesn't need FMP_API_KEY locally.
+ * than calling FMP directly so per-ticker scoring uses the production
+ * cache layer.
  *
- * Designed to run from a daily GitHub Action (writes the file, commits if
- * changed). Can also be run locally:  npm run strong-picks
+ * The universe is resolved at run-time from FMP's company-screener using
+ * the same criteria build-universe-stats.ts uses for z-score normalization
+ * (US-listed, NASDAQ/NYSE, market cap > MIN_MARKET_CAP, actively trading).
+ * Keeping these in lockstep means every ticker the form accepts is also
+ * a ticker the normalization corpus has stats for. Requires FMP_API_KEY
+ * at startup for the screener call; per-ticker scoring is still proxied
+ * through /api/score.
+ *
+ * Designed to run from a daily GitHub Action. Can also be run locally:
+ *   FMP_API_KEY=… npm run strong-picks
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -14,8 +22,10 @@ import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
 // Pacing for the cold-cache worst case: every ticker fans out to ~6 FMP
-// calls inside /api/score. At 1 call/2s = 0.5 req/s, the upstream FMP load
-// stays under ~3/s = 180/min, well below FMP's 300/min ceiling.
+// calls inside /api/score. At 1 call/2s = 0.5 req/s, upstream FMP stays
+// under ~3/s = 180/min, well below the 300/min Starter ceiling. The
+// screener returns ~300-800 names at the current threshold, so worst-case
+// pacing is ~27 min plus the post-deploy watchlist sleep + alert call.
 const REQUEST_GAP_MS = 2000;
 const REQUEST_TIMEOUT_MS = 25_000;
 const RETRY_BACKOFF_MS = [15_000, 30_000];
@@ -25,25 +35,112 @@ const RETRY_BACKOFF_MS = [15_000, 30_000];
 // classic "buy" territory. The ranking itself communicates strength.
 const LIMIT = 12;
 
-// Wider than MOVERS_UNIVERSE so the homepage doesn't feel like the same
-// 7-name rotation. Sectors are deliberately mixed so on a tech-heavy day
-// healthcare or energy names can still rise into the top picks.
-const PICKS_UNIVERSE: readonly string[] = [
-  // Core mega-caps
-  "AAPL", "MSFT", "NVDA", "GOOGL", "META", "AMZN", "TSLA", "BRK-B", "AVGO", "LLY",
-  // Financials & payments
-  "JPM", "V", "MA", "BAC", "WFC", "GS", "MS", "AXP", "BLK", "SPGI",
-  // Healthcare
-  "UNH", "JNJ", "ABBV", "MRK", "PFE", "TMO", "ABT", "DHR", "ISRG", "AMGN",
-  // Consumer
-  "WMT", "COST", "HD", "PG", "KO", "PEP", "MCD", "NKE", "SBUX", "TGT",
-  // Tech / software
-  "ORCL", "CRM", "ADBE", "AMD", "QCOM", "TXN", "INTU", "NOW", "PANW", "CRWD",
-  // Energy & industrials
-  "XOM", "CVX", "CAT", "GE", "BA", "HON", "RTX", "UNP", "DE", "LMT",
-  // Media & comms
-  "NFLX", "DIS", "T", "VZ", "TMUS", "CMCSA",
-];
+// FMP company-screener endpoint and criteria — matches build-universe-stats.ts
+// so the form-validation universe and the z-score normalization corpus stay
+// identical. Available on the Starter plan (the /stable/sp500-constituent
+// endpoint is not, hence the screener).
+const SCREENER_URL = "https://financialmodelingprep.com/stable/company-screener";
+const MIN_MARKET_CAP = 2_000_000_000;
+const MAX_UNIVERSE_SIZE = 800;
+
+// Sanity floor: the screener consistently returns ~300-400 names at the $2B
+// threshold; anything materially below this means the response is malformed
+// or the criteria silently changed — abort rather than ship a truncated
+// scoreboard.
+const MIN_EXPECTED_TICKERS = 200;
+
+type ScreenerRow = {
+  symbol: string;
+  companyName?: string;
+  sector?: string;
+};
+
+// UniverseEntry mirrors the form's UniverseEntry type. Written to
+// data/compare-universe.json so the /compare form has a stable allow-list
+// that doesn't lose names when /api/score transiently fails for a ticker
+// during the scoring loop below.
+type UniverseEntry = {
+  symbol: string;
+  name: string;
+  sector?: string;
+};
+
+// FMP returns class shares as "BRK.B" / "BF.B"; FMP's score endpoints
+// expect the hyphenated form ("BRK-B"). lib/scoring/fmp.ts does the same
+// normalization for its own calls — mirror it here so /api/score gets the
+// form it expects.
+function normalizeSymbol(s: string): string {
+  return s.replace(/\./g, "-");
+}
+
+async function fetchScreenerUniverse(): Promise<readonly UniverseEntry[]> {
+  const key = process.env.FMP_API_KEY;
+  if (!key) {
+    throw new Error(
+      "FMP_API_KEY is not set — required to resolve the screener universe. " +
+        "Set it in the GitHub Actions secret store (same value used by refresh-universe-stats.yml)."
+    );
+  }
+  const url = new URL(SCREENER_URL);
+  url.searchParams.set("marketCapMoreThan", String(MIN_MARKET_CAP));
+  url.searchParams.set("isActivelyTrading", "true");
+  url.searchParams.set("country", "US");
+  url.searchParams.set("exchange", "NASDAQ,NYSE");
+  url.searchParams.set("limit", String(MAX_UNIVERSE_SIZE));
+  url.searchParams.set("apikey", key);
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
+  let body: unknown;
+  try {
+    const res = await fetch(url.toString(), { signal: ctrl.signal });
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(
+        `Company-screener HTTP ${res.status}: ${text.slice(0, 200)}`
+      );
+    }
+    body = await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+
+  if (!Array.isArray(body)) {
+    throw new Error(
+      `Company-screener response was not an array (got ${typeof body}). ` +
+        "FMP endpoint shape may have changed."
+    );
+  }
+
+  const tickerRe = /^[A-Z][A-Z0-9.-]{0,9}$/;
+  const seen = new Set<string>();
+  const entries: UniverseEntry[] = [];
+  for (const row of body as ScreenerRow[]) {
+    const raw = typeof row?.symbol === "string" ? row.symbol.trim().toUpperCase() : "";
+    if (!raw) continue;
+    const sym = normalizeSymbol(raw);
+    if (!tickerRe.test(sym)) continue;
+    if (seen.has(sym)) continue;
+    seen.add(sym);
+    const name = typeof row.companyName === "string" && row.companyName.trim() ? row.companyName.trim() : sym;
+    const entry: UniverseEntry = { symbol: sym, name };
+    if (typeof row.sector === "string" && row.sector.trim()) entry.sector = row.sector.trim();
+    entries.push(entry);
+  }
+
+  if (entries.length < MIN_EXPECTED_TICKERS) {
+    throw new Error(
+      `Only ${entries.length} valid screener tickers parsed (expected ≥${MIN_EXPECTED_TICKERS}). ` +
+        "Aborting to avoid shipping a truncated scoreboard."
+    );
+  }
+
+  // Stable lexicographic order so downstream diffs (compare-universe.json,
+  // scoreboard.json, snapshots) reflect score changes, not the upstream
+  // API's ordering.
+  entries.sort((a, b) => a.symbol.localeCompare(b.symbol));
+  return entries;
+}
 
 type CategoryName = "value" | "growth" | "momentum" | "profitability" | "risk";
 type Signal = "BUY_LONG_TERM" | "BUY_SHORT_TERM" | "HOLD" | "SHORT";
@@ -160,12 +257,44 @@ async function main() {
     return;
   }
 
-  console.log(`Scanning ${PICKS_UNIVERSE.length} tickers via ${BASE}…`);
+  const universe = await fetchScreenerUniverse();
+  const generatedAt = new Date().toISOString();
+
+  // Write compare-universe.json FIRST, from the screener output, so the
+  // /compare form's allow-list reflects the full attempted universe even if
+  // every subsequent /api/score call fails. Decoupling the form's gate from
+  // the scoring loop is what prevents recurrences of the 2026-05-25 incident
+  // where AAPL got dropped from scoreboard.json after one transient HTTP 500.
+  const compareUniverseOutput = {
+    generatedAt,
+    universeSize: universe.length,
+    entries: universe,
+  };
+  const compareUniversePath = path.resolve(process.cwd(), "data", "compare-universe.json");
+  fs.writeFileSync(compareUniversePath, JSON.stringify(compareUniverseOutput, null, 2) + "\n");
+  console.log(`Wrote ${universe.length} compare-universe entries → ${compareUniversePath}`);
+
+  console.log(`Scanning ${universe.length} screener tickers via ${BASE}…`);
   const picks: Pick[] = [];
-  for (const ticker of PICKS_UNIVERSE) {
-    const result = await fetchScore(ticker);
+  for (const entry of universe) {
+    const result = await fetchScore(entry.symbol);
     if (result) picks.push(result);
     await sleep(REQUEST_GAP_MS);
+  }
+
+  // Defensive invariant: if too many tickers dropped, refuse to clobber the
+  // existing scoreboard. The cron's `git diff --staged --quiet` skip behavior
+  // means the previous day's scoreboard survives intact rather than being
+  // replaced with a degraded one. Threshold mirrors the same conservative
+  // bar build-universe-stats uses for sector cohort viability.
+  const MIN_OK_RATIO = 0.95;
+  if (picks.length < universe.length * MIN_OK_RATIO) {
+    console.error(
+      `Universe coverage dropped below ${Math.round(MIN_OK_RATIO * 100)}%: ` +
+        `${picks.length}/${universe.length}. Refusing to commit a degraded scoreboard. ` +
+        `Investigate /api/score errors and re-run.`
+    );
+    process.exit(1);
   }
 
   const strong = picks
@@ -173,16 +302,14 @@ async function main() {
     .slice(0, LIMIT);
 
   console.log(
-    `Scored ${picks.length}/${PICKS_UNIVERSE.length} — top ${strong.length} composite range ${
+    `Scored ${picks.length}/${universe.length} — top ${strong.length} composite range ${
       strong.at(-1)?.composite ?? 0
     }–${strong[0]?.composite ?? 0}`
   );
 
-  const generatedAt = new Date().toISOString();
-
   const strongOutput = {
     generatedAt,
-    universeSize: PICKS_UNIVERSE.length,
+    universeSize: universe.length,
     picks: strong,
   };
 
@@ -195,7 +322,7 @@ async function main() {
   // — only the numeric values change, not the row order.
   const scoreboardOutput = {
     generatedAt,
-    universeSize: PICKS_UNIVERSE.length,
+    universeSize: universe.length,
     picks: [...picks].sort((a, b) => a.ticker.localeCompare(b.ticker)),
   };
 
