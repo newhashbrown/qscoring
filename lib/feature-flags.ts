@@ -22,3 +22,17 @@
  * page; the strip serves the last cached quotes instead.
  */
 export const MARKET_STRIP_ENABLED = true;
+
+/**
+ * Stripe-backed Pro tier (Checkout, Customer Portal, webhook handler).
+ *
+ * Set to false to hide the /pricing page, remove the "Upgrade to Pro"
+ * nav link, and stop offering subscriptions. Active subscribers stay
+ * subscribed; gating still respects their existing `users.tier = 'pro'`
+ * status. Only the buy/upgrade flow disappears.
+ *
+ * Kill switch for: Stripe outages, needing to pause new sales
+ * temporarily, or rolling back the upgrade UI without rolling back any
+ * other code.
+ */
+export const STRIPE_BILLING_ENABLED = true;
