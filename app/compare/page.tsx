@@ -3,6 +3,7 @@ import ScoreNav from "@/app/components/ScoreNav";
 import CompareForm, { type UniverseEntry } from "@/app/components/CompareForm";
 import { CURATED_PAIRS, pairToSlug } from "@/lib/compare";
 import scoreboardData from "@/data/scoreboard.json";
+import compareUniverseData from "@/data/compare-universe.json";
 import type { ScoreboardPick } from "@/data/categories";
 import { marketCloseLabel } from "@/lib/market-date";
 
@@ -30,13 +31,14 @@ function findPick(ticker: string): ScoreboardPick | undefined {
   return (scoreboardData.picks as ScoreboardPick[]).find((p) => p.ticker === ticker);
 }
 
-// Sorted alphabetically so dropdown ordering is predictable for users.
-// scoreboard.json is the source of truth for "tickers we can render fast"
-// — keeping the autocomplete in sync with it guarantees the destination
-// /compare/[pair] page hits the scoreboard fast-path instead of falling
-// back to a live FMP score.
-const UNIVERSE: ReadonlyArray<UniverseEntry> = (scoreboardData.picks as ScoreboardPick[])
-  .map((p) => ({ symbol: p.ticker, name: p.companyName, sector: p.sector }))
+// Universe is the source-of-truth allow-list from data/compare-universe.json,
+// NOT the scoreboard output. scoreboard.json can transiently drop names when
+// /api/score returns a non-retryable error in the cron (this happened to AAPL
+// on 2026-05-25). For entries in the universe but missing from scoreboard,
+// /compare/[pair] already falls back to live scoreTicker(), so the form gate
+// stays consistent with what the destination page can actually render.
+const UNIVERSE: ReadonlyArray<UniverseEntry> = (compareUniverseData.entries as UniverseEntry[])
+  .slice()
   .sort((x, y) => x.symbol.localeCompare(y.symbol));
 
 export default function CompareIndexPage() {
