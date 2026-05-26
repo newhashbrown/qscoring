@@ -4,11 +4,13 @@
  * than calling FMP directly so per-ticker scoring uses the production
  * cache layer.
  *
- * The universe itself is the live S&P 500 constituent list, fetched from
- * FMP at run-time so index rebalances flow through without a manual PR.
- * That requires FMP_API_KEY at startup (one call); per-ticker scoring is
- * still proxied through /api/score, so the secret is only needed to
- * resolve the universe.
+ * The universe is resolved at run-time from FMP's company-screener using
+ * the same criteria build-universe-stats.ts uses for z-score normalization
+ * (US-listed, NASDAQ/NYSE, market cap > MIN_MARKET_CAP, actively trading).
+ * Keeping these in lockstep means every ticker the form accepts is also
+ * a ticker the normalization corpus has stats for. Requires FMP_API_KEY
+ * at startup for the screener call; per-ticker scoring is still proxied
+ * through /api/score.
  *
  * Designed to run from a daily GitHub Action. Can also be run locally:
  *   FMP_API_KEY=… npm run strong-picks
@@ -21,9 +23,9 @@ const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
 // Pacing for the cold-cache worst case: every ticker fans out to ~6 FMP
 // calls inside /api/score. At 1 call/2s = 0.5 req/s, upstream FMP stays
-// under ~3/s = 180/min, well below the 300/min Starter ceiling. With ~500
-// names this is ~17 min of pacing; total cron wall-clock is ~22 min plus
-// the post-deploy watchlist sleep + alert call.
+// under ~3/s = 180/min, well below the 300/min Starter ceiling. The
+// screener returns ~300-800 names at the current threshold, so worst-case
+// pacing is ~27 min plus the post-deploy watchlist sleep + alert call.
 const REQUEST_GAP_MS = 2000;
 const REQUEST_TIMEOUT_MS = 25_000;
 const RETRY_BACKOFF_MS = [15_000, 30_000];
@@ -33,17 +35,21 @@ const RETRY_BACKOFF_MS = [15_000, 30_000];
 // classic "buy" territory. The ranking itself communicates strength.
 const LIMIT = 12;
 
-// FMP endpoint for current S&P 500 membership. Free and premium tiers both
-// expose it, so Starter is sufficient.
-const SP500_CONSTITUENT_URL = "https://financialmodelingprep.com/stable/sp500-constituent";
+// FMP company-screener endpoint and criteria — matches build-universe-stats.ts
+// so the form-validation universe and the z-score normalization corpus stay
+// identical. Available on the Starter plan (the /stable/sp500-constituent
+// endpoint is not, hence the screener).
+const SCREENER_URL = "https://financialmodelingprep.com/stable/company-screener";
+const MIN_MARKET_CAP = 2_000_000_000;
+const MAX_UNIVERSE_SIZE = 800;
 
-// Sanity floor: the S&P 500 has ~500 members (503 with multi-class shares).
-// Anything materially below this means the response is malformed or the
-// endpoint shape changed — abort rather than ship a half-populated
+// Sanity floor: the screener consistently returns ~300-400 names at the $2B
+// threshold; anything materially below this means the response is malformed
+// or the criteria silently changed — abort rather than ship a truncated
 // scoreboard.
-const MIN_EXPECTED_CONSTITUENTS = 450;
+const MIN_EXPECTED_TICKERS = 200;
 
-type SP500Row = {
+type ScreenerRow = {
   symbol: string;
 };
 
@@ -55,15 +61,20 @@ function normalizeSymbol(s: string): string {
   return s.replace(/\./g, "-");
 }
 
-async function fetchSp500Universe(): Promise<readonly string[]> {
+async function fetchScreenerUniverse(): Promise<readonly string[]> {
   const key = process.env.FMP_API_KEY;
   if (!key) {
     throw new Error(
-      "FMP_API_KEY is not set — required to resolve the S&P 500 constituent list. " +
+      "FMP_API_KEY is not set — required to resolve the screener universe. " +
         "Set it in the GitHub Actions secret store (same value used by refresh-universe-stats.yml)."
     );
   }
-  const url = new URL(SP500_CONSTITUENT_URL);
+  const url = new URL(SCREENER_URL);
+  url.searchParams.set("marketCapMoreThan", String(MIN_MARKET_CAP));
+  url.searchParams.set("isActivelyTrading", "true");
+  url.searchParams.set("country", "US");
+  url.searchParams.set("exchange", "NASDAQ,NYSE");
+  url.searchParams.set("limit", String(MAX_UNIVERSE_SIZE));
   url.searchParams.set("apikey", key);
 
   const ctrl = new AbortController();
@@ -74,7 +85,7 @@ async function fetchSp500Universe(): Promise<readonly string[]> {
     if (!res.ok) {
       const text = await res.text().catch(() => "");
       throw new Error(
-        `S&P 500 constituents HTTP ${res.status}: ${text.slice(0, 200)}`
+        `Company-screener HTTP ${res.status}: ${text.slice(0, 200)}`
       );
     }
     body = await res.json();
@@ -84,7 +95,7 @@ async function fetchSp500Universe(): Promise<readonly string[]> {
 
   if (!Array.isArray(body)) {
     throw new Error(
-      `S&P 500 constituents response was not an array (got ${typeof body}). ` +
+      `Company-screener response was not an array (got ${typeof body}). ` +
         "FMP endpoint shape may have changed."
     );
   }
@@ -92,7 +103,7 @@ async function fetchSp500Universe(): Promise<readonly string[]> {
   const tickerRe = /^[A-Z][A-Z0-9.-]{0,9}$/;
   const seen = new Set<string>();
   const symbols: string[] = [];
-  for (const row of body as SP500Row[]) {
+  for (const row of body as ScreenerRow[]) {
     const raw = typeof row?.symbol === "string" ? row.symbol.trim().toUpperCase() : "";
     if (!raw) continue;
     const sym = normalizeSymbol(raw);
@@ -102,9 +113,9 @@ async function fetchSp500Universe(): Promise<readonly string[]> {
     symbols.push(sym);
   }
 
-  if (symbols.length < MIN_EXPECTED_CONSTITUENTS) {
+  if (symbols.length < MIN_EXPECTED_TICKERS) {
     throw new Error(
-      `Only ${symbols.length} valid S&P 500 tickers parsed (expected ≥${MIN_EXPECTED_CONSTITUENTS}). ` +
+      `Only ${symbols.length} valid screener tickers parsed (expected ≥${MIN_EXPECTED_TICKERS}). ` +
         "Aborting to avoid shipping a truncated scoreboard."
     );
   }
@@ -230,8 +241,8 @@ async function main() {
     return;
   }
 
-  const universe = await fetchSp500Universe();
-  console.log(`Scanning ${universe.length} S&P 500 tickers via ${BASE}…`);
+  const universe = await fetchScreenerUniverse();
+  console.log(`Scanning ${universe.length} screener tickers via ${BASE}…`);
   const picks: Pick[] = [];
   for (const ticker of universe) {
     const result = await fetchScore(ticker);
