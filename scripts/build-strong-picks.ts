@@ -51,6 +51,18 @@ const MIN_EXPECTED_TICKERS = 200;
 
 type ScreenerRow = {
   symbol: string;
+  companyName?: string;
+  sector?: string;
+};
+
+// UniverseEntry mirrors the form's UniverseEntry type. Written to
+// data/compare-universe.json so the /compare form has a stable allow-list
+// that doesn't lose names when /api/score transiently fails for a ticker
+// during the scoring loop below.
+type UniverseEntry = {
+  symbol: string;
+  name: string;
+  sector?: string;
 };
 
 // FMP returns class shares as "BRK.B" / "BF.B"; FMP's score endpoints
@@ -61,7 +73,7 @@ function normalizeSymbol(s: string): string {
   return s.replace(/\./g, "-");
 }
 
-async function fetchScreenerUniverse(): Promise<readonly string[]> {
+async function fetchScreenerUniverse(): Promise<readonly UniverseEntry[]> {
   const key = process.env.FMP_API_KEY;
   if (!key) {
     throw new Error(
@@ -102,7 +114,7 @@ async function fetchScreenerUniverse(): Promise<readonly string[]> {
 
   const tickerRe = /^[A-Z][A-Z0-9.-]{0,9}$/;
   const seen = new Set<string>();
-  const symbols: string[] = [];
+  const entries: UniverseEntry[] = [];
   for (const row of body as ScreenerRow[]) {
     const raw = typeof row?.symbol === "string" ? row.symbol.trim().toUpperCase() : "";
     if (!raw) continue;
@@ -110,20 +122,24 @@ async function fetchScreenerUniverse(): Promise<readonly string[]> {
     if (!tickerRe.test(sym)) continue;
     if (seen.has(sym)) continue;
     seen.add(sym);
-    symbols.push(sym);
+    const name = typeof row.companyName === "string" && row.companyName.trim() ? row.companyName.trim() : sym;
+    const entry: UniverseEntry = { symbol: sym, name };
+    if (typeof row.sector === "string" && row.sector.trim()) entry.sector = row.sector.trim();
+    entries.push(entry);
   }
 
-  if (symbols.length < MIN_EXPECTED_TICKERS) {
+  if (entries.length < MIN_EXPECTED_TICKERS) {
     throw new Error(
-      `Only ${symbols.length} valid screener tickers parsed (expected ≥${MIN_EXPECTED_TICKERS}). ` +
+      `Only ${entries.length} valid screener tickers parsed (expected ≥${MIN_EXPECTED_TICKERS}). ` +
         "Aborting to avoid shipping a truncated scoreboard."
     );
   }
 
-  // Stable lexicographic order so downstream diffs (scoreboard.json,
-  // snapshots) reflect score changes, not the upstream API's ordering.
-  symbols.sort();
-  return symbols;
+  // Stable lexicographic order so downstream diffs (compare-universe.json,
+  // scoreboard.json, snapshots) reflect score changes, not the upstream
+  // API's ordering.
+  entries.sort((a, b) => a.symbol.localeCompare(b.symbol));
+  return entries;
 }
 
 type CategoryName = "value" | "growth" | "momentum" | "profitability" | "risk";
@@ -242,12 +258,43 @@ async function main() {
   }
 
   const universe = await fetchScreenerUniverse();
+  const generatedAt = new Date().toISOString();
+
+  // Write compare-universe.json FIRST, from the screener output, so the
+  // /compare form's allow-list reflects the full attempted universe even if
+  // every subsequent /api/score call fails. Decoupling the form's gate from
+  // the scoring loop is what prevents recurrences of the 2026-05-25 incident
+  // where AAPL got dropped from scoreboard.json after one transient HTTP 500.
+  const compareUniverseOutput = {
+    generatedAt,
+    universeSize: universe.length,
+    entries: universe,
+  };
+  const compareUniversePath = path.resolve(process.cwd(), "data", "compare-universe.json");
+  fs.writeFileSync(compareUniversePath, JSON.stringify(compareUniverseOutput, null, 2) + "\n");
+  console.log(`Wrote ${universe.length} compare-universe entries → ${compareUniversePath}`);
+
   console.log(`Scanning ${universe.length} screener tickers via ${BASE}…`);
   const picks: Pick[] = [];
-  for (const ticker of universe) {
-    const result = await fetchScore(ticker);
+  for (const entry of universe) {
+    const result = await fetchScore(entry.symbol);
     if (result) picks.push(result);
     await sleep(REQUEST_GAP_MS);
+  }
+
+  // Defensive invariant: if too many tickers dropped, refuse to clobber the
+  // existing scoreboard. The cron's `git diff --staged --quiet` skip behavior
+  // means the previous day's scoreboard survives intact rather than being
+  // replaced with a degraded one. Threshold mirrors the same conservative
+  // bar build-universe-stats uses for sector cohort viability.
+  const MIN_OK_RATIO = 0.95;
+  if (picks.length < universe.length * MIN_OK_RATIO) {
+    console.error(
+      `Universe coverage dropped below ${Math.round(MIN_OK_RATIO * 100)}%: ` +
+        `${picks.length}/${universe.length}. Refusing to commit a degraded scoreboard. ` +
+        `Investigate /api/score errors and re-run.`
+    );
+    process.exit(1);
   }
 
   const strong = picks
@@ -259,8 +306,6 @@ async function main() {
       strong.at(-1)?.composite ?? 0
     }–${strong[0]?.composite ?? 0}`
   );
-
-  const generatedAt = new Date().toISOString();
 
   const strongOutput = {
     generatedAt,

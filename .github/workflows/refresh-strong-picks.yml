@@ -59,8 +59,8 @@ jobs:
       - name: Commit and push if changed
         id: commit
         run: |
-          # Stage all the daily-refresh data files (script writes three of them).
-          git add data/strong-picks.json data/scoreboard.json data/snapshots/
+          # Stage all the daily-refresh data files (script writes four of them).
+          git add data/compare-universe.json data/strong-picks.json data/scoreboard.json data/snapshots/
           if git diff --staged --quiet; then
             echo "No change to refresh data — skipping commit."
             echo "pushed=false" >> "$GITHUB_OUTPUT"
