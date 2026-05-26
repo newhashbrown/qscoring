@@ -1,6 +1,12 @@
 import { readCache, recordStale, writeCacheAsync } from "./fmp-cache";
+import { massive } from "../massive/client";
 
 const BASE = "https://financialmodelingprep.com/stable";
+
+// How far back to ask Massive when falling back for historical bars.
+// 730 calendar days ≈ 500 trading days, comfortably covering the longest
+// momentum window (12mo return + 60d vol).
+const MASSIVE_FALLBACK_DAYS = 730;
 
 // Thrown for FMP responses where stale data won't help: the ticker isn't in
 // the plan (402) or doesn't exist (404). These bubble straight to the caller
@@ -213,6 +219,37 @@ export const fmp = {
       { symbol: s },
       TTL.priceHistory,
       `historical:${s}`
-    );
+    ).catch(async (err) => {
+      // Don't fall back when the ticker simply isn't in plan / doesn't exist.
+      if (err instanceof FmpUnavailableError) throw err;
+
+      // FMP is transiently down AND we had no stale cache. Try Massive.
+      // Fundamentals (ratios, key metrics, growth) have no Massive equivalent
+      // so they stay FMP-only — this only protects the price/history layer.
+      try {
+        const today = new Date().toISOString().slice(0, 10);
+        const from = new Date(Date.now() - MASSIVE_FALLBACK_DAYS * 86_400_000)
+          .toISOString().slice(0, 10);
+        const bars = await massive.historical(symbol, from, today);
+        if (bars.length === 0) throw err;
+        console.warn(
+          `fmp_fallback: served ${s} historical from Massive (${bars.length} bars)`
+        );
+        return bars.map((bar) => ({
+          symbol,
+          date: new Date(bar.t).toISOString().slice(0, 10),
+          price: bar.c,
+          volume: bar.v,
+        }));
+      } catch (massiveErr) {
+        // Surface the original FMP error to the caller, but log Massive's
+        // own failure so a broken fallback doesn't sit invisible in prod.
+        console.warn(
+          `fmp_fallback: massive failed for ${s}:`,
+          massiveErr instanceof Error ? massiveErr.message : massiveErr
+        );
+        throw err;
+      }
+    });
   },
 };

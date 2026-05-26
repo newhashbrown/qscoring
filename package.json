@@ -14,13 +14,15 @@
     "strong-picks": "tsx scripts/build-strong-picks.ts",
     "weekly-recap": "tsx scripts/build-weekly-recap.ts",
     "backfill-snapshots": "tsx scripts/backfill-snapshots.ts",
+    "cross-check": "tsx scripts/cross-check-massive.ts",
     "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.4.1",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "stripe": "^22.1.1"
   },
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.19.7",
