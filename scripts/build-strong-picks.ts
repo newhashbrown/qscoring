@@ -1,11 +1,17 @@
 /**
  * Builds data/strong-picks.json — the homepage carousel's preranked list
  * of high-composite tickers. Hits the deployed /api/score endpoint rather
- * than calling FMP directly, so it uses the production cache layer and
- * doesn't need FMP_API_KEY locally.
+ * than calling FMP directly so per-ticker scoring uses the production
+ * cache layer.
  *
- * Designed to run from a daily GitHub Action (writes the file, commits if
- * changed). Can also be run locally:  npm run strong-picks
+ * The universe itself is the live S&P 500 constituent list, fetched from
+ * FMP at run-time so index rebalances flow through without a manual PR.
+ * That requires FMP_API_KEY at startup (one call); per-ticker scoring is
+ * still proxied through /api/score, so the secret is only needed to
+ * resolve the universe.
+ *
+ * Designed to run from a daily GitHub Action. Can also be run locally:
+ *   FMP_API_KEY=… npm run strong-picks
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -14,8 +20,10 @@ import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
 // Pacing for the cold-cache worst case: every ticker fans out to ~6 FMP
-// calls inside /api/score. At 1 call/2s = 0.5 req/s, the upstream FMP load
-// stays under ~3/s = 180/min, well below FMP's 300/min ceiling.
+// calls inside /api/score. At 1 call/2s = 0.5 req/s, upstream FMP stays
+// under ~3/s = 180/min, well below the 300/min Starter ceiling. With ~500
+// names this is ~17 min of pacing; total cron wall-clock is ~22 min plus
+// the post-deploy watchlist sleep + alert call.
 const REQUEST_GAP_MS = 2000;
 const REQUEST_TIMEOUT_MS = 25_000;
 const RETRY_BACKOFF_MS = [15_000, 30_000];
@@ -25,25 +33,87 @@ const RETRY_BACKOFF_MS = [15_000, 30_000];
 // classic "buy" territory. The ranking itself communicates strength.
 const LIMIT = 12;
 
-// Wider than MOVERS_UNIVERSE so the homepage doesn't feel like the same
-// 7-name rotation. Sectors are deliberately mixed so on a tech-heavy day
-// healthcare or energy names can still rise into the top picks.
-const PICKS_UNIVERSE: readonly string[] = [
-  // Core mega-caps
-  "AAPL", "MSFT", "NVDA", "GOOGL", "META", "AMZN", "TSLA", "BRK-B", "AVGO", "LLY",
-  // Financials & payments
-  "JPM", "V", "MA", "BAC", "WFC", "GS", "MS", "AXP", "BLK", "SPGI",
-  // Healthcare
-  "UNH", "JNJ", "ABBV", "MRK", "PFE", "TMO", "ABT", "DHR", "ISRG", "AMGN",
-  // Consumer
-  "WMT", "COST", "HD", "PG", "KO", "PEP", "MCD", "NKE", "SBUX", "TGT",
-  // Tech / software
-  "ORCL", "CRM", "ADBE", "AMD", "QCOM", "TXN", "INTU", "NOW", "PANW", "CRWD",
-  // Energy & industrials
-  "XOM", "CVX", "CAT", "GE", "BA", "HON", "RTX", "UNP", "DE", "LMT",
-  // Media & comms
-  "NFLX", "DIS", "T", "VZ", "TMUS", "CMCSA",
-];
+// FMP endpoint for current S&P 500 membership. Free and premium tiers both
+// expose it, so Starter is sufficient.
+const SP500_CONSTITUENT_URL = "https://financialmodelingprep.com/stable/sp500-constituent";
+
+// Sanity floor: the S&P 500 has ~500 members (503 with multi-class shares).
+// Anything materially below this means the response is malformed or the
+// endpoint shape changed — abort rather than ship a half-populated
+// scoreboard.
+const MIN_EXPECTED_CONSTITUENTS = 450;
+
+type SP500Row = {
+  symbol: string;
+};
+
+// FMP returns class shares as "BRK.B" / "BF.B"; FMP's score endpoints
+// expect the hyphenated form ("BRK-B"). lib/scoring/fmp.ts does the same
+// normalization for its own calls — mirror it here so /api/score gets the
+// form it expects.
+function normalizeSymbol(s: string): string {
+  return s.replace(/\./g, "-");
+}
+
+async function fetchSp500Universe(): Promise<readonly string[]> {
+  const key = process.env.FMP_API_KEY;
+  if (!key) {
+    throw new Error(
+      "FMP_API_KEY is not set — required to resolve the S&P 500 constituent list. " +
+        "Set it in the GitHub Actions secret store (same value used by refresh-universe-stats.yml)."
+    );
+  }
+  const url = new URL(SP500_CONSTITUENT_URL);
+  url.searchParams.set("apikey", key);
+
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
+  let body: unknown;
+  try {
+    const res = await fetch(url.toString(), { signal: ctrl.signal });
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(
+        `S&P 500 constituents HTTP ${res.status}: ${text.slice(0, 200)}`
+      );
+    }
+    body = await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+
+  if (!Array.isArray(body)) {
+    throw new Error(
+      `S&P 500 constituents response was not an array (got ${typeof body}). ` +
+        "FMP endpoint shape may have changed."
+    );
+  }
+
+  const tickerRe = /^[A-Z][A-Z0-9.-]{0,9}$/;
+  const seen = new Set<string>();
+  const symbols: string[] = [];
+  for (const row of body as SP500Row[]) {
+    const raw = typeof row?.symbol === "string" ? row.symbol.trim().toUpperCase() : "";
+    if (!raw) continue;
+    const sym = normalizeSymbol(raw);
+    if (!tickerRe.test(sym)) continue;
+    if (seen.has(sym)) continue;
+    seen.add(sym);
+    symbols.push(sym);
+  }
+
+  if (symbols.length < MIN_EXPECTED_CONSTITUENTS) {
+    throw new Error(
+      `Only ${symbols.length} valid S&P 500 tickers parsed (expected ≥${MIN_EXPECTED_CONSTITUENTS}). ` +
+        "Aborting to avoid shipping a truncated scoreboard."
+    );
+  }
+
+  // Stable lexicographic order so downstream diffs (scoreboard.json,
+  // snapshots) reflect score changes, not the upstream API's ordering.
+  symbols.sort();
+  return symbols;
+}
 
 type CategoryName = "value" | "growth" | "momentum" | "profitability" | "risk";
 type Signal = "BUY_LONG_TERM" | "BUY_SHORT_TERM" | "HOLD" | "SHORT";
@@ -160,9 +230,10 @@ async function main() {
     return;
   }
 
-  console.log(`Scanning ${PICKS_UNIVERSE.length} tickers via ${BASE}…`);
+  const universe = await fetchSp500Universe();
+  console.log(`Scanning ${universe.length} S&P 500 tickers via ${BASE}…`);
   const picks: Pick[] = [];
-  for (const ticker of PICKS_UNIVERSE) {
+  for (const ticker of universe) {
     const result = await fetchScore(ticker);
     if (result) picks.push(result);
     await sleep(REQUEST_GAP_MS);
@@ -173,7 +244,7 @@ async function main() {
     .slice(0, LIMIT);
 
   console.log(
-    `Scored ${picks.length}/${PICKS_UNIVERSE.length} — top ${strong.length} composite range ${
+    `Scored ${picks.length}/${universe.length} — top ${strong.length} composite range ${
       strong.at(-1)?.composite ?? 0
     }–${strong[0]?.composite ?? 0}`
   );
@@ -182,7 +253,7 @@ async function main() {
 
   const strongOutput = {
     generatedAt,
-    universeSize: PICKS_UNIVERSE.length,
+    universeSize: universe.length,
     picks: strong,
   };
 
@@ -195,7 +266,7 @@ async function main() {
   // — only the numeric values change, not the row order.
   const scoreboardOutput = {
     generatedAt,
-    universeSize: PICKS_UNIVERSE.length,
+    universeSize: universe.length,
     picks: [...picks].sort((a, b) => a.ticker.localeCompare(b.ticker)),
   };
 

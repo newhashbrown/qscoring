@@ -25,7 +25,11 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # ~500 S&P 500 tickers × 2s pacing = ~17 min of scoring, plus install
+    # (~1-2 min), commit/push (a few sec), and the 4-min post-deploy sleep
+    # + watchlist alert call. 50-min ceiling leaves headroom for slow FMP
+    # responses without aborting a half-written scoreboard.
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -41,6 +45,11 @@ jobs:
         run: npm run strong-picks
         env:
           QSCORING_BASE: https://qscoring.com
+          # Resolves the live S&P 500 constituent list at startup so index
+          # rebalances flow through without a manual PR. Same secret value
+          # already used by refresh-universe-stats.yml. Hard requirement —
+          # the script aborts if unset.
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
           # Token enables the post-write D1 persistence call to
           # /api/cron/persist-snapshot. If unset, the script logs a
           # warning and skips D1 persist — JSON commit still proceeds,
