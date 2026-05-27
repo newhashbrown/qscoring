@@ -1,14 +1,19 @@
 name: Deploy to Cloudflare Workers
 
-# Triggers on code changes to main. Data-only pushes (data/**) are
-# excluded — the Cloudflare Workers Builds GitHub App handles those
-# via the refresh-strong-picks workflow.
+# Triggers on code changes to main. JSON snapshots under data/ — the
+# auto-refreshed scoreboards, snapshots, universe stats, etc. — are
+# excluded; the scheduled refresh-* workflows produce those and a full
+# Worker rebuild is not required. Top-level .ts/.tsx files under data/
+# (blog-posts.tsx, categories.ts, glossary.ts) ARE source code imported
+# by the app and DO need to trigger a deploy.
 on:
   push:
     branches: [main]
     paths:
       - "app/**"
       - "lib/**"
+      - "data/*.ts"
+      - "data/*.tsx"
       - "public/**"
       - "migrations/**"
       - "package*.json"
