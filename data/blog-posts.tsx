@@ -39,6 +39,9 @@ const TestingStockFactorsCryptoBody = dynamic(
 const StockMarketAroundMemorialDayBody = dynamic(
   () => import("@/app/blog/bodies/stock-market-around-memorial-day")
 );
+const DunsIsDoneBody = dynamic(
+  () => import("@/app/blog/bodies/duns-is-done")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1518,6 +1521,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "Pre-holiday drift is one of the oldest claims in market lore. We pulled 36 years of S&P 500 data around Memorial Day, compared it to 10,000 random 5-day windows, and the honest answer is: the direction matches the folklore, the magnitude is small, and the statistical test says \"not really.\"",
     Body: StockMarketAroundMemorialDayBody,
+  },
+  {
+    slug: "duns-number-no-longer-gold-standard",
+    cluster: "factor-investing",
+    title: "DUNS is done: why the federal exit ended the gold-standard claim",
+    description:
+      "In April 2022 the U.S. federal government replaced the DUNS number with its own Unique Entity Identifier on SAM.gov. Combined with pay-to-play credit profiles, stale trade-tape data, and an opaque PAYDEX methodology, the gold-standard case for DUNS no longer holds up.",
+    publishedAt: "2026-05-27",
+    readTimeMinutes: 5,
+    excerpt:
+      "The U.S. federal government quietly retired the DUNS number as its entity identifier in April 2022. The pay-to-play credit profiles, the stale trade tape, and the methodology nobody can audit had already done the damage. Here's the eulogy for the so-called gold standard.",
+    Body: DunsIsDoneBody,
   },
 ];
 
