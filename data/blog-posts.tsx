@@ -1558,16 +1558,22 @@ export function latestPosts(limit = 6): BlogPost[] {
 }
 
 /**
- * True if a post was published within the last `daysWindow` days. Used to
- * decide whether to show the "New" badge on the blog index. Anchored at
- * UTC noon to match the date-formatter and avoid timezone slop on the
- * day-boundary.
+ * True if a post was published within the last `daysWindow` calendar days.
+ * Calendar-day comparison: both sides are floored to UTC midnight, so a post
+ * published exactly `daysWindow` days ago at any hour of that day still
+ * counts as within the window. Anything strictly older drops the badge.
  */
-export function isRecent(publishedAt: string, daysWindow = 14): boolean {
-  const published = new Date(`${publishedAt}T12:00:00Z`).getTime();
-  const now = Date.now();
-  const ageDays = (now - published) / (1000 * 60 * 60 * 24);
-  return ageDays >= 0 && ageDays < daysWindow;
+export function isRecent(publishedAt: string, daysWindow = 7): boolean {
+  const publishedUtcMidnight = new Date(`${publishedAt}T00:00:00Z`).getTime();
+  const now = new Date();
+  const todayUtcMidnight = Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate()
+  );
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const ageDays = Math.floor((todayUtcMidnight - publishedUtcMidnight) / msPerDay);
+  return ageDays >= 0 && ageDays <= daysWindow;
 }
 
 /**
