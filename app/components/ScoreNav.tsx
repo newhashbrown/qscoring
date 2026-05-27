@@ -6,7 +6,6 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -57,12 +56,18 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
         aria-label="QScoring.com home"
         onClick={() => setOpen(false)}
       >
-        <Image
+        {/* Plain <img> on purpose: routes through Cloudflare's ASSETS
+            binding (cached automatically via public/_headers) instead of
+            the Worker's /_next/image path, which on this deploy returns
+            the unmodified source PNG without edge caching. Preload tag
+            for this asset lives in app/layout.tsx. */}
+        <img
           src="/logo.png"
           alt="QScoring"
           width={251}
           height={120}
-          priority
+          fetchPriority="high"
+          decoding="async"
           style={{ height: 60, width: "auto" }}
         />
       </Link>
