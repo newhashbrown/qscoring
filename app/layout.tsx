@@ -54,6 +54,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetBrainsMono.variable}`}>
       <body>
+        {/* LCP-critical: nav logo. React 19 hoists this <link> into
+            <head>, starting the fetch before the nav JSX renders.
+            Logo bypasses /_next/image and serves as a cached static
+            asset via the ASSETS binding — see public/_headers. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/logo.png"
+          fetchPriority="high"
+        />
         <ClerkProvider>
           <script
             type="application/ld+json"

@@ -1,0 +1,20 @@
+# Cloudflare Workers ASSETS binding reads this file the same way
+# Cloudflare Pages does: path-pattern blocks set response headers on
+# matching static assets served straight from .open-next/assets.
+# Worker-rendered routes (Next.js API + SSR pages) are NOT affected
+# here — those set their own headers in code.
+
+# Hashed Next.js build output — filenames include a content hash, so
+# the URL changes whenever the bytes change. Safe to cache forever.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Site logo. Served directly via the ASSETS binding now that
+# next/image is bypassed (see next.config.ts and app/components/ScoreNav.tsx).
+# 30-day browser cache; the underlying file rarely changes.
+/logo.png
+  Cache-Control: public, max-age=2592000, immutable
+
+# Bing search-console verification — content fixed by Bing, cache fine.
+/BingSiteAuth.xml
+  Cache-Control: public, max-age=86400
