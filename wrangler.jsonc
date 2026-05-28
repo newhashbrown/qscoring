@@ -34,6 +34,16 @@
       "database_id": "7b103f56-75a7-4099-86d9-3497ef51efaf"
     }
   ],
+  // OpenNext incremental cache — persists ISR/Next data-cache entries
+  // across cold Worker starts. Without this binding, every cold start
+  // re-renders every `revalidate=N` page from scratch, defeating ISR
+  // entirely on Cloudflare Workers. See open-next.config.ts.
+  "kv_namespaces": [
+    {
+      "binding": "NEXT_INC_CACHE_KV",
+      "id": "01371c4242dc4daf9f52f118f7c0a644"
+    }
+  ],
   "observability": {
     "enabled": true
   }
