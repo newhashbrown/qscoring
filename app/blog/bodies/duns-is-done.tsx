@@ -48,9 +48,14 @@ export default function DunsIsDoneBody() {
         In any other ratings industry this would be a scandal. Moody&apos;s doesn&apos;t
         sell issuers a subscription to upgrade their bond rating. S&amp;P doesn&apos;t
         take payment from the company being scored to expedite favorable trade lines. But
-        in business credit, D&amp;B has run this playbook openly for years, and class
-        action complaints alleging deceptive sales of these products have been a
-        recurring feature of its history.
+        in business credit, D&amp;B has run this playbook openly for years. In January
+        2022, the <strong>Federal Trade Commission</strong> charged the company with
+        deceiving small businesses about CreditBuilder&apos;s purported benefits, using
+        what the agency called a &ldquo;switcheroo&rdquo; that silently upgraded
+        customers to pricier tiers, and refusing to correct inaccurate information on
+        the reports it was selling. D&amp;B settled and agreed to refund affected
+        customers. In September 2025, it agreed to pay another{" "}
+        <strong>$5.7 million</strong> for violating that same order.
       </p>
       <p>
         When the scored party can pay the scorer to improve the score, the score is not a
@@ -140,6 +145,74 @@ export default function DunsIsDoneBody() {
       <p>
         That isn&apos;t a gold standard. That&apos;s a brand outliving its product.
       </p>
+
+      <h2>Sources</h2>
+      <ol>
+        <li>
+          U.S. General Services Administration.{" "}
+          <a
+            href="https://www.gsa.gov/system/files/UEI_External_Fact_Sheet.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Transitioning to the New Unique Entity ID (SAM)
+          </a>{" "}
+          — official GSA fact sheet documenting the April 4, 2022 retirement of
+          DUNS as the federal entity identifier.
+        </li>
+        <li>
+          Federal Trade Commission, January 2022.{" "}
+          <a
+            href="https://www.ftc.gov/news-events/news/press-releases/2022/01/response-ftc-charges-dun-bradstreet-clean-small-business-credit-reporting-process-refund-customers"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            In Response to FTC Charges, Dun &amp; Bradstreet to Clean Up Small
+            Business Credit Reporting Process and Refund Customers
+          </a>{" "}
+          — enforcement action covering CreditBuilder marketing practices,
+          deceptive auto-renewal, and refusal to correct inaccurate reports.
+        </li>
+        <li>
+          Federal Trade Commission, September 2025.{" "}
+          <a
+            href="https://www.ftc.gov/news-events/news/press-releases/2025/09/dun-bradstreet-agrees-pay-57-million-resolve-alleged-violations-ftc-order"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Dun &amp; Bradstreet Agrees to Pay $5.7 Million to Resolve Alleged
+            Violations of FTC Order
+          </a>{" "}
+          — follow-up penalty for violating the 2022 settlement, including
+          misrepresenting that fee-based products would improve credit scores.
+        </li>
+        <li>
+          Dun &amp; Bradstreet.{" "}
+          <a
+            href="https://www.dnb.com/products/small-business/credit-builder-premium.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            D&amp;B Credit Insights / CreditBuilder Premium
+          </a>{" "}
+          — D&amp;B&apos;s own product page describing the subscription tiers
+          that let businesses add trade references and accelerate updates to
+          their own profile.
+        </li>
+        <li>
+          Dun &amp; Bradstreet.{" "}
+          <a
+            href="https://www.dnb.com/en-us/smb/resources/credit-scores/what-is-paydex-score.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            What is a PAYDEX Score?
+          </a>{" "}
+          — D&amp;B&apos;s methodology overview: dollar-weighted, derived from
+          self-reported vendor trade experiences, requires at least three
+          experiences from two reporting parties to generate a score.
+        </li>
+      </ol>
 
       <h2>Related reads</h2>
       <ul>
