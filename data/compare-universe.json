@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T12:40:49.552Z",
+  "generatedAt": "2026-05-29T12:31:34.003Z",
   "universeSize": 800,
   "entries": [
     {
@@ -589,11 +589,6 @@
     {
       "symbol": "CFAAX",
       "name": "American Funds Bond Fund of Amer 529A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CFG",
-      "name": "Citizens Financial Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -1377,6 +1372,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FTAI",
+      "name": "FTAI Aviation Ltd.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "FTBFX",
       "name": "Fidelity Total Bond",
       "sector": "Financial Services"
@@ -1744,6 +1744,11 @@
     {
       "symbol": "JBALX",
       "name": "Janus Henderson Balanced Fund",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "JBFRX",
+      "name": "John Hancock Bond Fund Class R4",
       "sector": "Financial Services"
     },
     {
@@ -2390,11 +2395,6 @@
       "symbol": "OXY",
       "name": "Occidental Petroleum Corporation",
       "sector": "Energy"
-    },
-    {
-      "symbol": "P",
-      "name": "Everpure, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "PABGX",
@@ -3102,11 +3102,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "TIBMX",
-      "name": "Thornburg Investment Income Builder Fund Class R5",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TIEIX",
       "name": "TIAA-CREF Equity Index Fund",
       "sector": "Financial Services"
@@ -3362,6 +3357,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "VEEV",
+      "name": "Veeva Systems Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "VEIPX",
       "name": "Vanguard Equity Income Fund Investor Shares",
       "sector": "Financial Services"
@@ -3444,6 +3444,11 @@
     {
       "symbol": "VFSUX",
       "name": "Vanguard Short-Term Investment-Grade Fund Admiral Shares",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "VFTNX",
+      "name": "Vanguard FTSE Social Index Fund Institutional Shares",
       "sector": "Financial Services"
     },
     {
@@ -3989,11 +3994,6 @@
     {
       "symbol": "ZM",
       "name": "Zoom Communications, Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "ZS",
-      "name": "Zscaler, Inc.",
       "sector": "Technology"
     },
     {
