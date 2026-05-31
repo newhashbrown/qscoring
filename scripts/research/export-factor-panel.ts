@@ -52,6 +52,10 @@ import {
   type MetricKey,
 } from "../../lib/scoring/zscore";
 import { listSnapshotDates, loadSnapshot } from "../../lib/performance";
+// Phase-2 factor variants (stubs until Agents A/B implement). Emitted as
+// backward-panel sub-component columns so the harness reports each one's IC.
+import { volScaledMomentum12_1 } from "../../lib/scoring/momentum-factor";
+import { ewmaVolatility } from "../../lib/scoring/risk-factor";
 
 // ── env (manual, mirrors build-universe-stats.ts) ─────────────────────────
 function loadEnv() {
@@ -211,22 +215,34 @@ async function exportBackward() {
 
       const sec = sector ?? null;
       const stat = (k: MetricKey) => getStats(k, sec);
+      // Legacy momentum sub-component scores (each emitted for per-sub IC).
+      const momRet12 = scoreHigher(r12, stat("return12mo"));
+      const momRet3 = scoreHigher(r3, stat("return3mo"));
+      const momRet1 = scoreHigher(r1, stat("return1mo"));
+      const momRsi = scoreRsi(rsi);
+      const momMaCross = scoreMaCross(golden);
       const momentum = weightedAvg([
-        { score: scoreHigher(r12, stat("return12mo")), weight: MOMENTUM_WEIGHTS.return12mo },
-        { score: scoreHigher(r3, stat("return3mo")), weight: MOMENTUM_WEIGHTS.return3mo },
-        { score: scoreHigher(r1, stat("return1mo")), weight: MOMENTUM_WEIGHTS.return1mo },
-        { score: scoreRsi(rsi), weight: MOMENTUM_WEIGHTS.rsi14 },
-        { score: scoreMaCross(golden), weight: MOMENTUM_WEIGHTS.maCross },
+        { score: momRet12, weight: MOMENTUM_WEIGHTS.return12mo },
+        { score: momRet3, weight: MOMENTUM_WEIGHTS.return3mo },
+        { score: momRet1, weight: MOMENTUM_WEIGHTS.return1mo },
+        { score: momRsi, weight: MOMENTUM_WEIGHTS.rsi14 },
+        { score: momMaCross, weight: MOMENTUM_WEIGHTS.maCross },
       ]);
-      const risk = weightedAvg([
-        { score: scoreLower(vol, stat("vol60")), weight: RISK_WEIGHTS_NO_BETA.vol60 },
-      ]);
+      const riskVol = scoreLower(vol, stat("vol60"));
+      const risk = weightedAvg([{ score: riskVol, weight: RISK_WEIGHTS_NO_BETA.vol60 }]);
+      // v2 raw signals (null until Agents A/B implement the stub modules).
+      const momVolScaled = volScaledMomentum12_1(upto);
+      const riskVolEwma = ewmaVolatility(upto);
       if (momentum === null && risk === null) continue;
       rows.push({
         date: asof, ticker, sector: sector ?? "",
         value: null, growth: null, momentum, profitability: null, risk,
         composite: null, long_score: null, short_score: null,
         price: upto[0].price,
+        // sub-component columns (backward diagnostic only):
+        mom_ret12: momRet12, mom_ret3: momRet3, mom_ret1: momRet1,
+        mom_rsi: momRsi, mom_macross: momMaCross, mom_volscaled: momVolScaled,
+        risk_vol: riskVol, risk_vol_ewma: riskVolEwma,
       });
     }
     return null;
@@ -236,11 +252,15 @@ async function exportBackward() {
   const spy = sortNewestFirst(await fmp.historical("SPY").catch(() => [] as PricePoint[]));
   for (const pt of spy) priceRows.push({ date: pt.date, ticker: "SPY", close: pt.price });
 
-  writeCsv("factor_panel_backward.csv", ["date", "ticker", "sector", ...FACTOR_COLS], rows);
+  const subCols = [
+    "mom_ret12", "mom_ret3", "mom_ret1", "mom_rsi", "mom_macross", "mom_volscaled",
+    "risk_vol", "risk_vol_ewma",
+  ];
+  writeCsv("factor_panel_backward.csv", ["date", "ticker", "sector", ...FACTOR_COLS, ...subCols], rows);
   writeCsv("prices_backward.csv", ["date", "ticker", "close"], priceRows);
   writeMeta("factor_panel_backward.meta.json", {
     provenance: "backward_diagnostic",
-    factors_valid: ["momentum", "risk"],
+    factors_valid: ["momentum", "risk", ...subCols],
     bias: ["survivorship", "stale_normalization"],
     source: `backward(${ASOF_START}..${ASOF_END} step=${STEP_DAYS}d, ${universe.length} tickers)`,
     universe_size: universe.length,
