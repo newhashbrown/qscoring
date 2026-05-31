@@ -2,17 +2,21 @@
 # This module never ships to the Worker; it reads factor panels exported by
 # scripts/research/export-factor-panel.ts and runs factor analysis.
 #
-# alphalens-reloaded / pyfolio-reloaded lag numpy/pandas hard, so every version
-# below is pinned to a known-compatible set. Use an isolated venv:
+# Pinned to the set that resolves cleanly on **Python 3.13** (cp313 wheels for
+# all native deps — numpy/scipy/pandas/pyarrow/scikit-learn/statsmodels).
+# NOTE: the older numpy 1.26 pin builds from source on 3.13 (no wheel) and
+# fails without a C toolchain — alphalens-reloaded/pyfolio-reloaded 0.4.6/0.9.9
+# work with the numpy-2 stack below. Use an isolated venv:
 #
-#   python -m venv .venv
-#   . .venv/bin/activate          # Windows: .venv\Scripts\activate
-#   pip install -r research/requirements.txt
+#   py -3 -m venv research/.venv
+#   research/.venv/Scripts/python.exe -m pip install -r research/requirements.txt   # Windows
+#   # POSIX: python -m venv research/.venv && . research/.venv/bin/activate && pip install -r research/requirements.txt
 #
-numpy==1.26.4
-pandas==2.1.4
-scipy==1.11.4
-matplotlib==3.8.4
-pyarrow==15.0.2
-alphalens-reloaded==0.4.5
-pyfolio-reloaded==0.9.8
+numpy==2.4.6
+pandas==2.3.3
+scipy==1.17.1
+matplotlib==3.10.9
+pyarrow==24.0.0
+alphalens-reloaded==0.4.6
+pyfolio-reloaded==0.9.9
+empyrical-reloaded==0.5.12

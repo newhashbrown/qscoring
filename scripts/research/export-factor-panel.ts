@@ -235,7 +235,11 @@ async function exportBackward() {
       const riskVolEwma = ewmaVolatility(upto);
       if (momentum === null && risk === null) continue;
       rows.push({
-        date: asof, ticker, sector: sector ?? "",
+        // Label the row with the actual most-recent trading date ≤ as-of (not
+        // the raw calendar as-of). This aligns factor dates with the daily price
+        // index AlphaLens uses, and breaks the too-clean "3W-WED" calendar
+        // cadence that AlphaLens refuses to reconcile with a business-day index.
+        date: upto[0].date, ticker, sector: sector ?? "",
         value: null, growth: null, momentum, profitability: null, risk,
         composite: null, long_score: null, short_score: null,
         price: upto[0].price,
