@@ -4,6 +4,9 @@ name: Refresh strong picks
 #   - data/strong-picks.json     — homepage carousel + landing surfaces
 #   - data/scoreboard.json       — per-ticker rows for category, compare,
 #                                   portfolio, and watchlist-alert features
+#   - data/market-strip.json     — precomputed universe-average composite for
+#                                   the site-wide MarketStrip (keeps the full
+#                                   scoreboard out of the root layout bundle)
 #   - data/snapshots/YYYY-MM-DD.json — append-only locked snapshot for /performance
 #
 # Hits the deployed /api/score endpoint so it leverages the production
@@ -59,8 +62,8 @@ jobs:
       - name: Commit and push if changed
         id: commit
         run: |
-          # Stage all the daily-refresh data files (script writes four of them).
-          git add data/compare-universe.json data/strong-picks.json data/scoreboard.json data/snapshots/
+          # Stage all the daily-refresh data files (script writes five of them).
+          git add data/compare-universe.json data/strong-picks.json data/scoreboard.json data/market-strip.json data/snapshots/
           if git diff --staged --quiet; then
             echo "No change to refresh data — skipping commit."
             echo "pushed=false" >> "$GITHUB_OUTPUT"
