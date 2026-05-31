@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T12:31:34.003Z",
+  "generatedAt": "2026-05-31T12:06:32.034Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1544,7 +1544,7 @@
     {
       "symbol": "GTOP",
       "name": "Goldman Sachs Technology Opportunities ETF",
-      "sector": "Technology"
+      "sector": "Financial Services"
     },
     {
       "symbol": "GWPEX",
@@ -1565,6 +1565,11 @@
       "symbol": "HAL",
       "name": "Halliburton Company",
       "sector": "Energy"
+    },
+    {
+      "symbol": "HBAN",
+      "name": "Huntington Bancshares Incorporated",
+      "sector": "Financial Services"
     },
     {
       "symbol": "HCA",
@@ -1677,6 +1682,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "IONQ",
+      "name": "IonQ, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "IQV",
       "name": "IQVIA Holdings Inc.",
       "sector": "Healthcare"
@@ -1747,11 +1757,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "JBFRX",
-      "name": "John Hancock Bond Fund Class R4",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "JBL",
       "name": "Jabil Inc.",
       "sector": "Technology"
@@ -1779,16 +1784,6 @@
     {
       "symbol": "JEPQ",
       "name": "JPMorgan Nasdaq Equity Premium Income ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JHBIX",
-      "name": "John Hancock Bond Fund Class I",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JHNBX",
-      "name": "John Hancock Bond Fund Class A",
       "sector": "Financial Services"
     },
     {
@@ -2030,6 +2025,11 @@
       "symbol": "MCO",
       "name": "Moody's Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "MDB",
+      "name": "MongoDB, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "MDIDX",
@@ -2947,6 +2947,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SMCWX",
       "name": "American Funds SMALLCAP World Fund Class A",
       "sector": "Financial Services"
@@ -3099,6 +3104,11 @@
     {
       "symbol": "TIBIX",
       "name": "Thornburg Investment Income Builder Fund Class I",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "TIBMX",
+      "name": "Thornburg Investment Income Builder Fund Class R5",
       "sector": "Financial Services"
     },
     {
@@ -3447,11 +3457,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "VFTNX",
-      "name": "Vanguard FTSE Social Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "VFWAX",
       "name": "Vanguard FTSE All-World ex-US Index Fund Admiral Shares",
       "sector": "Financial Services"
@@ -3635,11 +3640,6 @@
       "symbol": "VPMCX",
       "name": "Vanguard PRIMECAP Fund Investor Shares",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "VRSN",
-      "name": "VeriSign, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VRT",
