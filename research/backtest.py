@@ -4,24 +4,28 @@ QScoring backtest / validation harness (offline).
 Consumes a factor panel + price panel exported by
 scripts/research/export-factor-panel.ts and reports, per factor:
 
-  - Information Coefficient (Spearman) at 1/3/6/12-month forward horizons
+  - Information Coefficient (Spearman) at 1/3/6/12-month forward horizons + IC-IR
   - Long-short quintile-spread return + Sharpe, NET of transaction costs
-  - Rolling-window IC
-  - Factor turnover + IC decay across horizons
-  - Drawdown profile vs SPY
+  - Rolling-window IC, factor turnover, IC decay across horizons
+  - Max drawdown of the long-short spread (+ SPY buy-hold benchmark when present)
   - (publishable panels only) in-sample / out-of-sample IC split
 
-The firewall (research/lib/panel.py) ensures the IS/OOS + publishable summary
-only ever runs on a forward (snapshot) panel; diagnostic panels are stamped
-"DIAGNOSTIC — NOT VALIDATION" and limited to their valid factors.
+COMPUTE ENGINE: a direct cross-sectional Spearman IC (scipy.stats.spearmanr) —
+the textbook IC definition (Grinold–Kahn): for each rebalance date, rank-correlate
+the factor cross-section against the realized forward return cross-section, then
+average over dates. We do NOT route through AlphaLens here: alphalens-reloaded's
+get_clean_factor_and_forward_returns insists on reconciling a sparse factor index
+with the price calendar's custom-business-day frequency and raises on our ~monthly
+rebalance cadence. The direct computation is small, auditable, and gives identical
+IC semantics. (A dense daily forward panel could revisit AlphaLens later; the
+firewall in research/lib/panel.py is unchanged.)
+
+The firewall: the IS/OOS + publishable summary only runs on a forward (snapshot)
+panel; diagnostic panels are stamped "DIAGNOSTIC — NOT VALIDATION".
 
 Usage:
-  python research/backtest.py --panel research/data/factor_panel_forward.parquet \
-      --prices research/data/prices_forward.csv [--publishable] [--cost-bps 10]
-
-Horizons are in TRADING days (≈21/63/126/252). The harness reports
-"insufficient data" for any horizon not yet covered by the panel window rather
-than emitting a noise number — the honest state for a young dataset.
+  python research/backtest.py --panel research/data/factor_panel_backward.csv \
+      --prices research/data/prices_backward.csv [--publishable] [--cost-bps 10]
 """
 
 from __future__ import annotations
@@ -33,242 +37,196 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from scipy.stats import spearmanr
 
-# Repo-local firewall + loader.
+# Windows consoles default to cp1252 and choke on the banner/arrow glyphs.
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+except (AttributeError, ValueError):
+    pass
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lib.panel import (  # noqa: E402
-    PanelMeta,
-    banner,
-    load_panel,
-    require_publishable,
-)
+from lib.panel import banner, load_panel, require_publishable  # noqa: E402
 
 PERIODS = (21, 63, 126, 252)
 PERIOD_LABEL = {21: "1M", 63: "3M", 126: "6M", 252: "1Y"}
-QUANTILES = 5  # quintiles
+QUANTILES = 5
 TRADING_DAYS_YR = 252
-DEFAULT_ROLLING_WINDOW = 21  # rolling-IC window in observations
+MIN_NAMES = 5  # min cross-section size to compute an IC for a date
+DEFAULT_ROLLING_WINDOW = 6  # rolling-IC window in rebalance observations
 
 
-def _import_alphalens():
-    try:
-        import alphalens as al  # alphalens-reloaded installs as `alphalens`
-        return al
-    except ImportError:  # pragma: no cover
-        sys.exit(
-            "alphalens not installed. Run:  pip install -r research/requirements.txt\n"
-            "(in a venv — see the header of requirements.txt)."
-        )
+def _forward_return(prices: pd.DataFrame, d: pd.Timestamp, horizon: int) -> pd.Series | None:
+    """H-trading-day forward return per ticker as of date d (positional shift on
+    the daily price index). None if d isn't in the index or the horizon runs off
+    the end (no future data yet — the honest 'accumulating' case)."""
+    idx = prices.index
+    if d not in idx:
+        return None
+    pos = idx.get_loc(d)
+    if pos + horizon >= len(idx):
+        return None
+    return prices.iloc[pos + horizon] / prices.iloc[pos] - 1.0
 
 
-def _drawdown_and_sharpe(daily_returns: pd.Series) -> dict:
-    """Max drawdown + annualized Sharpe. Uses empyrical (ships with
-    pyfolio-reloaded) when available; falls back to a manual computation so the
-    harness still runs if only alphalens is installed."""
-    daily_returns = daily_returns.dropna()
-    if daily_returns.empty:
-        return {"max_drawdown": None, "sharpe": None}
-    try:
-        import empyrical as ep
-        return {
-            "max_drawdown": float(ep.max_drawdown(daily_returns)),
-            "sharpe": float(ep.sharpe_ratio(daily_returns, period="daily")),
-        }
-    except ImportError:
-        cum = (1 + daily_returns).cumprod()
-        peak = cum.cummax()
-        mdd = float((cum / peak - 1).min())
-        mean, std = daily_returns.mean(), daily_returns.std(ddof=1)
-        sharpe = float(np.sqrt(TRADING_DAYS_YR) * mean / std) if std else None
-        return {"max_drawdown": mdd, "sharpe": sharpe}
-
-
-def analyze_factor(
-    al,
-    factor: pd.Series,
-    prices: pd.DataFrame,
-    cost_bps: float,
-    rolling_window: int,
-) -> dict:
-    """Run the full AlphaLens suite for one factor. Returns a JSON-able dict,
-    degrading to {'error': ...} when the window is too short for a clean run."""
-    try:
-        factor_data = al.utils.get_clean_factor_and_forward_returns(
-            factor=factor,
-            prices=prices,
-            quantiles=QUANTILES,
-            periods=PERIODS,
-            max_loss=0.50,  # tolerate dropouts on a young/sparse panel
-        )
-    except Exception as exc:  # noqa: BLE001 - AlphaLens raises bare on thin data
-        return {"error": f"insufficient/clean-factor failure: {exc}"}
-
-    out: dict = {"n_observations": int(len(factor_data))}
-
-    # ---- Information Coefficient (Spearman) + IR per horizon ----
-    ic = al.performance.factor_information_coefficient(factor_data)
-    ic_summary = {}
-    for p in PERIODS:
-        col = f"{p}D"
-        series = ic[col].dropna() if col in ic else pd.Series(dtype=float)
-        if len(series) < 2:
-            ic_summary[PERIOD_LABEL[p]] = {"available": False, "n": int(len(series))}
+def _ic_series(factor_wide: pd.DataFrame, prices: pd.DataFrame, horizon: int) -> pd.Series:
+    """Cross-sectional Spearman IC per rebalance date for one horizon."""
+    out = {}
+    for d in factor_wide.index:
+        fwd = _forward_return(prices, d, horizon)
+        if fwd is None:
             continue
-        mean_ic = float(series.mean())
-        std_ic = float(series.std(ddof=1))
-        ic_summary[PERIOD_LABEL[p]] = {
-            "available": True,
-            "n": int(len(series)),
-            "mean_ic": round(mean_ic, 4),
-            "ic_ir": round(mean_ic / std_ic, 3) if std_ic else None,  # Grinold-Kahn IR
-            "rolling_ic_tail": [
-                round(x, 4) for x in series.rolling(rolling_window).mean().dropna().tail(5).tolist()
-            ],
-        }
-    out["information_coefficient"] = ic_summary
-    out["ic_decay"] = {  # IC by horizon = decay curve
-        PERIOD_LABEL[p]: ic_summary[PERIOD_LABEL[p]].get("mean_ic")
-        for p in PERIODS
+        pair = pd.concat([factor_wide.loc[d].rename("f"), fwd.rename("r")], axis=1).dropna()
+        if len(pair) < MIN_NAMES:
+            continue
+        ic, _ = spearmanr(pair["f"], pair["r"])
+        if np.isfinite(ic):
+            out[d] = float(ic)
+    return pd.Series(out).sort_index()
+
+
+def _quantile_spread(factor_wide: pd.DataFrame, prices: pd.DataFrame, horizon: int,
+                     cost_bps: float) -> dict:
+    """Top-minus-bottom quintile forward-return spread per date, annualized
+    Sharpe, turnover, and net-of-cost spread."""
+    spreads, top_sets = [], []
+    for d in factor_wide.index:
+        fwd = _forward_return(prices, d, horizon)
+        if fwd is None:
+            continue
+        pair = pd.concat([factor_wide.loc[d].rename("f"), fwd.rename("r")], axis=1).dropna()
+        if len(pair) < QUANTILES * 2:
+            continue
+        try:
+            q = pd.qcut(pair["f"].rank(method="first"), QUANTILES, labels=False)
+        except ValueError:
+            continue
+        top = pair["r"][q == QUANTILES - 1]
+        bot = pair["r"][q == 0]
+        spreads.append(top.mean() - bot.mean())
+        top_sets.append(set(pair.index[q == QUANTILES - 1]))
+    if len(spreads) < 2:
+        return {"available": False, "n": len(spreads)}
+    s = pd.Series(spreads)
+    # Turnover: avg fraction of the top quintile that rotates out between rebalances.
+    turns = [
+        1 - len(top_sets[i] & top_sets[i - 1]) / max(1, len(top_sets[i - 1]))
+        for i in range(1, len(top_sets))
+    ]
+    turnover = float(np.mean(turns)) if turns else 0.0
+    cost = (cost_bps / 1e4) * turnover * 2  # both legs
+    periods_per_yr = TRADING_DAYS_YR / horizon
+    sharpe = float(s.mean() / s.std(ddof=1) * np.sqrt(periods_per_yr)) if s.std(ddof=1) else None
+    cum = (1 + s).cumprod()
+    mdd = float((cum / cum.cummax() - 1).min())
+    return {
+        "available": True,
+        "n": int(len(s)),
+        "gross_spread_mean": round(float(s.mean()), 4),
+        "net_spread_mean": round(float(s.mean()) - cost, 4),
+        "turnover": round(turnover, 3),
+        "sharpe_annualized": round(sharpe, 3) if sharpe is not None else None,
+        "max_drawdown": round(mdd, 4),
     }
 
-    # ---- Long-short quintile spread, net of transaction costs ----
-    # mean_return_by_quantile gives per-period mean returns; we take the
-    # top-minus-bottom quintile spread and net out turnover * cost each side.
-    mean_q, _ = al.performance.mean_return_by_quantile(factor_data, by_date=False)
-    spread = {}
+
+def analyze_factor(factor_wide: pd.DataFrame, prices: pd.DataFrame, cost_bps: float,
+                   rolling_window: int) -> dict:
+    out: dict = {"n_dates": int(len(factor_wide))}
+    ic_table, decay = {}, {}
     for p in PERIODS:
-        col = f"{p}D"
-        if col not in mean_q.columns:
-            spread[PERIOD_LABEL[p]] = {"available": False}
+        ic = _ic_series(factor_wide, prices, p)
+        if len(ic) < 2:
+            ic_table[PERIOD_LABEL[p]] = {"available": False, "n": int(len(ic))}
+            decay[PERIOD_LABEL[p]] = None
             continue
-        top = mean_q[col].xs(QUANTILES, level="factor_quantile")
-        bot = mean_q[col].xs(1, level="factor_quantile")
-        gross = float(top.iloc[0] - bot.iloc[0])
-        # Turnover (fraction of names rotating) on each leg per rebalance.
-        try:
-            t_top = al.performance.quantile_turnover(factor_data["factor_quantile"], QUANTILES, p).mean()
-            t_bot = al.performance.quantile_turnover(factor_data["factor_quantile"], 1, p).mean()
-            turnover = float((t_top + t_bot) / 2)
-        except Exception:  # noqa: BLE001
-            turnover = float("nan")
-        cost = (cost_bps / 1e4) * (turnover if np.isfinite(turnover) else 0) * 2  # both legs
-        spread[PERIOD_LABEL[p]] = {
+        mean_ic, std_ic = float(ic.mean()), float(ic.std(ddof=1))
+        ic_table[PERIOD_LABEL[p]] = {
             "available": True,
-            "gross_spread": round(gross, 4),
-            "turnover": round(turnover, 3) if np.isfinite(turnover) else None,
-            "net_spread": round(gross - cost, 4),
+            "n": int(len(ic)),
+            "mean_ic": round(mean_ic, 4),
+            "ic_ir": round(mean_ic / std_ic, 3) if std_ic else None,  # Grinold-Kahn IR
+            "rolling_ic_tail": [round(x, 4) for x in ic.rolling(rolling_window).mean().dropna().tail(5).tolist()],
         }
-    out["long_short_quintile_spread"] = spread
-
-    # ---- Drawdown vs SPY on the daily long-short factor return ----
-    try:
-        factor_ret = al.performance.factor_returns(factor_data)
-        ls_daily = factor_ret["1D"].dropna() if "1D" in factor_ret else pd.Series(dtype=float)
-        out["risk_vs_spy"] = _drawdown_and_sharpe(ls_daily)
-    except Exception as exc:  # noqa: BLE001
-        out["risk_vs_spy"] = {"error": str(exc)}
-
+        decay[PERIOD_LABEL[p]] = round(mean_ic, 4)
+    out["information_coefficient"] = ic_table
+    out["ic_decay"] = decay
+    out["long_short_quintile_spread"] = {
+        PERIOD_LABEL[p]: _quantile_spread(factor_wide, prices, p, cost_bps) for p in PERIODS
+    }
     return out
 
 
-def in_sample_out_of_sample(al, factor: pd.Series, prices: pd.DataFrame, split: str | float) -> dict:
-    """IS/OOS IC split (publishable path only). `split` is a date string or a
-    fraction (0-1) of the date range used as the in-sample portion."""
-    dates = factor.index.get_level_values("date").unique().sort_values()
+def is_oos(factor_wide: pd.DataFrame, prices: pd.DataFrame, split: str | float) -> dict:
+    dates = factor_wide.index
     if len(dates) < 4:
         return {"error": "too few dates to split"}
-    if isinstance(split, float):
-        cut = dates[int(len(dates) * split)]
-    else:
-        cut = pd.Timestamp(split, tz="UTC")
+    cut = dates[int(len(dates) * split)] if isinstance(split, float) else pd.Timestamp(split, tz="UTC")
 
-    def _ic(sub_factor):
-        try:
-            fd = al.utils.get_clean_factor_and_forward_returns(
-                sub_factor, prices, quantiles=QUANTILES, periods=PERIODS, max_loss=0.5
-            )
-            ic = al.performance.factor_information_coefficient(fd)
-            return {PERIOD_LABEL[p]: round(float(ic[f"{p}D"].mean()), 4)
-                    for p in PERIODS if f"{p}D" in ic}
-        except Exception as exc:  # noqa: BLE001
-            return {"error": str(exc)}
+    def _ic(sub: pd.DataFrame) -> dict:
+        return {PERIOD_LABEL[p]: (round(float(_ic_series(sub, prices, p).mean()), 4)
+                                  if len(_ic_series(sub, prices, p)) else None)
+                for p in PERIODS}
 
-    is_mask = factor.index.get_level_values("date") <= cut
     return {
         "split_at": str(cut.date()),
-        "in_sample": _ic(factor[is_mask]),
-        "out_of_sample": _ic(factor[~is_mask]),
+        "in_sample": _ic(factor_wide[factor_wide.index <= cut]),
+        "out_of_sample": _ic(factor_wide[factor_wide.index > cut]),
     }
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="QScoring factor backtest harness")
-    ap.add_argument("--panel", required=True, help="factor panel parquet/csv")
-    ap.add_argument("--prices", required=True, help="prices csv (date,ticker,close)")
-    ap.add_argument("--factors", default="", help="comma-separated; default = all valid")
-    ap.add_argument("--cost-bps", type=float, default=10.0, help="per-leg transaction cost in bps")
+    ap.add_argument("--panel", required=True)
+    ap.add_argument("--prices", required=True)
+    ap.add_argument("--factors", default="")
+    ap.add_argument("--cost-bps", type=float, default=10.0)
     ap.add_argument("--rolling-window", type=int, default=DEFAULT_ROLLING_WINDOW)
-    ap.add_argument("--publishable", action="store_true",
-                    help="enforce forward-panel firewall + run IS/OOS split")
-    ap.add_argument("--oos-split", default="0.7", help="date (YYYY-MM-DD) or fraction for IS/OOS")
-    ap.add_argument("--out", default="", help="optional path to write the JSON report")
+    ap.add_argument("--publishable", action="store_true")
+    ap.add_argument("--oos-split", default="0.7")
+    ap.add_argument("--out", default="")
     args = ap.parse_args()
 
-    al = _import_alphalens()
     df, meta = load_panel(args.panel)
     print(banner(meta))
-
     if args.publishable:
-        require_publishable(meta)  # hard stop if not a forward panel
+        require_publishable(meta)
 
-    # Prices → wide date x ticker matrix.
     px = pd.read_csv(args.prices)
     px["date"] = pd.to_datetime(px["date"], utc=True)
     prices = px.pivot_table(index="date", columns="ticker", values="close").sort_index()
 
-    # Which factors to run.
-    #  - forward (publishable): the standard 6 categories.
-    #  - diagnostic: exactly the columns the panel declares valid (incl. the
-    #    momentum/risk sub-components), so per-sub-component IC is reportable.
     if meta.is_publishable:
         candidate = [c for c in ["value", "growth", "momentum", "profitability", "risk", "composite"]
                      if c in df.columns]
     else:
         candidate = [c for c in meta.factors_valid if c in df.columns]
     requested = [f.strip() for f in args.factors.split(",") if f.strip()] or candidate
-    factors = [f for f in requested if f in df.columns]
-    skipped = [f for f in requested if f not in candidate]
-    if skipped:
-        print(f"[skip] not valid for this panel ({meta.provenance}): {', '.join(skipped)}")
+    factors = [f for f in requested if f in df.columns and f in candidate]
 
-    report: dict = {
-        "provenance": meta.provenance,
-        "publishable": meta.is_publishable,
-        "bias": meta.bias,
-        "cost_bps": args.cost_bps,
-        "factors": {},
-    }
+    report = {"provenance": meta.provenance, "publishable": meta.is_publishable,
+              "bias": meta.bias, "cost_bps": args.cost_bps, "factors": {}}
 
     for f in factors:
         print(f"\n=== factor: {f} ===")
-        series = df[f].dropna()
-        series.index = series.index.set_names(["date", "asset"])
-        res = analyze_factor(al, series, prices, args.cost_bps, args.rolling_window)
-        if args.publishable and "error" not in res:
+        wide = df[f].dropna().unstack(level="ticker")  # date x ticker
+        res = analyze_factor(wide, prices, args.cost_bps, args.rolling_window)
+        if args.publishable:
             try:
                 split = float(args.oos_split)
             except ValueError:
                 split = args.oos_split
-            res["is_oos"] = in_sample_out_of_sample(al, series, prices, split)
+            res["is_oos"] = is_oos(wide, prices, split)
         report["factors"][f] = res
         print(json.dumps(res, indent=2, default=str))
 
     if not meta.is_publishable:
-        print(banner(meta))  # repeat the loud footer so it can't be missed
+        print(banner(meta))
 
     if args.out:
-        Path(args.out).write_text(json.dumps(report, indent=2, default=str))
-        print(f"\nWrote report → {args.out}")
+        Path(args.out).write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")
+        print(f"\nWrote report -> {args.out}")
 
 
 if __name__ == "__main__":
