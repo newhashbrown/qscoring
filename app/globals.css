@@ -3760,3 +3760,251 @@ footer .footer-links .sep {
   .composite-horizons { gap: 16px; }
   .horizon-value { font-size: 1.3rem; }
 }
+
+/* ─── HOW IT WORKS (/how-it-works) ─── */
+
+/* Five factor families grid */
+.hiw-factors {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+.hiw-factor-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  transition: border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+.hiw-factor-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.how-it-works .hiw-factor-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+.how-it-works .hiw-factor-tag {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-bright);
+  margin: 0 0 10px;
+}
+.how-it-works .hiw-factor-body {
+  font-size: 0.92rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0;
+}
+.how-it-works .hiw-note {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-top: 18px;
+}
+.how-it-works .hiw-steps {
+  margin-top: 24px;
+}
+
+/* Cross-sectional ranking visualization */
+.how-it-works .hiw-rank {
+  margin: 28px 0 8px;
+}
+.hiw-rank-stage {
+  position: relative;
+  padding: 44px 0 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--bg-card), var(--bg-2));
+  overflow: hidden;
+}
+.hiw-rank-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 150px;
+  padding: 0 18px;
+}
+.hiw-rank-bar {
+  flex: 1 1 0;
+  min-width: 2px;
+  height: var(--h);
+  background: var(--surface-2);
+  border-radius: 3px 3px 0 0;
+  transform-origin: bottom;
+  transition: transform 0.5s var(--ease-out), opacity 0.5s var(--ease-out);
+  transition-delay: calc(var(--i) * 9ms);
+}
+.hiw-rank-bar.is-stock {
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+  box-shadow: 0 0 16px var(--gold-soft);
+}
+.hiw-rank-marker {
+  position: absolute;
+  top: 44px;
+  bottom: 44px;
+  left: var(--target);
+  width: 0;
+  transition: left 0.75s var(--ease-out) 0.12s,
+    opacity 0.4s var(--ease-out) 0.12s;
+}
+.hiw-rank-marker-line {
+  position: absolute;
+  top: 4px;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  transform: translateX(-1px);
+  background: linear-gradient(180deg, var(--gold-bright), rgba(245, 158, 11, 0));
+}
+.hiw-rank-readout {
+  position: absolute;
+  top: -34px;
+  left: 0;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+  padding: 4px 10px;
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-soft);
+  border-radius: 999px;
+  color: var(--gold-bright);
+  font-family: var(--mono);
+}
+.hiw-rank-pct {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.hiw-rank-pct-suffix {
+  font-size: 0.7rem;
+  opacity: 0.8;
+}
+.hiw-rank-axis {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px 14px;
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+.how-it-works .hiw-rank-caption {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 14px;
+}
+.how-it-works .hiw-rank-caption strong {
+  color: var(--text-dim);
+}
+
+/* Entrance: hidden only while JS has armed the component and it's off-screen.
+   No-JS and reduced-motion users never hit this state — they see the resolved
+   final state directly. */
+.hiw-rank-stage.hiw-rank--armed:not(.hiw-rank--in) .hiw-rank-bar {
+  transform: scaleY(0);
+  opacity: 0;
+}
+.hiw-rank-stage.hiw-rank--armed:not(.hiw-rank--in) .hiw-rank-marker {
+  left: 50%;
+  opacity: 0;
+}
+
+/* Soft CTA */
+.hiw-cta {
+  margin-top: 8px;
+  padding: 32px;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-2));
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  text-align: center;
+}
+.how-it-works .hiw-cta h2 {
+  margin-top: 0;
+}
+.hiw-cta-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.how-it-works .hiw-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--on-gold);
+  font-weight: 600;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+.how-it-works .hiw-cta-primary:hover {
+  background: var(--gold-bright);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.how-it-works .hiw-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  color: var(--text-dim);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+.how-it-works .hiw-cta-secondary:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+  text-decoration: none;
+}
+.how-it-works .hiw-disclaimer {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 600px) {
+  .hiw-rank-bars {
+    height: 120px;
+    gap: 2px;
+  }
+  .hiw-rank-bar {
+    border-radius: 2px 2px 0 0;
+  }
+  .hiw-cta {
+    padding: 24px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Skip the tween; show the resolved ranking immediately. */
+  .hiw-rank-bar {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+  .hiw-rank-marker {
+    left: var(--target) !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
