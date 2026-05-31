@@ -12,6 +12,7 @@ export async function GET() {
   const xml = urlsetXml([
     { loc: `${SITE}/`, lastmod: today },
     { loc: `${SITE}/score`, lastmod: today },
+    { loc: `${SITE}/how-it-works`, lastmod: today },
     { loc: `${SITE}/methodology`, lastmod: today },
     { loc: `${SITE}/glossary`, lastmod: today },
     { loc: `${SITE}/performance`, lastmod: today },
