@@ -330,6 +330,19 @@ async function main() {
   fs.writeFileSync(scoreboardPath, JSON.stringify(scoreboardOutput, null, 2) + "\n");
   console.log(`Wrote ${picks.length} scoreboard rows → ${scoreboardPath}`);
 
+  // Tiny derived artifact for the site-wide MarketStrip (app/components/
+  // MarketStrip.tsx). The strip renders in the root layout on every page and
+  // only needs the universe-average composite — precomputing it here keeps the
+  // full ~700KB scoreboard.json out of the layout's module graph.
+  const averageComposite =
+    picks.length > 0 ? picks.reduce((s, p) => s + p.composite, 0) / picks.length : 0;
+  const marketStripPath = path.resolve(process.cwd(), "data", "market-strip.json");
+  fs.writeFileSync(
+    marketStripPath,
+    JSON.stringify({ generatedAt, universeSize: universe.length, averageComposite }, null, 2) + "\n"
+  );
+  console.log(`Wrote market-strip average (${averageComposite.toFixed(2)}) → ${marketStripPath}`);
+
   // Locked-in daily snapshot — append-only ledger that powers /performance.
   // Same content as scoreboard.json, but date-stamped and never overwritten
   // after the day passes. This is the no-look-ahead-by-construction record:

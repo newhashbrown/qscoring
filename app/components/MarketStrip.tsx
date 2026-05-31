@@ -1,7 +1,6 @@
 import { fmp, type Quote } from "@/lib/scoring/fmp";
 import { MARKET_STRIP_ENABLED } from "@/lib/feature-flags";
-import scoreboardData from "@/data/scoreboard.json";
-import type { ScoreboardPick } from "@/data/categories";
+import marketStripData from "@/data/market-strip.json";
 
 // Market context strip below the nav. Renders four US equity index
 // quotes (S&P 500, Nasdaq Composite, Russell 2000, VIX) plus the QScore
@@ -42,11 +41,15 @@ async function fetchIndexQuote(symbol: string): Promise<Quote | null> {
   }
 }
 
+// The universe-average composite is precomputed nightly by
+// scripts/build-strong-picks.ts into data/market-strip.json (a few bytes),
+// so this component no longer imports the full ~700KB scoreboard.json just to
+// reduce it to a single number on every page render. The layout renders this
+// strip site-wide; coupling it to the entire scoreboard put that whole dataset
+// in the layout's module graph.
 function universeAverage(): number | null {
-  const picks = scoreboardData.picks as ScoreboardPick[];
-  if (picks.length === 0) return null;
-  const sum = picks.reduce((s, p) => s + p.composite, 0);
-  return sum / picks.length;
+  const avg = marketStripData.averageComposite;
+  return typeof avg === "number" && Number.isFinite(avg) ? avg : null;
 }
 
 export default async function MarketStrip() {
