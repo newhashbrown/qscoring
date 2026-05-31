@@ -226,11 +226,15 @@ def main() -> None:
     px["date"] = pd.to_datetime(px["date"], utc=True)
     prices = px.pivot_table(index="date", columns="ticker", values="close").sort_index()
 
-    # Which factors to run. Diagnostic panels are clamped to their valid set.
-    candidate = [c for c in ["value", "growth", "momentum", "profitability", "risk", "composite"]
-                 if c in df.columns]
-    if not meta.is_publishable and meta.factors_valid:
-        candidate = [c for c in candidate if c in meta.factors_valid]
+    # Which factors to run.
+    #  - forward (publishable): the standard 6 categories.
+    #  - diagnostic: exactly the columns the panel declares valid (incl. the
+    #    momentum/risk sub-components), so per-sub-component IC is reportable.
+    if meta.is_publishable:
+        candidate = [c for c in ["value", "growth", "momentum", "profitability", "risk", "composite"]
+                     if c in df.columns]
+    else:
+        candidate = [c for c in meta.factors_valid if c in df.columns]
     requested = [f.strip() for f in args.factors.split(",") if f.strip()] or candidate
     factors = [f for f in requested if f in df.columns]
     skipped = [f for f in requested if f not in candidate]

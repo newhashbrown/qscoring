@@ -36,3 +36,29 @@ export const MARKET_STRIP_ENABLED = true;
  * other code.
  */
 export const STRIPE_BILLING_ENABLED = true;
+
+// ─── Phase-2 factor experiments (offline A/B via research/ harness) ───
+// All default to current production behavior. Do NOT flip the defaults until
+// the backtest harness shows an IC improvement and the change is reviewed.
+
+/**
+ * Momentum v2: replace the legacy momentum sub-components (12/3/1-mo return,
+ * RSI(14), 50/200 MA crossover) with the volatility-scaled 12-1 momentum factor
+ * (lib/scoring/momentum-factor.ts). OFF = legacy momentum unchanged.
+ */
+export const MOMENTUM_V2_ENABLED = false;
+
+/**
+ * Risk: use EWMA volatility (lib/scoring/risk-factor.ts) instead of the
+ * equal-weight 60-day realized vol. OFF = equal-weight realized vol unchanged.
+ */
+export const RISK_EWMA_VOL_ENABLED = false;
+
+/**
+ * Risk: beta sub-score variant.
+ *   "default"  — current scoreBeta (distance-from-1.0 piecewise)
+ *   "low_abs"  — reward low |beta| (defensive)
+ *   "neutral"  — reward beta near target (market-neutral)
+ */
+export type BetaVariant = "default" | "low_abs" | "neutral";
+export const RISK_BETA_VARIANT: BetaVariant = "default";

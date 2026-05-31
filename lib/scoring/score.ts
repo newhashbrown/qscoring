@@ -9,6 +9,14 @@ import type {
   ScoreResult,
   Signal,
 } from "./types";
+// Phase-2 factor experiments — gated, default OFF (see lib/feature-flags.ts).
+import {
+  MOMENTUM_V2_ENABLED,
+  RISK_EWMA_VOL_ENABLED,
+  RISK_BETA_VARIANT,
+} from "../feature-flags";
+import { volScaledMomentum12_1, scoreVolScaledMomentum } from "./momentum-factor";
+import { ewmaVolatility, scoreBetaLowAbs, scoreBetaNeutral } from "./risk-factor";
 
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 
@@ -207,7 +215,7 @@ export function scoreFromFetched(
   const rsi = rsi14(history);
   const goldenCross = maCrossover(quote?.priceAvg50 ?? null, quote?.priceAvg200 ?? null);
 
-  const momentumMetrics: MetricScore[] = [
+  const legacyMomentumMetrics: MetricScore[] = [
     {
       name: "12-Month Return",
       raw: r12,
@@ -238,6 +246,20 @@ export function scoreFromFetched(
       format: "number",
     },
   ];
+
+  // MOMENTUM_V2 (Phase-2 Agent A): swap the legacy sub-components for the
+  // volatility-scaled 12-1 factor. Default OFF → legacy momentum unchanged.
+  const momentumMetrics: MetricScore[] = MOMENTUM_V2_ENABLED
+    ? [
+        {
+          name: "12-1 Vol-Scaled Momentum",
+          raw: volScaledMomentum12_1(history),
+          score: scoreVolScaledMomentum(history, sector),
+          weight: 1,
+          format: "number",
+        },
+      ]
+    : legacyMomentumMetrics;
 
   // ─── PROFITABILITY ─────────────────────────────────────────
   const profMetrics: MetricScore[] = [
@@ -286,13 +308,25 @@ export function scoreFromFetched(
   ];
 
   // ─── RISK ──────────────────────────────────────────────────
-  const vol = realizedVolatility(history);
+  // RISK_EWMA_VOL (Agent B): EWMA vol vs equal-weight realized vol. Default OFF.
+  // NOTE: vol is z-scored against stat("vol60"), which is the equal-weight
+  // distribution; if EWMA is enabled in production, the universe-stats job must
+  // also emit an EWMA vol distribution (Agent B to flag in their report).
+  const vol = RISK_EWMA_VOL_ENABLED ? ewmaVolatility(history) : realizedVolatility(history);
+
+  // RISK_BETA_VARIANT (Agent B): default piecewise / low-|beta| / neutral. Default = current.
+  const betaScore =
+    RISK_BETA_VARIANT === "low_abs"
+      ? scoreBetaLowAbs(profile.beta)
+      : RISK_BETA_VARIANT === "neutral"
+        ? scoreBetaNeutral(profile.beta)
+        : scoreBeta(profile.beta);
 
   const riskMetrics: MetricScore[] = [
     {
       name: "Beta",
       raw: profile.beta ?? null,
-      score: scoreBeta(profile.beta),
+      score: betaScore,
       weight: 1,
       format: "number",
     },
