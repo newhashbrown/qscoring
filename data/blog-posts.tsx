@@ -42,6 +42,9 @@ const StockMarketAroundMemorialDayBody = dynamic(
 const DunsIsDoneBody = dynamic(
   () => import("@/app/blog/bodies/duns-is-done")
 );
+const FedRatesQuantInvestingBody = dynamic(
+  () => import("@/app/blog/bodies/fed-rates-quant-investing")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1533,6 +1536,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "The U.S. federal government quietly retired the DUNS number as its entity identifier in April 2022. The pay-to-play credit profiles, the stale trade tape, and the methodology nobody can audit had already done the damage. Here's the eulogy for the so-called gold standard.",
     Body: DunsIsDoneBody,
+  },
+  {
+    slug: "fed-rate-decisions-quant-investors",
+    cluster: "market-signals",
+    title: "Reading the Fed like a quant: what rate decisions do to your factors",
+    description:
+      "The Fed is holding at 3.50–3.75% with a split committee and one cut penciled in for 2026. Here's how rising, flat, and falling rates move value, growth, momentum, profitability, and risk — and how to adjust factor weights without overtrading.",
+    publishedAt: "2026-05-30",
+    readTimeMinutes: 6,
+    excerpt:
+      "Three meetings into 2026 the Fed has held at 3.50–3.75% with dissents in both directions and one cut penciled into the dot plot. Rates are the single macro variable that most reliably reorders which factor gets paid — here's the regime-by-regime read on all five QScore factors and how to tilt without overtrading.",
+    Body: FedRatesQuantInvestingBody,
   },
 ];
 
