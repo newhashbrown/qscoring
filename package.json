@@ -15,6 +15,8 @@
     "weekly-recap": "tsx scripts/build-weekly-recap.ts",
     "backfill-snapshots": "tsx scripts/backfill-snapshots.ts",
     "cross-check": "tsx scripts/cross-check-massive.ts",
+    "research:export": "tsx scripts/research/export-factor-panel.ts",
+    "research:lookahead": "tsx scripts/research/lookahead-check.ts",
     "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts"
   },
   "dependencies": {

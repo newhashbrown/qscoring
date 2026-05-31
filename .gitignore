@@ -39,3 +39,8 @@ next-env.d.ts
 # OpenNext
 .open-next/
 .wrangler/
+
+# Research harness (offline) — generated panels + Python venv
+research/data/
+research/.venv/
+__pycache__/
