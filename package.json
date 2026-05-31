@@ -17,7 +17,7 @@
     "cross-check": "tsx scripts/cross-check-massive.ts",
     "research:export": "tsx scripts/research/export-factor-panel.ts",
     "research:lookahead": "tsx scripts/research/lookahead-check.ts",
-    "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts"
+    "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts lib/scoring/momentum-factor.test.ts lib/scoring/risk-factor.test.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.4.1",

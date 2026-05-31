@@ -231,10 +231,16 @@ export default function MethodologyPage() {
         <section id="combining">
           <h2>3. How factors combine into a composite</h2>
           <p>
-            The math is deliberately simple — Chan&apos;s rule of thumb in <em>Quantitative
-            Trading</em> (2008) is to keep free parameters under five, so backtest results have a
-            chance of holding up out-of-sample. Z-score normalization gives us essentially zero
-            free parameters per metric, with the remaining choices being the category weights below.
+            The math is deliberately simple. Chan&apos;s rule of thumb in <em>Quantitative
+            Trading</em> (2008) is to keep <em>free</em> parameters under five — where a free
+            parameter is a degree of freedom <em>fitted to the data</em> (optimized on returns),
+            because each one fitted is another way to overfit a backtest. The QScore has
+            essentially none of those: z-score normalization fits nothing per metric, and the
+            category weights below are set <em>a-priori</em> — chosen from the published factor
+            literature, not tuned against historical returns — so they are not &ldquo;free
+            parameters&rdquo; in Chan&apos;s sense. That is a deliberate choice to keep the model
+            low-complexity and resistant to overfitting, at the cost of not squeezing every point
+            of in-sample performance out of the weights.
           </p>
           <ol className="numbered-list">
             <li>
