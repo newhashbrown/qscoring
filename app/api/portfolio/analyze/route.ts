@@ -19,10 +19,15 @@ type Body = {
   entries?: Array<{ ticker?: string; rawNumber?: number }>;
 };
 
+// Index the scoreboard by ticker once at module load instead of scanning all
+// ~800 picks per requested ticker. Turns the per-request lookup from
+// O(entries × picks) into O(entries).
+const scoreboardByTicker = new Map<string, ScoreboardPick>(
+  (scoreboardData.picks as ScoreboardPick[]).map((p) => [p.ticker, p])
+);
+
 function lookupInScoreboard(ticker: string): ScoreboardPick | null {
-  return (
-    (scoreboardData.picks as ScoreboardPick[]).find((p) => p.ticker === ticker) ?? null
-  );
+  return scoreboardByTicker.get(ticker) ?? null;
 }
 
 async function liveScore(ticker: string): Promise<ScoreboardPick | null> {
