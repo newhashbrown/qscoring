@@ -21,6 +21,11 @@ on:
     # reflect the prior trading day's close.
     - cron: '30 9 * * *'
   workflow_dispatch:
+    inputs:
+      force_run:
+        description: 'Run even on a non-trading day (weekend/holiday). Re-scores against the last close.'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -58,6 +63,10 @@ jobs:
           # warning and skips D1 persist — JSON commit still proceeds,
           # so missing this secret is non-fatal during onboarding.
           SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
+          # Manual override: dispatching with force_run=true bypasses the
+          # non-trading-day guard in build-strong-picks.ts. Empty on scheduled
+          # runs, so the weekend/holiday skip stays in effect there.
+          FORCE_RUN: ${{ inputs.force_run && '1' || '' }}
 
       - name: Commit and push if changed
         id: commit
