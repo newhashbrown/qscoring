@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { searchSymbols } from "@/lib/scoring/search";
+import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
 
 export const revalidate = 3600;
 
 export async function GET(req: Request) {
+  const rl = getRateLimitEnv();
+  if (!(await allow(rl?.FMP_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+
   const { searchParams } = new URL(req.url);
   const query = (searchParams.get("q") ?? "").trim();
   if (!query) {

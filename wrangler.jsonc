@@ -44,6 +44,35 @@
       "id": "01371c4242dc4daf9f52f118f7c0a644"
     }
   ],
+  // Workers Rate Limiting bindings (period must be 10 or 60s). Used by the
+  // unauthenticated abuse-prone endpoints — see lib/ratelimit.ts and the
+  // routes under app/api/{subscribe,watch,portfolio/analyze,search,score,history}.
+  "ratelimits": [
+    {
+      // Per-IP throttle on the email endpoints (subscribe + watch)
+      "name": "EMAIL_IP_LIMITER",
+      "namespace_id": "2001",
+      "simple": { "limit": 5, "period": 60 }
+    },
+    {
+      // Per-recipient throttle — stops bombing one victim address
+      "name": "EMAIL_RECIPIENT_LIMITER",
+      "namespace_id": "2002",
+      "simple": { "limit": 3, "period": 60 }
+    },
+    {
+      // Strict per-IP budget for the expensive fan-out endpoint (portfolio/analyze)
+      "name": "ANALYZE_IP_LIMITER",
+      "namespace_id": "2003",
+      "simple": { "limit": 5, "period": 60 }
+    },
+    {
+      // Looser per-IP budget for the edge-cached FMP read endpoints (search/score/history)
+      "name": "FMP_IP_LIMITER",
+      "namespace_id": "2004",
+      "simple": { "limit": 30, "period": 60 }
+    }
+  ],
   "observability": {
     "enabled": true
   }

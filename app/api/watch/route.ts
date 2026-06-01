@@ -6,6 +6,7 @@ import {
   watchConfirmSubject,
   watchConfirmText,
 } from "@/lib/email/watchlist-confirm";
+import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
@@ -38,6 +39,12 @@ export async function POST(req: Request) {
   if (!ticker || !TICKER_RE.test(ticker)) {
     return NextResponse.json({ ok: false, error: "Invalid ticker" }, { status: 400 });
   }
+
+  // Rate limit before any DB write or email send: per-IP to stop floods, and
+  // per-recipient to stop bombing one address with our confirmation mail.
+  const rl = getRateLimitEnv();
+  if (!(await allow(rl?.EMAIL_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+  if (!(await allow(rl?.EMAIL_RECIPIENT_LIMITER, email))) return tooManyRequests();
 
   let cf;
   try {
