@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
 import { scoreTicker } from "@/lib/scoring";
+import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
 
 export const revalidate = 900;
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ ticker: string }> }
 ) {
+  const rl = getRateLimitEnv();
+  if (!(await allow(rl?.FMP_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+
   const { ticker } = await params;
   try {
     const result = await scoreTicker(ticker);
