@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T12:06:32.034Z",
+  "generatedAt": "2026-06-01T15:40:14.352Z",
   "universeSize": 800,
   "entries": [
     {
@@ -51,6 +51,16 @@
       "symbol": "ABT",
       "name": "Abbott Laboratories",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "ACGL",
+      "name": "Arch Capital Group Ltd.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "ACN",
+      "name": "Accenture plc",
+      "sector": "Technology"
     },
     {
       "symbol": "ACWI",
@@ -273,6 +283,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "AON",
+      "name": "Aon plc",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "APD",
       "name": "Air Products and Chemicals, Inc.",
       "sector": "Basic Materials"
@@ -298,6 +313,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "ASML",
+      "name": "ASML Holding N.V.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ASTS",
       "name": "AST SpaceMobile, Inc.",
       "sector": "Technology"
@@ -306,11 +326,6 @@
       "symbol": "ATO",
       "name": "Atmos Energy Corporation",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "AULDX",
-      "name": "American Century Ultra Fund",
-      "sector": "Financial Services"
     },
     {
       "symbol": "AVGO",
@@ -722,6 +737,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CRH",
+      "name": "CRH plc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
@@ -762,6 +782,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CTSH",
+      "name": "Cognizant Technology Solutions Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
       "sector": "Basic Materials"
@@ -780,11 +805,6 @@
       "symbol": "CVX",
       "name": "Chevron Corporation",
       "sector": "Energy"
-    },
-    {
-      "symbol": "CW",
-      "name": "Curtiss-Wright Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "CWGFX",
@@ -947,11 +967,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "EIX",
-      "name": "Edison International",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "EL",
       "name": "The Estée Lauder Companies Inc.",
       "sector": "Consumer Defensive"
@@ -1005,6 +1020,11 @@
       "symbol": "ET",
       "name": "Energy Transfer LP",
       "sector": "Energy"
+    },
+    {
+      "symbol": "ETN",
+      "name": "Eaton Corporation plc",
+      "sector": "Industrials"
     },
     {
       "symbol": "ETR",
@@ -1135,11 +1155,6 @@
       "symbol": "FDX",
       "name": "FedEx Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "FE",
-      "name": "FirstEnergy Corp.",
-      "sector": "Utilities"
     },
     {
       "symbol": "FEGRX",
@@ -1372,11 +1387,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FTAI",
-      "name": "FTAI Aviation Ltd.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "FTBFX",
       "name": "Fidelity Total Bond",
       "sector": "Financial Services"
@@ -1544,16 +1554,6 @@
     {
       "symbol": "GTOP",
       "name": "Goldman Sachs Technology Opportunities ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GWPEX",
-      "name": "American Funds Growth Portfolio F2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GWPFX",
-      "name": "American Funds Growth Portfolio Class F-1",
       "sector": "Financial Services"
     },
     {
@@ -1770,6 +1770,11 @@
       "symbol": "JCBZX",
       "name": "JPMorgan Core Bond Fund Class R2",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "JCI",
+      "name": "Johnson Controls International plc",
+      "sector": "Industrials"
     },
     {
       "symbol": "JDBAX",
@@ -2055,6 +2060,11 @@
       "symbol": "MDLZ",
       "name": "Mondelez International, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "MDT",
+      "name": "Medtronic plc",
+      "sector": "Healthcare"
     },
     {
       "symbol": "MEIAX",
@@ -2382,11 +2392,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OTIS",
-      "name": "Otis Worldwide Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "OWLSX",
       "name": "Old Westbury Large Cap Strategies",
       "sector": "Financial Services"
@@ -2395,6 +2400,11 @@
       "symbol": "OXY",
       "name": "Occidental Petroleum Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "P",
+      "name": "Everpure, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "PABGX",
@@ -2525,11 +2535,6 @@
       "symbol": "PONPX",
       "name": "PIMCO Income Fund",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "PPL",
-      "name": "PPL Corporation",
-      "sector": "Utilities"
     },
     {
       "symbol": "PPLC",
@@ -2892,6 +2897,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "RYAAY",
+      "name": "Ryanair Holdings plc",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "SATA",
       "name": "Strive, Inc. Variable Rate Series A Perpetual Preferred Stock",
       "sector": "Financial Services"
@@ -3002,6 +3012,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "SPOT",
+      "name": "Spotify Technology S.A.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "SRE",
       "name": "Sempra",
       "sector": "Utilities"
@@ -3082,6 +3097,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "TEL",
+      "name": "TE Connectivity Ltd.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TEQWX",
       "name": "Nuveen Equity Index W",
       "sector": "Financial Services"
@@ -3100,16 +3120,6 @@
       "symbol": "TGT",
       "name": "Target Corporation",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TIBIX",
-      "name": "Thornburg Investment Income Builder Fund Class I",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TIBMX",
-      "name": "Thornburg Investment Income Builder Fund Class R5",
-      "sector": "Financial Services"
     },
     {
       "symbol": "TIEIX",
@@ -3135,11 +3145,6 @@
       "symbol": "TMUS",
       "name": "T-Mobile US, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "TPL",
-      "name": "Texas Pacific Land Corporation",
-      "sector": "Energy"
     },
     {
       "symbol": "TPR",
@@ -3212,9 +3217,19 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "TS",
+      "name": "Tenaris S.A.",
+      "sector": "Energy"
+    },
+    {
       "symbol": "TSLA",
       "name": "Tesla, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "TT",
+      "name": "Trane Technologies plc",
+      "sector": "Industrials"
     },
     {
       "symbol": "TTWO",
@@ -3222,24 +3237,9 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TWCCX",
-      "name": "American Century Ultra Fund C Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TWCUX",
-      "name": "American Century Ultra Investor Class",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "TWUIX",
-      "name": "American Century Ultra Fund - I Class",
-      "sector": "Financial Services"
     },
     {
       "symbol": "TXN",
