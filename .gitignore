@@ -44,3 +44,6 @@ next-env.d.ts
 research/data/
 research/.venv/
 __pycache__/
+
+# Local design/scratch artifacts (Stitch screenshots, dev logs)
+.stitch/
