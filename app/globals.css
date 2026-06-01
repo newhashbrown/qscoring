@@ -4032,7 +4032,7 @@ footer .footer-links .sep {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--accent);
+  color: var(--gold-bright);
   margin-bottom: 14px;
 }
 .pricing h1 {
@@ -4070,8 +4070,8 @@ footer .footer-links .sep {
 }
 .pricing-card:hover { border-color: rgba(255, 255, 255, 0.16); }
 .pricing-card.featured {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent), 0 8px 40px var(--accent-glow);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold), 0 8px 40px var(--gold-soft);
   transform: translateY(-6px);
 }
 .pricing-pill {
@@ -4079,8 +4079,8 @@ footer .footer-links .sep {
   top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--gold);
+  color: var(--on-gold);
   font-size: 0.66rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -4157,13 +4157,14 @@ footer .footer-links .sep {
   transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s, border-color 0.15s, color 0.15s;
 }
 .pricing-btn.primary {
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--gold);
+  color: var(--on-gold);
   font-weight: 700;
 }
 .pricing-btn.primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px var(--accent-glow);
+  background: var(--gold-bright);
+  box-shadow: 0 4px 20px var(--gold-soft);
 }
 .pricing-btn.outline {
   background: transparent;
@@ -4171,8 +4172,8 @@ footer .footer-links .sep {
   border: 1px solid var(--border);
 }
 .pricing-btn.outline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--gold);
+  color: var(--gold-bright);
 }
 
 /* Compare table */
