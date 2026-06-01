@@ -1,14 +1,18 @@
 import { NextResponse } from "next/server";
 import { fmp } from "@/lib/scoring/fmp";
+import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
 
 export const revalidate = 900;
 
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 
 export async function GET(
-  _req: Request,
+  req: Request,
   { params }: { params: Promise<{ ticker: string }> }
 ) {
+  const rl = getRateLimitEnv();
+  if (!(await allow(rl?.FMP_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+
   const { ticker } = await params;
   const cleaned = ticker.toUpperCase();
   if (!TICKER_RE.test(cleaned)) {

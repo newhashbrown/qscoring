@@ -9,6 +9,7 @@ import {
 } from "@/lib/portfolio";
 import scoreboardData from "@/data/scoreboard.json";
 import type { ScoreboardPick } from "@/data/categories";
+import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
 
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 const SCORING_CONCURRENCY = 4;
@@ -76,6 +77,11 @@ async function withConcurrency<T, R>(
 }
 
 export async function POST(req: Request) {
+  // Strict per-IP budget — this endpoint fans out to many FMP calls per
+  // request, so it's the most expensive abuse target. Check before any work.
+  const rl = getRateLimitEnv();
+  if (!(await allow(rl?.ANALYZE_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+
   let body: Body;
   try {
     body = (await req.json()) as Body;

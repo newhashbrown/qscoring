@@ -7,6 +7,7 @@ import {
   adminNotifySubject,
   adminNotifyText,
 } from "@/lib/email/admin-notify";
+import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const ALLOWED_SOURCES = new Set(["waitlist", "early_access", "score_page", "footer"]);
@@ -33,6 +34,12 @@ export async function POST(req: Request) {
   if (!email || email.length > MAX_EMAIL_LEN || !EMAIL_RE.test(email)) {
     return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
   }
+
+  // Rate limit before any DB write or email send: per-IP to stop floods, and
+  // per-recipient to stop bombing one address with our branded mail.
+  const rl = getRateLimitEnv();
+  if (!(await allow(rl?.EMAIL_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+  if (!(await allow(rl?.EMAIL_RECIPIENT_LIMITER, email))) return tooManyRequests();
 
   const source = ALLOWED_SOURCES.has(body.source ?? "")
     ? (body.source as string)
