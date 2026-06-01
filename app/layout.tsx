@@ -1,9 +1,19 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import { Suspense } from "react";
 import MarketStrip from "./components/MarketStrip";
 import "./globals.css";
+
+// Google Analytics 4 measurement ID. Not a secret — it ships to the client
+// on every page — so it lives inline rather than in an env var.
+const GA_MEASUREMENT_ID = "G-QYFXX5T71Z";
+
+// Only load GA in production builds so local dev and preview traffic never
+// pollutes the analytics property. NODE_ENV is "development" under `next dev`
+// and "production" in the deployed Cloudflare build.
+const GA_ENABLED = process.env.NODE_ENV === "production";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -77,6 +87,25 @@ export default function RootLayout({
           </Suspense>
           {children}
         </ClerkProvider>
+
+        {/* Google Analytics (gtag.js) — production only, afterInteractive so
+            it never blocks first paint. Loads site-wide via the root layout. */}
+        {GA_ENABLED && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );
