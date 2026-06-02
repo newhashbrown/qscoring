@@ -42,20 +42,14 @@ export const metadata: Metadata = {
     siteName: "QScoring",
     type: "website",
   },
-};
-
-// Site-wide Organization schema — gives Google a stable entity to attach
-// brand-name SERPs, Knowledge Graph entries, and logo rich results to.
-// Finance is YMYL, so entity recognition matters more than for generic sites.
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": "https://qscoring.com/#org",
-  name: "QScoring",
-  url: "https://qscoring.com",
-  logo: "https://qscoring.com/logo.png",
-  description:
-    "Quantitative stock scoring with transparent methodology: value, growth, momentum, profitability, and risk factors combined into a single QScore.",
+  // Site-wide default Twitter card. Pages with their own image (score pages,
+  // the homepage opengraph-image) override twitter:image automatically.
+  twitter: {
+    card: "summary_large_image",
+    title: "QScoring — Instant Quant Scores for Any Stock",
+    description:
+      "Data-driven Quant Scores and clear buy, hold, or short signals for any US stock.",
+  },
 };
 
 export default function RootLayout({
@@ -71,14 +65,13 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/logo.png"
+          href="/logo.webp"
           fetchPriority="high"
         />
         <ClerkProvider>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-          />
+          {/* Brand/entity JSON-LD (Organization + WebSite) renders on the
+              homepage only — see app/page.tsx — so the entity schema isn't
+              duplicated on every route. */}
           {/* Market context strip — toggled by MARKET_STRIP_ENABLED in
               lib/feature-flags.ts. Wrapped in Suspense so a slow FMP
               response never blocks the rest of the page render. */}

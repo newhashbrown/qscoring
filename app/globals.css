@@ -4317,3 +4317,15 @@ footer .footer-links .sep {
   .pricing { padding-top: 100px; }
   .pricing-price .amount { font-size: 2.2rem; }
 }
+
+/* Homepage hero brand eyebrow — keeps "QScoring" in the <h1> for the brand
+   term without overpowering the tagline. Gold = chrome, per the design system. */
+.hero-brand {
+  display: block;
+  font-size: clamp(0.85rem, 0.7rem + 0.6vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: 14px;
+}

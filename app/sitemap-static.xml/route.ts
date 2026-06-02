@@ -11,6 +11,7 @@ export async function GET() {
   // publicly stated this) — keep only loc and lastmod.
   const xml = urlsetXml([
     { loc: `${SITE}/`, lastmod: today },
+    { loc: `${SITE}/about`, lastmod: today },
     { loc: `${SITE}/score`, lastmod: today },
     { loc: `${SITE}/how-it-works`, lastmod: today },
     { loc: `${SITE}/methodology`, lastmod: today },

@@ -63,7 +63,7 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
             the unmodified source PNG without edge caching. Preload tag
             for this asset lives in app/layout.tsx. */}
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt="QScoring"
           width={251}
           height={120}
