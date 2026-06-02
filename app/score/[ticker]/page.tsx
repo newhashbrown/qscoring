@@ -5,6 +5,7 @@ import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
 import WatchButton from "@/app/components/WatchButton";
+import OnboardingBanner from "@/app/components/OnboardingBanner";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
 import { findBestMatch } from "@/lib/scoring/search";
 export const revalidate = 900;
@@ -223,6 +224,7 @@ export default async function TickerScorePage({
       <ScoreNav ticker={ticker} />
 
       <main>
+        <OnboardingBanner />
         <ScoreView data={result} />
         <WatchButton ticker={result.ticker} />
         <div className="commentary-wrap">
