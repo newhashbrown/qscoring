@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import { Suspense } from "react";
 import MarketStrip from "./components/MarketStrip";
+import CookieConsent from "./components/CookieConsent";
 import "./globals.css";
 
 // Google Analytics 4 measurement ID. Not a secret — it ships to the client
@@ -95,9 +96,8 @@ export default function RootLayout({
                 function gtag(){dataLayer.push(arguments);}
 
                 // Consent Mode v2 defaults — set BEFORE gtag('js')/config.
-                // Everything starts denied; a cookie banner must call
-                // gtag('consent','update',{...}) to grant it (see PR notes —
-                // no banner exists yet, so GA runs cookieless until one does).
+                // Everything starts denied; the CookieConsent banner calls
+                // gtag('consent','update',{...}) to grant it on user accept.
                 gtag('consent', 'default', {
                   'analytics_storage': 'denied',
                   'ad_storage': 'denied',
@@ -112,6 +112,10 @@ export default function RootLayout({
             </Script>
           </>
         )}
+
+        {/* Consent banner (Step 2) — calls gtag('consent','update',{...}) on
+            the user's choice and persists it. Renders site-wide. */}
+        <CookieConsent />
       </body>
     </html>
   );

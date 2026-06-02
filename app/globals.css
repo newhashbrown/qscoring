@@ -4436,3 +4436,60 @@ footer .footer-links .sep {
   .onboarding-grid { grid-template-columns: 1fr; gap: 16px; }
   .onboarding-banner { padding: 16px 18px; }
 }
+
+/* Cookie consent banner (Consent Mode v2 — Step 2). Gold = chrome per the
+   design system; fixed bottom, non-blocking. */
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 200;
+  width: calc(100% - 32px);
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+}
+.cookie-banner-text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  flex: 1;
+}
+.cookie-banner-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.cookie-btn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--dur-base), border-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast);
+}
+.cookie-btn.accept {
+  background: var(--gold);
+  color: var(--on-gold);
+  border: none;
+}
+.cookie-btn.accept:hover { background: var(--gold-bright); transform: translateY(-1px); }
+.cookie-btn.decline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.cookie-btn.decline:hover { border-color: var(--text-dim); }
+
+@media (max-width: 560px) {
+  .cookie-banner { flex-direction: column; align-items: stretch; gap: 12px; }
+  .cookie-banner-actions { justify-content: flex-end; }
+}
