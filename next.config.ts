@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Canonical URL shape: no trailing slash (the default, set explicitly so
+  // /foo and /foo/ never both resolve). The www/http → https://qscoring.com
+  // 301s are a Cloudflare redirect rule, not a Next concern.
+  trailingSlash: false,
   // Cloudflare Workers can't run Sharp, so the /_next/image endpoint
   // returns source bytes unchanged but pays a Worker hop AND loses
   // edge caching (no cf-cache-status on the response). Disabling

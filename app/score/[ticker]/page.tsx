@@ -239,7 +239,9 @@ export default async function TickerScorePage({
             <span className="sep" aria-hidden="true">·</span>
             <Link href="/score">Score another ticker</Link>
             <span className="sep" aria-hidden="true">·</span>
-            <Link href="/">Home</Link>
+            <Link href="/about">About</Link>
+            <span className="sep" aria-hidden="true">·</span>
+            <Link href="/">QScoring</Link>
           </p>
         </nav>
         <p className="disclaimer">

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import DemoCard from "./components/DemoCard";
 import EmailForm from "./components/EmailForm";
@@ -17,9 +18,77 @@ const FACTOR_SAMPLES = [
 // Refresh the live NVDA demo score at most once per hour.
 export const revalidate = 3600;
 
+// Homepage-specific metadata. metadataBase lives in app/layout.tsx; the
+// canonical pins every variant (www / http / trailing-slash) to one URL —
+// the redirect half is a Cloudflare rule (see PR description).
+export const metadata: Metadata = {
+  title: "QScoring — Quantitative Stock Scoring & Buy/Hold/Short Signals",
+  description:
+    "QScoring is a quantitative stock-scoring tool. Enter any US ticker for an instant QScore across value, growth, momentum, profitability, and risk — with a clear buy, hold, or short signal.",
+  alternates: { canonical: "https://qscoring.com" },
+  openGraph: {
+    title: "QScoring — Quantitative Stock Scoring & Buy/Hold/Short Signals",
+    description:
+      "Instant quantitative stock scores and clear buy, hold, or short signals across five factors.",
+    url: "https://qscoring.com",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QScoring — Quantitative Stock Scoring & Buy/Hold/Short Signals",
+    description:
+      "Instant quantitative stock scores and clear buy, hold, or short signals.",
+  },
+};
+
+// Brand entity schema — homepage only (moved out of layout.tsx so it isn't
+// duplicated on every route). Organization + WebSite establish "QScoring" as
+// the brand and disambiguate it from the "q scoring" autocorrect.
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://qscoring.com/#org",
+  name: "QScoring",
+  alternateName: ["Q Scoring", "QScoring.com"],
+  url: "https://qscoring.com",
+  logo: "https://qscoring.com/logo.png",
+  description:
+    "Quantitative stock scoring with transparent methodology: value, growth, momentum, profitability, and risk factors combined into a single QScore.",
+  // sameAs — drop real social profile URLs here as they go live, e.g.:
+  //   "https://x.com/qscoring", "https://www.linkedin.com/company/qscoring"
+  sameAs: [] as string[],
+};
+
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://qscoring.com/#website",
+  name: "QScoring",
+  alternateName: ["Q Scoring", "QScoring.com"],
+  url: "https://qscoring.com",
+  publisher: { "@id": "https://qscoring.com/#org" },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://qscoring.com/score/{search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+      />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
 
@@ -28,14 +97,16 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <h1>
+          <span className="hero-brand">QScoring</span>
           One ticker.
           <br />
           One <span className="accent">score</span>.<br />
           One clear signal.
         </h1>
         <p className="sub">
-          Enter any stock ticker and get an instant Quant Score powered by value, growth,
-          momentum, profitability, and risk factors — with a clear buy, hold, or short signal.
+          <strong>QScoring</strong> is a quantitative stock-scoring tool. Enter any US-listed
+          ticker and get an instant QScore — built from value, growth, momentum, profitability,
+          and risk factors — with a clear buy, hold, or short signal.
         </p>
         <TickerSearch size="full" />
       </section>
@@ -189,6 +260,8 @@ export default function Home() {
       <footer>
         <nav aria-label="Footer">
           <p className="footer-links">
+            <a href="/about">About QScoring</a>
+            <span className="sep" aria-hidden="true">·</span>
             <a href="/methodology">Methodology</a>
             <span className="sep" aria-hidden="true">·</span>
             <a href="/performance">Performance</a>
