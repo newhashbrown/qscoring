@@ -12,19 +12,21 @@ const STORAGE_KEY = "qs_cookie_consent"; // "granted" | "denied"
 declare global {
   interface Window {
     dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
 function updateConsent(value: "granted" | "denied") {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
-  // Mirror Google's gtag() exactly (pushes the arguments object) so this works
-  // whether or not gtag.js has loaded yet, and harmlessly queues in dev where
-  // the GA tag isn't rendered.
-  function gtag() {
-    // eslint-disable-next-line prefer-rest-params
-    window.dataLayer!.push(arguments);
-  }
+  // Prefer the page's real gtag() (defined by the GA snippet in layout.tsx)
+  // for identical behavior; fall back to the standard dataLayer shim (pushes
+  // the arguments object) when gtag.js hasn't loaded yet or in dev.
+  const gtag: (...args: unknown[]) => void =
+    window.gtag ??
+    function () {
+      window.dataLayer!.push(arguments);
+    };
   gtag("consent", "update", {
     analytics_storage: value,
     ad_storage: value,
