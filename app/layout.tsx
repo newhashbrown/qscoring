@@ -93,6 +93,19 @@ export default function RootLayout({
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
+
+                // Consent Mode v2 defaults — set BEFORE gtag('js')/config.
+                // Everything starts denied; a cookie banner must call
+                // gtag('consent','update',{...}) to grant it (see PR notes —
+                // no banner exists yet, so GA runs cookieless until one does).
+                gtag('consent', 'default', {
+                  'analytics_storage': 'denied',
+                  'ad_storage': 'denied',
+                  'ad_user_data': 'denied',
+                  'ad_personalization': 'denied',
+                  'wait_for_update': 500
+                });
+
                 gtag('js', new Date());
                 gtag('config', '${GA_MEASUREMENT_ID}');
               `}
