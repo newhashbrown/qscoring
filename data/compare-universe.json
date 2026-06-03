@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-01T15:40:14.352Z",
+  "generatedAt": "2026-06-03T14:12:53.884Z",
   "universeSize": 800,
   "entries": [
     {
@@ -727,11 +727,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "CRCL",
-      "name": "Circle Internet Group",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CRDO",
       "name": "Credo Technology Group Holding Ltd",
       "sector": "Technology"
@@ -772,19 +767,9 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CTA-PA",
-      "name": "EIDP, Inc.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "CTSH",
-      "name": "Cognizant Technology Solutions Corporation",
-      "sector": "Technology"
     },
     {
       "symbol": "CTVA",
@@ -964,6 +949,11 @@
     {
       "symbol": "ED",
       "name": "Consolidated Edison, Inc.",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "EIX",
+      "name": "Edison International",
       "sector": "Utilities"
     },
     {
@@ -1327,11 +1317,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FRDAX",
-      "name": "Franklin Rising Dividends Fund",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FRDPX",
       "name": "Franklin Rising Dividends Fund",
       "sector": "Financial Services"
@@ -1379,6 +1364,11 @@
     {
       "symbol": "FSPSX",
       "name": "Fidelity Concord Street Trust - Fidelity International Index Fund",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "FSPTX",
+      "name": "Fidelity Select Technology Portfolio",
       "sector": "Financial Services"
     },
     {
@@ -2392,6 +2382,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "OTIS",
+      "name": "Otis Worldwide Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "OWLSX",
       "name": "Old Westbury Large Cap Strategies",
       "sector": "Financial Services"
@@ -2400,11 +2395,6 @@
       "symbol": "OXY",
       "name": "Occidental Petroleum Corporation",
       "sector": "Energy"
-    },
-    {
-      "symbol": "P",
-      "name": "Everpure, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "PABGX",
@@ -3037,6 +3027,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "STRL",
+      "name": "Sterling Infrastructure, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "STT",
       "name": "State Street Corporation",
       "sector": "Financial Services"
@@ -3640,6 +3635,11 @@
       "symbol": "VPMCX",
       "name": "Vanguard PRIMECAP Fund Investor Shares",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "VRSN",
+      "name": "VeriSign, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VRT",
