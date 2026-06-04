@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-03T14:12:53.884Z",
+  "generatedAt": "2026-06-04T12:26:40.315Z",
   "universeSize": 800,
   "picks": [
     {
       "ticker": "EIX",
       "companyName": "Edison International",
       "sector": "Utilities",
-      "price": 72.33,
-      "changePercent": 1.98816,
-      "composite": 67,
+      "price": 70.86,
+      "changePercent": -0.08460237,
+      "composite": 66,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 66,
-      "shortTermScore": 67,
+      "shortTermScore": 65,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 78
+          "score": 79
         },
         {
           "name": "growth",
@@ -27,7 +27,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 74
+          "score": 68
         },
         {
           "name": "profitability",
@@ -45,18 +45,18 @@
       "ticker": "EQT",
       "companyName": "EQT Corporation",
       "sector": "Energy",
-      "price": 54.925,
-      "changePercent": 0.44806,
+      "price": 54.47,
+      "changePercent": -0.38405,
       "composite": 63,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 69,
+      "longTermScore": 68,
       "shortTermScore": 57,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 65
+          "score": 62
         },
         {
           "name": "growth",
@@ -66,12 +66,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 39
+          "score": 40
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 72
+          "score": 69
         },
         {
           "name": "risk",
@@ -81,11 +81,50 @@
       ]
     },
     {
+      "ticker": "MS",
+      "companyName": "Morgan Stanley",
+      "sector": "Financial Services",
+      "price": 210.176,
+      "changePercent": -2.23463,
+      "composite": 62,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "MEDIUM",
+      "longTermScore": 55,
+      "shortTermScore": 69,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 55
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 68
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 93
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 45
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 46
+        }
+      ]
+    },
+    {
       "ticker": "MU",
       "companyName": "Micron Technology, Inc.",
       "sector": "Technology",
-      "price": 1046.8625,
-      "changePercent": -1.61991,
+      "price": 1079.57,
+      "changePercent": 1.45381,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -105,7 +144,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 88
+          "score": 87
         },
         {
           "name": "profitability",
@@ -115,46 +154,7 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 32
-        }
-      ]
-    },
-    {
-      "ticker": "MS",
-      "companyName": "Morgan Stanley",
-      "sector": "Financial Services",
-      "price": 210.47,
-      "changePercent": -2.09787,
-      "composite": 61,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 55,
-      "shortTermScore": 68,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 54
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 66
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 90
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 45
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 46
+          "score": 33
         }
       ]
     },
@@ -162,13 +162,13 @@
       "ticker": "SPG",
       "companyName": "Simon Property Group, Inc.",
       "sector": "Real Estate",
-      "price": 204.925,
-      "changePercent": 0.6854,
+      "price": 203.55,
+      "changePercent": 0.00982284,
       "composite": 61,
-      "signal": "BUY_SHORT_TERM",
+      "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 61,
-      "shortTermScore": 62,
+      "shortTermScore": 61,
       "categories": [
         {
           "name": "value",
@@ -183,7 +183,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 66
+          "score": 65
         },
         {
           "name": "profitability",
@@ -194,6 +194,162 @@
           "name": "risk",
           "label": "Risk",
           "score": 57
+        }
+      ]
+    },
+    {
+      "ticker": "VHCAX",
+      "companyName": "Vanguard Capital Opportunity Fund Admiral Shares",
+      "sector": "Financial Services",
+      "price": 272.49,
+      "changePercent": 0.15805,
+      "composite": 61,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "LOW",
+      "longTermScore": 54,
+      "shortTermScore": 68,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 50
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 89
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 58
+        }
+      ]
+    },
+    {
+      "ticker": "VHCOX",
+      "companyName": "Vanguard Capital Opportunity Fund Investor Shares",
+      "sector": "Financial Services",
+      "price": 118.08,
+      "changePercent": 0.15267,
+      "composite": 61,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "LOW",
+      "longTermScore": 54,
+      "shortTermScore": 68,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 50
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 89
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 58
+        }
+      ]
+    },
+    {
+      "ticker": "VPMAX",
+      "companyName": "Vanguard PRIMECAP Fund Admiral Shares",
+      "sector": "Financial Services",
+      "price": 232.41,
+      "changePercent": 0.194,
+      "composite": 61,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "LOW",
+      "longTermScore": 54,
+      "shortTermScore": 67,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 50
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 87
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 60
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "companyName": "Apple Inc.",
+      "sector": "Technology",
+      "price": 310.26,
+      "changePercent": -1.56726,
+      "composite": 60,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "MEDIUM",
+      "longTermScore": 59,
+      "shortTermScore": 61,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 48
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 42
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 54
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 64
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 85
         }
       ]
     },
@@ -217,7 +373,7 @@
         {
           "name": "growth",
           "label": "Growth",
-          "score": 62
+          "score": 63
         },
         {
           "name": "momentum",
@@ -240,13 +396,13 @@
       "ticker": "BNY",
       "companyName": "Bank of New York Mellon Corp",
       "sector": "Financial Services",
-      "price": 140.565,
-      "changePercent": -0.50609,
+      "price": 140.57,
+      "changePercent": -0.50255,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 53,
-      "shortTermScore": 67,
+      "shortTermScore": 68,
       "categories": [
         {
           "name": "value",
@@ -256,12 +412,12 @@
         {
           "name": "growth",
           "label": "Growth",
-          "score": 62
+          "score": 63
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 82
+          "score": 84
         },
         {
           "name": "profitability",
@@ -279,8 +435,8 @@
       "ticker": "DAL",
       "companyName": "Delta Air Lines, Inc.",
       "sector": "Industrials",
-      "price": 79.345,
-      "changePercent": -0.84354,
+      "price": 78.78,
+      "changePercent": -1.54961,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -290,17 +446,17 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 65
+          "score": 66
         },
         {
           "name": "growth",
           "label": "Growth",
-          "score": 52
+          "score": 51
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 71
+          "score": 68
         },
         {
           "name": "profitability",
@@ -310,163 +466,7 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 59
-        }
-      ]
-    },
-    {
-      "ticker": "VHCAX",
-      "companyName": "Vanguard Capital Opportunity Fund Admiral Shares",
-      "sector": "Financial Services",
-      "price": 272.06,
-      "changePercent": 0.74804,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "LOW",
-      "longTermScore": 53,
-      "shortTermScore": 67,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 50
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 50
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 87
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 58
-        }
-      ]
-    },
-    {
-      "ticker": "VHCOX",
-      "companyName": "Vanguard Capital Opportunity Fund Investor Shares",
-      "sector": "Financial Services",
-      "price": 117.9,
-      "changePercent": 0.752,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "LOW",
-      "longTermScore": 53,
-      "shortTermScore": 67,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 50
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 50
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 87
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 58
-        }
-      ]
-    },
-    {
-      "ticker": "VPMAX",
-      "companyName": "Vanguard PRIMECAP Fund Admiral Shares",
-      "sector": "Financial Services",
-      "price": 231.96,
-      "changePercent": 0.35042,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "LOW",
-      "longTermScore": 54,
-      "shortTermScore": 66,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 50
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 50
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 85
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 60
-        }
-      ]
-    },
-    {
-      "ticker": "VPMCX",
-      "companyName": "Vanguard PRIMECAP Fund Investor Shares",
-      "sector": "Financial Services",
-      "price": 223.92,
-      "changePercent": 0.34956,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "LOW",
-      "longTermScore": 54,
-      "shortTermScore": 66,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 50
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 50
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 85
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 60
+          "score": 61
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T14:12:53.884Z",
+  "generatedAt": "2026-06-04T12:26:40.315Z",
   "universeSize": 800,
   "entries": [
     {
@@ -792,6 +792,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "CW",
+      "name": "Curtiss-Wright Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "CWGFX",
       "name": "American Funds Capital World Growth & Income Fund Class F-1 Shs",
       "sector": "Financial Services"
@@ -1317,6 +1322,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FRDAX",
+      "name": "Franklin Rising Dividends Fund",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FRDPX",
       "name": "Franklin Rising Dividends Fund",
       "sector": "Financial Services"
@@ -1364,11 +1374,6 @@
     {
       "symbol": "FSPSX",
       "name": "Fidelity Concord Street Trust - Fidelity International Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSPTX",
-      "name": "Fidelity Select Technology Portfolio",
       "sector": "Financial Services"
     },
     {
@@ -1669,11 +1674,6 @@
     {
       "symbol": "INTU",
       "name": "Intuit Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "IONQ",
-      "name": "IonQ, Inc.",
       "sector": "Technology"
     },
     {
@@ -2382,11 +2382,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OTIS",
-      "name": "Otis Worldwide Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "OWLSX",
       "name": "Old Westbury Large Cap Strategies",
       "sector": "Financial Services"
@@ -2395,6 +2390,11 @@
       "symbol": "OXY",
       "name": "Occidental Petroleum Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "P",
+      "name": "Everpure, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "PABGX",
@@ -3142,6 +3142,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "TPL",
+      "name": "Texas Pacific Land Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "TPR",
       "name": "Tapestry, Inc.",
       "sector": "Consumer Cyclical"
@@ -3189,11 +3194,6 @@
     {
       "symbol": "TRRCX",
       "name": "T. Rowe Price Retirement 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TRRDX",
-      "name": "T. Rowe Price Retirement 2040 Fund",
       "sector": "Financial Services"
     },
     {
