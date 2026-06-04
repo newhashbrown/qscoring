@@ -14,6 +14,20 @@ export const metadata = {
   description:
     "Plain-English explainers on QScore methodology, factor investing fundamentals, head-to-head stock comparisons, and individual financial metrics — all linked to live ticker scores.",
   alternates: { canonical: "https://qscoring.com/blog" },
+  openGraph: {
+    title: "QScoring Blog — Factor Investing, Stock Comparisons, and Quant Methodology",
+    description:
+      "Plain-English explainers on QScore methodology, factor investing, head-to-head stock comparisons, and financial metrics — all linked to live ticker scores.",
+    url: "https://qscoring.com/blog",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QScoring Blog — Factor Investing, Stock Comparisons & Quant Methodology",
+    description:
+      "Plain-English explainers on QScore methodology, factor investing, stock comparisons, and financial metrics.",
+  },
 };
 
 // Re-render hourly so the "New" badge reflects current time without
