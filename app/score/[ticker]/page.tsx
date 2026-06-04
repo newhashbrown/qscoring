@@ -6,6 +6,7 @@ import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
+import RelatedStocks from "@/app/components/RelatedStocks";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
 import { findBestMatch } from "@/lib/scoring/search";
 export const revalidate = 900;
@@ -232,6 +233,11 @@ export default async function TickerScorePage({
             <Commentary scoreResult={result} />
           </Suspense>
         </div>
+        <RelatedStocks
+          ticker={result.ticker}
+          sector={result.sector}
+          composite={result.composite}
+        />
       </main>
 
       <footer>
