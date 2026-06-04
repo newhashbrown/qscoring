@@ -9,6 +9,20 @@ export const metadata = {
   description:
     "Browse stocks grouped by QScore signal and factor profile: AI stocks, large-cap tech, high-momentum names, Buy Short-Term picks, and high-growth-low-value plays.",
   alternates: { canonical: "https://qscoring.com/scores" },
+  openGraph: {
+    title: "QScore Stock Categories — AI, Tech, Momentum, and More",
+    description:
+      "Browse stocks grouped by QScore signal and factor profile: AI stocks, large-cap tech, high-momentum names, Buy Short-Term picks, and high-growth-low-value plays.",
+    url: "https://qscoring.com/scores",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "QScore Stock Categories — AI, Tech, Momentum & More",
+    description:
+      "Stocks grouped by QScore signal and factor profile — AI, tech, momentum, Buy picks, and more.",
+  },
 };
 
 const collectionJsonLd = {

@@ -8,6 +8,20 @@ export const metadata = {
   description:
     "Locked-in daily QScore snapshots and forward-return tracking. Every score and price below was committed to public source control on the date shown — no look-ahead bias is possible by construction.",
   alternates: { canonical: "https://qscoring.com/performance" },
+  openGraph: {
+    title: "Live Performance Tracking — QScore",
+    description:
+      "Locked-in daily QScore snapshots and forward-return tracking. Every score and price was committed to public source control on the date shown — no look-ahead bias by construction.",
+    url: "https://qscoring.com/performance",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Live Performance Tracking — QScore",
+    description:
+      "Locked-in daily QScore snapshots + forward-return tracking, committed to public source control — no look-ahead bias.",
+  },
 };
 
 // Re-render daily so the days-captured counter and horizon-availability

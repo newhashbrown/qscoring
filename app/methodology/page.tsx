@@ -7,6 +7,20 @@ export const metadata = {
   description:
     "Full transparency on the QScore methodology: factor categories, z-score normalization against the universe, weights, signal logic, data sources, limitations, and validation status.",
   alternates: { canonical: "https://qscoring.com/methodology" },
+  openGraph: {
+    title: "Methodology — How the QScore Is Calculated",
+    description:
+      "Full transparency on the QScore methodology: factor categories, z-score normalization against the universe, weights, signal logic, data sources, limitations, and validation status.",
+    url: "https://qscoring.com/methodology",
+    siteName: "QScoring",
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Methodology — How the QScore Is Calculated",
+    description:
+      "How the QScore works: factor categories, normalization, weights, signal logic, data sources, and limitations.",
+  },
 };
 
 const TOC = [
