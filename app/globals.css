@@ -4493,3 +4493,60 @@ footer .footer-links .sep {
   .cookie-banner { flex-direction: column; align-items: stretch; gap: 12px; }
   .cookie-banner-actions { justify-content: flex-end; }
 }
+
+/* Related stocks — internal-linking module on /score/[ticker].
+   Cross-links ticker pages to sector peers / similar-QScore names. */
+.related-stocks {
+  max-width: 920px;
+  margin: 40px auto 0;
+  padding: 0 24px;
+}
+.related-stocks h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 18px;
+}
+.related-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+.related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: border-color var(--dur-fast), transform var(--dur-fast);
+}
+.related-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.related-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.related-ticker { font-family: var(--mono); font-size: 1rem; font-weight: 600; color: var(--text); }
+.related-score { font-family: var(--mono); font-size: 1rem; font-weight: 700; }
+.related-score.tone-buy { color: var(--signal-buy); }
+.related-score.tone-hold { color: var(--signal-hold); }
+.related-score.tone-short { color: var(--signal-short); }
+.related-name {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+@media (max-width: 560px) {
+  .related-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
