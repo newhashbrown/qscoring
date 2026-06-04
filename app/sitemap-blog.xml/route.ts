@@ -27,7 +27,8 @@ export async function GET() {
       lastmod: today,
     })),
     { loc: `${SITE}/blog/recaps`, lastmod: today },
-    ...BLOG_POSTS.map((p) => ({
+    // Exclude noindex'd off-topic posts — don't submit URLs we tell Google not to index.
+    ...BLOG_POSTS.filter((p) => !p.noindex).map((p) => ({
       loc: `${SITE}/blog/${p.slug}`,
       lastmod: p.publishedAt,
     })),

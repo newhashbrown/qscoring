@@ -113,6 +113,10 @@ export type BlogPost = {
   publishedAt: string; // YYYY-MM-DD
   readTimeMinutes: number;
   excerpt: string;
+  /** Off-topic for the stock-scoring domain (e.g. credit/fraud/DUNS posts).
+   *  Emits robots noindex,follow and drops the URL from the sitemap, so it
+   *  stops diluting topical authority while staying live + passing link equity. */
+  noindex?: boolean;
   // ComponentType (not `() => ReactNode`) so dynamic-imported bodies
   // (via next/dynamic) are assignable; inline `() => (<>...</>)` bodies
   // remain assignable because their narrower signature widens cleanly.
@@ -1455,6 +1459,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "how-credit-scoring-models-actually-work",
+    noindex: true,
     cluster: "factor-investing",
     title: "How credit scoring models actually work: a data-driven breakdown",
     description:
@@ -1467,6 +1472,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "predicting-loan-defaults",
+    noindex: true,
     cluster: "factor-investing",
     title: "Predicting loan defaults: what the data tells us banks miss",
     description:
@@ -1479,6 +1485,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "detecting-credit-card-fraud",
+    noindex: true,
     cluster: "factor-investing",
     title: "Detecting credit card fraud: when 99.8% accuracy means your model caught nothing",
     description:
@@ -1527,6 +1534,7 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "duns-number-no-longer-gold-standard",
+    noindex: true,
     cluster: "factor-investing",
     title: "DUNS is done: why the federal exit ended the gold-standard claim",
     description:

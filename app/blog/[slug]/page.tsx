@@ -27,6 +27,9 @@ export async function generateMetadata({
     title: `${post.title} — QScoring`,
     description: post.description,
     alternates: { canonical: url },
+    // Off-topic posts (credit/fraud/DUNS) are noindex,follow so they stop
+    // diluting the stock-scoring topic while still passing internal-link equity.
+    ...(post.noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title: post.title,
       description: post.description,
