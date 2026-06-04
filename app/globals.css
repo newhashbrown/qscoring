@@ -1868,6 +1868,13 @@ footer .footer-links .sep {
 }
 .threshold-grid .method-table { margin: 0; }
 
+/* Research-foundations citation table: 4 dense columns. Smaller type and a
+   constrained factor column so the prose columns get the room they need. */
+.research-table { font-size: 0.84rem; }
+.research-table th:first-child,
+.research-table td:first-child { width: 17%; }
+.research-table td:first-child strong { color: var(--text); }
+
 .caveat {
   background: rgba(255, 179, 71, 0.05);
   border-left: 2px solid var(--amber);
