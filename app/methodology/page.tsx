@@ -26,13 +26,14 @@ export const metadata = {
 const TOC = [
   { id: "summary", label: "1. The QScore in 30 seconds" },
   { id: "factors", label: "2. The five factor categories" },
-  { id: "combining", label: "3. How factors combine into a composite" },
-  { id: "signals", label: "4. Signal generation" },
-  { id: "confidence", label: "5. Confidence" },
-  { id: "data", label: "6. Data sources and freshness" },
-  { id: "limitations", label: "7. Known limitations" },
-  { id: "validation", label: "8. Validation status" },
-  { id: "disclaimers", label: "9. Disclaimers" },
+  { id: "research", label: "3. Research foundations" },
+  { id: "combining", label: "4. How factors combine into a composite" },
+  { id: "signals", label: "5. Signal generation" },
+  { id: "confidence", label: "6. Confidence" },
+  { id: "data", label: "7. Data sources and freshness" },
+  { id: "limitations", label: "8. Known limitations" },
+  { id: "validation", label: "9. Validation status" },
+  { id: "disclaimers", label: "10. Disclaimers" },
 ];
 
 const methodologyJsonLd = {
@@ -155,9 +156,9 @@ export default function MethodologyPage() {
           <h3 id="factor-value">Value (lower multiples → higher score)</h3>
           <p>
             What the market is willing to pay for the company per dollar of earnings, book value,
-            sales, and EBITDA. Roots in Graham &amp; Dodd&apos;s <em>Security Analysis</em> (1934)
-            and formalized as the HML factor in Fama–French (1993). The premise: cheap stocks tend
-            to outperform expensive stocks over long horizons, on average.
+            sales, and EBITDA — the value premium documented by Fama–French. See{" "}
+            <a href="#research">research foundations</a> for the sources and for how our
+            multi-multiple implementation differs from the strict book-to-market HML factor.
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> P/E (TTM), P/B, P/S, EV/EBITDA. Negative values (loss-making
@@ -190,10 +191,11 @@ export default function MethodologyPage() {
 
           <h3 id="factor-momentum">Momentum (positive trend → higher score)</h3>
           <p>
-            Price-based signals capturing how the market has been valuing the stock recently.
-            Origin: Jegadeesh &amp; Titman (1993), formalized as the WML factor in Carhart&apos;s
-            four-factor model (1997). The premise: stocks that have outperformed recently tend to
-            keep outperforming over 3–12 month horizons.
+            Price-based signals capturing how the market has been valuing the stock recently. The
+            return-continuation core (12- and 3-month returns) draws on Jegadeesh &amp; Titman
+            (1993); the 1-month return, RSI, and moving-average crossover are additional
+            technical-trend signals rather than part of that factor (see{" "}
+            <a href="#research">research foundations</a>).
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> 12-month total return, 3-month return, 1-month return, RSI(14),
@@ -209,8 +211,10 @@ export default function MethodologyPage() {
 
           <h3 id="factor-profitability">Profitability (higher returns on capital → higher score)</h3>
           <p>
-            How efficiently the business converts capital into profit and cash. Origin: Fama–French
-            five-factor model (2015), specifically the RMW (Robust Minus Weak) factor.
+            How efficiently the business converts capital into profit and cash. Maps to the
+            quality/profitability premium (Quality Minus Junk; Fama–French RMW) — see{" "}
+            <a href="#research">research foundations</a> for the sources and for how our
+            margin-based metrics differ from Novy-Marx&apos;s gross-profits-to-assets construction.
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> Return on equity (TTM), Return on assets (TTM), Gross margin,
@@ -224,11 +228,12 @@ export default function MethodologyPage() {
             accounting artifact. ROA and absolute margins partially correct for this.
           </p>
 
-          <h3 id="factor-risk">Risk (lower risk → higher score)</h3>
+          <h3 id="factor-risk">Risk (lower volatility, market-aligned beta → higher score)</h3>
           <p>
-            How much the stock moves with the market and how much it moves on its own. Origins span
-            CAPM (Sharpe, 1964) and the low-volatility anomaly research from Frazzini–Pedersen and
-            others.
+            How much the stock moves with the market and how much it moves on its own. The
+            60-day-volatility component reflects the low-volatility anomaly (Ang et al., 2006); the
+            beta component rewards proximity to 1.0 and is our own market-alignment construction,
+            not a low-beta premium (see <a href="#research">research foundations</a>).
           </p>
           <p className="metric-list-inline">
             <strong>Metrics:</strong> Beta to S&amp;P 500 (closer to 1.0 = higher score), 60-day
@@ -241,9 +246,181 @@ export default function MethodologyPage() {
           </p>
         </section>
 
-        {/* ─── 3. COMBINING ─── */}
+        {/* ─── 3. RESEARCH FOUNDATIONS ─── */}
+        <section id="research">
+          <h2>3. Research foundations</h2>
+          <p>
+            QScoring is an <strong>independent implementation of published factor research</strong>.
+            The economic ideas below come from the academic literature; the specific metrics,
+            weights, and scoring curves are ours. We are <strong>not affiliated with, endorsed by,
+            or in partnership with</strong> any author, institution, or firm cited on this page.
+          </p>
+          <p>
+            Each factor is included because there is a documented, economically motivated reason it
+            has mattered historically — <em>not</em> because we have shown it predicts returns in{" "}
+            <em>our</em> composite. The premia described below are published findings about the
+            factors, not performance claims about the QScore. What we have and have not yet
+            demonstrated in our own implementation is set out in{" "}
+            <a href="#validation">validation status</a>.
+          </p>
+          <table className="method-table research-table">
+            <thead>
+              <tr>
+                <th>Factor (as implemented)</th>
+                <th>Foundational source</th>
+                <th>What the research establishes</th>
+                <th>How our implementation differs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Value</strong>
+                  <br />
+                  P/E, P/B, P/S, EV/EBITDA
+                </td>
+                <td>
+                  Fama &amp; French, &ldquo;Common Risk Factors in the Returns on Stocks and
+                  Bonds&rdquo; (1993) — the HML (High-Minus-Low) factor. Earlier roots in Graham
+                  &amp; Dodd, <em>Security Analysis</em> (1934).
+                </td>
+                <td>
+                  Stocks that are cheap relative to book value have, on average, historically earned
+                  a premium over expensive ones across long horizons.
+                </td>
+                <td>
+                  HML is strictly <strong>book-to-market</strong>. We use P/B as the book-to-market
+                  analog plus three further valuation multiples (P/E, P/S, EV/EBITDA), so this is
+                  HML-<em>motivated</em>, built as a broader multiple composite rather than the HML
+                  factor itself.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Momentum</strong>
+                  <br />
+                  12-mo &amp; 3-mo return (core); 1-mo return, RSI(14), 50/200 MA (technical)
+                </td>
+                <td>
+                  Jegadeesh &amp; Titman, &ldquo;Returns to Buying Winners and Selling Losers&rdquo;
+                  (1993); formalized as the WML factor in Carhart, &ldquo;On Persistence in Mutual
+                  Fund Performance&rdquo; (1997).
+                </td>
+                <td>
+                  Relative-strength winners over a 3–12 month formation window have, on average,
+                  historically continued to outperform over the following months.
+                </td>
+                <td>
+                  Canonical momentum measures returns over 3–12 months{" "}
+                  <strong>skipping the most recent month</strong> (to avoid short-term reversal). Our
+                  12- and 3-month returns map to this; the <strong>1-month return, RSI(14), and
+                  50/200-day moving-average crossover are additional technical-trend signals, not
+                  part of the Jegadeesh–Titman factor</strong> — and the 1-month component runs
+                  counter to the short-term-reversal finding.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Profitability</strong>
+                  <br />
+                  ROE, ROA, gross / operating / net margin, FCF yield
+                </td>
+                <td>
+                  Asness, Frazzini &amp; Pedersen, &ldquo;Quality Minus Junk&rdquo; (2019);
+                  Fama–French five-factor model (2015), the RMW (Robust-Minus-Weak) factor. The
+                  profitability premium was first isolated by Novy-Marx (2013).
+                </td>
+                <td>
+                  More profitable firms have, on average, historically earned higher returns than
+                  less profitable ones with otherwise similar characteristics.
+                </td>
+                <td>
+                  Closest to the QMJ / RMW profitability basket.{" "}
+                  <strong>Novy-Marx&apos;s specific metric is gross profits / total assets; we use
+                  gross <em>margin</em> (gross profit / revenue)</strong> alongside ROE, ROA, the
+                  other margins, and FCF yield — so we cite him for the insight, not the exact
+                  construction.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Risk — volatility</strong>
+                  <br />
+                  60-day realized volatility
+                </td>
+                <td>
+                  Ang, Hodrick, Xing &amp; Zhang, &ldquo;The Cross-Section of Volatility and Expected
+                  Returns&rdquo; (2006); Blitz &amp; van Vliet (2007). Adjacent low-risk strand:
+                  Frazzini &amp; Pedersen, &ldquo;Betting Against Beta&rdquo; (2014).
+                </td>
+                <td>
+                  Lower-volatility stocks have historically delivered better risk-adjusted returns
+                  than the high-volatility names a simple CAPM would imply — the
+                  &ldquo;low-volatility anomaly.&rdquo;
+                </td>
+                <td>
+                  We z-score 60-day realized volatility within sector (lower → higher score).
+                  Betting-Against-Beta is a <em>beta</em> strategy — it motivates this low-risk
+                  family but is not the metric we compute here.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Risk — beta</strong>
+                  <br />
+                  distance of β from 1.0
+                </td>
+                <td>
+                  Capital Asset Pricing Model — Sharpe (1964). <strong>No published return-factor
+                  pedigree for our specific treatment.</strong>
+                </td>
+                <td>
+                  CAPM defines beta as a stock&apos;s sensitivity to the market; β = 1 means it moves
+                  in line with the market.
+                </td>
+                <td>
+                  Our beta sub-score rewards β <strong>near 1.0</strong> and penalizes both very high
+                  and very low beta. This is <strong>our own market-alignment / stability
+                  construction — it is neither Betting-Against-Beta nor a low-beta tilt</strong>{" "}
+                  (both of which reward <em>low</em> beta), and we make no factor-premium claim for
+                  it.
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Growth</strong>
+                  <br />
+                  YoY revenue, EPS, FCF growth
+                </td>
+                <td>
+                  <strong>No canonical positive return factor.</strong>
+                </td>
+                <td>
+                  Growth is not an established standalone return factor; in the Fama–French
+                  framework, high-growth stocks sit on the <em>expensive</em> (low book-to-market)
+                  side — the short leg of HML.
+                </td>
+                <td>
+                  We include sector-relative fundamental growth as a descriptive input and weight it
+                  modestly (5% long-term, 15% short-term). We describe what it measures and
+                  deliberately make <strong>no academic-pedigree claim</strong> for it.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p className="caveat">
+            <strong>Not a performance claim.</strong> The premia above are historical findings
+            reported in the cited papers, each with its own data window, assumptions, and subsequent
+            debate — several have weakened or been contested out-of-sample. They are the reasons each
+            factor is economically motivated, not a forecast that the QScore, or any single factor
+            within it, will produce returns. What we have and have not validated in our own
+            implementation is documented in <a href="#validation">validation status</a>.
+          </p>
+        </section>
+
+        {/* ─── 4. COMBINING ─── */}
         <section id="combining">
-          <h2>3. How factors combine into a composite</h2>
+          <h2>4. How factors combine into a composite</h2>
           <p>
             The math is deliberately simple. Chan&apos;s rule of thumb in <em>Quantitative
             Trading</em> (2008) is to keep <em>free</em> parameters under five — where a free
@@ -303,7 +480,7 @@ export default function MethodologyPage() {
 
         {/* ─── 4. SIGNALS ─── */}
         <section id="signals">
-          <h2>4. Signal generation</h2>
+          <h2>5. Signal generation</h2>
           <p>
             The directional signal is derived from the long-term and short-term scores using these
             rules, evaluated in order:
@@ -346,7 +523,7 @@ export default function MethodologyPage() {
 
         {/* ─── 5. CONFIDENCE ─── */}
         <section id="confidence">
-          <h2>5. Confidence</h2>
+          <h2>6. Confidence</h2>
           <p>
             Confidence reflects two things: how complete the underlying data is, and how decisive
             the resulting score is. A composite of 50 with 40% missing data is genuinely less
@@ -369,7 +546,7 @@ export default function MethodologyPage() {
 
         {/* ─── 6. DATA ─── */}
         <section id="data">
-          <h2>6. Data sources and freshness</h2>
+          <h2>7. Data sources and freshness</h2>
           <p>
             We use{" "}
             <a href="https://site.financialmodelingprep.com" target="_blank" rel="noopener noreferrer">
@@ -410,7 +587,7 @@ export default function MethodologyPage() {
 
         {/* ─── 7. LIMITATIONS ─── */}
         <section id="limitations">
-          <h2>7. Known limitations</h2>
+          <h2>8. Known limitations</h2>
           <p>
             Things we&apos;d rather you read here than discover the hard way:
           </p>
@@ -468,7 +645,7 @@ export default function MethodologyPage() {
 
         {/* ─── 8. VALIDATION ─── */}
         <section id="validation">
-          <h2>8. Validation status</h2>
+          <h2>9. Validation status</h2>
           <div className="pledge-box">
             <p className="pledge-headline">Backtest in progress.</p>
             <p>
@@ -506,7 +683,7 @@ export default function MethodologyPage() {
 
         {/* ─── 9. DISCLAIMERS ─── */}
         <section id="disclaimers">
-          <h2>9. Disclaimers</h2>
+          <h2>10. Disclaimers</h2>
           <p>
             QScoring provides quantitative analysis for informational and educational purposes
             only. It does not constitute investment advice, a recommendation, or a solicitation to
