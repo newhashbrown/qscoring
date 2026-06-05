@@ -47,3 +47,17 @@ __pycache__/
 
 # Local design/scratch artifacts (Stitch screenshots, dev logs)
 .stitch/
+
+# clerk configuration (can include secrets)
+/.clerk/
+
+# Personal / sensitive documents — identity, tax, registration. NEVER commit.
+# (These were found untracked in a working copy; ignoring them keeps a stray
+#  `git add -A` from ever staging private business/tax paperwork.)
+/BusinessRegistrationCertificate.pdf
+/CP_575_G.pdf
+/deptoftreasury-letter.jpg
+# Defensive globs for the same categories anywhere in the tree:
+*CP_575*
+*RegistrationCertificate*
+*deptoftreasury*
