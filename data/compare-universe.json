@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-04T12:26:40.315Z",
+  "generatedAt": "2026-06-05T12:22:49.575Z",
   "universeSize": 800,
   "entries": [
     {
@@ -328,6 +328,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "AULDX",
+      "name": "American Century Ultra Fund",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
       "sector": "Technology"
@@ -426,11 +431,6 @@
       "symbol": "BIIB",
       "name": "Biogen Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "BK",
-      "name": "The Bank of New York Mellon Corporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "BKNG",
@@ -604,6 +604,11 @@
     {
       "symbol": "CFAAX",
       "name": "American Funds Bond Fund of Amer 529A",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "CFG",
+      "name": "Citizens Financial Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -1327,11 +1332,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FRDPX",
-      "name": "Franklin Rising Dividends Fund",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FRIAX",
       "name": "Franklin Income Fund",
       "sector": "Financial Services"
@@ -1555,6 +1555,11 @@
       "symbol": "GWW",
       "name": "W.W. Grainger, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "HACAX",
+      "name": "Harbor Capital Appreciation Fund Institutional Class",
+      "sector": "Financial Services"
     },
     {
       "symbol": "HAL",
@@ -1880,11 +1885,6 @@
       "symbol": "KEYS",
       "name": "Keysight Technologies, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "KHC",
-      "name": "The Kraft Heinz Company",
-      "sector": "Consumer Defensive"
     },
     {
       "symbol": "KKR",
@@ -2390,11 +2390,6 @@
       "symbol": "OXY",
       "name": "Occidental Petroleum Corporation",
       "sector": "Energy"
-    },
-    {
-      "symbol": "P",
-      "name": "Everpure, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "PABGX",
@@ -3197,6 +3192,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "TRRDX",
+      "name": "T. Rowe Price Retirement 2040 Fund",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "TRSAX",
       "name": "T. Rowe Price Growth Stock Fund Advisor Class",
       "sector": "Financial Services"
@@ -3230,6 +3230,11 @@
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "TWCCX",
+      "name": "American Century Ultra Fund C Class",
+      "sector": "Financial Services"
     },
     {
       "symbol": "TWLO",
@@ -3635,11 +3640,6 @@
       "symbol": "VPMCX",
       "name": "Vanguard PRIMECAP Fund Investor Shares",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "VRSN",
-      "name": "VeriSign, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VRT",
