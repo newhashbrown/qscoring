@@ -2,13 +2,16 @@ import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import MoverCard from "@/app/components/MoverCard";
 import MoversBoard from "@/app/components/MoversBoard";
-import { loadMovers, loadLatestMovers } from "@/lib/movers-data";
+import { loadLatestMovers } from "@/lib/movers-data";
 import { isDivergence, type MoverRow } from "@/lib/movers-board";
 import { formatMarketDate } from "@/lib/market-date";
 
-// Rebuilds on deploy (the daily commit) and hourly thereafter. The data is a
-// committed JSON file on disk, read like /performance — never D1 at request time.
-export const revalidate = 3600;
+// STATIC, like /performance: the committed data/movers/latest.json is read at
+// BUILD time and baked into the page. This is deliberate — taking searchParams
+// (e.g. ?date=) would force dynamic rendering, and the data-file fs read isn't
+// available at request time on Workers (it would fall back to the empty state).
+// A dated-history view should be a static /movers/[date] route, not a query param.
+export const revalidate = 86400;
 
 const DESCRIPTION =
   "Each trading day's biggest movers in our scored universe, reconciled against " +
@@ -37,13 +40,8 @@ function divergenceCount(rows: MoverRow[]): number {
   return rows.filter((r) => isDivergence(r.alignment)).length;
 }
 
-export default async function MoversPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ date?: string }>;
-}) {
-  const { date } = await searchParams;
-  const data = (date ? loadMovers(date) : null) ?? loadLatestMovers();
+export default function MoversPage() {
+  const data = loadLatestMovers();
 
   if (!data) {
     return (
