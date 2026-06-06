@@ -26,6 +26,10 @@
   --signal-hold-dim: rgba(251, 191, 36, 0.12);
   --signal-short: #F87171;
   --signal-short-dim: rgba(248, 113, 113, 0.12);
+  /* Dislocation state on the movers board — distinct from the buy/hold/short
+     band semantics; a down-move the model rated bullish. */
+  --signal-info: #60A5FA;
+  --signal-info-dim: rgba(96, 165, 250, 0.12);
 
   /* Legacy aliases — --accent points at buy signal so data displays
      (score ring, factor bars, signal pills) read the same color without
@@ -4556,4 +4560,214 @@ footer .footer-links .sep {
 }
 @media (max-width: 560px) {
   .related-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
+/* ─── Movers vs. Fundamentals (/movers) ─────────────────────────────────── */
+.movers {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 100px;
+}
+.movers-header { margin-bottom: 32px; }
+.movers-header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+.movers-meta {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  margin-bottom: 14px;
+}
+.movers-meta .movers-date { color: var(--text-dim); }
+.movers-meta .sep { margin: 0 8px; color: var(--border); }
+.movers-lede {
+  max-width: 70ch;
+  color: var(--text-dim);
+  line-height: 1.65;
+  font-size: 1.02rem;
+}
+.movers-lede strong { color: var(--text); }
+
+/* Toolbar + "show only divergences" toggle. A small client component (see
+   MoversBoard.tsx) flips the .filtered class; the plain descendant +
+   attribute selector below does the hiding (Lightning CSS strips :has()). */
+.movers-toolbar { margin-bottom: 22px; }
+.movers-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.movers-toggle:hover { border-color: rgba(255, 255, 255, 0.16); color: var(--text); }
+.movers-toggle:focus-visible { outline: 2px solid var(--signal-info); outline-offset: 2px; }
+.movers-toggle.active {
+  border-color: var(--signal-info);
+  color: var(--signal-info);
+  background: var(--signal-info-dim);
+}
+.movers-toggle-count {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--signal-info-dim);
+  color: var(--signal-info);
+}
+.movers-toggle.active .movers-toggle-count { background: rgba(96, 165, 250, 0.22); }
+/* When filtered: hide non-divergence cards and reveal the empty placeholders. */
+.movers-board.filtered .mover-card[data-divergence="false"] { display: none; }
+.movers-empty-filtered {
+  display: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 12px 2px;
+}
+.movers-board.filtered .movers-empty-filtered { display: block; }
+
+/* Two columns: gainers / losers. */
+.movers-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.movers-col-head {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.movers-col-head.up { color: var(--signal-buy); }
+.movers-col-head.down { color: var(--signal-short); }
+.movers-col-n {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.movers-col-grid { display: flex; flex-direction: column; gap: 12px; }
+
+/* Mover card. Left border + alignment badge carry the alignment colour. */
+.mover-card {
+  border: 1px solid var(--border);
+  border-left-width: 3px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.mover-card.align-green { border-left-color: var(--signal-buy); }
+.mover-card.align-red { border-left-color: var(--signal-short); }
+.mover-card.align-amber { border-left-color: var(--signal-hold); }
+.mover-card.align-blue { border-left-color: var(--signal-info); }
+.mover-card.align-gray { border-left-color: var(--text-muted); }
+.mover-card:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.16); }
+.mover-card-link {
+  display: block;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+}
+.mover-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.mover-id { display: flex; flex-direction: column; min-width: 0; }
+.mover-ticker { font-weight: 700; font-size: 1.05rem; color: var(--text); letter-spacing: 0.3px; }
+.mover-company {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 22ch;
+}
+.mover-return {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.mover-return.up { color: var(--signal-buy); }
+.mover-return.down { color: var(--signal-short); }
+
+/* Alignment badge — the focal element. */
+.mover-align-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.mover-align-badge.align-green { background: var(--signal-buy-dim); color: var(--signal-buy); }
+.mover-align-badge.align-red { background: var(--signal-short-dim); color: var(--signal-short); }
+.mover-align-badge.align-amber { background: var(--signal-hold-dim); color: var(--signal-hold); }
+.mover-align-badge.align-blue { background: var(--signal-info-dim); color: var(--signal-info); }
+.mover-align-badge.align-gray { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+
+.mover-note {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+/* Prior-model row: composite + signal pill + score date. */
+.mover-model {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.mover-composite { font-family: var(--mono); font-weight: 700; font-size: 1rem; }
+.mover-composite .composite-suffix { font-size: 0.7rem; color: var(--text-muted); font-weight: 400; }
+.mover-composite.tone-bullish { color: var(--signal-buy); }
+.mover-composite.tone-bearish { color: var(--signal-short); }
+.mover-composite.tone-neutral { color: var(--signal-hold); }
+.mover-signal {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 9px;
+  border-radius: 6px;
+}
+.mover-signal.tone-bullish { background: var(--signal-buy-dim); color: var(--signal-buy); }
+.mover-signal.tone-bearish { background: var(--signal-short-dim); color: var(--signal-short); }
+.mover-signal.tone-neutral { background: var(--signal-hold-dim); color: var(--signal-hold); }
+.mover-scoredate { font-family: var(--mono); font-size: 0.72rem; color: var(--text-muted); margin-left: auto; }
+
+/* Reuse .scoreboard-factors layout; just tighten margins + a muted state. */
+.mover-factors { margin: 0; }
+.mover-factors .factor-score.muted { color: var(--text-muted); }
+
+@media (max-width: 760px) {
+  .movers-columns { grid-template-columns: 1fr; gap: 32px; }
+  .mover-scoredate { margin-left: 0; }
 }
