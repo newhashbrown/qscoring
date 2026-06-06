@@ -15,6 +15,7 @@ const PRIMARY_LINKS: Array<{ href: string; label: string }> = [
   { href: "/score", label: "Score" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/compare", label: "Compare" },
+  { href: "/movers", label: "Movers" },
   { href: "/performance", label: "Performance" },
   { href: "/blog", label: "Blog" },
   { href: "/how-it-works", label: "How it works" },
