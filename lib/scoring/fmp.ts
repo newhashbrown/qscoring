@@ -135,6 +135,9 @@ export type Quote = {
   priceAvg50: number;
   priceAvg200: number;
   marketCap: number;
+  // FMP /quote returns this; declared here for the movers dollar-volume floor.
+  // Unused by scoring (score.ts reads price/changePercentage/priceAvg*).
+  volume: number;
 };
 
 export type RatiosTtm = {

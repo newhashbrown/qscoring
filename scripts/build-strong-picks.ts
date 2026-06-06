@@ -18,6 +18,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
+import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
+import type { MoversFile } from "../lib/movers-board";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
@@ -378,6 +380,28 @@ async function main() {
     // the git commit. Only persist on first write so we don't double-
     // insert into D1 if the script re-runs.
     await persistSnapshotToD1(snapshotDate, picks);
+
+    // Publish the Movers vs. Fundamentals board: reconcile today's movers
+    // against the prior snapshot and write data/movers/<date>.json + latest.json.
+    // Best-effort and sequenced after the snapshot write — a failure here must
+    // not fail the workflow or block the git commit.
+    try {
+      const moversFile = await publishMoversForDate(snapshotDate, generatedAt, picks);
+      if (moversFile) {
+        console.log(
+          `Wrote movers → data/movers/${snapshotDate}.json ` +
+            `(gainers ${moversFile.gainers.length}, losers ${moversFile.losers.length}, ` +
+            `dollar-volume floor ${moversFile.dollarVolumeApplied ? "applied" : "skipped — volume unavailable"}).`
+        );
+        // D1 projection (queryable; never read at request time). Best-effort.
+        await persistMoversToD1(moversFile);
+      } else {
+        console.log("Skipped movers: no prior snapshot to reconcile against.");
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      console.warn(`Movers populate failed (non-fatal): ${msg}`);
+    }
   }
 }
 
@@ -414,6 +438,45 @@ async function persistSnapshotToD1(snapshotDate: string, picks: Pick[]): Promise
     console.log(`D1 persist OK: ${text}`);
   } catch (err) {
     console.warn(`D1 persist threw: ${err instanceof Error ? err.message : err}`);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function persistMoversToD1(file: MoversFile): Promise<void> {
+  const token = process.env.SNAPSHOT_CRON_TOKEN;
+  if (!token) {
+    console.warn("SNAPSHOT_CRON_TOKEN not set — skipping movers D1 persistence.");
+    return;
+  }
+  const rows = moversFileToRows(file);
+  if (rows.length === 0) {
+    console.warn("No movers rows to persist — skipping movers D1 persistence.");
+    return;
+  }
+
+  const url = `${BASE}/api/cron/persist-movers`;
+  const body = JSON.stringify({ snapshotDate: file.date, rows });
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body,
+      signal: ctrl.signal,
+    });
+    const text = await res.text();
+    if (!res.ok) {
+      console.warn(`Movers D1 persist failed HTTP ${res.status}: ${text.slice(0, 200)}`);
+      return;
+    }
+    console.log(`Movers D1 persist OK: ${text}`);
+  } catch (err) {
+    console.warn(`Movers D1 persist threw: ${err instanceof Error ? err.message : err}`);
   } finally {
     clearTimeout(timer);
   }
