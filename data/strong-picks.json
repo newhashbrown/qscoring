@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-05T12:22:49.575Z",
+  "generatedAt": "2026-06-08T13:50:31.346Z",
   "universeSize": 800,
   "picks": [
     {
       "ticker": "EIX",
       "companyName": "Edison International",
       "sector": "Utilities",
-      "price": 71.81,
-      "changePercent": 1.34067,
-      "composite": 66,
+      "price": 73.33,
+      "changePercent": 2.1167,
+      "composite": 67,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 66,
-      "shortTermScore": 66,
+      "shortTermScore": 68,
       "categories": [
         {
           "name": "value",
@@ -27,7 +27,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 71
+          "score": 75
         },
         {
           "name": "profitability",
@@ -45,18 +45,18 @@
       "ticker": "EQT",
       "companyName": "EQT Corporation",
       "sector": "Energy",
-      "price": 55.24,
-      "changePercent": 1.41362,
+      "price": 53.75,
+      "changePercent": -2.69732,
       "composite": 63,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 68,
+      "longTermScore": 69,
       "shortTermScore": 57,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 62
+          "score": 65
         },
         {
           "name": "growth",
@@ -66,12 +66,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 40
+          "score": 37
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 69
+          "score": 72
         },
         {
           "name": "risk",
@@ -84,13 +84,13 @@
       "ticker": "BNY",
       "companyName": "Bank of New York Mellon Corp",
       "sector": "Financial Services",
-      "price": 144.02,
-      "changePercent": 2.45429,
+      "price": 142.39,
+      "changePercent": -1.13179,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 53,
-      "shortTermScore": 70,
+      "longTermScore": 54,
+      "shortTermScore": 71,
       "categories": [
         {
           "name": "value",
@@ -105,7 +105,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 90
+          "score": 93
         },
         {
           "name": "profitability",
@@ -115,7 +115,7 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 63
+          "score": 64
         }
       ]
     },
@@ -123,18 +123,18 @@
       "ticker": "MS",
       "companyName": "Morgan Stanley",
       "sector": "Financial Services",
-      "price": 218.24,
-      "changePercent": 3.85457,
-      "composite": 61,
+      "price": 211.93,
+      "changePercent": -2.90466,
+      "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 55,
-      "shortTermScore": 68,
+      "shortTermScore": 69,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 54
+          "score": 55
         },
         {
           "name": "growth",
@@ -144,7 +144,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 91
+          "score": 93
         },
         {
           "name": "profitability",
@@ -162,18 +162,18 @@
       "ticker": "SPG",
       "companyName": "Simon Property Group, Inc.",
       "sector": "Real Estate",
-      "price": 206.22,
-      "changePercent": 1.31172,
-      "composite": 61,
-      "signal": "HOLD",
+      "price": 210.31,
+      "changePercent": 1.98332,
+      "composite": 62,
+      "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 61,
-      "shortTermScore": 61,
+      "shortTermScore": 63,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 54
+          "score": 53
         },
         {
           "name": "growth",
@@ -183,7 +183,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 64
+          "score": 69
         },
         {
           "name": "profitability",
@@ -193,7 +193,124 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 58
+          "score": 57
+        }
+      ]
+    },
+    {
+      "ticker": "UNP",
+      "companyName": "Union Pacific Corporation",
+      "sector": "Industrials",
+      "price": 272.32,
+      "changePercent": 3.1906,
+      "composite": 60,
+      "signal": "HOLD",
+      "confidence": "MEDIUM",
+      "longTermScore": 60,
+      "shortTermScore": 60,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 54
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 44
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 54
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 70
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 75
+        }
+      ]
+    },
+    {
+      "ticker": "VPMAX",
+      "companyName": "Vanguard PRIMECAP Fund Admiral Shares",
+      "sector": "Financial Services",
+      "price": 222.49,
+      "changePercent": -4.18174,
+      "composite": 60,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "LOW",
+      "longTermScore": 54,
+      "shortTermScore": 67,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 50
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 86
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 60
+        }
+      ]
+    },
+    {
+      "ticker": "VPMCX",
+      "companyName": "Vanguard PRIMECAP Fund Investor Shares",
+      "sector": "Financial Services",
+      "price": 214.78,
+      "changePercent": -4.18024,
+      "composite": 60,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "LOW",
+      "longTermScore": 54,
+      "shortTermScore": 67,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 50
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 86
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 60
         }
       ]
     },
@@ -201,13 +318,13 @@
       "ticker": "AAPL",
       "companyName": "Apple Inc.",
       "sector": "Technology",
-      "price": 311.23,
-      "changePercent": 0.31264,
-      "composite": 60,
+      "price": 312.05,
+      "changePercent": 1.5325,
+      "composite": 59,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 59,
-      "shortTermScore": 61,
+      "longTermScore": 58,
+      "shortTermScore": 60,
       "categories": [
         {
           "name": "value",
@@ -222,7 +339,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 55
+          "score": 54
         },
         {
           "name": "profitability",
@@ -237,206 +354,89 @@
       ]
     },
     {
-      "ticker": "DAL",
-      "companyName": "Delta Air Lines, Inc.",
-      "sector": "Industrials",
-      "price": 79.51,
-      "changePercent": 0.92663,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
+      "ticker": "AEE",
+      "companyName": "Ameren Corporation",
+      "sector": "Utilities",
+      "price": 109.27,
+      "changePercent": 2.13104,
+      "composite": 59,
+      "signal": "HOLD",
       "confidence": "MEDIUM",
-      "longTermScore": 58,
-      "shortTermScore": 61,
+      "longTermScore": 59,
+      "shortTermScore": 59,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 67
+          "score": 64
         },
         {
           "name": "growth",
           "label": "Growth",
-          "score": 52
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 67
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 49
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 60
-        }
-      ]
-    },
-    {
-      "ticker": "FOCKX",
-      "companyName": "Fidelity OTC K",
-      "sector": "Financial Services",
-      "price": 32.12,
-      "changePercent": 0.15591,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "LOW",
-      "longTermScore": 52,
-      "shortTermScore": 67,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 50
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 50
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 91
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 52
-        }
-      ]
-    },
-    {
-      "ticker": "FOCPX",
-      "companyName": "Fidelity OTC Portfolio",
-      "sector": "Financial Services",
-      "price": 31.19,
-      "changePercent": 0.16056,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "LOW",
-      "longTermScore": 52,
-      "shortTermScore": 67,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 50
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 50
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 91
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 52
-        }
-      ]
-    },
-    {
-      "ticker": "MU",
-      "companyName": "Micron Technology, Inc.",
-      "sector": "Technology",
-      "price": 996,
-      "changePercent": -7.74105,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 56,
-      "shortTermScore": 64,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 52
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 87
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 85
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 57
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 25
-        }
-      ]
-    },
-    {
-      "ticker": "WDC",
-      "companyName": "Western Digital Corporation",
-      "sector": "Technology",
-      "price": 575.5,
-      "changePercent": -3.13242,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 58,
-      "shortTermScore": 63,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 51
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 80
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 79
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
           "score": 61
         },
         {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 60
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 52
+        },
+        {
           "name": "risk",
           "label": "Risk",
-          "score": 34
+          "score": 57
         }
       ]
     },
     {
-      "ticker": "CSCO",
-      "companyName": "Cisco Systems, Inc.",
-      "sector": "Technology",
-      "price": 130,
-      "changePercent": 2.7668,
+      "ticker": "DFQTX",
+      "companyName": "DFA U.S. Core Equity 2 Portfolio",
+      "sector": "Financial Services",
+      "price": 48.44,
+      "changePercent": -2.24016,
+      "composite": 59,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "LOW",
+      "longTermScore": 55,
+      "shortTermScore": 62,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 50
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 69
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 70
+        }
+      ]
+    },
+    {
+      "ticker": "GWW",
+      "companyName": "W.W. Grainger, Inc.",
+      "sector": "Industrials",
+      "price": 1300.01,
+      "changePercent": 0.82521,
       "composite": 59,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -446,7 +446,7 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 55
+          "score": 51
         },
         {
           "name": "growth",
@@ -461,7 +461,7 @@
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 51
+          "score": 57
         },
         {
           "name": "risk",
