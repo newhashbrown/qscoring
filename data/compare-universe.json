@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T12:22:49.575Z",
+  "generatedAt": "2026-06-08T13:50:31.346Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1227,11 +1227,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FICO",
-      "name": "Fair Isaac Corporation",
-      "sector": "Technology"
-    },
-    {
       "symbol": "FIFAX",
       "name": "American Funds Income Fund of Amer F3",
       "sector": "Financial Services"
@@ -1297,6 +1292,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FNCMX",
+      "name": "Fidelity NASDAQ Composite Index Fund",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FNPFX",
       "name": "American Funds New Perspective Fund",
       "sector": "Financial Services"
@@ -1328,6 +1328,11 @@
     },
     {
       "symbol": "FRDAX",
+      "name": "Franklin Rising Dividends Fund",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "FRDPX",
       "name": "Franklin Rising Dividends Fund",
       "sector": "Financial Services"
     },
@@ -1552,14 +1557,14 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "GWPEX",
+      "name": "American Funds Growth Portfolio F2",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "GWW",
       "name": "W.W. Grainger, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "HACAX",
-      "name": "Harbor Capital Appreciation Fund Institutional Class",
-      "sector": "Financial Services"
     },
     {
       "symbol": "HAL",
@@ -2282,11 +2287,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "NRG",
-      "name": "NRG Energy, Inc.",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "NSC",
       "name": "Norfolk Southern Corporation",
       "sector": "Industrials"
@@ -2942,11 +2942,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "SMCWX",
       "name": "American Funds SMALLCAP World Fund Class A",
       "sector": "Financial Services"
@@ -3020,11 +3015,6 @@
       "symbol": "STRF",
       "name": "MicroStrategy Incorporated 10.00% Series A Perpetual Strife Preferred Stock",
       "sector": "Technology"
-    },
-    {
-      "symbol": "STRL",
-      "name": "Sterling Infrastructure, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "STT",
@@ -3237,9 +3227,19 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "TWCUX",
+      "name": "American Century Ultra Investor Class",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "TWUIX",
+      "name": "American Century Ultra Fund - I Class",
+      "sector": "Financial Services"
     },
     {
       "symbol": "TXN",
@@ -3457,6 +3457,16 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "VFTAX",
+      "name": "Vanguard FTSE Social Index Fund Admiral Shares",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "VFTNX",
+      "name": "Vanguard FTSE Social Index Fund Institutional Shares",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "VFWAX",
       "name": "Vanguard FTSE All-World ex-US Index Fund Admiral Shares",
       "sector": "Financial Services"
@@ -3494,16 +3504,6 @@
     {
       "symbol": "VGSNX",
       "name": "Vanguard Real Estate Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VHCAX",
-      "name": "Vanguard Capital Opportunity Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VHCOX",
-      "name": "Vanguard Capital Opportunity Fund Investor Shares",
       "sector": "Financial Services"
     },
     {
