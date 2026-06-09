@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T13:50:31.346Z",
+  "generatedAt": "2026-06-09T12:21:27.819Z",
   "universeSize": 800,
   "entries": [
     {
@@ -504,7 +504,8 @@
     },
     {
       "symbol": "BSPGX",
-      "name": "iShares S&P 500 Index G"
+      "name": "iShares S&P 500 Index G",
+      "sector": "Financial Services"
     },
     {
       "symbol": "BSPIX",
@@ -604,11 +605,6 @@
     {
       "symbol": "CFAAX",
       "name": "American Funds Bond Fund of Amer 529A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CFG",
-      "name": "Citizens Financial Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -795,11 +791,6 @@
       "symbol": "CVX",
       "name": "Chevron Corporation",
       "sector": "Energy"
-    },
-    {
-      "symbol": "CW",
-      "name": "Curtiss-Wright Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "CWGFX",
@@ -1227,6 +1218,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FICO",
+      "name": "Fair Isaac Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FIFAX",
       "name": "American Funds Income Fund of Amer F3",
       "sector": "Financial Services"
@@ -1324,16 +1320,6 @@
     {
       "symbol": "FPURX",
       "name": "Fidelity Puritan Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FRDAX",
-      "name": "Franklin Rising Dividends Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FRDPX",
-      "name": "Franklin Rising Dividends Fund",
       "sector": "Financial Services"
     },
     {
@@ -1559,6 +1545,11 @@
     {
       "symbol": "GWPEX",
       "name": "American Funds Growth Portfolio F2",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "GWPFX",
+      "name": "American Funds Growth Portfolio Class F-1",
       "sector": "Financial Services"
     },
     {
@@ -1890,6 +1881,11 @@
       "symbol": "KEYS",
       "name": "Keysight Technologies, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "KHC",
+      "name": "The Kraft Heinz Company",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "KKR",
@@ -3015,6 +3011,11 @@
       "symbol": "STRF",
       "name": "MicroStrategy Incorporated 10.00% Series A Perpetual Strife Preferred Stock",
       "sector": "Technology"
+    },
+    {
+      "symbol": "STRL",
+      "name": "Sterling Infrastructure, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "STT",
