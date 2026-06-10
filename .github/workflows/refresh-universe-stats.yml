@@ -52,4 +52,18 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/universe-stats.json
           git commit -m "chore: refresh universe stats $(date -u +%Y-%m-%d)"
-          git push
+          # Rebase-retry push: refresh-strong-picks (a ~27-min job) can push to
+          # main while this runs. A bare push would lose to a non-fast-forward
+          # and drop the commit (the 2026-06-02 incident, where this very
+          # workflow's push is what bumped main mid-build). Date-keyed JSON ⇒
+          # rebase conflicts near-impossible; fail loudly if one occurs.
+          pushed=false
+          for i in 1 2 3; do
+            if git push; then pushed=true; break; fi
+            echo "Push attempt $i/3 rejected (concurrent push to main) — rebasing on origin/main and retrying…"
+            git pull --rebase origin main
+          done
+          if [ "$pushed" != "true" ]; then
+            echo "::error::Push to origin/main failed after 3 rebase-retry attempts — failing loudly so universe-stats is not silently lost."
+            exit 1
+          fi
