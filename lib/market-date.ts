@@ -89,6 +89,44 @@ export function marketCloseDate(generatedAtIso: string): string {
   );
 }
 
+function etHour(date: Date): number {
+  const parts = ET_PARTS.formatToParts(date);
+  const h = parts.find((p) => p.type === "hour")?.value ?? "0";
+  // hour12:false can render midnight as "24" on some runtimes — normalize.
+  return parseInt(h, 10) % 24;
+}
+
+/**
+ * The snapshot date the 18:00 UTC recovery DETECTOR should verify — robust
+ * to GitHub Actions scheduling delay.
+ *
+ * That detector exists only to confirm the 09:30 pre-market run landed its
+ * snapshot, i.e. the prior session's settled close. marketCloseDate()
+ * returns that prior-close date for any timestamp before 16:00 ET. But the
+ * 18:00 UTC cron is *meant* to fire at ~14:00 ET (mid-session) and GitHub
+ * routinely delays scheduled runs by hours; once it slips past 16:00 ET,
+ * marketCloseDate(now) rolls the target FORWARD to today's not-yet-due
+ * session and the guard false-fails ("snapshot missing"). See the
+ * 2026-06-10 incident (18:00 cron fired 20:37 UTC = 16:37 ET).
+ *
+ * Clamp the reference back to mid-session (ET hour < 16) so the detector
+ * targets the same prior-close date no matter when it actually fires, then
+ * delegate to marketCloseDate() — keeping exactly one place that maps a
+ * timestamp to a ledger date. Walking back in whole UTC hours and
+ * re-deriving ET parts is DST-safe.
+ *
+ * Caveat: a delay extreme enough to cross ET midnight (~8h+, vs GitHub's
+ * typical 1-3h) would advance the ET calendar day and is not handled —
+ * GitHub coalesces/drops scheduled runs that stale.
+ */
+export function recoveryCloseDate(generatedAtIso: string): string {
+  const ref = new Date(generatedAtIso);
+  for (let i = 0; i < 12 && etHour(ref) >= 16; i++) {
+    ref.setUTCHours(ref.getUTCHours() - 1);
+  }
+  return marketCloseDate(ref.toISOString());
+}
+
 /**
  * Returns "May 8, 2026" given a YYYY-MM-DD date string. Identical SSR/CSR
  * output because the formatter pins to UTC.
