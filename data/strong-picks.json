@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-09T12:21:27.819Z",
+  "generatedAt": "2026-06-10T12:43:27.922Z",
   "universeSize": 800,
   "picks": [
     {
       "ticker": "EIX",
       "companyName": "Edison International",
       "sector": "Utilities",
-      "price": 70.84,
-      "changePercent": -3.39561,
-      "composite": 66,
+      "price": 71.26,
+      "changePercent": 0.59289,
+      "composite": 65,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 66,
-      "shortTermScore": 67,
+      "shortTermScore": 65,
       "categories": [
         {
           "name": "value",
@@ -27,17 +27,17 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 73
+          "score": 68
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 56
+          "score": 57
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 52
+          "score": 53
         }
       ]
     },
@@ -45,13 +45,13 @@
       "ticker": "SPG",
       "companyName": "Simon Property Group, Inc.",
       "sector": "Real Estate",
-      "price": 207.34,
-      "changePercent": -1.4122,
+      "price": 211.89,
+      "changePercent": 2.19446,
       "composite": 63,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 61,
-      "shortTermScore": 64,
+      "shortTermScore": 65,
       "categories": [
         {
           "name": "value",
@@ -66,7 +66,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 72
+          "score": 73
         },
         {
           "name": "profitability",
@@ -84,8 +84,8 @@
       "ticker": "BNY",
       "companyName": "Bank of New York Mellon Corp",
       "sector": "Financial Services",
-      "price": 141.78,
-      "changePercent": -0.4284,
+      "price": 143.25,
+      "changePercent": 1.03682,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -105,7 +105,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 91
+          "score": 93
         },
         {
           "name": "profitability",
@@ -123,18 +123,18 @@
       "ticker": "EQT",
       "companyName": "EQT Corporation",
       "sector": "Energy",
-      "price": 52.98,
-      "changePercent": -1.43256,
+      "price": 52.69,
+      "changePercent": -0.54738,
       "composite": 62,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 68,
-      "shortTermScore": 56,
+      "longTermScore": 69,
+      "shortTermScore": 55,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 62
+          "score": 65
         },
         {
           "name": "growth",
@@ -144,12 +144,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 37
+          "score": 33
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 69
+          "score": 72
         },
         {
           "name": "risk",
@@ -162,8 +162,8 @@
       "ticker": "MS",
       "companyName": "Morgan Stanley",
       "sector": "Financial Services",
-      "price": 212.24,
-      "changePercent": 0.14627,
+      "price": 210.25,
+      "changePercent": -0.93762,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -198,50 +198,11 @@
       ]
     },
     {
-      "ticker": "MU",
-      "companyName": "Micron Technology, Inc.",
-      "sector": "Technology",
-      "price": 949.28,
-      "changePercent": 9.8691,
-      "composite": 60,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 56,
-      "shortTermScore": 64,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 52
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 87
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 86
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 56
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 22
-        }
-      ]
-    },
-    {
       "ticker": "UNP",
       "companyName": "Union Pacific Corporation",
       "sector": "Industrials",
-      "price": 268.67,
-      "changePercent": -1.34033,
+      "price": 271.28,
+      "changePercent": 0.97145,
       "composite": 60,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
@@ -271,7 +232,7 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 74
+          "score": 75
         }
       ]
     },
@@ -279,13 +240,13 @@
       "ticker": "VPMAX",
       "companyName": "Vanguard PRIMECAP Fund Admiral Shares",
       "sector": "Financial Services",
-      "price": 227.08,
-      "changePercent": 2.06301,
+      "price": 226.97,
+      "changePercent": -0.04844108,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "LOW",
-      "longTermScore": 54,
-      "shortTermScore": 67,
+      "longTermScore": 53,
+      "shortTermScore": 66,
       "categories": [
         {
           "name": "value",
@@ -300,7 +261,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 87
+          "score": 84
         },
         {
           "name": "profitability",
@@ -318,13 +279,13 @@
       "ticker": "VPMCX",
       "companyName": "Vanguard PRIMECAP Fund Investor Shares",
       "sector": "Financial Services",
-      "price": 219.21,
-      "changePercent": 2.06257,
+      "price": 219.1,
+      "changePercent": -0.05018019,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "LOW",
-      "longTermScore": 54,
-      "shortTermScore": 67,
+      "longTermScore": 53,
+      "shortTermScore": 66,
       "categories": [
         {
           "name": "value",
@@ -339,7 +300,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 87
+          "score": 84
         },
         {
           "name": "profitability",
@@ -357,8 +318,8 @@
       "ticker": "WDC",
       "companyName": "Western Digital Corporation",
       "sector": "Technology",
-      "price": 526.93,
-      "changePercent": 2.97233,
+      "price": 517.72,
+      "changePercent": -1.74786,
       "composite": 60,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -378,7 +339,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 77
+          "score": 76
         },
         {
           "name": "profitability",
@@ -388,7 +349,7 @@
         {
           "name": "risk",
           "label": "Risk",
-          "score": 32
+          "score": 33
         }
       ]
     },
@@ -396,13 +357,13 @@
       "ticker": "AAPL",
       "companyName": "Apple Inc.",
       "sector": "Technology",
-      "price": 301.54,
-      "changePercent": -1.88716,
+      "price": 290.55,
+      "changePercent": -3.64462,
       "composite": 59,
-      "signal": "BUY_SHORT_TERM",
+      "signal": "HOLD",
       "confidence": "MEDIUM",
       "longTermScore": 58,
-      "shortTermScore": 60,
+      "shortTermScore": 59,
       "categories": [
         {
           "name": "value",
@@ -417,31 +378,31 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 52
+          "score": 50
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 64
+          "score": 65
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 86
+          "score": 85
         }
       ]
     },
     {
-      "ticker": "CSCO",
-      "companyName": "Cisco Systems, Inc.",
-      "sector": "Technology",
-      "price": 124.15,
-      "changePercent": 2.06347,
+      "ticker": "CFG",
+      "companyName": "Citizens Financial Group, Inc.",
+      "sector": "Financial Services",
+      "price": 65.67,
+      "changePercent": 2.05128,
       "composite": 59,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 56,
-      "shortTermScore": 61,
+      "longTermScore": 53,
+      "shortTermScore": 65,
       "categories": [
         {
           "name": "value",
@@ -456,17 +417,56 @@
         {
           "name": "momentum",
           "label": "Momentum",
+          "score": 84
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 48
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 57
+        }
+      ]
+    },
+    {
+      "ticker": "GWW",
+      "companyName": "W.W. Grainger, Inc.",
+      "sector": "Industrials",
+      "price": 1329.8,
+      "changePercent": 1.93397,
+      "composite": 59,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "MEDIUM",
+      "longTermScore": 57,
+      "shortTermScore": 61,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 50
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 44
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
           "score": 61
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 51
+          "score": 57
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 77
+          "score": 78
         }
       ]
     }
