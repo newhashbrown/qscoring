@@ -17,9 +17,18 @@ name: Refresh strong picks
 
 on:
   schedule:
-    # 09:30 UTC = ~4:30am ET, before US pre-market activity. Picks
-    # reflect the prior trading day's close.
+    # 09:30 UTC = ~4:30am ET, before US pre-market activity. Picks reflect
+    # the prior trading day's close. This PRE-MARKET run is the only one
+    # allowed to rescore: /api/score returns the prior session's settled
+    # close, so the snapshot's price/changePercent are faithful.
     - cron: '30 9 * * *'
+    # 18:00 UTC = ~13:00–14:00 ET, MID-SESSION. Recovery DETECTOR only. On a
+    # good day the 09:30 snapshot already exists → guard skips (no-op). On a
+    # bad day the guard FAILS LOUDLY rather than rescoring: a mid-session
+    # rescore would write live intraday price/change mislabeled as the prior
+    # close and contaminate the no-look-ahead ledger. A genuinely-missed
+    # snapshot is backfilled by hand from FMP historical close.
+    - cron: '0 18 * * *'
   workflow_dispatch:
     inputs:
       force_run:
@@ -33,11 +42,12 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    # ~500 S&P 500 tickers × 2s pacing = ~17 min of scoring, plus install
+    # ~800-name universe × 2s pacing = ~27 min of scoring, plus install
     # (~1-2 min), commit/push (a few sec), and the 4-min post-deploy sleep
-    # + watchlist alert call. 50-min ceiling leaves headroom for slow FMP
-    # responses without aborting a half-written scoreboard.
-    timeout-minutes: 50
+    # + watchlist alert call. Raised 50 → 90 after the 2026-05-28 run hit the
+    # 50-min ceiling mid-score and permanently lost that snapshot; 90 leaves
+    # wide headroom for slow FMP responses without aborting a half-built run.
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v5
 
@@ -49,7 +59,52 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Decide what this run should do BEFORE spending ~27 min rescoring.
+      # snapshot-guard.ts reuses lib/market-date (the same marketCloseDate +
+      # isUsTradingDay the build writes with), so the guard can never target a
+      # different date than build-strong-picks.ts produces.
+      #   mode=skip  — non-trading day, or the snapshot already landed on
+      #                origin/main (good-day no-op, esp. the 18:00 run).
+      #   mode=build — pre-market 09:30 / manual window with the snapshot
+      #                missing: proceed with a faithful rescore.
+      #   mode=fail  — 18:00 recovery window with the snapshot missing: a mid-
+      #                session rescore would contaminate the no-look-ahead
+      #                ledger, so fail loudly and let a human backfill.
+      - name: Snapshot guard (skip / build / fail-loud)
+        id: guard
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          OUT=$(npx tsx scripts/snapshot-guard.ts)
+          EXPECTED=$(printf '%s\n' "$OUT" | sed -n 's/^expected=//p')
+          TRADING=$(printf '%s\n' "$OUT" | sed -n 's/^trading=//p')
+          echo "expected=$EXPECTED" >> "$GITHUB_OUTPUT"
+          echo "Target snapshot: ${EXPECTED} (trading day now: ${TRADING}; schedule: '${SCHEDULE:-manual}')"
+
+          if [ "$TRADING" != "true" ]; then
+            echo "Non-trading day in ET — nothing to produce. Skipping."
+            echo "mode=skip" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git fetch origin main --depth=1
+          if git cat-file -e "FETCH_HEAD:data/snapshots/${EXPECTED}.json" 2>/dev/null; then
+            echo "Snapshot ${EXPECTED}.json already on origin/main — no-op."
+            echo "mode=skip" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$SCHEDULE" = "0 18 * * *" ]; then
+            echo "::error::Snapshot ${EXPECTED}.json is still missing at the 18:00 recovery check — the 09:30 run failed to land it. NOT rescoring: a mid-session rescore would write live intraday price/change mislabeled as the ${EXPECTED} close and poison the no-look-ahead ledger. Backfill by hand from FMP historical close (see scripts/backfill-snapshots.ts)."
+            echo "mode=fail" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          echo "Snapshot ${EXPECTED}.json missing — pre-market/manual window, proceeding with a faithful rescore."
+          echo "mode=build" >> "$GITHUB_OUTPUT"
+
       - name: Build strong picks + scoreboard + snapshot
+        if: steps.guard.outputs.mode == 'build'
         run: npm run strong-picks
         env:
           QSCORING_BASE: https://qscoring.com
@@ -70,6 +125,9 @@ jobs:
 
       - name: Commit and push if changed
         id: commit
+        if: steps.guard.outputs.mode == 'build'
+        env:
+          EXPECTED: ${{ steps.guard.outputs.expected }}
         run: |
           # Stage all the daily-refresh data files (script writes five of them).
           git add data/compare-universe.json data/strong-picks.json data/scoreboard.json data/market-strip.json data/snapshots/
@@ -80,9 +138,45 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: refresh strong picks + scoreboard + snapshot $(date -u +%Y-%m-%d)"
-          git push
+          # Commit message references the snapshot DATE actually written (the
+          # prior trading day), not the UTC run date. The old run-date label
+          # was off by one ("snapshot 2026-06-02" while writing 2026-06-01.json)
+          # and cost real time during the 06-01/06-02 diagnosis.
+          git commit -m "chore: refresh strong picks + scoreboard + snapshot ${EXPECTED}"
+          # Rebase-retry push. refresh-universe-stats can push to main during
+          # this job's ~27-min build; a bare push then loses to a non-fast-
+          # forward and the commit dies with the runner — exactly the
+          # 2026-06-02 loss (2026-06-01.json built + committed locally, push
+          # rejected, gone). Data files are date-keyed JSON, so a rebase
+          # conflict is near-impossible; if one happens, the loop fails loudly.
+          pushed=false
+          for i in 1 2 3; do
+            if git push; then pushed=true; break; fi
+            echo "Push attempt $i/3 rejected (concurrent push to main) — rebasing on origin/main and retrying…"
+            git pull --rebase origin main
+          done
+          if [ "$pushed" != "true" ]; then
+            echo "::error::Push to origin/main failed after 3 rebase-retry attempts — failing loudly so the snapshot is not silently lost (see 2026-06-02 lost-push incident)."
+            exit 1
+          fi
           echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      # A green run MUST guarantee the snapshot landed on the REMOTE. The
+      # 2026-06-02 loss built and committed 2026-06-01.json locally but the
+      # push was rejected and the commit died with the runner — "committed
+      # locally" is not success. Re-fetch origin/main and assert the file is
+      # there; fail loudly if not.
+      - name: Verify snapshot landed on origin/main
+        if: steps.guard.outputs.mode == 'build'
+        env:
+          EXPECTED: ${{ steps.guard.outputs.expected }}
+        run: |
+          git fetch origin main --depth=1
+          if ! git cat-file -e "FETCH_HEAD:data/snapshots/${EXPECTED}.json" 2>/dev/null; then
+            echo "::error::Snapshot ${EXPECTED}.json is NOT on origin/main after push. A build that does not land on the remote is a failure (see 2026-06-02 lost-push incident)."
+            exit 1
+          fi
+          echo "Verified: data/snapshots/${EXPECTED}.json is present on origin/main."
 
       - name: Wait for Cloudflare deploy + trigger watchlist alerts
         if: steps.commit.outputs.pushed == 'true'
@@ -110,3 +204,38 @@ jobs:
             # critical path. Alert delivery is best-effort and any error is
             # surfaced in the response body for debugging.
           fi
+
+      # Dead-man's-switch ping. Fires on any successful completion — a real
+      # build, an 18:00 no-op, or a non-trading-day skip — so the absence of a
+      # ping (e.g. a hung or never-scheduled run) is itself the alert.
+      # continue-on-error + the URL coming from a secret means this is inert
+      # until HEALTHCHECK_URL is set; create the healthchecks.io check and add
+      # the secret to arm it.
+      - name: Ping healthcheck on success
+        if: success()
+        continue-on-error: true
+        env:
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+        run: |
+          if [ -z "$HEALTHCHECK_URL" ]; then
+            echo "HEALTHCHECK_URL not set — skipping ping (create the healthchecks.io check and add the secret to arm this)."
+            exit 0
+          fi
+          curl -fsS "$HEALTHCHECK_URL"
+
+      # Email alert on ANY failure — a timeout, a coverage abort, a push that
+      # never landed, or an 18:00 fail-loud miss. `from` must be a Resend-
+      # verified qscoring.com sender; `to` is the personal inbox. Dynamic
+      # values go through env (not inline ${{ }}) so the JSON can't be broken
+      # by the workflow name.
+      - name: Email alert on failure
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          WF: ${{ github.workflow }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          curl -fsS -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Workflow '$WF' failed.\n\nRun: $RUN_URL\n\nIf this is the 18:00 recovery check, the prior trading day's snapshot is missing — backfill from FMP historical close (scripts/backfill-snapshots.ts).\"}"

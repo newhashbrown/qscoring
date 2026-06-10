@@ -45,4 +45,17 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/recaps/
           git commit -m "chore: weekly recap $(date -u +%Y-%m-%d)"
-          git push
+          # Rebase-retry push: another scheduled workflow can push to main
+          # concurrently. A bare push would lose to a non-fast-forward and drop
+          # the commit (the 2026-06-02 lost-push incident). Date-keyed JSON ⇒
+          # rebase conflicts near-impossible; fail loudly if one occurs.
+          pushed=false
+          for i in 1 2 3; do
+            if git push; then pushed=true; break; fi
+            echo "Push attempt $i/3 rejected (concurrent push to main) — rebasing on origin/main and retrying…"
+            git pull --rebase origin main
+          done
+          if [ "$pushed" != "true" ]; then
+            echo "::error::Push to origin/main failed after 3 rebase-retry attempts — failing loudly so the weekly recap is not silently lost."
+            exit 1
+          fi
