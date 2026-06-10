@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T12:21:27.819Z",
+  "generatedAt": "2026-06-10T12:43:27.922Z",
   "universeSize": 800,
   "entries": [
     {
@@ -605,6 +605,11 @@
     {
       "symbol": "CFAAX",
       "name": "American Funds Bond Fund of Amer 529A",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "CFG",
+      "name": "Citizens Financial Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -1320,6 +1325,11 @@
     {
       "symbol": "FPURX",
       "name": "Fidelity Puritan Fund",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "FRDPX",
+      "name": "Franklin Rising Dividends Fund",
       "sector": "Financial Services"
     },
     {
@@ -2283,6 +2293,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "NRG",
+      "name": "NRG Energy, Inc.",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "NSC",
       "name": "Norfolk Southern Corporation",
       "sector": "Industrials"
@@ -2378,9 +2393,9 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OWLSX",
-      "name": "Old Westbury Large Cap Strategies",
-      "sector": "Financial Services"
+      "symbol": "OTIS",
+      "name": "Otis Worldwide Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "OXY",
@@ -3013,11 +3028,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "STRL",
-      "name": "Sterling Infrastructure, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "STT",
       "name": "State Street Corporation",
       "sector": "Financial Services"
@@ -3128,19 +3138,9 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TPL",
-      "name": "Texas Pacific Land Corporation",
-      "sector": "Energy"
-    },
-    {
       "symbol": "TPR",
       "name": "Tapestry, Inc.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "TQQQ",
-      "name": "ProShares - UltraPro QQQ",
-      "sector": "Financial Services"
     },
     {
       "symbol": "TRAIX",
