@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T12:43:27.922Z",
+  "generatedAt": "2026-06-11T13:00:41.273Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1153,6 +1153,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "FE",
+      "name": "FirstEnergy Corp.",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "FEGRX",
       "name": "First Eagle Global Fund Class R6",
       "sector": "Financial Services"
@@ -1298,6 +1303,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FNITX",
+      "name": "Fidelity Advisor New Insights M",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FNPFX",
       "name": "American Funds New Perspective Fund",
       "sector": "Financial Services"
@@ -1328,6 +1338,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FRDAX",
+      "name": "Franklin Rising Dividends Fund",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FRDPX",
       "name": "Franklin Rising Dividends Fund",
       "sector": "Financial Services"
@@ -1346,11 +1361,6 @@
       "symbol": "FSKAX",
       "name": "Fidelity Total Market Index Fund",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSLR",
-      "name": "First Solar, Inc.",
-      "sector": "Energy"
     },
     {
       "symbol": "FSMAX",
@@ -1583,6 +1593,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "HCAIX",
+      "name": "Harbor Capital Appreciation Fund",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "HD",
       "name": "The Home Depot, Inc.",
       "sector": "Consumer Cyclical"
@@ -1606,6 +1621,11 @@
       "symbol": "HLT",
       "name": "Hilton Worldwide Holdings Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "HNACX",
+      "name": "Harbor Capital Appreciation Fund - Retirement Class",
+      "sector": "Financial Services"
     },
     {
       "symbol": "HON",
@@ -2208,11 +2228,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "MTZ",
-      "name": "MasTec, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "MU",
       "name": "Micron Technology, Inc.",
       "sector": "Technology"
@@ -2291,11 +2306,6 @@
       "symbol": "NPFFX",
       "name": "New Perspective Fund, Class F-1 Shares",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "NRG",
-      "name": "NRG Energy, Inc.",
-      "sector": "Utilities"
     },
     {
       "symbol": "NSC",
@@ -2391,11 +2401,6 @@
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "OTIS",
-      "name": "Otis Worldwide Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "OXY",
@@ -2993,6 +2998,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "SPCK",
+      "name": "SPAC and New Issue ETF",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "SPG",
       "name": "Simon Property Group, Inc.",
       "sector": "Real Estate"
@@ -3051,11 +3061,6 @@
       "symbol": "SYK",
       "name": "Stryker Corporation",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "SYM",
-      "name": "Symbotic Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "SYY",
@@ -3366,11 +3371,6 @@
       "symbol": "VDIPX",
       "name": "Vanguard Developed Markets Index Fund Institutional Plus Shares",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEEV",
-      "name": "Veeva Systems Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "VEIPX",
