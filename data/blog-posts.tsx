@@ -45,6 +45,9 @@ const DunsIsDoneBody = dynamic(
 const FedRatesQuantInvestingBody = dynamic(
   () => import("@/app/blog/bodies/fed-rates-quant-investing")
 );
+const ScoringTheAiIposBody = dynamic(
+  () => import("@/app/blog/bodies/scoring-the-ai-ipos")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1556,6 +1559,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "Three meetings into 2026 the Fed has held at 3.50–3.75% with dissents in both directions and one cut penciled into the dot plot. Rates are the single macro variable that most reliably reorders which factor gets paid — here's the regime-by-regime read on all five QScore factors and how to tilt without overtrading.",
     Body: FedRatesQuantInvestingBody,
+  },
+  {
+    slug: "scoring-the-ai-ipos",
+    cluster: "market-signals",
+    title: "Scoring the AI IPOs: why a factor model can't read SpaceX or OpenAI yet",
+    description:
+      "SpaceX priced the largest IPO in history and OpenAI just filed confidentially. A factor model can't score either yet — two of the five factors are mathematically undefined for a day-one listing, and the other three are distorted, comparable-starved, or unflattering. Here's what each factor needs before the QScore means anything.",
+    publishedAt: "2026-06-12",
+    readTimeMinutes: 9,
+    excerpt:
+      "SpaceX raised ~$75B at $135 and trades today as SPCX; OpenAI has only filed a confidential S-1. The quant question isn't \"buy or not\" — it's \"can the model even see these yet?\" Momentum and risk are undefined without price history, value is distorted by losses, and the honest output is LOW confidence. Here's the factor-by-factor read on the year's biggest listings.",
+    Body: ScoringTheAiIposBody,
   },
 ];
 
