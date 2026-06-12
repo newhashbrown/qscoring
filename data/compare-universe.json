@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-11T13:00:41.273Z",
+  "generatedAt": "2026-06-12T12:41:31.391Z",
   "universeSize": 800,
   "entries": [
     {
@@ -748,6 +748,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CRS",
+      "name": "Carpenter Technology Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "CRWD",
       "name": "CrowdStrike Holdings, Inc.",
       "sector": "Technology"
@@ -796,6 +801,11 @@
       "symbol": "CVX",
       "name": "Chevron Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "CW",
+      "name": "Curtiss-Wright Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "CWGFX",
@@ -1153,11 +1163,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FE",
-      "name": "FirstEnergy Corp.",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "FEGRX",
       "name": "First Eagle Global Fund Class R6",
       "sector": "Financial Services"
@@ -1338,16 +1343,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FRDAX",
-      "name": "Franklin Rising Dividends Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FRDPX",
-      "name": "Franklin Rising Dividends Fund",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FRIAX",
       "name": "Franklin Income Fund",
       "sector": "Financial Services"
@@ -1361,6 +1356,11 @@
       "symbol": "FSKAX",
       "name": "Fidelity Total Market Index Fund",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "FSLR",
+      "name": "First Solar, Inc.",
+      "sector": "Energy"
     },
     {
       "symbol": "FSMAX",
@@ -2228,6 +2228,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "MTZ",
+      "name": "MasTec, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "MU",
       "name": "Micron Technology, Inc.",
       "sector": "Technology"
@@ -2401,6 +2406,11 @@
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "OWLSX",
+      "name": "Old Westbury Large Cap Strategies",
+      "sector": "Financial Services"
     },
     {
       "symbol": "OXY",
@@ -3185,11 +3195,6 @@
     {
       "symbol": "TRRCX",
       "name": "T. Rowe Price Retirement 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TRRDX",
-      "name": "T. Rowe Price Retirement 2040 Fund",
       "sector": "Financial Services"
     },
     {
@@ -3991,11 +3996,6 @@
       "symbol": "YUM",
       "name": "Yum! Brands, Inc.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "ZM",
-      "name": "Zoom Communications, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "ZTS",
