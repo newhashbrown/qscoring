@@ -5,7 +5,7 @@
  * "Buy Short-Term"). Pages render the resulting picks as a grid.
  */
 
-import type { CategoryName, Signal } from "@/lib/scoring";
+import type { CategoryName, CompanyHeader, Signal } from "@/lib/scoring";
 
 export type ScoreboardPick = {
   ticker: string;
@@ -19,6 +19,9 @@ export type ScoreboardPick = {
   longTermScore?: number;
   shortTermScore?: number;
   categories: Array<{ name: CategoryName; label: string; score: number }>;
+  // Tier 1a header scalars present on snapshots written on/after the Phase-1
+  // pipeline change; absent on historical snapshots (optional by design).
+  header?: CompanyHeader;
 };
 
 export type CategorySelector =
