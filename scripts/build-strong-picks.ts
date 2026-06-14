@@ -20,6 +20,7 @@ import * as path from "node:path";
 import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
 import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
 import type { MoversFile } from "../lib/movers-board";
+import type { CompanyHeader } from "../lib/scoring/types";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
@@ -166,6 +167,7 @@ type ApiResponse = {
   longTermScore: number;
   shortTermScore: number;
   categories: ApiCategory[];
+  header?: CompanyHeader;
   error?: string;
 };
 
@@ -181,6 +183,9 @@ type Pick = {
   longTermScore: number;
   shortTermScore: number;
   categories: Array<{ name: CategoryName; label: string; score: number }>;
+  // Tier 1a point-in-time header scalars, captured into the append-only
+  // snapshot ledger. Optional so a pre-header /api/score response still scores.
+  header?: CompanyHeader;
 };
 
 async function fetchScoreOnce(ticker: string): Promise<Response | null> {
@@ -238,6 +243,7 @@ async function fetchScore(ticker: string): Promise<Pick | null> {
         label: c.label,
         score: Math.round(c.score),
       })),
+      ...(data.header ? { header: data.header } : {}),
     };
   }
   console.warn(`[${ticker}] exhausted retries — skipping`);

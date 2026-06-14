@@ -126,6 +126,27 @@ export type Profile = {
   isActivelyTrading: boolean;
   isEtf: boolean;
   isFund: boolean;
+  // Tier 1a header fields — present in the /profile payload we already fetch,
+  // surfaced here so the company-snapshot header needs no extra call for them.
+  averageVolume: number; // FMP-reported average daily share volume
+  range: string; // 52-week range, e.g. "195.07-317.4"
+  lastDividend: number;
+};
+
+// /shares-float — shares outstanding + free float. One extra call per ticker;
+// quarterly-slow-moving, so it rides the 24h fundamentals TTL.
+//
+// NOTE on point-in-time integrity: `date` here is FMP's data-refresh timestamp
+// (e.g. "2026-06-14 11:20:05"), NOT a clean SEC filing date — the real filing
+// period is only in the `source` URL. The header therefore shows no "as of"
+// for shares/float in Phase 1; clean filingDate/acceptedDate as-of treatment
+// arrives with the statement endpoints in Phase 2. Captured but unused for now.
+export type SharesFloat = {
+  symbol: string;
+  date: string | null;
+  freeFloat: number | null; // percent of shares free-floating (99.83 = 99.83%)
+  floatShares: number | null;
+  outstandingShares: number | null;
 };
 
 export type Quote = {
@@ -213,6 +234,15 @@ export const fmp = {
       { symbol: s, limit: 1 },
       TTL.fundamentals,
       `financialGrowth:${s}`
+    );
+  },
+  sharesFloat: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<SharesFloat[]>(
+      "/shares-float",
+      { symbol: s },
+      TTL.fundamentals,
+      `sharesFloat:${s}`
     );
   },
   historical: (symbol: string) => {
