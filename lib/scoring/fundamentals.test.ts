@@ -7,6 +7,7 @@ import {
   computeMarginYoY,
   buildFundamentalsTrend,
   nextEarningsStaleFlag,
+  extractFundamentalFacts,
 } from "./fundamentals";
 import type { CashFlowStatement, EarningsRow, IncomeStatement } from "./fmp";
 
@@ -111,6 +112,34 @@ test("buildFundamentalsTrend: empty income → empty trend, no throw", () => {
   const trend = buildFundamentalsTrend([], []);
   strictEqual(trend.years.length, 0);
   strictEqual(trend.currency, null);
+});
+
+// ─── extractFundamentalFacts (store rows) ────────────────────
+test("extractFundamentalFacts: one row per filing with derived margins", () => {
+  const income = fixture<IncomeStatement[]>("income-statement-3y.json");
+  const cashflow = fixture<CashFlowStatement[]>("cash-flow-3y.json");
+  const facts = extractFundamentalFacts(income, cashflow);
+
+  strictEqual(facts.length, 3);
+  const f2025 = facts.find((f) => f.fiscalYear === "2025")!;
+  strictEqual(f2025.fiscalPeriodEnd, "2025-12-31");
+  strictEqual(f2025.filingDate, "2026-02-10");
+  strictEqual(f2025.revenue, 1500);
+  strictEqual(f2025.epsDiluted, 1.5);
+  strictEqual(f2025.freeCashFlow, 300);
+  strictEqual(approx(f2025.grossMargin, 660 / 1500), true);
+  strictEqual(approx(f2025.netMargin, 180 / 1500), true);
+});
+
+test("extractFundamentalFacts: drops rows lacking a filingDate (no anchor)", () => {
+  const income: IncomeStatement[] = [
+    {
+      date: "2025-12-31", filingDate: null, acceptedDate: null, fiscalYear: "2025",
+      period: "FY", reportedCurrency: "USD", revenue: 100, grossProfit: 40,
+      operatingIncome: 20, netIncome: 10, eps: 1, epsDiluted: 1,
+    },
+  ];
+  strictEqual(extractFundamentalFacts(income, []).length, 0);
 });
 
 // ─── nextEarningsStaleFlag ───────────────────────────────────
