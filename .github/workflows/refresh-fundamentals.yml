@@ -1,0 +1,74 @@
+name: Refresh fundamentals store
+
+# Weekly capture of as-reported multi-year fundamentals into the filing-keyed
+# store (D1 fundamentals_facts, via /api/cron/persist-fundamentals).
+#
+# Statements only change on quarterly/annual filings, so a weekly cadence
+# captures every new filing within days of release. The store is append-only
+# and deduped on (ticker, fiscalPeriodEnd, filingDate): re-runs are idempotent
+# and a filing's first-captured (as-reported) figures are never overwritten —
+# the no-look-ahead integrity the store exists for. Unlike the daily snapshot
+# job there is no git commit here; everything lands in D1.
+
+on:
+  schedule:
+    # 07:00 UTC Sunday = ~2-3am ET weekend, off-peak. No market dependency —
+    # we're reading historical filings, not a session close.
+    - cron: '0 7 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    # ~800 tickers × 2s pacing ≈ 27 min, plus install. Mirror the strong-picks
+    # headroom so a slow FMP day can't abort a mostly-complete run.
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Capture fundamentals into the store
+        run: npm run fundamentals
+        env:
+          QSCORING_BASE: https://qscoring.com
+          # Reads the 5-year statements per universe ticker. Same secret value
+          # used by the other refresh workflows. Hard requirement.
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          # Authorizes POST /api/cron/persist-fundamentals. Reuses the snapshot
+          # cron secret; must be set in BOTH the Cloudflare worker secret and
+          # this repo's Actions secrets (same value).
+          SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
+
+      - name: Ping healthcheck on success
+        if: success()
+        continue-on-error: true
+        env:
+          HEALTHCHECK_FUNDAMENTALS_URL: ${{ secrets.HEALTHCHECK_FUNDAMENTALS_URL }}
+        run: |
+          if [ -z "$HEALTHCHECK_FUNDAMENTALS_URL" ]; then
+            echo "HEALTHCHECK_FUNDAMENTALS_URL not set — skipping ping (create the check and add the secret to arm this)."
+            exit 0
+          fi
+          curl -fsS "$HEALTHCHECK_FUNDAMENTALS_URL"
+
+      - name: Email alert on failure
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          WF: ${{ github.workflow }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          curl -fsS -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Workflow '$WF' failed.\n\nRun: $RUN_URL\"}"
