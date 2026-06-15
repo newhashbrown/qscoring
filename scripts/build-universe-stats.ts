@@ -20,6 +20,7 @@ import * as dotenv from "node:fs"; // placeholder; we read .env manually below
 
 import { fmp, type Profile, type Quote, type RatiosTtm, type KeyMetricsTtm, type FinancialGrowth, type PricePoint } from "../lib/scoring/fmp";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "../lib/scoring/momentum";
+import { fetchUniverse, MIN_MARKET_CAP, MAX_UNIVERSE_SIZE } from "../lib/scoring/universe";
 
 // Load .env manually so this script works without dotenv as a dep.
 function loadEnv() {
@@ -35,8 +36,8 @@ function loadEnv() {
 }
 loadEnv();
 
-const MIN_MARKET_CAP = 2_000_000_000;
-const MAX_UNIVERSE_SIZE = 800;
+// MIN_MARKET_CAP / MAX_UNIVERSE_SIZE come from lib/scoring/universe.ts so the
+// corpus universe stays identical to the scorer's (build-strong-picks.ts).
 // FMP Starter is ~300 calls/min. Each ticker fires 5 parallel calls (skipping
 // profile since the screener already gives sector+beta). At 2.5s pacing we
 // run ~24 tickers/min × 5 calls = 120 calls/min — comfortably under the
@@ -72,32 +73,7 @@ type UniverseStatsFile = {
   sectors: Record<string, { size: number; metrics: SectorStats }>;
 };
 
-type ScreenerRow = {
-  symbol: string;
-  companyName: string;
-  marketCap: number;
-  sector: string;
-  industry: string;
-  beta: number;
-  price: number;
-};
-
 type TickerMetrics = Partial<Record<MetricKey, number>> & { sector: string };
-
-async function fetchScreener(): Promise<ScreenerRow[]> {
-  const apiKey = process.env.FMP_API_KEY;
-  if (!apiKey) throw new Error("FMP_API_KEY not set in .env");
-  const url = new URL("https://financialmodelingprep.com/stable/company-screener");
-  url.searchParams.set("marketCapMoreThan", String(MIN_MARKET_CAP));
-  url.searchParams.set("isActivelyTrading", "true");
-  url.searchParams.set("country", "US");
-  url.searchParams.set("exchange", "NASDAQ,NYSE");
-  url.searchParams.set("limit", String(MAX_UNIVERSE_SIZE));
-  url.searchParams.set("apikey", apiKey);
-  const res = await fetch(url.toString());
-  if (!res.ok) throw new Error(`Screener failed: ${res.status} ${await res.text()}`);
-  return (await res.json()) as ScreenerRow[];
-}
 
 async function extractTickerMetrics(
   symbol: string,
@@ -176,11 +152,13 @@ function computeStats(rawValues: number[]): Stats | null {
 }
 
 async function main() {
-  console.log("Fetching universe screener...");
-  const screener = await fetchScreener();
-  const universe = screener
-    .filter((r) => r.symbol && r.sector && r.marketCap >= MIN_MARKET_CAP)
-    .slice(0, MAX_UNIVERSE_SIZE);
+  console.log("Resolving investable universe (funds/ETFs excluded)...");
+  // Same shared selector + options as build-strong-picks.ts → identical
+  // universe, so the corpus and the scorer can never drift.
+  const universe = await fetchUniverse({
+    maxSize: MAX_UNIVERSE_SIZE,
+    requireSector: true,
+  });
   console.log(`  → ${universe.length} tickers`);
 
   console.log(`Fetching metrics (concurrency=${CONCURRENCY})...`);
@@ -235,7 +213,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     universe: {
       size: allMetrics.length,
-      criteria: `marketCap > $${MIN_MARKET_CAP / 1e9}B (mid+large cap), US-listed (NASDAQ/NYSE), actively trading, capped at ${MAX_UNIVERSE_SIZE} names`,
+      criteria: `marketCap > $${MIN_MARKET_CAP / 1e9}B (mid+large cap), US-listed (NASDAQ/NYSE), actively trading, funds/ETFs excluded, capped at ${MAX_UNIVERSE_SIZE} real equities`,
     },
     metrics: universeMetrics,
     sectors: sectorOut,

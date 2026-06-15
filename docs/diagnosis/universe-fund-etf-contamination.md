@@ -80,13 +80,31 @@ That is a deliberate, reviewable production change with its own blast radius —
 hence this diagnosis first, then a follow-up implementation PR that wires
 `universe.ts` into the three call sites and rebuilds `universe-stats`.
 
-## Rollout plan (follow-up PR)
+## Rollout
 
-1. Wire `fetchUniverse`/`selectUniverse` into `build-strong-picks.ts`,
-   `build-universe-stats.ts`, `build-sitemap-tickers.ts` (delete the three
-   copy-pasted screener blocks).
-2. Rebuild `data/universe-stats.json` from the cleaned universe **before** the
-   next scoring run (scores are meaningless against the old contaminated
-   corpus).
-3. Verify the scoreboard sector mix lands near the 15.5% projection.
-4. Spot-check that no real large-caps were dropped (REITs, BRK-B, etc.).
+Wired in the follow-up PR. Scope correction: only **two** call sites needed
+the change — `build-strong-picks.ts` (scorer) and `build-universe-stats.ts`
+(corpus). `build-sitemap-tickers.ts` was left untouched: it **already**
+excludes `isEtf`/`isFund`, and deliberately uses a $250M floor + name
+heuristics for broad SEO coverage — a different, correct design the scored-
+universe selector must not impose.
+
+Both scorer and corpus now call the identical
+`fetchUniverse({ maxSize: 800, requireSector: true })`, so they cannot drift.
+Verified live: 800 real equities, Financial Services **15.5%**, REITs retained
+(Real Estate 6%), top caps NVDA/GOOGL/AAPL/MSFT.
+
+### Deploy runbook (lockstep — corpus before scorer)
+
+The corpus must be rebuilt from the cleaned universe **before** the scorer runs
+against it, or scores are computed against the old contaminated distribution.
+The crons already order this (universe-stats 02:00 UTC < strong-picks 09:30
+UTC), so it self-heals within one cycle — but for a clean cutover with no
+transition-day glitch, after merge:
+
+1. Manually dispatch **refresh-universe-stats** → rebuilds
+   `data/universe-stats.json` from the cleaned universe.
+2. Then dispatch **refresh-strong-picks** (or wait for 09:30 UTC) → scores the
+   cleaned universe against the fresh corpus.
+3. Verify the scoreboard sector mix lands near the 15.5% projection and spot-
+   check no real large-caps were dropped (REITs, BRK-B, GOOG/GOOGL, etc.).
