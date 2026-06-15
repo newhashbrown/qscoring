@@ -1348,6 +1348,45 @@ footer .footer-links .sep {
 .price-change.up { color: var(--accent); }
 .price-change.down { color: var(--red); }
 
+/* Tier 1a company snapshot header */
+.company-header-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.chs-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 18px;
+  background: var(--bg-card);
+}
+.chs-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+.chs-value {
+  font-family: var(--mono);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text);
+}
+/* Size-bucket badge — sits in the meta row beside sector/industry tags. */
+.size-badge {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.size-badge.size-mega { background: var(--accent-dim); color: var(--accent); border-color: transparent; }
+.size-badge.size-large { background: rgba(0, 212, 170, 0.10); color: var(--accent); border-color: transparent; }
+
 /* Composite panel */
 .composite-panel {
   display: flex;

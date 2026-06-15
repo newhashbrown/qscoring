@@ -8,4 +8,6 @@ export type {
   CategoryScore,
   MetricScore,
   ScoreResult,
+  CompanyHeader,
+  SizeBucket,
 } from "./types";

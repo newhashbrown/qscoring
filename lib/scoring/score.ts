@@ -1,5 +1,6 @@
-import { fmp, type FinancialGrowth, type KeyMetricsTtm, type PricePoint, type Profile, type Quote, type RatiosTtm } from "./fmp";
+import { fmp, type FinancialGrowth, type KeyMetricsTtm, type PricePoint, type Profile, type Quote, type RatiosTtm, type SharesFloat } from "./fmp";
 import { withStalenessTracking } from "./fmp-cache";
+import { buildCompanyHeader } from "./company-header";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
@@ -44,6 +45,7 @@ export type FetchedTickerData = {
   ratios?: RatiosTtm;
   km?: KeyMetricsTtm;
   growth?: FinancialGrowth;
+  sharesFloat?: SharesFloat;
   history: PricePoint[];
 };
 
@@ -112,12 +114,14 @@ export function validateTicker(input: string): string {
  */
 export async function fetchTickerData(rawTicker: string): Promise<FetchedTickerData> {
   const ticker = validateTicker(rawTicker);
-  const [profileR, quoteR, ratiosR, kmR, growthR, historyR] = await Promise.all([
+  const [profileR, quoteR, ratiosR, kmR, growthR, sharesFloatR, historyR] = await Promise.all([
     fmp.profile(ticker),
     fmp.quote(ticker),
     fmp.ratiosTtm(ticker),
     fmp.keyMetricsTtm(ticker),
     fmp.financialGrowth(ticker).catch(() => [] as FinancialGrowth[]),
+    // Header-only context; a failure here must not block the score.
+    fmp.sharesFloat(ticker).catch(() => [] as SharesFloat[]),
     fmp.historical(ticker).catch(() => [] as PricePoint[]),
   ]);
   const profile = profileR[0];
@@ -128,6 +132,7 @@ export async function fetchTickerData(rawTicker: string): Promise<FetchedTickerD
     ratios: ratiosR[0],
     km: kmR[0],
     growth: growthR[0],
+    sharesFloat: sharesFloatR[0],
     history: historyR ?? [],
   };
 }
@@ -147,7 +152,7 @@ export function scoreFromFetched(
   const offset = opts.historyOffset ?? 0;
   const history = data.history.slice(offset);
 
-  const { profile, quote, ratios, km, growth } = data;
+  const { profile, quote, ratios, km, growth, sharesFloat } = data;
   const sector = profile.sector || null;
   const stat = (key: Parameters<typeof getStats>[0]) => getStats(key, sector);
 
@@ -375,6 +380,20 @@ export function scoreFromFetched(
     categories.reduce((s, c) => s + c.completeness, 0) / categories.length;
   const confidence = deriveConfidence(avgCompleteness, composite);
 
+  // ─── TIER 1a HEADER ────────────────────────────────────────
+  // Point-in-time company facts. marketCap/range/avgVolume come from the
+  // /profile payload, dividend yield from ratios-ttm, shares + float from
+  // /shares-float. All fields degrade to null on missing coverage.
+  const header = buildCompanyHeader({
+    marketCap: profile.marketCap,
+    sharesOutstanding: sharesFloat?.outstandingShares,
+    floatShares: sharesFloat?.floatShares,
+    freeFloatPercent: sharesFloat?.freeFloat,
+    dividendYield: ratios?.dividendYieldTTM,
+    range52Week: profile.range,
+    history,
+  });
+
   return {
     ticker,
     companyName: profile.companyName,
@@ -388,6 +407,7 @@ export function scoreFromFetched(
     longTermScore: Math.round(longTerm),
     shortTermScore: Math.round(shortTerm),
     categories,
+    header,
     generatedAt: new Date().toISOString(),
   };
 }

@@ -1,0 +1,19 @@
+{
+  "ticker": "AAPL",
+  "companyName": "Apple Inc.",
+  "sector": "Technology",
+  "price": 291.13,
+  "changePercent": 1.24,
+  "composite": 59,
+  "signal": "HOLD",
+  "confidence": "MEDIUM",
+  "longTermScore": 57,
+  "shortTermScore": 61,
+  "categories": [
+    { "name": "value", "label": "Value", "score": 41 },
+    { "name": "growth", "label": "Growth", "score": 55 },
+    { "name": "momentum", "label": "Momentum", "score": 62 },
+    { "name": "profitability", "label": "Profitability", "score": 78 },
+    { "name": "risk", "label": "Risk", "score": 49 }
+  ]
+}
