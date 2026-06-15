@@ -18,13 +18,20 @@ export type MetricKey =
   | "return12mo" | "return3mo" | "return1mo" | "rsi14" | "maCross"
   | "beta" | "vol60";
 
-type SectorStats = { size: number; metrics: Partial<Record<MetricKey, MetricStats>> };
+type Quantiles = Partial<Record<MetricKey, number[]>>;
+type SectorStats = {
+  size: number;
+  metrics: Partial<Record<MetricKey, MetricStats>>;
+  quantiles?: Quantiles; // optional — present only on universe-stats built ≥ Phase 4
+};
 
 type StatsFile = {
   generatedAt: string;
   universe: { size: number; criteria: string };
   metrics: Partial<Record<MetricKey, MetricStats>>;
   sectors: Record<string, SectorStats>;
+  quantileLevels?: number[]; // optional — present only ≥ Phase 4
+  quantiles?: Quantiles;
 };
 
 const stats = statsFileRaw as unknown as StatsFile;
@@ -45,6 +52,44 @@ export function getStats(metric: MetricKey, sector: string | null): MetricStats 
   const universe = stats.metrics[metric];
   if (universe && universe.std > 0) return universe;
   return null;
+}
+
+/**
+ * Breakpoints + reference for a metric's relative-context percentiles
+ * (Phase 4). Mirrors getStats' sector-vs-universe decision so the label we
+ * show ("scored against sector / universe") matches how the score was actually
+ * computed. All fields degrade to null when the bundled universe-stats predates
+ * quantiles — callers then hide percentiles rather than guess.
+ */
+export function getRelativeStats(
+  metric: MetricKey,
+  sector: string | null
+): {
+  sectorBreakpoints: number[] | null;
+  universeBreakpoints: number[] | null;
+  levels: number[] | null;
+  scoredAgainst: "sector" | "universe" | null;
+  sectorSize: number | null;
+} {
+  const levels = stats.quantileLevels ?? null;
+  const universeBreakpoints = stats.quantiles?.[metric] ?? null;
+
+  const sectorEntry = sector ? stats.sectors[sector] : undefined;
+  const sectorSize = sectorEntry?.size ?? null;
+  const sectorBreakpoints = sectorEntry?.quantiles?.[metric] ?? null;
+
+  // Replicate getStats: a sector cohort that clears MIN_SECTOR_SIZE and has a
+  // usable distribution is what the score used; otherwise it fell back to
+  // universe-wide.
+  let scoredAgainst: "sector" | "universe" | null = null;
+  const sectorMetric = sectorEntry?.metrics[metric];
+  if (sectorEntry && sectorEntry.size >= MIN_SECTOR_SIZE && sectorMetric && sectorMetric.std > 0) {
+    scoredAgainst = "sector";
+  } else if (stats.metrics[metric] && stats.metrics[metric]!.std > 0) {
+    scoredAgainst = "universe";
+  }
+
+  return { sectorBreakpoints, universeBreakpoints, levels, scoredAgainst, sectorSize };
 }
 
 export function getUniverseInfo() {
