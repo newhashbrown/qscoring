@@ -11,6 +11,7 @@ import {
   type SizeBucket,
 } from "@/lib/scoring";
 import PriceChart from "./PriceChart";
+import ScoreHistory from "./ScoreHistory";
 import ScoreRing from "./ScoreRing";
 
 const SIGNAL_LABEL: Record<Signal, string> = {
@@ -315,6 +316,8 @@ export default function ScoreView({
           </Link>
         </p>
       </section>
+
+      <ScoreHistory ticker={data.ticker} />
 
       <PriceChart ticker={data.ticker} />
 
