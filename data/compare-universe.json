@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T12:41:31.391Z",
+  "generatedAt": "2026-06-15T09:13:15.521Z",
   "universeSize": 800,
   "entries": [
     {
@@ -8,34 +8,29 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "AAFTX",
-      "name": "American Funds 2035 Target Date Retirement Fund",
-      "sector": "Financial Services"
+      "symbol": "AA",
+      "name": "Alcoa Corporation",
+      "sector": "Basic Materials"
     },
     {
-      "symbol": "AAGTX",
-      "name": "American Funds 2040 Target Date Retirement Fund Class A",
-      "sector": "Financial Services"
+      "symbol": "AAL",
+      "name": "American Airlines Group Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "AAHTX",
-      "name": "American Funds 2045 Trgt Date Retire A",
-      "sector": "Financial Services"
+      "symbol": "AAOI",
+      "name": "Applied Optoelectronics, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "AALTX",
-      "name": "American Funds 2050 Trgt Date Retire A",
-      "sector": "Financial Services"
+      "symbol": "AAON",
+      "name": "AAON, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
       "name": "Apple Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "ABALX",
-      "name": "American Funds American Balanced Fund Class A",
-      "sector": "Financial Services"
     },
     {
       "symbol": "ABBV",
@@ -63,14 +58,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "ACWI",
-      "name": "iShares MSCI ACWI ETF",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "ADC",
+      "name": "Agree Realty Corporation",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -98,9 +93,9 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "AEGFX",
-      "name": "American Funds EuroPacific Growth Cl F-1 Shs",
-      "sector": "Financial Services"
+      "symbol": "AEIS",
+      "name": "Advanced Energy Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AEP",
@@ -108,18 +103,13 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "AEPFX",
-      "name": "American Funds EuroPacific Growth Fund",
-      "sector": "Financial Services"
+      "symbol": "AES",
+      "name": "The AES Corporation",
+      "sector": "Utilities"
     },
     {
-      "symbol": "AEPGX",
-      "name": "American Funds EuroPacific Growth Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AFIFX",
-      "name": "Fundamental Investors, Class F01 Shares",
+      "symbol": "AFG",
+      "name": "American Financial Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -128,29 +118,19 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "AFMBX",
-      "name": "American Funds American Balanced Fund",
-      "sector": "Financial Services"
+      "symbol": "AFRM",
+      "name": "Affirm Holdings, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "AGTHX",
-      "name": "American Funds The Growth Fund of America Class A",
-      "sector": "Financial Services"
+      "symbol": "AGNC",
+      "name": "AGNC Investment Corp.",
+      "sector": "Real Estate"
     },
     {
-      "symbol": "AHTFX",
-      "name": "American Funds High-Income Trust Cl F-1 Shs",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AICCX",
-      "name": "American Funds Investment Co of America C",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AICFX",
-      "name": "American Funds Investment Co of America Cl F-1 Shs",
-      "sector": "Financial Services"
+      "symbol": "AHR",
+      "name": "American Healthcare REIT, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "AIG",
@@ -158,8 +138,18 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "AIVSX",
-      "name": "American Funds Invmt Co of Amer A",
+      "symbol": "AIT",
+      "name": "Applied Industrial Technologies, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "AIZ",
+      "name": "Assurant, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "AIZN",
+      "name": "Assurant, Inc. 5.25% Subordinat",
       "sector": "Financial Services"
     },
     {
@@ -168,13 +158,43 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "AKAM",
+      "name": "Akamai Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ALAB",
       "name": "Astera Labs, Inc. Common Stock",
       "sector": "Technology"
     },
     {
+      "symbol": "ALB",
+      "name": "Albemarle Corporation",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "ALGM",
+      "name": "Allegro MicroSystems, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ALGN",
+      "name": "Align Technology, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "ALL",
       "name": "The Allstate Corporation",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "ALLE",
+      "name": "Allegion plc",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "ALLY",
+      "name": "Ally Financial Inc.",
       "sector": "Financial Services"
     },
     {
@@ -183,19 +203,19 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "ALSN",
+      "name": "Allison Transmission Holdings, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "AM",
+      "name": "Antero Midstream Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "AMAT",
       "name": "Applied Materials, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "AMBFX",
-      "name": "American Balanced Fund Class F-2 Shs",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMCPX",
-      "name": "American Funds AMCAP A",
-      "sector": "Financial Services"
     },
     {
       "symbol": "AMD",
@@ -208,18 +228,8 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "AMECX",
-      "name": "American Funds The Income Fund of America Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMFCX",
-      "name": "American Funds American Mutual Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMFFX",
-      "name": "American Funds American Mutual Fund Class F-1",
+      "symbol": "AMG",
+      "name": "Affiliated Managers Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -228,23 +238,18 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "AMH",
+      "name": "American Homes 4 Rent",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "AMKR",
+      "name": "Amkor Technology, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "AMP",
       "name": "Ameriprise Financial, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMPCX",
-      "name": "American Funds AMCAP Fund Class C",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMPFX",
-      "name": "American Funds AMCAP Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMRFX",
-      "name": "American Funds American Mutual Fund",
       "sector": "Financial Services"
     },
     {
@@ -258,29 +263,9 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "ANCFX",
-      "name": "American Funds Fundamental Investors",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "ANEFX",
-      "name": "American Funds New Economy A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "ANET",
       "name": "Arista Networks, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "ANFFX",
-      "name": "American Funds New Economy Fund Cl F-1 Shs",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "ANWPX",
-      "name": "American Funds New Perspective Fund Class A",
-      "sector": "Financial Services"
     },
     {
       "symbol": "AON",
@@ -288,9 +273,24 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "APA",
+      "name": "APA Corporation",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "APC",
+      "name": "ARKO Petroleum Corp. Class A Common Stock",
+      "sector": "Energy"
+    },
+    {
       "symbol": "APD",
       "name": "Air Products and Chemicals, Inc.",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "APG",
+      "name": "APi Group Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "APH",
@@ -298,7 +298,17 @@
       "sector": "Technology"
     },
     {
+      "symbol": "APLD",
+      "name": "Applied Digital Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "APO",
+      "name": "Apollo Global Management, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "APOS",
       "name": "Apollo Global Management, Inc.",
       "sector": "Financial Services"
     },
@@ -308,9 +318,49 @@
       "sector": "Technology"
     },
     {
+      "symbol": "APTV",
+      "name": "Aptiv PLC",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "AQNB",
+      "name": "Algonquin Power & Utilities Cor",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "AR",
+      "name": "Antero Resources Corporation",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "ARCC",
+      "name": "Ares Capital Corporation",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "ARMK",
+      "name": "Aramark",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "ARW",
+      "name": "Arrow Electronics, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ARWR",
+      "name": "Arrowhead Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ASML",
@@ -323,14 +373,24 @@
       "sector": "Technology"
     },
     {
+      "symbol": "ATI",
+      "name": "ATI Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "ATO",
       "name": "Atmos Energy Corporation",
       "sector": "Utilities"
     },
     {
-      "symbol": "AULDX",
-      "name": "American Century Ultra Fund",
-      "sector": "Financial Services"
+      "symbol": "AUR",
+      "name": "Aurora Innovation, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "AVB",
+      "name": "AvalonBay Communities, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "AVGO",
@@ -338,9 +398,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "AWSHX",
-      "name": "American Funds Washington Mutual A",
-      "sector": "Financial Services"
+      "symbol": "AVY",
+      "name": "Avery Dennison Corporation",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "AWK",
+      "name": "American Water Works Company, Inc.",
+      "sector": "Utilities"
     },
     {
       "symbol": "AXON",
@@ -351,6 +416,11 @@
       "symbol": "AXP",
       "name": "American Express Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "AXSM",
+      "name": "Axsome Therapeutics, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "AZO",
@@ -368,44 +438,29 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BAGIX",
-      "name": "Baird Aggregate Bond Fund Institutional Class",
-      "sector": "Financial Services"
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
     },
     {
-      "symbol": "BAGSX",
-      "name": "Baird Aggregate Bond Fd Investor Class",
-      "sector": "Financial Services"
+      "symbol": "BALL",
+      "name": "Ball Corporation",
+      "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "BALFX",
-      "name": "American Funds American Balanced Fund, Class F-1 Shs",
-      "sector": "Financial Services"
+      "symbol": "BAX",
+      "name": "Baxter International Inc.",
+      "sector": "Healthcare"
     },
     {
-      "symbol": "BBCPX",
-      "name": "Bridge Builder Core Plus Bond",
-      "sector": "Financial Services"
+      "symbol": "BBIO",
+      "name": "BridgeBio Pharma, Inc.",
+      "sector": "Healthcare"
     },
     {
-      "symbol": "BBGLX",
-      "name": "Bridge Builder Large Cap Growth",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "BBVLX",
-      "name": "Bridge Builder Large Cap Value Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "BCOIX",
-      "name": "Baird Core Plus Bond Fund Institutional Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "BCOSX",
-      "name": "Baird Core Plus Bond Fund Investor Class",
-      "sector": "Financial Services"
+      "symbol": "BBY",
+      "name": "Best Buy Co., Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "BDX",
@@ -418,19 +473,44 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "BFAFX",
-      "name": "The Bond Fund of America, Class F-1 Shares",
+      "symbol": "BEN",
+      "name": "Franklin Resources, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "BHYIX",
-      "name": "BlackRock High Yield Instl",
-      "sector": "Financial Services"
+      "symbol": "BEPH",
+      "name": "Brookfield BRP Holdings Canada 4.625% Perpetual Subordinated Notes",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "BEPI",
+      "name": "Brookfield BRP Holdings Canada 4.875% Perpetual Subordinated Notes",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "BF-B",
+      "name": "Brown-Forman Corporation",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "BG",
+      "name": "Bunge Global S.A.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "BIIB",
       "name": "Biogen Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "BIPI",
+      "name": "BIP Bermuda Holdings I Limited",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "BJ",
+      "name": "BJ's Wholesale Club Holdings, Inc.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "BKNG",
@@ -443,29 +523,24 @@
       "sector": "Energy"
     },
     {
+      "symbol": "BLD",
+      "name": "TopBuild Corp.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "BLK",
       "name": "BlackRock, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "BMOP",
-      "name": "BNY Mellon Municipal Opportunities ETF",
-      "sector": "Financial Services"
+      "symbol": "BMRN",
+      "name": "BioMarin Pharmaceutical Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "BMY",
       "name": "Bristol-Myers Squibb Company",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "BND",
-      "name": "Vanguard Total Bond Market ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "BNDX",
-      "name": "Vanguard Total International Bond ETF",
-      "sector": "Financial Services"
     },
     {
       "symbol": "BNH",
@@ -478,14 +553,14 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BNY",
-      "name": "Bank of New York Mellon Corp",
+      "symbol": "BPOP",
+      "name": "Popular, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRHYX",
-      "name": "BlackRock High Yield K",
-      "sector": "Financial Services"
+      "symbol": "BR",
+      "name": "Broadridge Financial Solutions, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "BRK-A",
@@ -498,19 +573,19 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BSPAX",
-      "name": "iShares S&P 500 Index Fund Investor A Shares",
+      "symbol": "BRO",
+      "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "BSPGX",
-      "name": "iShares S&P 500 Index G",
-      "sector": "Financial Services"
+      "symbol": "BROS",
+      "name": "Dutch Bros Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "BSPIX",
-      "name": "iShares S&P 500 Index Fund Institutional Shares",
-      "sector": "Financial Services"
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -518,9 +593,34 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "BTSG",
+      "name": "BrightSpring Health Services, Inc. Common Stock",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "BURL",
+      "name": "Burlington Stores, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "BWA",
+      "name": "BorgWarner Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "BWXT",
+      "name": "BWX Technologies, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "BX",
       "name": "Blackstone Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BXP",
+      "name": "BXP, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "C",
@@ -528,19 +628,24 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "CACI",
+      "name": "CACI International Inc",
+      "sector": "Technology"
+    },
+    {
       "symbol": "CAH",
       "name": "Cardinal Health, Inc.",
       "sector": "Healthcare"
     },
     {
-      "symbol": "CAIBX",
-      "name": "American Funds Capital Income Builder Class A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CARR",
       "name": "Carrier Global Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CART",
+      "name": "Instacart (Maplebear Inc.)",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CASY",
@@ -553,6 +658,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CAVA",
+      "name": "CAVA Group, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "CBRE",
       "name": "CBRE Group, Inc.",
       "sector": "Real Estate"
@@ -563,14 +673,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CCDTX",
-      "name": "American Funds 2025 Target Date Retirement Fund Class C",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CCI",
       "name": "Crown Castle Inc.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "CCK",
+      "name": "Crown Holdings, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CCL",
@@ -578,23 +688,23 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "CCLFX",
-      "name": "Cliffwater Corporate Lending Fund",
-      "sector": "Financial Services"
+      "symbol": "CCZ",
+      "name": "Comcast Holdings Corp.",
+      "sector": "Communication Services"
     },
     {
-      "symbol": "CDDRX",
-      "name": "Columbia Dividend Income Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CDDYX",
-      "name": "Columbia Dividend Income Fund",
-      "sector": "Financial Services"
+      "symbol": "CDE",
+      "name": "Coeur Mining, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "CDNS",
       "name": "Cadence Design Systems, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "CDW",
+      "name": "CDW Corporation",
       "sector": "Technology"
     },
     {
@@ -603,9 +713,9 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "CFAAX",
-      "name": "American Funds Bond Fund of Amer 529A",
-      "sector": "Financial Services"
+      "symbol": "CF",
+      "name": "CF Industries Holdings, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "CFG",
@@ -613,14 +723,34 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "CFNAX",
-      "name": "American Funds Fundamental Investors Class 529-A",
+      "symbol": "CFR",
+      "name": "Cullen/Frost Bankers, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "CGFAX",
-      "name": "American Funds Growth Fund of Amer 529A",
+      "symbol": "CG",
+      "name": "The Carlyle Group Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "CGNX",
+      "name": "Cognex Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "CHD",
+      "name": "Church & Dwight Co., Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "CHRW",
+      "name": "C.H. Robinson Worldwide, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "CHTR",
+      "name": "Charter Communications, Inc.",
+      "sector": "Communication Services"
     },
     {
       "symbol": "CI",
@@ -628,23 +758,18 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "CIBFX",
-      "name": "Capital Income Builder Cl F-1 Shs",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CICAX",
-      "name": "American Funds Invmt Co of Amer 529A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CIEN",
       "name": "Ciena Corporation",
       "sector": "Technology"
     },
     {
-      "symbol": "CIRAX",
-      "name": "American Funds Capital Income Builder Class 529-A",
+      "symbol": "CIFR",
+      "name": "Cipher Mining Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "CINF",
+      "name": "Cincinnati Financial Corporation",
       "sector": "Financial Services"
     },
     {
@@ -653,9 +778,14 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "CLBAX",
-      "name": "American Funds American Balanced 529A",
-      "sector": "Financial Services"
+      "symbol": "CLH",
+      "name": "Clean Harbors, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "CLX",
+      "name": "The Clorox Company",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "CMCSA",
@@ -678,6 +808,21 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CMS",
+      "name": "CMS Energy Corporation",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "CMSA",
+      "name": "CMS Energy Corporation 5.6% JRSUB NT 78",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "CNA",
+      "name": "CNA Financial Corporation",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "CNC",
       "name": "Centene Corporation",
       "sector": "Healthcare"
@@ -686,11 +831,6 @@
       "symbol": "CNP",
       "name": "CenterPoint Energy, Inc.",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "CNWAX",
-      "name": "American Funds New World 529A",
-      "sector": "Financial Services"
     },
     {
       "symbol": "COF",
@@ -708,6 +848,16 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "COKE",
+      "name": "Coca-Cola Consolidated, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "COO",
+      "name": "The Cooper Companies, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "COP",
       "name": "ConocoPhillips",
       "sector": "Energy"
@@ -723,14 +873,39 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "CPAY",
+      "name": "Corpay, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "CPRT",
       "name": "Copart, Inc.",
       "sector": "Industrials"
     },
     {
+      "symbol": "CPT",
+      "name": "Camden Property Trust",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CQP",
       "name": "Cheniere Energy Partners, L.P.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "CR",
+      "name": "Crane Company",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "CRBG",
+      "name": "Corebridge Financial, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "CRCL",
+      "name": "Circle Internet Group",
+      "sector": "Financial Services"
     },
     {
       "symbol": "CRDO",
@@ -768,9 +943,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CSPAX",
-      "name": "American Funds SMALLCAP World 529A",
-      "sector": "Financial Services"
+      "symbol": "CSGP",
+      "name": "CoStar Group, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "CSL",
+      "name": "Carlisle Companies Incorporated",
+      "sector": "Industrials"
     },
     {
       "symbol": "CSX",
@@ -783,9 +963,19 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CTSH",
+      "name": "Cognizant Technology Solutions Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "CUBE",
+      "name": "CubeSmart",
+      "sector": "Real Estate"
     },
     {
       "symbol": "CVNA",
@@ -808,26 +998,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CWGFX",
-      "name": "American Funds Capital World Growth & Income Fund Class F-1 Shs",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CWGIX",
-      "name": "American Funds Capital World Growth and Income Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CWIAX",
-      "name": "American Funds Capital World Growth and Income Fund Class 529-A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "CWMAX",
-      "name": "American Funds Washington Mutual 529A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -838,14 +1008,24 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "DAR",
+      "name": "Darling Ingredients Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
     },
     {
-      "symbol": "DBLTX",
-      "name": "DoubleLine Total Return Bond Fund Class I",
-      "sector": "Financial Services"
+      "symbol": "DCI",
+      "name": "Donaldson Company, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "DD",
+      "name": "DuPont de Nemours, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "DDOG",
@@ -853,9 +1033,19 @@
       "sector": "Technology"
     },
     {
+      "symbol": "DDS",
+      "name": "Dillard's, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "DE",
       "name": "Deere & Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "DECK",
+      "name": "Deckers Outdoor Corporation",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DELL",
@@ -863,24 +1053,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "DFCEX",
-      "name": "DFA Emerging Markets Core Equity Portfolio",
-      "sector": "Financial Services"
+      "symbol": "DG",
+      "name": "Dollar General Corporation",
+      "sector": "Consumer Defensive"
     },
     {
-      "symbol": "DFEOX",
-      "name": "DFA U.S. Core Equity 1 Portfolio",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "DFIEX",
-      "name": "DFA International Core Equity Portfolio",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "DFQTX",
-      "name": "DFA U.S. Core Equity 2 Portfolio",
-      "sector": "Financial Services"
+      "symbol": "DGX",
+      "name": "Quest Diagnostics Incorporated",
+      "sector": "Healthcare"
     },
     {
       "symbol": "DHI",
@@ -893,9 +1073,24 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "DINO",
+      "name": "HF Sinclair Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "DIS",
       "name": "The Walt Disney Company",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "DKNG",
+      "name": "DraftKings Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "DKS",
+      "name": "DICK'S Sporting Goods, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DLR",
@@ -903,19 +1098,19 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "DLTNX",
-      "name": "DoubleLine Total Return Bond Fund Class N",
-      "sector": "Financial Services"
+      "symbol": "DLTR",
+      "name": "Dollar Tree, Inc.",
+      "sector": "Consumer Defensive"
     },
     {
-      "symbol": "DODFX",
-      "name": "Dodge & Cox International Stock Fund",
-      "sector": "Financial Services"
+      "symbol": "DOC",
+      "name": "Healthpeak Properties, Inc.",
+      "sector": "Real Estate"
     },
     {
-      "symbol": "DODIX",
-      "name": "Dodge & Cox Income Fund - Class I",
-      "sector": "Financial Services"
+      "symbol": "DOCN",
+      "name": "DigitalOcean Holdings, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DOV",
@@ -923,9 +1118,29 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "DOXGX",
-      "name": "Dodge & Cox Stock Fund",
-      "sector": "Financial Services"
+      "symbol": "DOW",
+      "name": "Dow Inc.",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "DPZ",
+      "name": "Domino's Pizza, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "DRI",
+      "name": "Darden Restaurants, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "DRS",
+      "name": "Leonardo DRS, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "DT",
+      "name": "Dynatrace, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DTE",
@@ -933,9 +1148,24 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "DTM",
+      "name": "DT Midstream, Inc.",
+      "sector": "Energy"
+    },
+    {
       "symbol": "DUK",
       "name": "Duke Energy Corporation",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "DUKB",
+      "name": "Duke Energy Corporation 5.625%",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "DVA",
+      "name": "DaVita Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "DVN",
@@ -946,6 +1176,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "DY",
+      "name": "Dycom Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "EA",
@@ -968,6 +1203,26 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "EFX",
+      "name": "Equifax Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "EG",
+      "name": "Everest Re Group, Ltd.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "EGP",
+      "name": "EastGroup Properties, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "EHC",
+      "name": "Encompass Health Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "EIX",
       "name": "Edison International",
       "sector": "Utilities"
@@ -978,9 +1233,19 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "ELAN",
+      "name": "Elanco Animal Health Incorporated",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "ELC",
       "name": "Entergy Louisiana, LLC COLLATERAL TR MT",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "ELS",
+      "name": "Equity LifeStyle Properties, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ELV",
@@ -998,13 +1263,13 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "EOG",
-      "name": "EOG Resources, Inc.",
-      "sector": "Energy"
+      "symbol": "ENTG",
+      "name": "Entegris, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "EP-PC",
-      "name": "El Paso Energy Capital Trust I PFD CV TR SECS",
+      "symbol": "EOG",
+      "name": "EOG Resources, Inc.",
       "sector": "Energy"
     },
     {
@@ -1013,14 +1278,44 @@
       "sector": "Energy"
     },
     {
+      "symbol": "EQH",
+      "name": "Equitable Holdings, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "EQIX",
       "name": "Equinix, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "EQR",
+      "name": "Equity Residential",
       "sector": "Real Estate"
     },
     {
       "symbol": "EQT",
       "name": "EQT Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "ERIE",
+      "name": "Erie Indemnity Company",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "ES",
+      "name": "Eversource Energy",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "ESS",
+      "name": "Essex Property Trust, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ET",
@@ -1038,14 +1333,49 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "EVR",
+      "name": "Evercore Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "EVRG",
+      "name": "Evergy, Inc.",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "EW",
       "name": "Edwards Lifesciences Corporation",
       "sector": "Healthcare"
     },
     {
+      "symbol": "EWBC",
+      "name": "East West Bancorp, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "EXC",
       "name": "Exelon Corporation",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "EXE",
+      "name": "Expand Energy Corporation",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "EXEL",
+      "name": "Exelixis, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "EXPD",
+      "name": "Expeditors International of Washington, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "EXPE",
+      "name": "Expedia Group, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EXR",
@@ -1058,34 +1388,9 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "FAETX",
-      "name": "American Funds 2030 Target Date Retirement Fd Cl F-1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FAITX",
-      "name": "American Funds 2050 Target Date Retirment Fd Cl F-1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FAJTX",
-      "name": "American Funds 2055 Target Date Retirement Fd Cl F-1",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FANG",
       "name": "Diamondback Energy, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "FAPTX",
-      "name": "American Funds 2025 Target Retirement Fd Cl F-1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FAQTX",
-      "name": "American Funds 2035 Target Date Retirement Fd Cl F-1",
-      "sector": "Financial Services"
     },
     {
       "symbol": "FAST",
@@ -1093,53 +1398,18 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FATTX",
-      "name": "American Funds 2045 Target Date Retirement Fd Cl F-1",
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
       "sector": "Financial Services"
     },
     {
-      "symbol": "FAUTX",
-      "name": "American Funds 2040 Target Date Retirement Fd Cl F-1",
+      "symbol": "FCNCA",
+      "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "FBAKX",
-      "name": "Fidelity Balanced Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FBALX",
-      "name": "Fidelity Balanced Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FBGKX",
-      "name": "Fidelity Blue Chip Growth Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FBGRX",
-      "name": "Fidelity Blue Chip Growth Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FBIFX",
-      "name": "Fidelity Freedom Index 2040 Fund - Investor Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FCNKX",
-      "name": "Fidelity Contrafund K",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FCNTX",
-      "name": "Fidelity Contrafund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FCTDX",
-      "name": "Strategic Advisers Fidelity US TtlStk",
+      "symbol": "FCNCN",
+      "name": "First Citizens BancShares, Inc. Depositary Shares, each representing a 1/40th interest in a share of 6.625% Non-Cumulative Perpetual Preferred Stock, Series E",
       "sector": "Financial Services"
     },
     {
@@ -1148,88 +1418,28 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "FDGRX",
-      "name": "Fidelity Growth Company Fund Retail Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FDTRX",
-      "name": "Franklin DynaTech Fund",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FDX",
       "name": "FedEx Corporation",
       "sector": "Industrials"
     },
     {
-      "symbol": "FEGRX",
-      "name": "First Eagle Global Fund Class R6",
-      "sector": "Financial Services"
+      "symbol": "FDXF",
+      "name": "FedEx Freight Holding Company, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "FESGX",
-      "name": "First Eagle Global Fund Class C",
-      "sector": "Financial Services"
+      "symbol": "FE",
+      "name": "FirstEnergy Corp.",
+      "sector": "Utilities"
     },
     {
-      "symbol": "FFEGX",
-      "name": "Fidelity Freedom Index 2030 Fund",
-      "sector": "Financial Services"
+      "symbol": "FFIV",
+      "name": "F5, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "FFFEX",
-      "name": "Fidelity Freedom 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FFFFX",
-      "name": "Fidelity Freedom 2040",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FFFGX",
-      "name": "Fidelity  Freedom 2045 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FFICX",
-      "name": "American Funds Invmt Co of Amer F3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FFOLX",
-      "name": "Fidelity Freedom Index 2045 Instl Prem",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FFOPX",
-      "name": "Fidelity Freedom Index 2050 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FFTHX",
-      "name": "Fidelity Freedom 2035 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FGCKX",
-      "name": "Fidelity Growth Company Fund - Class K",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FGOMX",
-      "name": "Strategic Advisers Fidelity Em Mkts",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FGTKX",
-      "name": "Fidelity Freedom 2030 K6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FHTKX",
-      "name": "Fidelity Freedom 2040 K6",
+      "symbol": "FHN",
+      "name": "First Horizon Corporation",
       "sector": "Financial Services"
     },
     {
@@ -1238,29 +1448,9 @@
       "sector": "Technology"
     },
     {
-      "symbol": "FIFAX",
-      "name": "American Funds Income Fund of Amer F3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FIHFX",
-      "name": "Fidelity Freedom Index 2035 Fund - Investor Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FINFX",
-      "name": "American Funds Fundamental Invs F2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FIOFX",
-      "name": "Fidelity Freedom Index 2045 Fund - Investor Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FIPFX",
-      "name": "Fidelity Freedom Index 2050 Fund - Investor Class",
-      "sector": "Financial Services"
+      "symbol": "FIS",
+      "name": "Fidelity National Information Services, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "FISV",
@@ -1273,9 +1463,9 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FIWGX",
-      "name": "Strategic Advisers Fidelity Core Income Fund",
-      "sector": "Financial Services"
+      "symbol": "FIVE",
+      "name": "Five Below, Inc.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "FIX",
@@ -1283,49 +1473,29 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FJTKX",
-      "name": "Fidelity Freedom 2045 K6",
+      "symbol": "FLS",
+      "name": "Flowserve Corporation",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "FN",
+      "name": "Fabrinet",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "FNF",
+      "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "FKDNX",
-      "name": "Franklin DynaTech A",
-      "sector": "Financial Services"
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "FKINX",
-      "name": "Franklin Income Fund Class A1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FNCFX",
-      "name": "Franklin Income Fund Class R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FNCMX",
-      "name": "Fidelity NASDAQ Composite Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FNITX",
-      "name": "Fidelity Advisor New Insights M",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FNPFX",
-      "name": "American Funds New Perspective Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FOCKX",
-      "name": "Fidelity OTC K",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FOCPX",
-      "name": "Fidelity OTC Portfolio",
-      "sector": "Financial Services"
+      "symbol": "FOX",
+      "name": "Fox Corporation",
+      "sector": "Communication Services"
     },
     {
       "symbol": "FOXA",
@@ -1333,29 +1503,14 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FPMAX",
-      "name": "First Eagle Core Plus Municipal Fund Class A",
-      "sector": "Financial Services"
+      "symbol": "FROG",
+      "name": "JFrog Ltd.",
+      "sector": "Technology"
     },
     {
-      "symbol": "FPURX",
-      "name": "Fidelity Puritan Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FRIAX",
-      "name": "Franklin Income Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSELX",
-      "name": "Fidelity Select Semiconductors Portfolio",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSKAX",
-      "name": "Fidelity Total Market Index Fund",
-      "sector": "Financial Services"
+      "symbol": "FRT",
+      "name": "Federal Realty Investment Trust",
+      "sector": "Real Estate"
     },
     {
       "symbol": "FSLR",
@@ -1363,39 +1518,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "FSMAX",
-      "name": "Fidelity Extended Market Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSMDX",
-      "name": "Fidelity Mid Cap Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSNVX",
-      "name": "Fidelity Freedom 2040 K",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSPGX",
-      "name": "Fidelity Large Cap Growth Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSPSX",
-      "name": "Fidelity Concord Street Trust - Fidelity International Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FSSNX",
-      "name": "Fidelity Small Cap Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FTBFX",
-      "name": "Fidelity Total Bond",
-      "sector": "Financial Services"
+      "symbol": "FTAI",
+      "name": "FTAI Aviation Ltd.",
+      "sector": "Industrials"
     },
     {
       "symbol": "FTNT",
@@ -1403,59 +1528,29 @@
       "sector": "Technology"
     },
     {
-      "symbol": "FUNFX",
-      "name": "American Funds Fundamental Invs F3",
-      "sector": "Financial Services"
+      "symbol": "FTV",
+      "name": "Fortive Corporation",
+      "sector": "Industrials"
     },
     {
-      "symbol": "FUSIX",
-      "name": "Strategic Advisers Fidelity International Fund",
-      "sector": "Financial Services"
+      "symbol": "FWONA",
+      "name": "Formula One Group",
+      "sector": "Communication Services"
     },
     {
-      "symbol": "FWMIX",
-      "name": "American Funds Washington Mutual F3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FWTKX",
-      "name": "Fidelity Freedom 2035 K6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FXAIX",
-      "name": "Fidelity 500 Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FXIFX",
-      "name": "Fidelity Freedom Index 2030 Fund - Investor Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FXNAX",
-      "name": "Fidelity U.S. Bond Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FZROX",
-      "name": "Fidelity ZERO Total Market Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GAFFX",
-      "name": "American Funds The Growth Fund of America Class F-3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GBLEX",
-      "name": "American Funds Global Balanced Fd Cl F-1",
-      "sector": "Financial Services"
+      "symbol": "FWONK",
+      "name": "Formula One Group",
+      "sector": "Communication Services"
     },
     {
       "symbol": "GD",
       "name": "General Dynamics Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "GDDY",
+      "name": "GoDaddy Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "GE",
@@ -1468,24 +1563,14 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "GEN",
+      "name": "Gen Digital Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "GEV",
       "name": "GE Vernova Inc.",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "GFACX",
-      "name": "American Funds The Growth Fund of America",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GFAFX",
-      "name": "The Growth Fund of America Class F-1 Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GFFFX",
-      "name": "American Funds Growth Fund of Amer F2",
-      "sector": "Financial Services"
     },
     {
       "symbol": "GFS",
@@ -1493,24 +1578,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "GIBAX",
-      "name": "Guggenheim Total Return Bond Fund Class A",
-      "sector": "Financial Services"
+      "symbol": "GGG",
+      "name": "Graco Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "GIBCX",
-      "name": "Guggenheim Total Return Bond Fund Class C",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GIBIX",
-      "name": "Guggenheim Total Return Bond Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GIBLX",
-      "name": "Guggenheim Total Return Bond Fund Class P",
-      "sector": "Financial Services"
+      "symbol": "GH",
+      "name": "Guardant Health, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "GILD",
@@ -1518,14 +1593,49 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "GIS",
+      "name": "General Mills, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "GL",
+      "name": "Globe Life Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "GLPI",
+      "name": "Gaming and Leisure Properties, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "GLW",
       "name": "Corning Incorporated",
       "sector": "Technology"
     },
     {
+      "symbol": "GLXY",
+      "name": "Galaxy Digital",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "GM",
       "name": "General Motors Company",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "GME",
+      "name": "GameStop Corp.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "GMED",
+      "name": "Globus Medical, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "GNRC",
+      "name": "Generac Holdings Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "GOOG",
@@ -1538,8 +1648,13 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "GRAG",
-      "name": "Leverage Shares 2x Long GRAB Daily ETF",
+      "symbol": "GPC",
+      "name": "Genuine Parts Company",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "GPN",
+      "name": "Global Payments Inc.",
       "sector": "Financial Services"
     },
     {
@@ -1548,29 +1663,19 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "GSINX",
-      "name": "Goldman Sachs GQG Partners International Opportunities Fund",
-      "sector": "Financial Services"
+      "symbol": "GSAT",
+      "name": "Globalstar, Inc.",
+      "sector": "Communication Services"
     },
     {
-      "symbol": "GSIYX",
-      "name": "Goldman Sachs GQG Partners International Opportunities Fund Class R6 Shares",
-      "sector": "Financial Services"
+      "symbol": "GTLS",
+      "name": "Chart Industries, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "GTOP",
-      "name": "Goldman Sachs Technology Opportunities ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GWPEX",
-      "name": "American Funds Growth Portfolio F2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "GWPFX",
-      "name": "American Funds Growth Portfolio Class F-1",
-      "sector": "Financial Services"
+      "symbol": "GWRE",
+      "name": "Guidewire Software, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "GWW",
@@ -1578,9 +1683,19 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "H",
+      "name": "Hyatt Hotels Corporation",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "HAL",
       "name": "Halliburton Company",
       "sector": "Energy"
+    },
+    {
+      "symbol": "HAS",
+      "name": "Hasbro, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "HBAN",
@@ -1591,11 +1706,6 @@
       "symbol": "HCA",
       "name": "HCA Healthcare, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "HCAIX",
-      "name": "Harbor Capital Appreciation Fund",
-      "sector": "Financial Services"
     },
     {
       "symbol": "HD",
@@ -1613,19 +1723,24 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "HLIEX",
-      "name": "JPMorgan Equity Income Fund I Class",
+      "symbol": "HII",
+      "name": "Huntington Ingalls Industries, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "HL",
+      "name": "Hecla Mining Company",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "HLI",
+      "name": "Houlihan Lokey, Inc.",
       "sector": "Financial Services"
     },
     {
       "symbol": "HLT",
       "name": "Hilton Worldwide Holdings Inc.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "HNACX",
-      "name": "Harbor Capital Appreciation Fund - Retirement Class",
-      "sector": "Financial Services"
     },
     {
       "symbol": "HON",
@@ -1643,9 +1758,39 @@
       "sector": "Technology"
     },
     {
+      "symbol": "HPQ",
+      "name": "HP Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "HRL",
+      "name": "Hormel Foods Corporation",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "HSIC",
+      "name": "Henry Schein, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "HST",
+      "name": "Host Hotels & Resorts, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "HSY",
       "name": "The Hershey Company",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "HUBB",
+      "name": "Hubbell Incorporated",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "HUBS",
+      "name": "HubSpot, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "HUM",
@@ -1653,19 +1798,14 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "HUT",
+      "name": "Hut 8 Corp.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "IBFFX",
-      "name": "American Funds Int Bond Fd of America Cl F-1 Shs",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "IBIT",
-      "name": "iShares Bitcoin Trust ETF",
-      "sector": "Financial Services"
     },
     {
       "symbol": "IBKR",
@@ -1688,14 +1828,34 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "IEF",
-      "name": "iShares 7-10 Year Treasury Bond ETF",
-      "sector": "Financial Services"
+      "symbol": "IESC",
+      "name": "IES Holdings, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "IFAFX",
-      "name": "The Income Fund of America, Class F-1 Shares",
-      "sector": "Financial Services"
+      "symbol": "IEX",
+      "name": "IDEX Corporation",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "IFF",
+      "name": "International Flavors & Fragrances Inc.",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "INCY",
+      "name": "Incyte Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "INSM",
+      "name": "Insmed Incorporated",
+      "sector": "Healthcare"
     },
     {
       "symbol": "INTC",
@@ -1706,6 +1866,31 @@
       "symbol": "INTU",
       "name": "Intuit Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "INVH",
+      "name": "Invitation Homes Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "IONQ",
+      "name": "IonQ, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "IONS",
+      "name": "Ionis Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "IOT",
+      "name": "Samsara Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "IP",
+      "name": "International Paper Company",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "IQV",
@@ -1728,54 +1913,39 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "IT",
+      "name": "Gartner, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "ITT",
+      "name": "ITT Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "ITW",
       "name": "Illinois Tool Works Inc.",
       "sector": "Industrials"
     },
     {
-      "symbol": "IUSB",
-      "name": "iShares Core Universal USD Bond ETF",
+      "symbol": "IVZ",
+      "name": "Invesco Ltd.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "IUSG",
-      "name": "iShares Core S&P U.S. Growth ETF",
-      "sector": "Financial Services"
+      "symbol": "J",
+      "name": "Jacobs Solutions Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "IXUS",
-      "name": "iShares Core MSCI Total International Stock ETF",
-      "sector": "Financial Services"
+      "symbol": "JAZZ",
+      "name": "Jazz Pharmaceuticals plc",
+      "sector": "Healthcare"
     },
     {
-      "symbol": "JABAX",
-      "name": "Janus Henderson Balanced Fund - T Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JABCX",
-      "name": "Janus Henderson Balanced Fund Class C",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JABNX",
-      "name": "Janus Henderson Balanced Fund - N Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JABRX",
-      "name": "Janus Henderson Balanced Fund Class S",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JAMRX",
-      "name": "Janus Henderson Research Fund - T Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JBALX",
-      "name": "Janus Henderson Balanced Fund",
-      "sector": "Financial Services"
+      "symbol": "JBHT",
+      "name": "J.B. Hunt Transport Services, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "JBL",
@@ -1783,49 +1953,24 @@
       "sector": "Technology"
     },
     {
-      "symbol": "JCBUX",
-      "name": "JPMorgan Core Bond Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JCBZX",
-      "name": "JPMorgan Core Bond Fund Class R2",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "JCI",
       "name": "Johnson Controls International plc",
       "sector": "Industrials"
     },
     {
-      "symbol": "JDBAX",
-      "name": "Janus Henderson Balanced Fund",
+      "symbol": "JEF",
+      "name": "Jefferies Financial Group Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "JDBRX",
-      "name": "Janus Henderson Balanced Fund",
-      "sector": "Financial Services"
+      "symbol": "JKHY",
+      "name": "Jack Henry & Associates, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "JEPQ",
-      "name": "JPMorgan Nasdaq Equity Premium Income ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JLGMX",
-      "name": "JPMorgan Large Cap Growth Fund Class R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JLGRX",
-      "name": "JPMorgan Large Cap Growth Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JMUEX",
-      "name": "JPMorgan U.S. Equity Fund",
-      "sector": "Financial Services"
+      "symbol": "JLL",
+      "name": "Jones Lang LaSalle Incorporated",
+      "sector": "Real Estate"
     },
     {
       "symbol": "JNJ",
@@ -1833,79 +1978,19 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "JNRFX",
-      "name": "Janus Henderson Research Fund",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "JPM",
       "name": "JPMorgan Chase & Co.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JRAAX",
-      "name": "Janus Henderson Research Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JRACX",
-      "name": "Janus Henderson Research Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JRAIX",
-      "name": "Janus Henderson Research Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JRANX",
-      "name": "Janus Henderson Research Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JRARX",
-      "name": "Janus Henderson Research Fund Class R",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JRASX",
-      "name": "Janus Henderson Research Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JUEAX",
-      "name": "JPMorgan U.S. Equity Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JUEMX",
-      "name": "JPMorgan U.S. Equity Fund Class R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JUEPX",
-      "name": "JPMorgan U.S. Equity Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JUESX",
-      "name": "JPMorgan U.S. Equity Fund Class I",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JUEZX",
-      "name": "JPMorgan U.S. Equity Fund Class R2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JUSRX",
-      "name": "JPMorgan U.S. Equity Fund",
       "sector": "Financial Services"
     },
     {
       "symbol": "KDP",
       "name": "Keurig Dr Pepper Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "KEY",
+      "name": "KeyCorp",
+      "sector": "Financial Services"
     },
     {
       "symbol": "KEYS",
@@ -1918,8 +2003,18 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "KIM",
+      "name": "Kimco Realty Corporation",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "KKR",
       "name": "KKR & Co. Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "KKRS",
+      "name": "KKR Group Finance Co. IX LLC 4.",
       "sector": "Financial Services"
     },
     {
@@ -1938,6 +2033,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "KNX",
+      "name": "Knight-Swift Transportation Holdings Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "KO",
       "name": "The Coca-Cola Company",
       "sector": "Consumer Defensive"
@@ -1948,19 +2048,64 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "KRYS",
+      "name": "Krystal Biotech, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "KTOS",
+      "name": "Kratos Defense & Security Solutions, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "LACG",
-      "name": "Leverage Shares 2x Long LAC Daily ETF",
+      "symbol": "L",
+      "name": "Loews Corporation",
       "sector": "Financial Services"
     },
     {
-      "symbol": "LDLVX",
-      "name": "Lord Abbett Short Duration Income Fund",
-      "sector": "Financial Services"
+      "symbol": "LAMR",
+      "name": "Lamar Advertising Company",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "LDOS",
+      "name": "Leidos Holdings, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "LECO",
+      "name": "Lincoln Electric Holdings, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "LEN",
+      "name": "Lennar Corporation",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "LEVI",
+      "name": "Levi Strauss & Co.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "LFUS",
+      "name": "Littelfuse, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "LGN",
+      "name": "Legence Corp. Class A Common stock",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "LH",
+      "name": "Labcorp Holdings Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "LHX",
@@ -1968,19 +2113,29 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "LII",
+      "name": "Lennox International Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "LINE",
+      "name": "Lineage, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "LITE",
       "name": "Lumentum Holdings Inc.",
       "sector": "Technology"
     },
     {
-      "symbol": "LLDYX",
-      "name": "Lord Abbett Short Duration Income I",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "LLY",
       "name": "Eli Lilly and Company",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "LLYVK",
+      "name": "Liberty Live Group",
+      "sector": "Communication Services"
     },
     {
       "symbol": "LMT",
@@ -1993,9 +2148,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "LOLDX",
-      "name": "Lord Abbett Short Duration Income F3",
-      "sector": "Financial Services"
+      "symbol": "LNT",
+      "name": "Alliant Energy Corporation",
+      "sector": "Utilities"
     },
     {
       "symbol": "LOW",
@@ -2003,14 +2158,34 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "LPLA",
+      "name": "LPL Financial Holdings Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "LRCX",
       "name": "Lam Research Corporation",
       "sector": "Technology"
     },
     {
+      "symbol": "LSCC",
+      "name": "Lattice Semiconductor Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "LUV",
+      "name": "Southwest Airlines Co.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "LVS",
       "name": "Las Vegas Sands Corp.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "LYB",
+      "name": "LyondellBasell Industries N.V.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "LYV",
@@ -2023,14 +2198,29 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "MAA",
+      "name": "Mid-America Apartment Communities, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "MAIR",
+      "name": "Madison Air Solutions Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "MAR",
       "name": "Marriott International, Inc.",
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "MBB",
-      "name": "iShares MBS ETF",
-      "sector": "Financial Services"
+      "symbol": "MAS",
+      "name": "Masco Corporation",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "MASI",
+      "name": "Masimo Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "MCD",
@@ -2058,19 +2248,9 @@
       "sector": "Technology"
     },
     {
-      "symbol": "MDIDX",
-      "name": "MFS International Diversification Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MDIJX",
-      "name": "MFS International Diversification Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MDIZX",
-      "name": "MFS International Diversification Fund Class R6",
-      "sector": "Financial Services"
+      "symbol": "MDGL",
+      "name": "Madrigal Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "MDLN",
@@ -2088,24 +2268,9 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MEIAX",
-      "name": "MFS Series Trust I - MFS Value Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MEIIX",
-      "name": "MFS Value Fund Class I",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MEIKX",
-      "name": "MFS Value Fund Class R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MER-PK",
-      "name": "Merrill Lynch Capital Trust I GTD CAP 6.45%",
-      "sector": "Financial Services"
+      "symbol": "MEDP",
+      "name": "Medpace Holdings, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "MET",
@@ -2118,29 +2283,34 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "MFEGX",
-      "name": "MFS Growth Fund Class A",
+      "symbol": "MGM",
+      "name": "MGM Resorts International",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "MKC",
+      "name": "McCormick & Company, Incorporated",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "MKC-V",
+      "name": "McCormick & Company, Incorporated",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "MKL",
+      "name": "Markel Corporation",
       "sector": "Financial Services"
     },
     {
-      "symbol": "MFEIX",
-      "name": "MFS Growth Fund",
-      "sector": "Financial Services"
+      "symbol": "MKSI",
+      "name": "MKS Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "MFEJX",
-      "name": "MFS Growth R4",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MFEKX",
-      "name": "MFS Growth R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MIEIX",
-      "name": "MFS Institutional International Equity Fund",
-      "sector": "Financial Services"
+      "symbol": "MLI",
+      "name": "Mueller Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "MLM",
@@ -2163,6 +2333,26 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "MOD",
+      "name": "Modine Manufacturing Company",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "MOG-A",
+      "name": "Moog Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "MOH",
+      "name": "Molina Healthcare, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "MP",
+      "name": "MP Materials Corp.",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2180,6 +2370,11 @@
     {
       "symbol": "MRK",
       "name": "Merck & Co., Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "MRNA",
+      "name": "Moderna, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -2208,6 +2403,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "MSGS",
+      "name": "Madison Square Garden Sports Corp.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "MSI",
       "name": "Motorola Solutions, Inc.",
       "sector": "Technology"
@@ -2221,6 +2421,11 @@
       "symbol": "MTB",
       "name": "M&T Bank Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "MTD",
+      "name": "Mettler-Toledo International Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "MTSI",
@@ -2238,29 +2443,24 @@
       "sector": "Technology"
     },
     {
-      "symbol": "MWTIX",
-      "name": "TCW MetWest Total Return Bd I",
-      "sector": "Financial Services"
+      "symbol": "MUSA",
+      "name": "Murphy USA Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "MWTRX",
-      "name": "Metropolitan West Total Return Bond Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MWTSX",
-      "name": "Metropolitan West Total Return Bond Fund Plan Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "NAESX",
-      "name": "Vanguard Small Cap Index Fund",
-      "sector": "Financial Services"
+      "symbol": "NBIX",
+      "name": "Neurocrine Biosciences, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "NDAQ",
       "name": "Nasdaq, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "NDSN",
+      "name": "Nordson Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "NEE",
@@ -2278,24 +2478,24 @@
       "sector": "Technology"
     },
     {
-      "symbol": "NEWFX",
-      "name": "American Funds New World Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "NFFFX",
-      "name": "American Funds New World F2",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "NFLX",
       "name": "Netflix, Inc.",
       "sector": "Communication Services"
     },
     {
+      "symbol": "NI",
+      "name": "NiSource Inc.",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "NKE",
       "name": "NIKE, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "NLY",
+      "name": "Annaly Capital Management, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "NOC",
@@ -2308,9 +2508,9 @@
       "sector": "Technology"
     },
     {
-      "symbol": "NPFFX",
-      "name": "New Perspective Fund, Class F-1 Shares",
-      "sector": "Financial Services"
+      "symbol": "NRG",
+      "name": "NRG Energy, Inc.",
+      "sector": "Utilities"
     },
     {
       "symbol": "NSC",
@@ -2323,14 +2523,14 @@
       "sector": "Technology"
     },
     {
+      "symbol": "NTNX",
+      "name": "Nutanix, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "NTRA",
       "name": "Natera, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "NTRS",
-      "name": "Northern Trust Corporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "NUE",
@@ -2338,14 +2538,39 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "NUVL",
+      "name": "Nuvalent, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "NVDA",
       "name": "NVIDIA Corporation",
       "sector": "Technology"
     },
     {
-      "symbol": "NWFFX",
-      "name": "American Funds New World Fund Cl F-1Shs",
-      "sector": "Financial Services"
+      "symbol": "NVR",
+      "name": "NVR, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "NWS",
+      "name": "News Corporation",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "NWSA",
+      "name": "News Corporation",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "NXT",
+      "name": "Nextpower Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "NYT",
+      "name": "The New York Times Company",
+      "sector": "Communication Services"
     },
     {
       "symbol": "O",
@@ -2353,9 +2578,9 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "OAKIX",
-      "name": "Oakmark International Fund Investor Class",
-      "sector": "Financial Services"
+      "symbol": "OC",
+      "name": "Owens Corning",
+      "sector": "Industrials"
     },
     {
       "symbol": "ODFL",
@@ -2363,19 +2588,14 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "ODVIX",
-      "name": "Invesco Developing Markets Fund Class R6",
-      "sector": "Financial Services"
+      "symbol": "OGE",
+      "name": "OGE Energy Corp.",
+      "sector": "Utilities"
     },
     {
-      "symbol": "OIEIX",
-      "name": "JPMorgan Equity Income A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "OIEJX",
-      "name": "JPMorgan Equity Income Fund Class R6",
-      "sector": "Financial Services"
+      "symbol": "OHI",
+      "name": "Omega Healthcare Investors, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "OKE",
@@ -2383,9 +2603,19 @@
       "sector": "Energy"
     },
     {
-      "symbol": "OLGAX",
-      "name": "JPMorgan Large Cap Growth A",
-      "sector": "Financial Services"
+      "symbol": "OKLO",
+      "name": "Oklo Inc.",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "OKTA",
+      "name": "Okta, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "OMC",
+      "name": "Omnicom Group Inc.",
+      "sector": "Communication Services"
     },
     {
       "symbol": "ON",
@@ -2393,9 +2623,19 @@
       "sector": "Technology"
     },
     {
+      "symbol": "ONB",
+      "name": "Old National Bancorp",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "ONC",
       "name": "BeOne Medicines Ltd.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "ORCL",
@@ -2403,13 +2643,28 @@
       "sector": "Technology"
     },
     {
+      "symbol": "ORI",
+      "name": "Old Republic International Corporation",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OWLSX",
-      "name": "Old Westbury Large Cap Strategies",
+      "symbol": "OTIS",
+      "name": "Otis Worldwide Corporation",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "OVV",
+      "name": "Ovintiv Inc.",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "OWL",
+      "name": "Blue Owl Capital Inc.",
       "sector": "Financial Services"
     },
     {
@@ -2418,39 +2673,24 @@
       "sector": "Energy"
     },
     {
-      "symbol": "PABGX",
-      "name": "T. Rowe Price Blue Chip Growth Fund Advisor Class",
-      "sector": "Financial Services"
+      "symbol": "P",
+      "name": "Everpure, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "PACLX",
-      "name": "T. Rowe Price Capital Appreciation Fund Advisor Class",
-      "sector": "Financial Services"
+      "symbol": "PAA",
+      "name": "Plains All American Pipeline, L.P.",
+      "sector": "Energy"
     },
     {
-      "symbol": "PAMCX",
-      "name": "T. Rowe Price Mid-Cap Growth Fund Advisor Class",
-      "sector": "Financial Services"
+      "symbol": "PAG",
+      "name": "Penske Automotive Group, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "PANW",
       "name": "Palo Alto Networks, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "PARCX",
-      "name": "T. Rowe Price Retirement 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PARDX",
-      "name": "T. Rowe Price Retirement 2040 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PAVLX",
-      "name": "T. Rowe Price Value Fund Advisor Class",
-      "sector": "Financial Services"
     },
     {
       "symbol": "PAYX",
@@ -2468,14 +2708,14 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "PDBZX",
-      "name": "PGIM Total Return Bond Fund Class Z",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "PEG",
       "name": "Public Service Enterprise Group Incorporated",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "PEN",
+      "name": "Penumbra, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "PEP",
@@ -2483,19 +2723,19 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "PEQSX",
-      "name": "Putnam Large Cap Value Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PEYAX",
-      "name": "Putnam Large Cap Value Fund Class A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "PFE",
       "name": "Pfizer Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "PFG",
+      "name": "Principal Financial Group, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "PFGC",
+      "name": "Performance Food Group Company",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "PG",
@@ -2513,9 +2753,24 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "PIMIX",
-      "name": "PIMCO Income Fund Institutional Class",
-      "sector": "Financial Services"
+      "symbol": "PHM",
+      "name": "PulteGroup, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "PINS",
+      "name": "Pinterest, Inc.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "PKG",
+      "name": "Packaging Corporation of America",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "PL",
+      "name": "Planet Labs PBC",
+      "sector": "Industrials"
     },
     {
       "symbol": "PLD",
@@ -2538,14 +2793,29 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "PONAX",
-      "name": "PIMCO Income Fund",
-      "sector": "Financial Services"
+      "symbol": "PNW",
+      "name": "Pinnacle West Capital Corporation",
+      "sector": "Utilities"
     },
     {
-      "symbol": "PONPX",
-      "name": "PIMCO Income Fund",
-      "sector": "Financial Services"
+      "symbol": "PODD",
+      "name": "Insulet Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "POWL",
+      "name": "Powell Industries, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "PPG",
+      "name": "PPG Industries, Inc.",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "PPL",
+      "name": "PPL Corporation",
+      "sector": "Utilities"
     },
     {
       "symbol": "PPLC",
@@ -2553,19 +2823,9 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "PREIX",
-      "name": "T. Rowe Price Equity Index 500 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PRFDX",
-      "name": "T. Rowe Price Equity Income Fd",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PRGFX",
-      "name": "T. Rowe Price Growth Stock Fund",
-      "sector": "Financial Services"
+      "symbol": "PR",
+      "name": "Permian Resources Corporation",
+      "sector": "Energy"
     },
     {
       "symbol": "PRU",
@@ -2573,18 +2833,8 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "PRUFX",
-      "name": "T. Rowe Price Growth Stock Fund I Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PRUIX",
-      "name": "T. Rowe Price Equity Index 500 Fund I Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PRWCX",
-      "name": "T. Rowe Price Capital Appreciation Fund",
+      "symbol": "PS",
+      "name": "Pershing Square Inc.",
       "sector": "Financial Services"
     },
     {
@@ -2593,24 +2843,19 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "PSKY",
+      "name": "Paramount Skydance Corporation Class B Common Stock",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "PSX",
       "name": "Phillips 66",
       "sector": "Energy"
     },
     {
-      "symbol": "PTRQX",
-      "name": "PGIM Total Return Bond Fund -Class R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PTTAX",
-      "name": "PIMCO Total Return A",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PTTRX",
-      "name": "PIMCO Total Return Fund Institutional Class",
-      "sector": "Financial Services"
+      "symbol": "PTC",
+      "name": "PTC Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "PWR",
@@ -2633,29 +2878,24 @@
       "sector": "Technology"
     },
     {
-      "symbol": "QQQ",
-      "name": "Invesco QQQ Trust, Series 1",
-      "sector": "Financial Services"
+      "symbol": "QXO",
+      "name": "QXO, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "QQQM",
-      "name": "Invesco NASDAQ 100 ETF",
-      "sector": "Financial Services"
+      "symbol": "R",
+      "name": "Ryder System, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "RAFFX",
-      "name": "American Funds AMCAP R5",
-      "sector": "Financial Services"
+      "symbol": "RBA",
+      "name": "RB Global, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "RBHEX",
-      "name": "American Funds 2050 Target Date Retirement Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RBHTX",
-      "name": "American Funds 2045 Target Date Retirement Fund Class R-2",
-      "sector": "Financial Services"
+      "symbol": "RBC",
+      "name": "RBC Bearings Incorporated",
+      "sector": "Industrials"
     },
     {
       "symbol": "RBLX",
@@ -2663,9 +2903,9 @@
       "sector": "Technology"
     },
     {
-      "symbol": "RCKTX",
-      "name": "American Funds 2040 Trgt Date Retire R3",
-      "sector": "Financial Services"
+      "symbol": "RBRK",
+      "name": "Rubrik, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "RCL",
@@ -2678,94 +2918,39 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "REG",
+      "name": "Regency Centers Corporation",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
     },
     {
-      "symbol": "REGTX",
-      "name": "American Funds 2040 Trgt Date Retire R5",
+      "symbol": "RF",
+      "name": "Regions Financial Corporation",
       "sector": "Financial Services"
     },
     {
-      "symbol": "RERGX",
-      "name": "American Funds EuroPacific Growth Fund Class R-6",
+      "symbol": "RGA",
+      "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
     },
     {
-      "symbol": "RERHX",
-      "name": "American Funds Europacific Growth R5E",
+      "symbol": "RGLD",
+      "name": "Royal Gold, Inc.",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "RFETX",
-      "name": "American Funds 2030 Target Date Retirement Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RFFTX",
-      "name": "American Funds 2035 Trgt Date Retire R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RFGTX",
-      "name": "American Funds 2040 Target Date Retirement Fund Class R-6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RFITX",
-      "name": "American Funds 2050 Target Date Retirement Fund Class R-6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RFKTX",
-      "name": "American Funds 2055 Trgt Date Retire R6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RFNCX",
-      "name": "American Funds Fundamental Invs R3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RGAAX",
-      "name": "The Growth Fund of America Class R-1 Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RGABX",
-      "name": "American Funds The Growth Fund of America Class R-2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RGAGX",
-      "name": "American Funds The Growth Fund of America Class R-6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RICAX",
-      "name": "American Funds Investment Company of America Class R-1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RICBX",
-      "name": "American Funds Invmt Co of Amer R2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RIDGX",
-      "name": "American Funds The Income Fund of America",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RIRGX",
-      "name": "American Funds Capital Income Builder",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RITGX",
-      "name": "American Funds American High-Inc R6",
-      "sector": "Financial Services"
+      "symbol": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "RJF",
@@ -2783,14 +2968,14 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "RLBGX",
-      "name": "American Funds American Balanced Fund Class R-6",
-      "sector": "Financial Services"
+      "symbol": "RL",
+      "name": "Ralph Lauren Corporation",
+      "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "RLLGX",
-      "name": "American Funds SMALLCAP World R6",
-      "sector": "Financial Services"
+      "symbol": "RMBS",
+      "name": "Rambus Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "RMD",
@@ -2798,39 +2983,24 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "RMFEX",
-      "name": "American Funds American Mutual R4",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RMFGX",
-      "name": "American Funds American Mutual Fund Class R-6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RNNEX",
-      "name": "American Funds The New Economy Fund Class R-2E",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RNPCX",
-      "name": "American Funds New Perspective R3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RNPGX",
-      "name": "American Funds New Perspective Fund Class R-6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RNWGX",
-      "name": "American Funds New World Fund Class R-6",
+      "symbol": "RNR",
+      "name": "RenaissanceRe Holdings Ltd.",
       "sector": "Financial Services"
     },
     {
       "symbol": "ROK",
       "name": "Rockwell Automation, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "ROKU",
+      "name": "Roku, Inc.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "ROL",
+      "name": "Rollins, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "ROP",
@@ -2843,44 +3013,34 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "RPMGX",
-      "name": "T. Rowe Price Mid-Cap Growth Fund",
-      "sector": "Financial Services"
+      "symbol": "RPM",
+      "name": "RPM International Inc.",
+      "sector": "Basic Materials"
     },
     {
-      "symbol": "RRBGX",
-      "name": "T. Rowe Price Blue Chip Growth Fund Class R",
-      "sector": "Financial Services"
+      "symbol": "RPRX",
+      "name": "Royalty Pharma plc",
+      "sector": "Healthcare"
     },
     {
-      "symbol": "RRGSX",
-      "name": "T. Rowe Price Growth Stock Fund R Class",
-      "sector": "Financial Services"
+      "symbol": "RRC",
+      "name": "Range Resources Corporation",
+      "sector": "Energy"
     },
     {
-      "symbol": "RRMGX",
-      "name": "T. Rowe Price Mid-Cap Growth Fund",
-      "sector": "Financial Services"
+      "symbol": "RRX",
+      "name": "Regal Rexnord Corporation",
+      "sector": "Industrials"
     },
     {
-      "symbol": "RRTCX",
-      "name": "T. Rowe Price Retirement 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RRTDX",
-      "name": "T. Rowe Price Retirement 2040 Fund Class R",
-      "sector": "Financial Services"
+      "symbol": "RS",
+      "name": "Reliance Steel & Aluminum Co.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "RSG",
       "name": "Republic Services, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "RSLAX",
-      "name": "American Funds SMALLCAP World R1",
-      "sector": "Financial Services"
     },
     {
       "symbol": "RTX",
@@ -2893,24 +3053,29 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "RWICX",
-      "name": "American Funds Capital World Growth and Income Fund Class R-3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RWMBX",
-      "name": "American Funds Washington Mutual R2",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RWMFX",
-      "name": "American Funds Washington Mutual R5",
-      "sector": "Financial Services"
+      "symbol": "RVTY",
+      "name": "Revvity, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "RYAAY",
       "name": "Ryanair Holdings plc",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "RZB",
+      "name": "Reinsurance Group of America, Incorporated",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "SANM",
+      "name": "Sanmina Corporation",
+      "sector": "Technology"
     },
     {
       "symbol": "SATA",
@@ -2921,6 +3086,11 @@
       "symbol": "SATS",
       "name": "EchoStar Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SBAC",
+      "name": "SBA Communications Corporation",
+      "sector": "Real Estate"
     },
     {
       "symbol": "SBUX",
@@ -2938,24 +3108,29 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SCWFX",
-      "name": "American Funds SMALLCAP World F1",
+      "symbol": "SCI",
+      "name": "Service Corporation International",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "SEIC",
+      "name": "SEI Investments Company",
       "sector": "Financial Services"
     },
     {
-      "symbol": "SEEGX",
-      "name": "JPMorgan Large Cap Growth Fund I Class",
+      "symbol": "SF",
+      "name": "Stifel Financial Corp.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "SGENX",
-      "name": "First Eagle Global Fund",
-      "sector": "Financial Services"
+      "symbol": "SFD",
+      "name": "Smithfield Foods, Inc.",
+      "sector": "Consumer Defensive"
     },
     {
-      "symbol": "SGIIX",
-      "name": "First Eagle Global Fund",
-      "sector": "Financial Services"
+      "symbol": "SGI",
+      "name": "Somnigroup International Inc",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "SHW",
@@ -2963,24 +3138,59 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "SIRI",
+      "name": "Sirius XM Holdings Inc.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "SITM",
+      "name": "SiTime Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "SJM",
+      "name": "The J. M. Smucker Company",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "SLB",
       "name": "SLB N.V.",
       "sector": "Energy"
     },
     {
-      "symbol": "SMCWX",
-      "name": "American Funds SMALLCAP World Fund Class A",
-      "sector": "Financial Services"
+      "symbol": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "SMH",
-      "name": "VanEck Semiconductor ETF",
-      "sector": "Financial Services"
+      "symbol": "SMMT",
+      "name": "Summit Therapeutics Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "SMTC",
+      "name": "Semtech Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "SN",
+      "name": "SharkNinja, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "SNA",
+      "name": "Snap-on Incorporated",
+      "sector": "Industrials"
     },
     {
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SNEX",
+      "name": "StoneX Group Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "SNOW",
@@ -2993,9 +3203,44 @@
       "sector": "Technology"
     },
     {
+      "symbol": "SNX",
+      "name": "TD SYNNEX Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SO",
       "name": "The Southern Company",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "SOJC",
+      "name": "The Southern Company JR 2017B NT 77",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "SOJD",
+      "name": "Southern Company (The) Series 2",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "SOJE",
+      "name": "Southern Company (The) Series 2",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "SOLS",
+      "name": "Solstice Advanced Materials Inc.",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "SOLV",
+      "name": "Solventum Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "SOMN",
@@ -3003,14 +3248,9 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "SOXX",
-      "name": "iShares Semiconductor ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "SPCK",
-      "name": "SPAC and New Issue ETF",
-      "sector": "Communication Services"
+      "symbol": "SPCX",
+      "name": "Space Exploration Technologies Corp.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SPG",
@@ -3028,9 +3268,39 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "SPXC",
+      "name": "SPX Technologies, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "SRE",
       "name": "Sempra",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "SREA",
+      "name": "Sempra",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "SSB",
+      "name": "SouthState Corporation",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "SSNC",
+      "name": "SS&C Technologies Holdings, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "STE",
+      "name": "STERIS plc",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "STLA",
+      "name": "Stellantis N.V.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "STLD",
@@ -3043,9 +3313,24 @@
       "sector": "Technology"
     },
     {
+      "symbol": "STRD",
+      "name": "MicroStrategy Incorporated 10.00% Series A Perpetual Stride Preferred Stock",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "STRF",
       "name": "MicroStrategy Incorporated 10.00% Series A Perpetual Strife Preferred Stock",
       "sector": "Technology"
+    },
+    {
+      "symbol": "STRK",
+      "name": "MicroStrategy Incorporated",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "STRL",
+      "name": "Sterling Infrastructure, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "STT",
@@ -3053,24 +3338,49 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "STZ",
+      "name": "Constellation Brands, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "SUI",
+      "name": "Sun Communities, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "SUNB",
       "name": "Sunbelt Rentals Holdings Inc",
       "sector": "Financial Services"
     },
     {
-      "symbol": "SWPPX",
-      "name": "Schwab S&P 500 Index Fund- Select Shares",
-      "sector": "Financial Services"
+      "symbol": "SW",
+      "name": "Smurfit Westrock Plc",
+      "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "SWTSX",
-      "name": "Schwab Total Stock Market Index Fd Select Shs a Series of Schwab Capit",
+      "symbol": "SWK",
+      "name": "Stanley Black & Decker, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "SWKS",
+      "name": "Skyworks Solutions, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "SYF",
+      "name": "Synchrony Financial",
       "sector": "Financial Services"
     },
     {
       "symbol": "SYK",
       "name": "Stryker Corporation",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "SYM",
+      "name": "Symbotic Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SYY",
@@ -3088,11 +3398,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TBCIX",
-      "name": "T. Rowe Price Blue Chip Growth Fund I Class",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TDG",
       "name": "TransDigm Group Incorporated",
       "sector": "Industrials"
@@ -3106,11 +3411,6 @@
       "symbol": "TEL",
       "name": "TE Connectivity Ltd.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "TEQWX",
-      "name": "Nuveen Equity Index W",
-      "sector": "Financial Services"
     },
     {
       "symbol": "TER",
@@ -3128,9 +3428,14 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TIEIX",
-      "name": "TIAA-CREF Equity Index Fund",
-      "sector": "Financial Services"
+      "symbol": "THC",
+      "name": "Tenet Healthcare Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "TIGO",
+      "name": "Millicom International Cellular S.A.",
+      "sector": "Communication Services"
     },
     {
       "symbol": "TJX",
@@ -3138,9 +3443,19 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "TLT",
-      "name": "iShares 20+ Year Treasury Bond ETF",
-      "sector": "Financial Services"
+      "symbol": "TKO",
+      "name": "TKO Group Holdings, Inc.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "TKR",
+      "name": "The Timken Company",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "TLN",
+      "name": "Talen Energy Corporation",
+      "sector": "Utilities"
     },
     {
       "symbol": "TMO",
@@ -3153,24 +3468,29 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TPR",
-      "name": "Tapestry, Inc.",
+      "symbol": "TOL",
+      "name": "Toll Brothers, Inc.",
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "TRAIX",
-      "name": "T. Rowe Price Capital Appreciation Fund I Class",
+      "symbol": "TOST",
+      "name": "Toast, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "TPG",
+      "name": "TPG Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "TRBCX",
-      "name": "T. Rowe Price Blue Chip Growth Fund",
-      "sector": "Financial Services"
+      "symbol": "TPL",
+      "name": "Texas Pacific Land Corporation",
+      "sector": "Energy"
     },
     {
-      "symbol": "TRFHX",
-      "name": "T. Rowe Price Retirement 2030 I",
-      "sector": "Financial Services"
+      "symbol": "TPR",
+      "name": "Tapestry, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "TRGP",
@@ -3178,38 +3498,23 @@
       "sector": "Energy"
     },
     {
-      "symbol": "TRHZX",
-      "name": "T. Rowe Price Equity Index 500 Z",
+      "symbol": "TRMB",
+      "name": "Trimble Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "TROW",
+      "name": "T. Rowe Price Group, Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "TRLGX",
-      "name": "T. Rowe Price Large-Cap Growth Fund I Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TRPIX",
-      "name": "T. Rowe Price Value Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TRRCX",
-      "name": "T. Rowe Price Retirement 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TRSAX",
-      "name": "T. Rowe Price Growth Stock Fund Advisor Class",
-      "sector": "Financial Services"
+      "symbol": "TRU",
+      "name": "TransUnion",
+      "sector": "Industrials"
     },
     {
       "symbol": "TRV",
       "name": "The Travelers Companies, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TRVLX",
-      "name": "T. Rowe Price Value Fund",
       "sector": "Financial Services"
     },
     {
@@ -3218,9 +3523,19 @@
       "sector": "Energy"
     },
     {
+      "symbol": "TSCO",
+      "name": "Tractor Supply Company",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "TSLA",
       "name": "Tesla, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "TSN",
+      "name": "Tyson Foods, Inc.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "TT",
@@ -3228,18 +3543,23 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "TTMI",
+      "name": "TTM Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Communication Services"
     },
     {
-      "symbol": "TWCCX",
-      "name": "American Century Ultra Fund C Class",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "TWCUX",
-      "name": "American Century Ultra Investor Class",
+      "symbol": "TW",
+      "name": "Tradeweb Markets Inc.",
       "sector": "Financial Services"
     },
     {
@@ -3248,13 +3568,28 @@
       "sector": "Technology"
     },
     {
-      "symbol": "TWUIX",
-      "name": "American Century Ultra Fund - I Class",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TXN",
       "name": "Texas Instruments Incorporated",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "TXRH",
+      "name": "Texas Roadhouse, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "TXT",
+      "name": "Textron Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "TYL",
+      "name": "Tyler Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "U",
+      "name": "Unity Software Inc.",
       "sector": "Technology"
     },
     {
@@ -3268,14 +3603,54 @@
       "sector": "Technology"
     },
     {
+      "symbol": "UDR",
+      "name": "UDR, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "UHAL",
+      "name": "U-Haul Holding Company",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "UHS",
+      "name": "Universal Health Services, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "UI",
       "name": "Ubiquiti Inc.",
       "sector": "Technology"
     },
     {
+      "symbol": "ULS",
+      "name": "UL Solutions Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "ULTA",
+      "name": "Ulta Beauty, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "UMBF",
+      "name": "UMB Financial Corporation",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "UNH",
       "name": "UnitedHealth Group Incorporated",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "UNM",
+      "name": "Unum Group",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "UNMA",
+      "name": "Unum Group 6.250% JR NT58",
+      "sector": "Financial Services"
     },
     {
       "symbol": "UNP",
@@ -3298,184 +3673,24 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "USFD",
+      "name": "US Foods Holding Corp.",
+      "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "UTHR",
+      "name": "United Therapeutics Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "V",
       "name": "Visa Inc.",
       "sector": "Financial Services"
     },
     {
-      "symbol": "VAIPX",
-      "name": "Vanguard Inflation-Protected Securities Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBAIX",
-      "name": "Vanguard Balanced Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBIAX",
-      "name": "Vanguard Balanced Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBILX",
-      "name": "Vanguard Intermediate-Term Bond Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBINX",
-      "name": "Vanguard Balanced Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBIRX",
-      "name": "Vanguard Short-Term Bond Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBMFX",
-      "name": "Vanguard Total Bond Market Index Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBMPX",
-      "name": "Vanguard Total Bond Market Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBTIX",
-      "name": "Vanguard Total Bond Market Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VBTLX",
-      "name": "Vanguard Total Bond Market Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VCIT",
-      "name": "Vanguard Intermediate-Term Corporate Bond ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VCSH",
-      "name": "Vanguard Short-Term Corporate Bond ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VDADX",
-      "name": "Vanguard Dividend Appreciation Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VDIGX",
-      "name": "Vanguard Dividend Growth Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VDIPX",
-      "name": "Vanguard Developed Markets Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEIPX",
-      "name": "Vanguard Equity Income Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEIRX",
-      "name": "Vanguard Equity Income Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEMAX",
-      "name": "Vanguard Emerging Markets Stock Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEMPX",
-      "name": "Vanguard Extended Market Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEMRX",
-      "name": "Vanguard Emerging Markets Stock Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEUSX",
-      "name": "Vanguard European Stock Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VEXAX",
-      "name": "Vanguard Extended Market Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFFSX",
-      "name": "Vanguard 500 Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFFVX",
-      "name": "Vanguard Target Retirement 2055 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFIAX",
-      "name": "Vanguard 500 Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFICX",
-      "name": "Vanguard Intermediate-Term Investment-Grade Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFIDX",
-      "name": "Vanguard Intermediate-Term Investment-Grade Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFIFX",
-      "name": "Vanguard Target Retirement 2050 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFINX",
-      "name": "Vanguard 500 Index Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFORX",
-      "name": "Vanguard Target Retirement 2040 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFSTX",
-      "name": "Vanguard Short-Term Investment-Grade Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFSUX",
-      "name": "Vanguard Short-Term Investment-Grade Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFTAX",
-      "name": "Vanguard FTSE Social Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFTNX",
-      "name": "Vanguard FTSE Social Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VFWAX",
-      "name": "Vanguard FTSE All-World ex-US Index Fund Admiral Shares",
-      "sector": "Financial Services"
+      "symbol": "VEEV",
+      "name": "Veeva Systems Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "VG",
@@ -3483,39 +3698,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "VGHAX",
-      "name": "Vanguard Health Care Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VGHCX",
-      "name": "Vanguard Health Care Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VGIT",
-      "name": "Vanguard Intermediate-Term Treasury ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VGSH",
-      "name": "Vanguard Short-Term Treasury ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VGSLX",
-      "name": "Vanguard Real Estate Index Fund Admiral Shares",
-      "sector": "Real Estate"
-    },
-    {
-      "symbol": "VGSNX",
-      "name": "Vanguard Real Estate Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VHYAX",
-      "name": "Vanguard High Dividend Yield Index Fund Admiral Shares",
-      "sector": "Financial Services"
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VICI",
@@ -3523,69 +3708,9 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "VICSX",
-      "name": "Vanguard Intermediate-Term Corporate Bond Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VIEIX",
-      "name": "Vanguard Extended Market Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VIGAX",
-      "name": "Vanguard Growth Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VIGIX",
-      "name": "Vanguard Growth Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VIIIX",
-      "name": "Vanguard Institutional Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VIMAX",
-      "name": "Vanguard Mid-Cap Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VINIX",
-      "name": "Vanguard Institutional Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VIPSX",
-      "name": "Vanguard Inflation-Protected Securities Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VITAX",
-      "name": "Vanguard Information Technology Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VITNX",
-      "name": "Vanguard Institutional Total Stock Market Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VITPX",
-      "name": "Vanguard Institutional Total Stock Market Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VITSX",
-      "name": "Vanguard Total Stock Market Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VLCAX",
-      "name": "Vanguard Large-Cap Index Fund Admiral Shares",
-      "sector": "Financial Services"
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "sector": "Technology"
     },
     {
       "symbol": "VLO",
@@ -3593,59 +3718,34 @@
       "sector": "Energy"
     },
     {
+      "symbol": "VLTO",
+      "name": "Veralto Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "VMC",
       "name": "Vulcan Materials Company",
       "sector": "Basic Materials"
     },
     {
-      "symbol": "VMCIX",
-      "name": "Vanguard Mid-Cap Index Fund Institutional Shares",
-      "sector": "Financial Services"
+      "symbol": "VMI",
+      "name": "Valmont Industries, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "VMCPX",
-      "name": "Vanguard Mid-Cap Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
+      "symbol": "VNOM",
+      "name": "Viper Energy, Inc.",
+      "sector": "Energy"
     },
     {
-      "symbol": "VMGIX",
-      "name": "Vanguard Mid-Cap Growth Index Fund Investor Shares",
-      "sector": "Financial Services"
+      "symbol": "VRSK",
+      "name": "Verisk Analytics, Inc.",
+      "sector": "Technology"
     },
     {
-      "symbol": "VMGMX",
-      "name": "Vanguard Mid-Cap Growth Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VMLTX",
-      "name": "Vanguard Limited-Term Tax-Exempt Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VMLUX",
-      "name": "Vanguard Limited-Term Tax-Exempt Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VMVAX",
-      "name": "Vanguard Mid-Cap Value Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VONG",
-      "name": "Vanguard Russell 1000 Growth ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VPMAX",
-      "name": "Vanguard PRIMECAP Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VPMCX",
-      "name": "Vanguard PRIMECAP Fund Investor Shares",
-      "sector": "Financial Services"
+      "symbol": "VRSN",
+      "name": "VeriSign, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VRT",
@@ -3658,49 +3758,9 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "VSBSX",
-      "name": "Vanguard Short-Term Treasury Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSCIX",
-      "name": "Vanguard Small-Cap Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSCSX",
-      "name": "Vanguard Short-Term Corporate Bond Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSGAX",
-      "name": "Vanguard Small-Cap Growth Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSGIX",
-      "name": "Vanguard Small-Cap Growth Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSIAX",
-      "name": "Vanguard Small-Cap Value Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSIGX",
-      "name": "Vanguard Intermediate-Term Treasury Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSMAX",
-      "name": "Vanguard Small-Cap Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VSMPX",
-      "name": "Vanguard Total Stock Market Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
+      "symbol": "VSAT",
+      "name": "Viasat, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VST",
@@ -3708,194 +3768,14 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "VTABX",
-      "name": "Vanguard Total International Bond Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTAPX",
-      "name": "Vanguard Short-Term Inflation-Protected Securities Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTBNX",
-      "name": "Vanguard Total Bond Market II Idx I",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTCIX",
-      "name": "Vanguard Tax-Managed Capital Appreciation Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTCLX",
-      "name": "Vanguard Tax-Managed Capital Appreciation Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTEAX",
-      "name": "Vanguard Tax-Exempt Bond Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTHRX",
-      "name": "Vanguard Target Retirement 2030 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTIAX",
-      "name": "Vanguard Total International Stock Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTIFX",
-      "name": "Vanguard Total International Bond Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTINX",
-      "name": "Vanguard Target Retirement Income Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTIP",
-      "name": "Vanguard Short-Term Inflation-Protected Securities ETF",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTIVX",
-      "name": "Vanguard Target Retirement 2045 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTMGX",
-      "name": "Vanguard Developed Markets Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTMNX",
-      "name": "Vanguard Developed Markets Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTPSX",
-      "name": "Vanguard Total International Stock Index Fund Institutional Plus Shares",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "VTR",
       "name": "Ventas, Inc.",
       "sector": "Real Estate"
     },
     {
-      "symbol": "VTSAX",
-      "name": "Vanguard Total Stock Market Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTSNX",
-      "name": "Vanguard Total International Stock Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTTHX",
-      "name": "Vanguard Target Retirement 2035 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTTSX",
-      "name": "Vanguard Target Retirement 2060 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTTVX",
-      "name": "Vanguard Target Retirement 2025 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTWAX",
-      "name": "Vanguard Total World Stock Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTWIX",
-      "name": "Vanguard Total World Stock Index Fund Institutional Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VTWNX",
-      "name": "Vanguard Target Retirement 2020 Fund",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VVIAX",
-      "name": "Vanguard Value Index Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWELX",
-      "name": "Vanguard Wellington Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWENX",
-      "name": "Vanguard Wellington Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWIAX",
-      "name": "Vanguard Wellesley Income Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWIGX",
-      "name": "Vanguard International Growth Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWILX",
-      "name": "Vanguard International Growth Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWINX",
-      "name": "Vanguard Wellesley Income Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWITX",
-      "name": "Vanguard Intermediate-Term Tax-Exempt Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWIUX",
-      "name": "Vanguard Intermediate-Term Tax-Exempt Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWNAX",
-      "name": "Vanguard Windsor II Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWNFX",
-      "name": "Vanguard Windsor II Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWUAX",
-      "name": "Vanguard U.S. Growth Fund Admiral Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VWUSX",
-      "name": "Vanguard U.S. Growth Fund Investor Shares",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VXUS",
-      "name": "Vanguard Total International Stock ETF",
-      "sector": "Financial Services"
+      "symbol": "VTRS",
+      "name": "Viatris Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "VZ",
@@ -3903,14 +3783,39 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "W",
+      "name": "Wayfair Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
     },
     {
+      "symbol": "WAL",
+      "name": "Western Alliance Bancorporation",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "WAT",
+      "name": "Waters Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "WBD",
       "name": "Warner Bros. Discovery, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "WBS",
+      "name": "Webster Financial Corporation",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "WCC",
+      "name": "WESCO International, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "WDAY",
@@ -3933,19 +3838,19 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "WES",
+      "name": "Western Midstream Partners, LP",
+      "sector": "Energy"
+    },
+    {
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
     },
     {
-      "symbol": "WFSPX",
-      "name": "iShares S&P 500 Index K",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "WGIFX",
-      "name": "American Funds Capital World Gr&Inc F2",
-      "sector": "Financial Services"
+      "symbol": "WLK",
+      "name": "Westlake Corporation",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
@@ -3958,24 +3863,79 @@
       "sector": "Energy"
     },
     {
+      "symbol": "WMG",
+      "name": "Warner Music Group Corp.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "WMS",
+      "name": "Advanced Drainage Systems, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "WMT",
       "name": "Walmart Inc.",
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "WOBDX",
-      "name": "JPMorgan Core Bond Fund",
+      "symbol": "WPC",
+      "name": "W. P. Carey Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "WRB",
+      "name": "W. R. Berkley Corporation",
       "sector": "Financial Services"
     },
     {
-      "symbol": "WSHCX",
-      "name": "American Funds Washington Mutual C",
+      "symbol": "WSM",
+      "name": "Williams-Sonoma, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "WSO",
+      "name": "Watsco, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "WST",
+      "name": "West Pharmaceutical Services, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "WTFC",
+      "name": "Wintrust Financial Corporation",
       "sector": "Financial Services"
     },
     {
-      "symbol": "WSHFX",
-      "name": "American Funds Washington Mutual F1",
+      "symbol": "WTRG",
+      "name": "Essential Utilities, Inc.",
+      "sector": "Utilities"
+    },
+    {
+      "symbol": "WTS",
+      "name": "Watts Water Technologies, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "WWD",
+      "name": "Woodward, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "WY",
+      "name": "Weyerhaeuser Company",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "WYNN",
+      "name": "Wynn Resorts, Limited",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "XEL",
@@ -3983,9 +3943,24 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "XELLL",
+      "name": "Xcel Energy Inc. 6.25% Junior Subordinated Notes, Series due 2085",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "XOM",
       "name": "Exxon Mobil Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "XPO",
+      "name": "XPO Logistics, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "XYL",
+      "name": "Xylem Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "XYZ",
@@ -3996,6 +3971,31 @@
       "symbol": "YUM",
       "name": "Yum! Brands, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "ZBH",
+      "name": "Zimmer Biomet Holdings, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "ZBRA",
+      "name": "Zebra Technologies Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ZION",
+      "name": "Zions Bancorporation, National Association",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "ZM",
+      "name": "Zoom Communications, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ZS",
+      "name": "Zscaler, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "ZTS",
