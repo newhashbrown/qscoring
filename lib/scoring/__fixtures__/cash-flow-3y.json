@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2025-12-31",
+    "filingDate": "2026-02-10",
+    "fiscalYear": "2025",
+    "period": "FY",
+    "freeCashFlow": 300
+  },
+  {
+    "date": "2024-12-31",
+    "filingDate": "2025-02-12",
+    "fiscalYear": "2024",
+    "period": "FY",
+    "freeCashFlow": 95
+  },
+  {
+    "date": "2023-12-31",
+    "filingDate": "2024-02-14",
+    "fiscalYear": "2023",
+    "period": "FY",
+    "freeCashFlow": 90
+  }
+]

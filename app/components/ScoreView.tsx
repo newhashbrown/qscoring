@@ -187,7 +187,16 @@ function formatGeneratedAt(iso: string): string {
   return `${date}, ${time} UTC`;
 }
 
-export default function ScoreView({ data }: { data: ScoreResult }) {
+export default function ScoreView({
+  data,
+  growthDetail,
+}: {
+  data: ScoreResult;
+  // Tier 1b multi-year fundamentals block, rendered directly beneath the
+  // five-factor grid (it expands on the Growth factor). Passed as a slot so
+  // its async FMP fetch stays at the page level and this component stays sync.
+  growthDetail?: React.ReactNode;
+}) {
   const tone = SIGNAL_TONE[data.signal];
   const changeUp = data.changePercent >= 0;
 
@@ -314,6 +323,8 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
           <CategoryCard key={c.name} category={c} />
         ))}
       </section>
+
+      {growthDetail}
 
       <section className="related-links" aria-label="Related pages">
         <span className="related-eyebrow">Related</span>

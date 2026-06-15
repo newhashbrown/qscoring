@@ -1387,6 +1387,72 @@ footer .footer-links .sep {
 .size-badge.size-mega { background: var(--accent-dim); color: var(--accent); border-color: transparent; }
 .size-badge.size-large { background: rgba(0, 212, 170, 0.10); color: var(--accent); border-color: transparent; }
 
+/* Tier 1b multi-year fundamentals trend */
+.fundamentals-trend {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+.ft-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.ft-head h3 { font-size: 1.05rem; font-weight: 600; }
+.ft-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ft-asof { font-size: 0.78rem; color: var(--text-dim); font-family: var(--mono); }
+.ft-scroll { overflow-x: auto; }
+.ft-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 460px;
+}
+.ft-table th,
+.ft-table td {
+  padding: 10px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.ft-table thead th {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  font-weight: 500;
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+.ft-rowhead {
+  text-align: left !important;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+.ft-cell { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.ft-value { font-family: var(--mono); font-weight: 600; font-size: 0.95rem; }
+.yoy-chip { font-family: var(--mono); font-size: 0.72rem; font-weight: 500; }
+.yoy-chip.up { color: var(--accent); }
+.yoy-chip.down { color: var(--red); }
+.yoy-chip.flat, .yoy-chip.nm { color: var(--text-dim); }
+.yoy-chip.nm { cursor: help; border-bottom: 1px dotted var(--text-dim); }
+.yoy-chip.distorted { cursor: help; }
+.distort-mark { color: var(--amber, #ffb347); }
+.ft-footnote {
+  margin-top: 14px;
+  font-size: 0.74rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.fundamentals-trend.skeleton .ft-skeleton-rows { display: flex; flex-direction: column; gap: 10px; }
+.ft-skeleton-row {
+  height: 28px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+}
+
 /* Composite panel */
 .composite-panel {
   display: flex;
