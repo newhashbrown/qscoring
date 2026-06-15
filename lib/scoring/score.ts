@@ -1,6 +1,7 @@
 import { fmp, type FinancialGrowth, type KeyMetricsTtm, type PricePoint, type Profile, type Quote, type RatiosTtm, type SharesFloat } from "./fmp";
 import { withStalenessTracking } from "./fmp-cache";
 import { buildCompanyHeader } from "./company-header";
+import { attachRelativeContext } from "./relative";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
@@ -406,7 +407,9 @@ export function scoreFromFetched(
     confidence,
     longTermScore: Math.round(longTerm),
     shortTermScore: Math.round(shortTerm),
-    categories,
+    // Attach sector/universe percentile context for the relative-context tier.
+    // Scoring math above used the bare categories; this is presentation-only.
+    categories: attachRelativeContext(categories, sector),
     header,
     generatedAt: new Date().toISOString(),
   };

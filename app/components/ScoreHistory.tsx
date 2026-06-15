@@ -2,6 +2,15 @@
 
 import { useEffect, useMemo, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { FACTOR_NAMES, type FactorName, type ScoreHistoryPoint, type SignalChange } from "@/lib/score-history";
+import { rangePosition } from "@/lib/scoring/percentile";
+
+const RANGE_PHRASE: Record<NonNullable<ReturnType<typeof rangePosition>["band"]>, string> = {
+  high: "near its 30-day high",
+  "above-mid": "in the upper half of its 30-day range",
+  mid: "mid its 30-day range",
+  "below-mid": "in the lower half of its 30-day range",
+  low: "near its 30-day low",
+};
 
 const VIEW_W = 1000;
 const VIEW_H = 220;
@@ -201,6 +210,13 @@ export default function ScoreHistory({ ticker }: { ticker: string }) {
         ) : (
           <>Signal has held steady at <strong>{signalLabel(points[points.length - 1].signal)}</strong> across the tracked window.</>
         )}{" "}
+        {(() => {
+          const band = rangePosition(
+            points[points.length - 1].composite,
+            points.map((p) => p.composite)
+          ).band;
+          return band ? <>Composite is <strong>{RANGE_PHRASE[band]}</strong>. </> : null;
+        })()}
         Reconstructed from {points.length} daily snapshots — no-look-ahead by construction.
       </p>
     </section>

@@ -21,6 +21,7 @@ import * as dotenv from "node:fs"; // placeholder; we read .env manually below
 import { fmp, type Profile, type Quote, type RatiosTtm, type KeyMetricsTtm, type FinancialGrowth, type PricePoint } from "../lib/scoring/fmp";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "../lib/scoring/momentum";
 import { fetchUniverse, MIN_MARKET_CAP, MAX_UNIVERSE_SIZE } from "../lib/scoring/universe";
+import { computeQuantiles, QUANTILE_LEVELS } from "../lib/scoring/percentile";
 
 // Load .env manually so this script works without dotenv as a dep.
 function loadEnv() {
@@ -65,12 +66,17 @@ const METRIC_KEYS: MetricKey[] = [
 
 type Stats = { mean: number; std: number; n: number };
 type SectorStats = Partial<Record<MetricKey, Stats>>;
+// Per-metric value breakpoints at QUANTILE_LEVELS — the basis for honest
+// (non-Gaussian) percentile ranks in the relative-context tier (Phase 4).
+type Quantiles = Partial<Record<MetricKey, number[]>>;
 
 type UniverseStatsFile = {
   generatedAt: string;
   universe: { size: number; criteria: string };
+  quantileLevels: number[];
   metrics: Partial<Record<MetricKey, Stats>>;
-  sectors: Record<string, { size: number; metrics: SectorStats }>;
+  quantiles: Quantiles;
+  sectors: Record<string, { size: number; metrics: SectorStats; quantiles: Quantiles }>;
 };
 
 type TickerMetrics = Partial<Record<MetricKey, number>> & { sector: string };
@@ -188,25 +194,31 @@ async function main() {
   }
 
   const universeMetrics: Partial<Record<MetricKey, Stats>> = {};
+  const universeQuantiles: Quantiles = {};
   for (const k of METRIC_KEYS) {
     const values = allMetrics
       .map((m) => m[k])
       .filter((v): v is number => v !== undefined && Number.isFinite(v));
     const s = computeStats(values);
     if (s) universeMetrics[k] = s;
+    const q = computeQuantiles(values);
+    if (q) universeQuantiles[k] = q;
   }
 
   const sectorOut: UniverseStatsFile["sectors"] = {};
   for (const [sector, rows] of sectors) {
     const sm: SectorStats = {};
+    const sq: Quantiles = {};
     for (const k of METRIC_KEYS) {
       const values = rows
         .map((r) => r[k])
         .filter((v): v is number => v !== undefined && Number.isFinite(v));
       const s = computeStats(values);
       if (s) sm[k] = s;
+      const q = computeQuantiles(values);
+      if (q) sq[k] = q;
     }
-    sectorOut[sector] = { size: rows.length, metrics: sm };
+    sectorOut[sector] = { size: rows.length, metrics: sm, quantiles: sq };
   }
 
   const out: UniverseStatsFile = {
@@ -215,7 +227,9 @@ async function main() {
       size: allMetrics.length,
       criteria: `marketCap > $${MIN_MARKET_CAP / 1e9}B (mid+large cap), US-listed (NASDAQ/NYSE), actively trading, funds/ETFs excluded, capped at ${MAX_UNIVERSE_SIZE} real equities`,
     },
+    quantileLevels: [...QUANTILE_LEVELS],
     metrics: universeMetrics,
+    quantiles: universeQuantiles,
     sectors: sectorOut,
   };
 
