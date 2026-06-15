@@ -1403,7 +1403,20 @@ footer .footer-links .sep {
   flex-wrap: wrap;
   margin-bottom: 16px;
 }
-.ft-head h3 { font-size: 1.05rem; font-weight: 600; }
+.ft-title { display: flex; flex-direction: column; gap: 4px; }
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.section-title {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
 .ft-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .ft-asof { font-size: 0.78rem; color: var(--text-dim); font-family: var(--mono); }
 .ft-scroll { overflow-x: auto; }

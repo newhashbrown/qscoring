@@ -223,6 +223,68 @@ export function extractFundamentalFacts(
   return facts;
 }
 
+const FACT_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const FACT_VALID_PERIODS = new Set(["FY", "Q1", "Q2", "Q3", "Q4"]);
+// Numeric fields that must be present (finite) for a row to be storable. A
+// null on first capture would be enshrined permanently by ON CONFLICT DO
+// NOTHING, so an incomplete filing is skipped entirely rather than written.
+const REQUIRED_NUMERIC_FIELDS = [
+  "revenue",
+  "epsDiluted",
+  "freeCashFlow",
+  "grossMargin",
+  "operatingMargin",
+  "netMargin",
+] as const;
+
+/**
+ * List the required fields a fact is missing or that are malformed. Empty list
+ * → the fact is complete and structurally valid (safe to persist). Used to
+ * gate the append-only store so a partial first capture can't be enshrined.
+ */
+export function factIssues(fact: Partial<FundamentalFact> | null | undefined): string[] {
+  const issues: string[] = [];
+  if (!fact || typeof fact !== "object") return ["fact"];
+  if (!fact.fiscalPeriodEnd || !FACT_DATE_RE.test(fact.fiscalPeriodEnd)) issues.push("fiscalPeriodEnd");
+  if (!fact.filingDate || !FACT_DATE_RE.test(fact.filingDate)) issues.push("filingDate");
+  if (!fact.fiscalYear) issues.push("fiscalYear");
+  if (!fact.period || !FACT_VALID_PERIODS.has(fact.period)) issues.push("period");
+  for (const key of REQUIRED_NUMERIC_FIELDS) {
+    const v = fact[key];
+    if (v === null || v === undefined || !Number.isFinite(v)) issues.push(key);
+  }
+  return issues;
+}
+
+export type FactPartition = {
+  complete: FundamentalFact[];
+  skipped: Array<{ filingDate: string | null; fiscalPeriodEnd: string | null; missing: string[] }>;
+};
+
+/**
+ * Split facts into those safe to write (all required fields present) and those
+ * to skip (with the list of missing/invalid fields, for a structured warning).
+ */
+export function partitionFacts(
+  facts: ReadonlyArray<Partial<FundamentalFact>>
+): FactPartition {
+  const complete: FundamentalFact[] = [];
+  const skipped: FactPartition["skipped"] = [];
+  for (const fact of facts) {
+    const missing = factIssues(fact);
+    if (missing.length === 0) {
+      complete.push(fact as FundamentalFact);
+    } else {
+      skipped.push({
+        filingDate: fact?.filingDate ?? null,
+        fiscalPeriodEnd: fact?.fiscalPeriodEnd ?? null,
+        missing,
+      });
+    }
+  }
+  return { complete, skipped };
+}
+
 export type EarningsStale = {
   nextEarningsDate: string | null;
   tradingDaysAway: number | null;

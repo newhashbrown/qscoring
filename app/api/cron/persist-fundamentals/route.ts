@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { partitionFacts, type FundamentalFact } from "@/lib/scoring/fundamentals";
 
 // POST /api/cron/persist-fundamentals
 //
@@ -20,42 +21,35 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 //                  grossMargin, operatingMargin, netMargin } ]
 //   }
 
-type IncomingFact = {
-  fiscalPeriodEnd: string;
-  filingDate: string;
-  fiscalYear: string;
-  period: string;
-  reportedCurrency: string | null;
-  revenue: number | null;
-  epsDiluted: number | null;
-  freeCashFlow: number | null;
-  grossMargin: number | null;
-  operatingMargin: number | null;
-  netMargin: number | null;
-};
+type IncomingPayload = { ticker: string; facts: unknown[] };
 
-type IncomingPayload = { ticker: string; facts: IncomingFact[] };
-
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
-const VALID_PERIODS = new Set(["FY", "Q1", "Q2", "Q3", "Q4"]);
 
-function numOrNull(v: unknown): number | null {
+function str(v: unknown): string | null {
+  return typeof v === "string" && v.trim() ? v.trim() : null;
+}
+function num(v: unknown): number | null {
   return typeof v === "number" && Number.isFinite(v) ? v : null;
 }
 
-function isValidFact(f: unknown): f is IncomingFact {
-  if (!f || typeof f !== "object") return false;
-  const r = f as Record<string, unknown>;
-  return (
-    typeof r.fiscalPeriodEnd === "string" &&
-    DATE_RE.test(r.fiscalPeriodEnd) &&
-    typeof r.filingDate === "string" &&
-    DATE_RE.test(r.filingDate) &&
-    typeof r.fiscalYear === "string" &&
-    typeof r.period === "string" &&
-    VALID_PERIODS.has(r.period)
-  );
+// Coerce an untrusted JSON object into the FundamentalFact shape. partitionFacts
+// then decides completeness — missing/invalid fields land in `skipped`, never
+// in a write.
+function coerceFact(raw: unknown): Partial<FundamentalFact> {
+  const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  return {
+    fiscalPeriodEnd: str(r.fiscalPeriodEnd) ?? undefined,
+    filingDate: str(r.filingDate) ?? undefined,
+    fiscalYear: str(r.fiscalYear) ?? undefined,
+    period: str(r.period) ?? undefined,
+    reportedCurrency: str(r.reportedCurrency),
+    revenue: num(r.revenue),
+    epsDiluted: num(r.epsDiluted),
+    freeCashFlow: num(r.freeCashFlow),
+    grossMargin: num(r.grossMargin),
+    operatingMargin: num(r.operatingMargin),
+    netMargin: num(r.netMargin),
+  };
 }
 
 export async function POST(req: Request) {
@@ -98,18 +92,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "facts must be a non-empty array" }, { status: 400 });
   }
 
-  const invalid: number[] = [];
-  const valid: IncomingFact[] = [];
-  payload.facts.forEach((f, i) => (isValidFact(f) ? valid.push(f) : invalid.push(i)));
-  if (invalid.length > 0) {
-    return NextResponse.json(
-      { ok: false, error: "Some facts failed validation", invalid },
-      { status: 400 }
+  // Completeness gate: only filings with every required field present are
+  // written. A null on first capture would be enshrined permanently by
+  // ON CONFLICT DO NOTHING, so partials are skipped (not 400 — a valid request
+  // can legitimately carry some incomplete filings) and warned individually.
+  const { complete, skipped } = partitionFacts(payload.facts.map(coerceFact));
+
+  for (const s of skipped) {
+    console.warn(
+      `persist-fundamentals: skipped incomplete filing ` +
+        `symbol=${ticker} filingDate=${s.filingDate ?? "?"} ` +
+        `missing=[${s.missing.join(",")}]`
     );
   }
 
+  if (complete.length === 0) {
+    return NextResponse.json({ ok: true, ticker, written: 0, skipped: skipped.length });
+  }
+
   // INSERT … ON CONFLICT DO NOTHING — append-only. A filing already captured
-  // keeps its original as-reported figures.
+  // keeps its original as-reported figures (a later restatement never wins).
   const stmt = db.prepare(
     `INSERT INTO fundamentals_facts (
        ticker, fiscal_period_end, filing_date, fiscal_year, period,
@@ -119,7 +121,7 @@ export async function POST(req: Request) {
      ON CONFLICT(ticker, fiscal_period_end, filing_date) DO NOTHING`
   );
 
-  const batches = valid.map((f) =>
+  const batches = complete.map((f) =>
     stmt.bind(
       ticker,
       f.fiscalPeriodEnd,
@@ -127,12 +129,12 @@ export async function POST(req: Request) {
       f.fiscalYear,
       f.period,
       f.reportedCurrency ?? null,
-      numOrNull(f.revenue),
-      numOrNull(f.epsDiluted),
-      numOrNull(f.freeCashFlow),
-      numOrNull(f.grossMargin),
-      numOrNull(f.operatingMargin),
-      numOrNull(f.netMargin)
+      f.revenue,
+      f.epsDiluted,
+      f.freeCashFlow,
+      f.grossMargin,
+      f.operatingMargin,
+      f.netMargin
     )
   );
 
@@ -143,5 +145,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Database write failed" }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, ticker, submitted: valid.length });
+  return NextResponse.json({ ok: true, ticker, written: complete.length, skipped: skipped.length });
 }
