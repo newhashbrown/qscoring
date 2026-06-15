@@ -133,9 +133,10 @@ export default async function FundamentalsTrend({ ticker }: { ticker: string }) 
   return (
     <section className="fundamentals-trend" aria-labelledby="ft-heading">
       <div className="ft-head">
-        <h3 id="ft-heading">
-          Growth in depth — {years.length}-year fundamentals
-        </h3>
+        <div className="ft-title">
+          <span className="section-eyebrow">Reported financials</span>
+          <h2 id="ft-heading" className="section-title">5-Year Fundamentals</h2>
+        </div>
         <div className="ft-meta">
           <span className="ft-asof" title={latest.filingDate ? `Filed ${latest.filingDate}` : undefined}>
             {asOfCaption(latest)}
@@ -206,7 +207,10 @@ export function FundamentalsTrendSkeleton() {
   return (
     <section className="fundamentals-trend skeleton" aria-hidden="true">
       <div className="ft-head">
-        <h3>Growth in depth — 5-year fundamentals</h3>
+        <div className="ft-title">
+          <span className="section-eyebrow">Reported financials</span>
+          <h2 className="section-title">5-Year Fundamentals</h2>
+        </div>
       </div>
       <div className="ft-skeleton-rows">
         {Array.from({ length: 6 }).map((_, i) => (

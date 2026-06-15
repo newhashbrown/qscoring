@@ -8,6 +8,9 @@ import {
   buildFundamentalsTrend,
   nextEarningsStaleFlag,
   extractFundamentalFacts,
+  factIssues,
+  partitionFacts,
+  type FundamentalFact,
 } from "./fundamentals";
 import type { CashFlowStatement, EarningsRow, IncomeStatement } from "./fmp";
 
@@ -140,6 +143,59 @@ test("extractFundamentalFacts: drops rows lacking a filingDate (no anchor)", () 
     },
   ];
   strictEqual(extractFundamentalFacts(income, []).length, 0);
+});
+
+// ─── completeness gate (partitionFacts / factIssues) ────────
+function completeFact(over: Partial<FundamentalFact> = {}): FundamentalFact {
+  return {
+    fiscalPeriodEnd: "2025-12-31",
+    filingDate: "2026-02-10",
+    fiscalYear: "2025",
+    period: "FY",
+    reportedCurrency: "USD",
+    revenue: 1500,
+    epsDiluted: 1.5,
+    freeCashFlow: 300,
+    grossMargin: 0.44,
+    operatingMargin: 0.22,
+    netMargin: 0.12,
+    ...over,
+  };
+}
+
+test("partitionFacts (a): one required field null → skipped, not written, with reason", () => {
+  const { complete, skipped } = partitionFacts([completeFact({ freeCashFlow: null })]);
+  strictEqual(complete.length, 0);
+  strictEqual(skipped.length, 1);
+  strictEqual(skipped[0].missing.includes("freeCashFlow"), true);
+  strictEqual(skipped[0].filingDate, "2026-02-10"); // structured warning has the anchor
+});
+
+test("partitionFacts (b): complete payload → written, no skips", () => {
+  const { complete, skipped } = partitionFacts([completeFact()]);
+  strictEqual(complete.length, 1);
+  strictEqual(skipped.length, 0);
+  strictEqual(factIssues(completeFact()).length, 0);
+});
+
+test("partitionFacts (c): complete then partial for same key → partial skipped, original survives", () => {
+  // Same (fiscalPeriodEnd, filingDate) key; second arrives with a null margin.
+  const { complete, skipped } = partitionFacts([
+    completeFact(),
+    completeFact({ netMargin: null }),
+  ]);
+  // Only the complete row reaches the writer; the partial never attempts an
+  // INSERT, so (combined with ON CONFLICT DO NOTHING) the original is unchanged.
+  strictEqual(complete.length, 1);
+  strictEqual(complete[0].netMargin, 0.12);
+  strictEqual(skipped.length, 1);
+  strictEqual(skipped[0].missing.includes("netMargin"), true);
+});
+
+test("factIssues: flags malformed dates and bad period", () => {
+  const issues = factIssues(completeFact({ filingDate: "nope", period: "H1" }));
+  strictEqual(issues.includes("filingDate"), true);
+  strictEqual(issues.includes("period"), true);
 });
 
 // ─── nextEarningsStaleFlag ───────────────────────────────────
