@@ -134,6 +134,35 @@ function CompanyHeaderStrip({ header }: { header: CompanyHeader }) {
   );
 }
 
+// Relative-context line (Phase 4): which reference the score used (sector vs
+// universe), plus favorability-oriented percentile ranks ("ahead of X%") so a
+// higher figure always reads as more favorable. The reference label shows
+// immediately; the percentiles appear once the bundled universe-stats carries
+// quantiles (and are omitted for non-monotonic metrics like Beta/RSI).
+function MetricRelativeLine({ m }: { m: MetricScore }) {
+  const r = m.relative;
+  if (!r || !r.scoredAgainst) return null;
+  const refLabel =
+    r.scoredAgainst === "sector"
+      ? `Sector-relative${r.sectorSize ? ` · ${r.sectorSize} peers` : ""}`
+      : "Universe-wide";
+  return (
+    <div className="metric-relative">
+      <span className="rel-ref" title="Which reference distribution this metric is scored against">
+        {refLabel}
+      </span>
+      {r.sectorPercentile !== null && (
+        <span className="rel-pct" title="Ranks ahead of this share of sector peers (higher is better)">
+          ahead of {r.sectorPercentile}% of sector
+        </span>
+      )}
+      {r.universePercentile !== null && (
+        <span className="rel-pct rel-muted">ahead of {r.universePercentile}% of universe</span>
+      )}
+    </div>
+  );
+}
+
 function CategoryCard({ category }: { category: CategoryScore }) {
   return (
     <div className="category-card">
@@ -151,16 +180,19 @@ function CategoryCard({ category }: { category: CategoryScore }) {
       </div>
       <div className="metric-list">
         {category.metrics.map((m) => (
-          <div key={m.name} className="metric-row">
-            <span className="metric-name">{m.name}</span>
-            <span className="metric-raw">{formatRaw(m)}</span>
-            <div className="metric-track" aria-hidden="true">
-              <div
-                className={`metric-fill ${scoreColor(m.score)}`}
-                style={{ width: m.score === null ? "0%" : `${m.score}%` }}
-              />
+          <div key={m.name} className="metric-item">
+            <div className="metric-row">
+              <span className="metric-name">{m.name}</span>
+              <span className="metric-raw">{formatRaw(m)}</span>
+              <div className="metric-track" aria-hidden="true">
+                <div
+                  className={`metric-fill ${scoreColor(m.score)}`}
+                  style={{ width: m.score === null ? "0%" : `${m.score}%` }}
+                />
+              </div>
+              <span className="metric-score">{m.score === null ? "—" : Math.round(m.score)}</span>
             </div>
-            <span className="metric-score">{m.score === null ? "—" : Math.round(m.score)}</span>
+            <MetricRelativeLine m={m} />
           </div>
         ))}
       </div>

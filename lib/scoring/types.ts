@@ -2,12 +2,27 @@ export type Signal = "BUY_SHORT_TERM" | "BUY_LONG_TERM" | "HOLD" | "SHORT";
 export type Confidence = "HIGH" | "MEDIUM" | "LOW";
 export type CategoryName = "value" | "growth" | "momentum" | "profitability" | "risk";
 
+// Relative-context (Phase 4): where a metric's raw value ranks vs its sector
+// cohort and vs the whole universe, from universe-stats quantile breakpoints.
+// Percentiles are FAVORABILITY-oriented — a higher number is always more
+// favorable (a cheap P/E and a high ROE both rank high), so the figure never
+// contradicts the colour-coded score next to it. Null for non-monotonic /
+// binary metrics (Beta, RSI, MA cross) and when the bundled universe-stats
+// predates quantiles; the UI then hides the figure rather than guessing.
+export type MetricRelative = {
+  sectorPercentile: number | null;
+  universePercentile: number | null;
+  scoredAgainst: "sector" | "universe" | null; // which reference the score used
+  sectorSize: number | null;
+};
+
 export type MetricScore = {
   name: string;
   raw: number | null;
   score: number | null;
   weight: number;
   format?: "percent" | "ratio" | "number";
+  relative?: MetricRelative;
 };
 
 export type CategoryScore = {
