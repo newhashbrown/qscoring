@@ -4,9 +4,11 @@ import {
   confidenceReason,
   type CategoryName,
   type CategoryScore,
+  type CompanyHeader,
   type MetricScore,
   type ScoreResult,
   type Signal,
+  type SizeBucket,
 } from "@/lib/scoring";
 import PriceChart from "./PriceChart";
 import ScoreRing from "./ScoreRing";
@@ -48,6 +50,88 @@ function scoreColor(score: number | null): "green" | "amber" | "red" {
   return "red";
 }
 
+
+const SIZE_BUCKET_LABEL: Record<SizeBucket, string> = {
+  mega: "Mega Cap",
+  large: "Large Cap",
+  mid: "Mid Cap",
+  small: "Small Cap",
+  micro: "Micro Cap",
+};
+
+// Compact USD formatter: $4.28T / $50.0B / $812M / $1.2K. Returns "—" for null.
+function formatUsdCompact(value: number | null): string {
+  if (value === null || !Number.isFinite(value)) return "—";
+  const abs = Math.abs(value);
+  const sign = value < 0 ? "-" : "";
+  if (abs >= 1e12) return `${sign}$${(abs / 1e12).toFixed(2)}T`;
+  if (abs >= 1e9) return `${sign}$${(abs / 1e9).toFixed(1)}B`;
+  if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(0)}M`;
+  if (abs >= 1e3) return `${sign}$${(abs / 1e3).toFixed(0)}K`;
+  return `${sign}$${abs.toFixed(0)}`;
+}
+
+// Compact share-count formatter (no currency): 14.69B / 812M.
+function formatSharesCompact(value: number | null): string {
+  if (value === null || !Number.isFinite(value)) return "—";
+  const abs = Math.abs(value);
+  if (abs >= 1e9) return `${(abs / 1e9).toFixed(2)}B`;
+  if (abs >= 1e6) return `${(abs / 1e6).toFixed(1)}M`;
+  if (abs >= 1e3) return `${(abs / 1e3).toFixed(0)}K`;
+  return abs.toFixed(0);
+}
+
+function formatPercent(fraction: number | null, digits = 2): string {
+  if (fraction === null || !Number.isFinite(fraction)) return "—";
+  return `${(fraction * 100).toFixed(digits)}%`;
+}
+
+function format52Week(low: number | null, high: number | null): string {
+  if (low === null || high === null) return "—";
+  return `$${low.toFixed(2)} – $${high.toFixed(2)}`;
+}
+
+function SizeBadge({ bucket }: { bucket: SizeBucket | null }) {
+  if (!bucket) return null;
+  return (
+    <span className={`tag size-badge size-${bucket}`} title={`${SIZE_BUCKET_LABEL[bucket]} by market capitalization`}>
+      {SIZE_BUCKET_LABEL[bucket]}
+    </span>
+  );
+}
+
+function CompanyHeaderStrip({ header }: { header: CompanyHeader }) {
+  // Free-float fraction shown alongside the absolute share count so a thin
+  // float (large insider/locked holdings) is visible at a glance.
+  const floatPct =
+    header.freeFloatPercent !== null && Number.isFinite(header.freeFloatPercent)
+      ? ` (${header.freeFloatPercent.toFixed(1)}%)`
+      : "";
+
+  const stats: Array<{ label: string; value: string; title?: string }> = [
+    { label: "Market Cap", value: formatUsdCompact(header.marketCap) },
+    { label: "Shares Out.", value: formatSharesCompact(header.sharesOutstanding) },
+    { label: "Float", value: `${formatSharesCompact(header.floatShares)}${floatPct}` },
+    {
+      label: "Avg $ Vol (20d)",
+      value: formatUsdCompact(header.avgDollarVolume20),
+      title: "20-trading-day average of price × volume",
+    },
+    { label: "52-Wk Range", value: format52Week(header.week52Low, header.week52High) },
+    { label: "Div Yield", value: formatPercent(header.dividendYield) },
+  ];
+
+  return (
+    <section className="company-header-strip" aria-label="Company snapshot">
+      {stats.map((s) => (
+        <div key={s.label} className="chs-item" title={s.title}>
+          <span className="chs-label">{s.label}</span>
+          <span className="chs-value">{s.value}</span>
+        </div>
+      ))}
+    </section>
+  );
+}
 
 function CategoryCard({ category }: { category: CategoryScore }) {
   return (
@@ -128,6 +212,7 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
           <div className="score-meta-row">
             {data.sector && <span className="tag">{data.sector}</span>}
             {data.industry && <span className="tag muted">{data.industry}</span>}
+            {data.header && <SizeBadge bucket={data.header.sizeBucket} />}
           </div>
         </div>
         <div className="score-price">
@@ -139,6 +224,8 @@ export default function ScoreView({ data }: { data: ScoreResult }) {
           </div>
         </div>
       </header>
+
+      {data.header && <CompanyHeaderStrip header={data.header} />}
 
       <section className={`composite-panel tone-${tone}`}>
         <ScoreRing value={data.composite} />
