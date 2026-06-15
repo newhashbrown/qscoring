@@ -200,6 +200,45 @@ export type PricePoint = {
   volume: number;
 };
 
+// Multi-year statements (Phase 2 / Tier 1b). `date` is the fiscal period end;
+// `filingDate`/`acceptedDate` give the point-in-time "as of" the page displays.
+// Margins are derived from these absolutes (no separate /ratios call) so every
+// figure in a year ties out internally.
+export type IncomeStatement = {
+  date: string;
+  filingDate: string | null;
+  acceptedDate: string | null;
+  fiscalYear: string;
+  period: string;
+  reportedCurrency: string | null;
+  revenue: number | null;
+  grossProfit: number | null;
+  operatingIncome: number | null;
+  netIncome: number | null;
+  eps: number | null;
+  epsDiluted: number | null;
+};
+
+export type CashFlowStatement = {
+  date: string;
+  filingDate: string | null;
+  fiscalYear: string;
+  period: string;
+  freeCashFlow: number | null;
+};
+
+// /earnings — past rows carry actual vs estimate; the nearest future row (null
+// actual) is the next scheduled report, used for the within-5-trading-days
+// stale-data flag.
+export type EarningsRow = {
+  symbol: string;
+  date: string;
+  epsActual: number | null;
+  epsEstimated: number | null;
+  revenueActual: number | null;
+  revenueEstimated: number | null;
+};
+
 export const fmp = {
   profile: (symbol: string) => {
     const s = fmpSymbol(symbol);
@@ -243,6 +282,33 @@ export const fmp = {
       { symbol: s },
       TTL.fundamentals,
       `sharesFloat:${s}`
+    );
+  },
+  incomeStatement: (symbol: string, limit = 5) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<IncomeStatement[]>(
+      "/income-statement",
+      { symbol: s, limit },
+      TTL.fundamentals,
+      `income:${s}:${limit}`
+    );
+  },
+  cashFlowStatement: (symbol: string, limit = 5) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<CashFlowStatement[]>(
+      "/cash-flow-statement",
+      { symbol: s, limit },
+      TTL.fundamentals,
+      `cashflow:${s}:${limit}`
+    );
+  },
+  earnings: (symbol: string, limit = 12) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<EarningsRow[]>(
+      "/earnings",
+      { symbol: s, limit },
+      TTL.fundamentals,
+      `earnings:${s}:${limit}`
     );
   },
   historical: (symbol: string) => {

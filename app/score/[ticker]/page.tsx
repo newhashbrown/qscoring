@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
+import FundamentalsTrend, { FundamentalsTrendSkeleton } from "@/app/components/FundamentalsTrend";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
 import RelatedStocks from "@/app/components/RelatedStocks";
@@ -226,7 +227,14 @@ export default async function TickerScorePage({
 
       <main>
         <OnboardingBanner />
-        <ScoreView data={result} />
+        <ScoreView
+          data={result}
+          growthDetail={
+            <Suspense fallback={<FundamentalsTrendSkeleton />}>
+              <FundamentalsTrend ticker={result.ticker} />
+            </Suspense>
+          }
+        />
         <WatchButton ticker={result.ticker} />
         <div className="commentary-wrap">
           <Suspense fallback={<CommentarySkeleton />}>
