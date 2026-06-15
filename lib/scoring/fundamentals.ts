@@ -170,6 +170,59 @@ export function buildFundamentalsTrend(
   return { currency: rows[0]?.reportedCurrency ?? null, years };
 }
 
+// One as-reported filing's raw facts — the unit the filing-keyed store
+// persists (append-only, dedup on ticker+fiscalPeriodEnd+filingDate). Distinct
+// from FundamentalsYear, which carries display-oriented YoY derivations.
+export type FundamentalFact = {
+  fiscalPeriodEnd: string;
+  filingDate: string; // required — a fact with no filing date has no point-in-time anchor
+  fiscalYear: string;
+  period: string;
+  reportedCurrency: string | null;
+  revenue: number | null;
+  epsDiluted: number | null;
+  freeCashFlow: number | null;
+  grossMargin: number | null;
+  operatingMargin: number | null;
+  netMargin: number | null;
+};
+
+/**
+ * Flatten statement arrays into per-filing facts for the store. Rows without a
+ * filingDate are dropped — without it there's no point-in-time anchor, which
+ * is the whole reason the store exists. Margins are derived from the income
+ * absolutes so a stored row ties out internally.
+ */
+export function extractFundamentalFacts(
+  income: readonly IncomeStatement[] | null | undefined,
+  cashflow: readonly CashFlowStatement[] | null | undefined
+): FundamentalFact[] {
+  if (!income || income.length === 0) return [];
+  const fcfByKey = new Map<string, number | null>();
+  for (const cf of cashflow ?? []) {
+    fcfByKey.set(`${cf.fiscalYear}:${cf.period}`, finite(cf.freeCashFlow));
+  }
+
+  const facts: FundamentalFact[] = [];
+  for (const r of income) {
+    if (!r.filingDate) continue; // no anchor → not storable
+    facts.push({
+      fiscalPeriodEnd: r.date,
+      filingDate: r.filingDate,
+      fiscalYear: r.fiscalYear,
+      period: r.period,
+      reportedCurrency: r.reportedCurrency ?? null,
+      revenue: finite(r.revenue),
+      epsDiluted: finite(r.epsDiluted) ?? finite(r.eps),
+      freeCashFlow: fcfByKey.get(`${r.fiscalYear}:${r.period}`) ?? null,
+      grossMargin: margin(r.grossProfit, r.revenue),
+      operatingMargin: margin(r.operatingIncome, r.revenue),
+      netMargin: margin(r.netIncome, r.revenue),
+    });
+  }
+  return facts;
+}
+
 export type EarningsStale = {
   nextEarningsDate: string | null;
   tradingDaysAway: number | null;
