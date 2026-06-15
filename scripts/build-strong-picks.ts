@@ -21,6 +21,7 @@ import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
 import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
 import type { MoversFile } from "../lib/movers-board";
 import type { CompanyHeader } from "../lib/scoring/types";
+import { fetchUniverse, MAX_UNIVERSE_SIZE } from "../lib/scoring/universe";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
@@ -38,26 +39,6 @@ const RETRY_BACKOFF_MS = [15_000, 30_000];
 // classic "buy" territory. The ranking itself communicates strength.
 const LIMIT = 12;
 
-// FMP company-screener endpoint and criteria — matches build-universe-stats.ts
-// so the form-validation universe and the z-score normalization corpus stay
-// identical. Available on the Starter plan (the /stable/sp500-constituent
-// endpoint is not, hence the screener).
-const SCREENER_URL = "https://financialmodelingprep.com/stable/company-screener";
-const MIN_MARKET_CAP = 2_000_000_000;
-const MAX_UNIVERSE_SIZE = 800;
-
-// Sanity floor: the screener consistently returns ~300-400 names at the $2B
-// threshold; anything materially below this means the response is malformed
-// or the criteria silently changed — abort rather than ship a truncated
-// scoreboard.
-const MIN_EXPECTED_TICKERS = 200;
-
-type ScreenerRow = {
-  symbol: string;
-  companyName?: string;
-  sector?: string;
-};
-
 // UniverseEntry mirrors the form's UniverseEntry type. Written to
 // data/compare-universe.json so the /compare form has a stable allow-list
 // that doesn't lose names when /api/score transiently fails for a ticker
@@ -68,75 +49,33 @@ type UniverseEntry = {
   sector?: string;
 };
 
-// FMP returns class shares as "BRK.B" / "BF.B"; FMP's score endpoints
-// expect the hyphenated form ("BRK-B"). lib/scoring/fmp.ts does the same
-// normalization for its own calls — mirror it here so /api/score gets the
-// form it expects.
-function normalizeSymbol(s: string): string {
-  return s.replace(/\./g, "-");
-}
-
+// Resolve the investable universe via the shared selector (lib/scoring/
+// universe.ts): funds/ETFs excluded, fetched deep and capped to the top-800
+// REAL equities AFTER exclusions. build-universe-stats.ts uses the SAME
+// selector with the SAME options, so the scored universe and its z-score
+// normalization corpus stay identical by construction. This replaces two
+// copy-pasted screener blocks that had drifted — one omitted the fund/ETF
+// exclusion, leaving ~53% of the "universe" as mutual-fund share classes.
+// See docs/diagnosis/universe-fund-etf-contamination.md.
 async function fetchScreenerUniverse(): Promise<readonly UniverseEntry[]> {
-  const key = process.env.FMP_API_KEY;
-  if (!key) {
-    throw new Error(
-      "FMP_API_KEY is not set — required to resolve the screener universe. " +
-        "Set it in the GitHub Actions secret store (same value used by refresh-universe-stats.yml)."
-    );
-  }
-  const url = new URL(SCREENER_URL);
-  url.searchParams.set("marketCapMoreThan", String(MIN_MARKET_CAP));
-  url.searchParams.set("isActivelyTrading", "true");
-  url.searchParams.set("country", "US");
-  url.searchParams.set("exchange", "NASDAQ,NYSE");
-  url.searchParams.set("limit", String(MAX_UNIVERSE_SIZE));
-  url.searchParams.set("apikey", key);
-
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
-  let body: unknown;
+  let universe;
   try {
-    const res = await fetch(url.toString(), { signal: ctrl.signal });
-    if (!res.ok) {
-      const text = await res.text().catch(() => "");
-      throw new Error(
-        `Company-screener HTTP ${res.status}: ${text.slice(0, 200)}`
-      );
-    }
-    body = await res.json();
+    universe = await fetchUniverse({
+      maxSize: MAX_UNIVERSE_SIZE,
+      requireSector: true,
+      signal: ctrl.signal,
+    });
   } finally {
     clearTimeout(timer);
   }
 
-  if (!Array.isArray(body)) {
-    throw new Error(
-      `Company-screener response was not an array (got ${typeof body}). ` +
-        "FMP endpoint shape may have changed."
-    );
-  }
-
-  const tickerRe = /^[A-Z][A-Z0-9.-]{0,9}$/;
-  const seen = new Set<string>();
-  const entries: UniverseEntry[] = [];
-  for (const row of body as ScreenerRow[]) {
-    const raw = typeof row?.symbol === "string" ? row.symbol.trim().toUpperCase() : "";
-    if (!raw) continue;
-    const sym = normalizeSymbol(raw);
-    if (!tickerRe.test(sym)) continue;
-    if (seen.has(sym)) continue;
-    seen.add(sym);
-    const name = typeof row.companyName === "string" && row.companyName.trim() ? row.companyName.trim() : sym;
-    const entry: UniverseEntry = { symbol: sym, name };
-    if (typeof row.sector === "string" && row.sector.trim()) entry.sector = row.sector.trim();
-    entries.push(entry);
-  }
-
-  if (entries.length < MIN_EXPECTED_TICKERS) {
-    throw new Error(
-      `Only ${entries.length} valid screener tickers parsed (expected ≥${MIN_EXPECTED_TICKERS}). ` +
-        "Aborting to avoid shipping a truncated scoreboard."
-    );
-  }
+  const entries: UniverseEntry[] = universe.map((e) => ({
+    symbol: e.symbol,
+    name: e.companyName,
+    ...(e.sector ? { sector: e.sector } : {}),
+  }));
 
   // Stable lexicographic order so downstream diffs (compare-universe.json,
   // scoreboard.json, snapshots) reflect score changes, not the upstream
