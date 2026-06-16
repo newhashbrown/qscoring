@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T09:13:15.521Z",
+  "generatedAt": "2026-06-16T14:30:08.175Z",
   "universeSize": 800,
   "entries": [
     {
@@ -61,11 +61,6 @@
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "ADC",
-      "name": "Agree Realty Corporation",
-      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -421,6 +416,11 @@
       "symbol": "AXSM",
       "name": "Axsome Therapeutics, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "AYI",
+      "name": "Acuity Brands, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AZO",
@@ -918,6 +918,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "CRL",
+      "name": "Charles River Laboratories International, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
@@ -1006,11 +1011,6 @@
       "symbol": "DAL",
       "name": "Delta Air Lines, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "DAR",
-      "name": "Darling Ingredients Inc.",
-      "sector": "Consumer Defensive"
     },
     {
       "symbol": "DASH",
@@ -1978,6 +1978,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "JOBY",
+      "name": "Joby Aviation, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "JPM",
       "name": "JPMorgan Chase & Co.",
       "sector": "Financial Services"
@@ -2451,6 +2456,11 @@
       "symbol": "NBIX",
       "name": "Neurocrine Biosciences, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "NCLH",
+      "name": "Norwegian Cruise Line Holdings Ltd.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "NDAQ",
@@ -3023,11 +3033,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "RRC",
-      "name": "Range Resources Corporation",
-      "sector": "Energy"
-    },
-    {
       "symbol": "RRX",
       "name": "Regal Rexnord Corporation",
       "sector": "Industrials"
@@ -3183,6 +3188,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "SNAP",
+      "name": "Snap Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
@@ -3261,11 +3271,6 @@
       "symbol": "SPGI",
       "name": "S&P Global Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SPOT",
-      "name": "Spotify Technology S.A.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "SPXC",
@@ -3713,6 +3718,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "VIRT",
+      "name": "Virtu Financial, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "VLO",
       "name": "Valero Energy Corporation",
       "sector": "Energy"
@@ -3758,11 +3768,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "VSAT",
-      "name": "Viasat, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "VST",
       "name": "Vistra Corp.",
       "sector": "Utilities"
@@ -3791,11 +3796,6 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "WAL",
-      "name": "Western Alliance Bancorporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
