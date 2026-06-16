@@ -1580,6 +1580,35 @@ footer .footer-links .sep {
   margin: 16px 0;
   background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.07), rgba(255,255,255,0.03));
 }
+/* Quality/health screens grid (Phase 5b) */
+.qh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+.qh-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.qh-screen-label { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.03em; }
+.qh-screen-value { font-family: var(--mono); font-size: 1.1rem; font-weight: 600; }
+.qh-band {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  text-transform: capitalize;
+  padding: 1px 7px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.05);
+}
+.qh-band.tone-bullish { color: var(--accent); background: var(--accent-dim); }
+.qh-band.tone-bearish { color: var(--red); background: rgba(255, 71, 87, 0.12); }
+.qh-band.tone-neutral { color: var(--text-dim); }
+.qh-yield { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.9rem; }
 
 /* Composite panel */
 .composite-panel {
