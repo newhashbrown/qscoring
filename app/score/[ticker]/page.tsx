@@ -5,6 +5,7 @@ import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
 import FundamentalsTrend, { FundamentalsTrendSkeleton } from "@/app/components/FundamentalsTrend";
+import AnalystSignals, { AnalystSignalsSkeleton } from "@/app/components/AnalystSignals";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
 import RelatedStocks from "@/app/components/RelatedStocks";
@@ -236,6 +237,11 @@ export default async function TickerScorePage({
           }
         />
         <WatchButton ticker={result.ticker} />
+        <div className="signal-sections">
+          <Suspense fallback={<AnalystSignalsSkeleton />}>
+            <AnalystSignals ticker={result.ticker} />
+          </Suspense>
+        </div>
         <div className="commentary-wrap">
           <Suspense fallback={<CommentarySkeleton />}>
             <Commentary scoreResult={result} />
