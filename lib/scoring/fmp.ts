@@ -290,6 +290,19 @@ export type FinancialScores = {
   marketCap: number | null;
 };
 
+// /insider-trading/search — Form 4 insider transactions (Phase 5c positioning).
+// acquisitionOrDisposition: "A" (acquired/buy) | "D" (disposed/sell);
+// transactionType "P-Purchase" / "S-Sale" are the open-market trades worth
+// counting (vs awards/option exercises).
+export type InsiderTrade = {
+  symbol: string;
+  transactionDate: string;
+  transactionType: string;
+  acquisitionOrDisposition: string | null;
+  securitiesTransacted: number | null;
+  price: number | null;
+};
+
 export const fmp = {
   profile: (symbol: string) => {
     const s = fmpSymbol(symbol);
@@ -396,6 +409,15 @@ export const fmp = {
       { symbol: s },
       TTL.fundamentals,
       `financialScores:${s}`
+    );
+  },
+  insiderTrading: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<InsiderTrade[]>(
+      "/insider-trading/search",
+      { symbol: s },
+      TTL.fundamentals,
+      `insiderTrading:${s}`
     );
   },
   historical: (symbol: string) => {
