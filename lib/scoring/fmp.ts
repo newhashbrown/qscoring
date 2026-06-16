@@ -171,6 +171,7 @@ export type RatiosTtm = {
   netProfitMarginTTM: number | null;
   debtToEquityRatioTTM: number | null;
   dividendYieldTTM: number | null;
+  interestCoverageRatioTTM: number | null;
 };
 
 export type KeyMetricsTtm = {
@@ -225,6 +226,11 @@ export type CashFlowStatement = {
   fiscalYear: string;
   period: string;
   freeCashFlow: number | null;
+  // Capital-return fields (Phase 5b shareholder yield). FMP reports cash
+  // OUTFLOWS as negative, so a net buyback is a negative netStockIssuance.
+  netStockIssuance: number | null;
+  commonStockRepurchased: number | null;
+  commonDividendsPaid: number | null;
 };
 
 // /earnings — past rows carry actual vs estimate; the nearest future row (null
@@ -273,6 +279,15 @@ export type PriceTargetSummary = {
   lastQuarterAvgPriceTarget: number | null;
   lastYearCount: number;
   lastYearAvgPriceTarget: number | null;
+};
+
+// /financial-scores — bankruptcy/quality composites (Phase 5b quality screens).
+export type FinancialScores = {
+  symbol: string;
+  altmanZScore: number | null;
+  piotroskiScore: number | null;
+  ebit: number | null;
+  marketCap: number | null;
 };
 
 export const fmp = {
@@ -372,6 +387,15 @@ export const fmp = {
       { symbol: s },
       TTL.fundamentals,
       `priceTargetSummary:${s}`
+    );
+  },
+  financialScores: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<FinancialScores[]>(
+      "/financial-scores",
+      { symbol: s },
+      TTL.fundamentals,
+      `financialScores:${s}`
     );
   },
   historical: (symbol: string) => {
