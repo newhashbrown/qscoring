@@ -239,6 +239,42 @@ export type EarningsRow = {
   revenueEstimated: number | null;
 };
 
+// /grades-consensus — current analyst rating counts + the consensus label.
+export type GradeConsensus = {
+  symbol: string;
+  strongBuy: number;
+  buy: number;
+  hold: number;
+  sell: number;
+  strongSell: number;
+  consensus: string | null;
+};
+
+// /grades-historical — monthly snapshots of the rating distribution, used to
+// derive the rating REVISION trend (are analysts upgrading or downgrading?).
+export type GradeHistoryRow = {
+  symbol: string;
+  date: string;
+  analystRatingsStrongBuy: number;
+  analystRatingsBuy: number;
+  analystRatingsHold: number;
+  analystRatingsSell: number;
+  analystRatingsStrongSell: number;
+};
+
+// /price-target-summary — rolling average analyst price targets by window.
+// last-month vs last-quarter is the estimate-REVISION signal (are analysts
+// raising or cutting their targets?).
+export type PriceTargetSummary = {
+  symbol: string;
+  lastMonthCount: number;
+  lastMonthAvgPriceTarget: number | null;
+  lastQuarterCount: number;
+  lastQuarterAvgPriceTarget: number | null;
+  lastYearCount: number;
+  lastYearAvgPriceTarget: number | null;
+};
+
 export const fmp = {
   profile: (symbol: string) => {
     const s = fmpSymbol(symbol);
@@ -309,6 +345,33 @@ export const fmp = {
       { symbol: s, limit },
       TTL.fundamentals,
       `earnings:${s}:${limit}`
+    );
+  },
+  gradesConsensus: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<GradeConsensus[]>(
+      "/grades-consensus",
+      { symbol: s },
+      TTL.fundamentals,
+      `gradesConsensus:${s}`
+    );
+  },
+  gradesHistorical: (symbol: string, limit = 12) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<GradeHistoryRow[]>(
+      "/grades-historical",
+      { symbol: s, limit },
+      TTL.fundamentals,
+      `gradesHistorical:${s}:${limit}`
+    );
+  },
+  priceTargetSummary: (symbol: string) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<PriceTargetSummary[]>(
+      "/price-target-summary",
+      { symbol: s },
+      TTL.fundamentals,
+      `priceTargetSummary:${s}`
     );
   },
   historical: (symbol: string) => {
