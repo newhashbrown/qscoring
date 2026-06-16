@@ -1609,6 +1609,14 @@ footer .footer-links .sep {
 .qh-band.tone-bearish { color: var(--red); background: rgba(255, 71, 87, 0.12); }
 .qh-band.tone-neutral { color: var(--text-dim); }
 .qh-yield { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.9rem; }
+/* Phase 5c — backtest-evidence link */
+.evidence-link {
+  display: inline-block;
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+.evidence-link:hover { text-decoration: underline; }
 
 /* Composite panel */
 .composite-panel {
