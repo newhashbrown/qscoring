@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T14:30:08.175Z",
+  "generatedAt": "2026-06-17T13:00:08.438Z",
   "universeSize": 800,
   "entries": [
     {
@@ -121,6 +121,11 @@
       "symbol": "AGNC",
       "name": "AGNC Investment Corp.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "AGX",
+      "name": "Argan, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AHR",
@@ -436,11 +441,6 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BAH",
-      "name": "Booz Allen Hamilton Holding Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -1003,6 +1003,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CYTK",
+      "name": "Cytokinetics, Incorporated",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -1031,11 +1036,6 @@
       "symbol": "DDOG",
       "name": "Datadog, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "DDS",
-      "name": "Dillard's, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DE",
@@ -1261,6 +1261,11 @@
       "symbol": "EMR",
       "name": "Emerson Electric Co.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "ENSG",
+      "name": "The Ensign Group, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ENTG",
@@ -3546,11 +3551,6 @@
       "symbol": "TT",
       "name": "Trane Technologies plc",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "TTD",
-      "name": "The Trade Desk, Inc.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "TTMI",
