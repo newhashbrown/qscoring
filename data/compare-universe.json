@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-17T13:00:08.438Z",
+  "generatedAt": "2026-06-18T12:37:08.285Z",
   "universeSize": 800,
   "entries": [
     {
@@ -868,6 +868,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "CORZ",
+      "name": "Core Scientific, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "COST",
       "name": "Costco Wholesale Corporation",
       "sector": "Consumer Defensive"
@@ -916,11 +921,6 @@
       "symbol": "CRH",
       "name": "CRH plc",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "CRL",
-      "name": "Charles River Laboratories International, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "CRM",
@@ -1753,6 +1753,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "HONAV",
+      "name": "Honeywell Aerospace Inc. Common Stock When Issued",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "HOOD",
       "name": "Robinhood Markets, Inc.",
       "sector": "Financial Services"
@@ -2226,11 +2231,6 @@
       "symbol": "MAS",
       "name": "Masco Corporation",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "MASI",
-      "name": "Masimo Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "MCD",
@@ -3088,6 +3088,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "SARO",
+      "name": "StandardAero, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "SATA",
       "name": "Strive, Inc. Variable Rate Series A Perpetual Preferred Stock",
       "sector": "Financial Services"
@@ -3191,11 +3196,6 @@
       "symbol": "SNA",
       "name": "Snap-on Incorporated",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "SNAP",
-      "name": "Snap Inc.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "SNDK",
