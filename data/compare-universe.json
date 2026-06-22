@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-19T12:58:31.668Z",
+  "generatedAt": "2026-06-22T15:04:03.414Z",
   "universeSize": 800,
   "entries": [
     {
@@ -553,6 +553,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BNY",
+      "name": "Bank of New York Mellon Corp",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "BPOP",
       "name": "Popular, Inc.",
       "sector": "Financial Services"
@@ -1098,11 +1103,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "DLR",
-      "name": "Digital Realty Trust, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "DLTR",
       "name": "Dollar Tree, Inc.",
       "sector": "Consumer Defensive"
@@ -1323,11 +1323,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "ESS",
-      "name": "Essex Property Trust, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "ET",
       "name": "Energy Transfer LP",
       "sector": "Energy"
@@ -1516,6 +1511,11 @@
       "symbol": "FOXA",
       "name": "Fox Corporation",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "FROG",
@@ -3073,11 +3073,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "RYAAY",
-      "name": "Ryanair Holdings plc",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "RZB",
       "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
@@ -3421,6 +3416,11 @@
       "symbol": "TDY",
       "name": "Teledyne Technologies Incorporated",
       "sector": "Technology"
+    },
+    {
+      "symbol": "TECH",
+      "name": "Bio-Techne Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "TEL",
