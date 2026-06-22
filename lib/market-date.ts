@@ -13,12 +13,11 @@
  *   - If ET time is at or after 16:00 (market close), the snapshot
  *     captures *today's* close.
  *   - If before 16:00, it captures the previous trading day's close.
- *   - Roll back through weekends (Sat/Sun → Fri).
+ *   - Roll back through weekends AND NYSE holidays to the prior trading day.
  *
- * US market holidays are intentionally ignored for now — the resulting
- * date would still be a valid trading day in the recent past, just possibly
- * one trading session stale. Worth refining when the universe-stats
- * pipeline learns the NYSE calendar.
+ * NYSE full-closure holidays are honored via NYSE_HOLIDAYS_OBSERVED (issue
+ * #48). Before that, a holiday weekday was treated as a trading day, so the
+ * pipeline minted snapshots dated to closures (e.g. Juneteenth 2026-06-19).
  */
 
 const ET_PARTS = new Intl.DateTimeFormat("en-US", {
@@ -53,6 +52,56 @@ function isoFromUtcParts(year: number, month0: number, day: number): string {
 }
 
 /**
+ * NYSE full-closure holidays as OBSERVED calendar dates (YYYY-MM-DD) — the
+ * weekend shift is already baked in (e.g. Independence Day 2026 lands on a
+ * Saturday, so the closure is 2026-07-03). Transcribed from the NYSE published
+ * holiday calendar (nyse.com/markets/hours-calendars), NOT computed, so the
+ * observance edge cases (New-Year's-on-Saturday non-observance, the Juneteenth
+ * start year, Good Friday) are copied outcomes rather than re-derived rules.
+ *
+ * Early-close HALF-DAYS (1pm ET, e.g. the day after Thanksgiving) are
+ * deliberately excluded: the market is open and settles a real close, so for
+ * the snapshot pipeline they are ordinary trading days.
+ *
+ * The pipeline only queries dates near "now", so this need only stay ~a year
+ * ahead of today. EXTEND it (and NYSE_HOLIDAY_TABLE_THROUGH) when NYSE
+ * publishes the next year; a CI test fails as today nears the horizon so an
+ * unlisted holiday can't silently become a trading day again (issue #48).
+ */
+const NYSE_HOLIDAYS_OBSERVED: ReadonlySet<string> = new Set([
+  // 2026
+  "2026-01-01", // New Year's Day
+  "2026-01-19", // Martin Luther King, Jr. Day
+  "2026-02-16", // Washington's Birthday
+  "2026-04-03", // Good Friday
+  "2026-05-25", // Memorial Day
+  "2026-06-19", // Juneteenth
+  "2026-07-03", // Independence Day (observed; Jul 4 is a Saturday)
+  "2026-09-07", // Labor Day
+  "2026-11-26", // Thanksgiving Day
+  "2026-12-25", // Christmas Day
+  // 2027
+  "2027-01-01", // New Year's Day
+  "2027-01-18", // Martin Luther King, Jr. Day
+  "2027-02-15", // Washington's Birthday
+  "2027-03-26", // Good Friday
+  "2027-05-31", // Memorial Day
+  "2027-06-18", // Juneteenth (observed; Jun 19 is a Saturday)
+  "2027-07-05", // Independence Day (observed; Jul 4 is a Sunday)
+  "2027-09-06", // Labor Day
+  "2027-11-25", // Thanksgiving Day
+  "2027-12-24", // Christmas Day (observed; Dec 25 is a Saturday)
+]);
+
+/**
+ * Last calendar date NYSE_HOLIDAYS_OBSERVED is known-good through. Keep in
+ * sync with the table; the CI rot-guard test (market-date.test.ts) fails as
+ * `today` approaches it so the table is extended before the pipeline treats
+ * an unlisted holiday as a trading day again (issue #48).
+ */
+export const NYSE_HOLIDAY_TABLE_THROUGH = "2027-12-31";
+
+/**
  * Returns the YYYY-MM-DD of the US trading day this snapshot's data
  * reflects. Stable across re-renders because it's derived from the input
  * timestamp, not from the current wall-clock time.
@@ -78,7 +127,20 @@ export function marketCloseDate(generatedAtIso: string): string {
   if (etHour < 16) {
     target.setUTCDate(target.getUTCDate() - 1);
   }
-  while (target.getUTCDay() === 6 || target.getUTCDay() === 0) {
+  // Roll back across weekends AND NYSE holidays to the prior *trading* day.
+  // target's UTC Y/M/D encode the ET calendar date (built from ET parts
+  // above), so isoFromUtcParts gives the string to test against the table.
+  while (
+    target.getUTCDay() === 6 ||
+    target.getUTCDay() === 0 ||
+    NYSE_HOLIDAYS_OBSERVED.has(
+      isoFromUtcParts(
+        target.getUTCFullYear(),
+        target.getUTCMonth(),
+        target.getUTCDate()
+      )
+    )
+  ) {
     target.setUTCDate(target.getUTCDate() - 1);
   }
 
@@ -156,15 +218,37 @@ const WEEKDAY_ET = new Intl.DateTimeFormat("en-US", {
   weekday: "short",
 });
 
+/** YYYY-MM-DD of the America/New_York calendar day `date` falls on, regardless
+ *  of the host timezone. */
+function etDateString(date: Date): string {
+  const parts = ET_PARTS.formatToParts(date).reduce(
+    (acc, p) => {
+      acc[p.type] = p.value;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 /**
- * True when the given instant falls on a US trading day (Mon–Fri in ET).
- * Holidays are intentionally ignored — same scope decision as
- * marketCloseDate(): worst case is a wasted run on a holiday, not a
- * corrupted snapshot.
+ * True when the ET calendar day `date` falls on is a NYSE full-closure
+ * holiday. Half-days are not holidays (see NYSE_HOLIDAYS_OBSERVED).
+ */
+export function isNyseHoliday(date: Date): boolean {
+  return NYSE_HOLIDAYS_OBSERVED.has(etDateString(date));
+}
+
+/**
+ * True when the given instant falls on a US trading day: an ET weekday
+ * (Mon–Fri) that is not a NYSE holiday. Before issue #48 holidays were
+ * ignored, so the pipeline minted snapshots dated to closures such as
+ * Juneteenth 2026-06-19.
  */
 export function isUsTradingDay(date: Date): boolean {
   const weekday = WEEKDAY_ET.format(date);
-  return weekday !== "Sat" && weekday !== "Sun";
+  if (weekday === "Sat" || weekday === "Sun") return false;
+  return !isNyseHoliday(date);
 }
 
 const REGULAR_OPEN_MINUTES = 9 * 60 + 30; // 09:30 ET

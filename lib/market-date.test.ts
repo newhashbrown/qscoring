@@ -1,9 +1,11 @@
 import { test } from "node:test";
-import { strictEqual } from "node:assert/strict";
+import { strictEqual, ok } from "node:assert/strict";
 import {
+  isNyseHoliday,
   isRegularSessionOpen,
   isUsTradingDay,
   marketCloseDate,
+  NYSE_HOLIDAY_TABLE_THROUGH,
   recoveryCloseDate,
 } from "./market-date";
 
@@ -96,4 +98,65 @@ test("isRegularSessionOpen: weekend is never an open session", () => {
   // Sat 2026-06-20 16:00 UTC = 12:00 ET — midday but no session, so a weekend
   // force_run backfill is never wrongly flagged as in-session.
   strictEqual(isRegularSessionOpen(new Date("2026-06-20T16:00:00Z")), false);
+});
+
+// --- NYSE holiday calendar (issue #48) ---
+
+test("isNyseHoliday: observed full-closure dates are holidays", () => {
+  strictEqual(isNyseHoliday(new Date("2026-06-19T14:00:00Z")), true); // Juneteenth (the incident)
+  strictEqual(isNyseHoliday(new Date("2026-05-25T14:00:00Z")), true); // Memorial Day
+  strictEqual(isNyseHoliday(new Date("2026-07-03T14:00:00Z")), true); // Independence Day observed (Jul 4 = Sat)
+  strictEqual(isNyseHoliday(new Date("2026-11-26T14:00:00Z")), true); // Thanksgiving
+});
+
+test("isNyseHoliday: ordinary trading days and the un-observed actual date are not", () => {
+  strictEqual(isNyseHoliday(new Date("2026-06-18T14:00:00Z")), false); // Thu before Juneteenth
+  strictEqual(isNyseHoliday(new Date("2026-07-04T14:00:00Z")), false); // actual Jul 4 (Sat) — closure is the 3rd
+});
+
+test("isUsTradingDay: a weekday NYSE holiday is NOT a trading day (was true pre-#48)", () => {
+  strictEqual(isUsTradingDay(new Date("2026-06-19T14:00:00Z")), false); // Juneteenth, a Friday
+  strictEqual(isUsTradingDay(new Date("2026-05-25T14:00:00Z")), false); // Memorial Day, a Monday
+  strictEqual(isUsTradingDay(new Date("2026-06-18T14:00:00Z")), true); // ordinary Thursday
+});
+
+test("marketCloseDate: pre-market run the session after Juneteenth targets the prior trading close", () => {
+  // THE fix for the 06-19 phantom: Mon 2026-06-22 09:30 UTC (05:30 ET) rolls
+  // back Sun→Sat→Fri 06-19 (Juneteenth, skip)→Thu 06-18. Pre-#48 this returned
+  // the holiday 2026-06-19.
+  strictEqual(marketCloseDate("2026-06-22T09:30:00Z"), "2026-06-18");
+});
+
+test("marketCloseDate: an after-close run ON a holiday rolls back off it", () => {
+  // Fri 2026-06-19 20:30 UTC = 16:30 ET (>=16 → target today = Juneteenth) →
+  // skip the holiday → Thu 06-18.
+  strictEqual(marketCloseDate("2026-06-19T20:30:00Z"), "2026-06-18");
+});
+
+test("marketCloseDate: ordinary days are unchanged by the holiday logic", () => {
+  // Regression: prior-day and same-day walks that don't touch a holiday must
+  // be byte-identical to pre-#48 behavior.
+  strictEqual(marketCloseDate("2026-06-18T12:42:51Z"), "2026-06-17"); // Thu 08:42 ET pre-market → Wed
+  strictEqual(marketCloseDate("2026-06-18T20:00:00Z"), "2026-06-18"); // Thu 16:00 ET → today
+});
+
+test("recoveryCloseDate: inherits holiday skip (delegates to marketCloseDate)", () => {
+  // The 18:00 detector delayed to 16:55 ET on Mon 2026-06-22 clamps to
+  // mid-session then targets the prior trading close — now correctly 06-18,
+  // not the holiday 06-19.
+  strictEqual(recoveryCloseDate("2026-06-22T20:55:00Z"), "2026-06-18");
+});
+
+test("NYSE holiday table stays ahead of today — extend it before it lapses", () => {
+  // Rot-guard: fail loud in CI (never at render time) once `today` is within a
+  // year of the table horizon, so an unlisted holiday can't silently become a
+  // trading day again (issue #48). Fix = transcribe the next year from
+  // nyse.com into NYSE_HOLIDAYS_OBSERVED and bump NYSE_HOLIDAY_TABLE_THROUGH.
+  const horizon = new Date(`${NYSE_HOLIDAY_TABLE_THROUGH}T00:00:00Z`);
+  const oneYearOut = new Date();
+  oneYearOut.setUTCFullYear(oneYearOut.getUTCFullYear() + 1);
+  ok(
+    horizon.getTime() >= oneYearOut.getTime(),
+    `NYSE holiday table ends ${NYSE_HOLIDAY_TABLE_THROUGH}; extend it (within 1y of today).`
+  );
 });
