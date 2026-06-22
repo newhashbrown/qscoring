@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import { strictEqual } from "node:assert/strict";
-import { isUsTradingDay } from "./market-date";
+import { isUsTradingDay, marketCloseDate, recoveryCloseDate } from "./market-date";
 
 test("isUsTradingDay: weekday in ET → true", () => {
   strictEqual(isUsTradingDay(new Date("2026-05-15T11:32:00Z")), true); // Fri ~07:32 ET
@@ -21,4 +21,41 @@ test("isUsTradingDay: UTC-vs-ET day boundary respects ET wall clock", () => {
   strictEqual(isUsTradingDay(new Date("2026-05-16T01:00:00Z")), true);
   // Mon 03:00 UTC is Sun 23:00 ET → still a non-trading day in ET.
   strictEqual(isUsTradingDay(new Date("2026-05-18T03:00:00Z")), false);
+});
+
+// --- recoveryCloseDate: the 18:00 UTC recovery detector, delay-invariant ---
+// 2026-06-08 Mon, 06-09 Tue, 06-10 Wed; 06-05 Fri.
+
+test("recoveryCloseDate: 2026-06-10 incident — late 18:00 cron still targets prior close", () => {
+  // The 18:00 UTC detector fired at 20:37 UTC = 16:37 ET (GitHub delay),
+  // which crossed the 16:00 ET boundary and made marketCloseDate roll the
+  // target FORWARD to the not-yet-due 2026-06-10. Recovery must clamp back.
+  strictEqual(recoveryCloseDate("2026-06-10T20:37:46Z"), "2026-06-09");
+  // For contrast, the raw build mapping is exactly what false-failed:
+  strictEqual(marketCloseDate("2026-06-10T20:37:46Z"), "2026-06-10");
+});
+
+test("recoveryCloseDate: on-time 18:00 UTC (14:00 ET) is unchanged vs marketCloseDate", () => {
+  // ET hour 14 < 16 → no clamp needed; both target the prior session.
+  strictEqual(recoveryCloseDate("2026-06-10T18:00:00Z"), "2026-06-09");
+  strictEqual(marketCloseDate("2026-06-10T18:00:00Z"), "2026-06-09");
+});
+
+test("recoveryCloseDate: no-op for any pre-16:00-ET timestamp", () => {
+  // Pre-market 08:42 ET → clamp loop never runs; identical to marketCloseDate.
+  strictEqual(recoveryCloseDate("2026-06-10T12:42:51Z"), "2026-06-09");
+  strictEqual(marketCloseDate("2026-06-10T12:42:51Z"), "2026-06-09");
+});
+
+test("recoveryCloseDate: delayed Monday detector rolls back across the weekend", () => {
+  // Mon 2026-06-08 detector slips to 20:30 UTC = 16:30 ET; clamp to ~15:30 ET
+  // → prior session walks Sun→Sat→Fri.
+  strictEqual(recoveryCloseDate("2026-06-08T20:30:00Z"), "2026-06-05");
+});
+
+test("marketCloseDate: build path unchanged — captures today's close at/after 16:00 ET", () => {
+  // Regression guard: the 09:30/manual BUILD path must keep rolling forward
+  // at the ET close so it stays byte-identical to build-strong-picks.ts.
+  strictEqual(marketCloseDate("2026-06-10T20:00:00Z"), "2026-06-10"); // 16:00 ET
+  strictEqual(marketCloseDate("2026-06-10T12:42:51Z"), "2026-06-09"); // 08:42 ET pre-market
 });
