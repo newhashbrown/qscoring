@@ -15,7 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { ScoreboardPick } from "@/data/categories";
-import { marketCloseDate } from "@/lib/market-date";
+import { isUsTradingDay, marketCloseDate } from "@/lib/market-date";
 
 export type Snapshot = {
   date: string; // YYYY-MM-DD (UTC)
@@ -71,17 +71,25 @@ export type PerformanceSummary = {
   }>;
 };
 
-function tradingDaysBetween(startDate: string, endDate: string): number {
-  // Approximation: 5/7 of calendar days are trading days. Good enough for
-  // "is the horizon ready to publish" decisions; will be replaced with an
-  // exchange calendar when we ship real IC computation.
-  const start = new Date(`${startDate}T00:00:00Z`);
-  const end = new Date(`${endDate}T00:00:00Z`);
-  const calendarDays = Math.max(
-    0,
-    Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
-  );
-  return Math.floor((calendarDays * 5) / 7);
+export function tradingDaysBetween(startDate: string, endDate: string): number {
+  // Count actual US trading days in (startDate, endDate] — ET weekdays minus
+  // NYSE holidays (lib/market-date). Replaces the old 5/7 calendar-day
+  // approximation, which over-counted across holiday weeks and skewed both
+  // horizon readiness and IC cohort partner selection (issue #48). Each step
+  // is anchored at 12:00 UTC so its ET calendar day matches the intended date
+  // (a UTC-midnight instant maps to the prior ET evening).
+  const start = new Date(`${startDate}T12:00:00Z`);
+  const end = new Date(`${endDate}T12:00:00Z`);
+  if (!(end.getTime() > start.getTime())) return 0;
+
+  let count = 0;
+  const cur = new Date(start);
+  cur.setUTCDate(cur.getUTCDate() + 1); // exclusive of start, inclusive of end
+  while (cur.getTime() <= end.getTime()) {
+    if (isUsTradingDay(cur)) count++;
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return count;
 }
 
 export function summarizePerformance(): PerformanceSummary {
