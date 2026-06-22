@@ -166,3 +166,41 @@ export function isUsTradingDay(date: Date): boolean {
   const weekday = WEEKDAY_ET.format(date);
   return weekday !== "Sat" && weekday !== "Sun";
 }
+
+const REGULAR_OPEN_MINUTES = 9 * 60 + 30; // 09:30 ET
+const REGULAR_CLOSE_MINUTES = 16 * 60; // 16:00 ET
+
+/**
+ * True when `date` is inside a regular US equity session — a weekday in ET
+ * with the ET wall-clock at or after 09:30 and strictly before 16:00.
+ *
+ * The morning build's no-look-ahead contract only holds while the market is
+ * CLOSED: /api/score reads price/changePercent from FMP /quote (live
+ * intraday, 15-min cache; lib/scoring/score.ts), but marketCloseDate() labels
+ * the snapshot with the PRIOR session. Run pre-market and "live" ≈ the prior
+ * settled close, so the label is faithful. If GitHub delays the 09:30 cron
+ * into the session — it fired 11:04 ET on 2026-06-22 after a 5.5h slip —
+ * /quote returns live intraday prices that get frozen under the prior-day
+ * label: look-ahead contamination of the append-only ledger. snapshot-guard.ts
+ * uses this to REFUSE a mid-session build (fail loud; a missing snapshot
+ * self-heals at the next pre-market run, a contaminated one does not — the
+ * same philosophy the 18:00 recovery detector already enforces).
+ *
+ * Holidays are intentionally ignored, consistent with the rest of this file:
+ * a weekday holiday inside 09:30–16:00 ET is (over-cautiously) refused, but
+ * that is a loud no-op, not corruption, and force_run overrides it.
+ */
+export function isRegularSessionOpen(date: Date): boolean {
+  const weekday = WEEKDAY_ET.format(date);
+  if (weekday === "Sat" || weekday === "Sun") return false;
+  const parts = ET_PARTS.formatToParts(date).reduce(
+    (acc, p) => {
+      acc[p.type] = p.value;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+  const minutes =
+    (parseInt(parts.hour, 10) % 24) * 60 + parseInt(parts.minute, 10);
+  return minutes >= REGULAR_OPEN_MINUTES && minutes < REGULAR_CLOSE_MINUTES;
+}

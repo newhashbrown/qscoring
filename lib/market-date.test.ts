@@ -1,6 +1,11 @@
 import { test } from "node:test";
 import { strictEqual } from "node:assert/strict";
-import { isUsTradingDay, marketCloseDate, recoveryCloseDate } from "./market-date";
+import {
+  isRegularSessionOpen,
+  isUsTradingDay,
+  marketCloseDate,
+  recoveryCloseDate,
+} from "./market-date";
 
 test("isUsTradingDay: weekday in ET → true", () => {
   strictEqual(isUsTradingDay(new Date("2026-05-15T11:32:00Z")), true); // Fri ~07:32 ET
@@ -58,4 +63,37 @@ test("marketCloseDate: build path unchanged — captures today's close at/after 
   // at the ET close so it stays byte-identical to build-strong-picks.ts.
   strictEqual(marketCloseDate("2026-06-10T20:00:00Z"), "2026-06-10"); // 16:00 ET
   strictEqual(marketCloseDate("2026-06-10T12:42:51Z"), "2026-06-09"); // 08:42 ET pre-market
+});
+
+// --- isRegularSessionOpen: refuse a build that GitHub delayed into market hours ---
+// 2026-06-22 is a Monday (June EDT → ET = UTC-4).
+
+test("isRegularSessionOpen: 2026-06-22 incident — 09:30 cron delayed to 11:04 ET → true", () => {
+  // The contamination: a 5.5h slip landed the build mid-session, where /quote
+  // is live intraday. The guard must catch exactly this.
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T15:04:03Z")), true); // 11:04 ET
+});
+
+test("isRegularSessionOpen: normal pre-market 09:30 UTC (05:30 ET) → false", () => {
+  // The healthy window the build is scheduled for — market closed, /quote ≈
+  // prior settled close, so building is faithful.
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T09:30:00Z")), false); // 05:30 ET
+});
+
+test("isRegularSessionOpen: after the close 16:55 ET → false", () => {
+  // The delayed-recovery window — past 16:00 ET, session closed.
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T20:55:00Z")), false); // 16:55 ET
+});
+
+test("isRegularSessionOpen: session boundaries are [09:30, 16:00) ET", () => {
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T13:29:00Z")), false); // 09:29 ET — pre-open
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T13:30:00Z")), true); //  09:30 ET — open
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T19:59:00Z")), true); //  15:59 ET — open
+  strictEqual(isRegularSessionOpen(new Date("2026-06-22T20:00:00Z")), false); // 16:00 ET — closed
+});
+
+test("isRegularSessionOpen: weekend is never an open session", () => {
+  // Sat 2026-06-20 16:00 UTC = 12:00 ET — midday but no session, so a weekend
+  // force_run backfill is never wrongly flagged as in-session.
+  strictEqual(isRegularSessionOpen(new Date("2026-06-20T16:00:00Z")), false);
 });

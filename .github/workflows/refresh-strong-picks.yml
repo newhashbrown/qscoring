@@ -20,7 +20,11 @@ on:
     # 09:30 UTC = ~4:30am ET, before US pre-market activity. Picks reflect
     # the prior trading day's close. This PRE-MARKET run is the only one
     # allowed to rescore: /api/score returns the prior session's settled
-    # close, so the snapshot's price/changePercent are faithful.
+    # close, so the snapshot's price/changePercent are faithful. If GitHub
+    # delays this run INTO the 09:30–16:00 ET session (it slipped to 11:04 ET
+    # on 2026-06-22), /quote returns live intraday prices — the snapshot guard
+    # refuses the build (session_open) rather than freeze them under the
+    # prior-close label and contaminate the ledger.
     - cron: '30 9 * * *'
     # 18:00 UTC = ~13:00–14:00 ET, MID-SESSION. Recovery DETECTOR only. On a
     # good day the 09:30 snapshot already exists → guard skips (no-op). On a
@@ -74,12 +78,17 @@ jobs:
         id: guard
         env:
           SCHEDULE: ${{ github.event.schedule }}
+          # Mirrors the build step's override. A human dispatching force_run is
+          # explicitly accepting responsibility for the price source (only valid
+          # when the market is closed), so it bypasses the in-session refusal.
+          FORCE_RUN: ${{ inputs.force_run && '1' || '' }}
         run: |
           OUT=$(npx tsx scripts/snapshot-guard.ts)
           EXPECTED=$(printf '%s\n' "$OUT" | sed -n 's/^expected=//p')
           TRADING=$(printf '%s\n' "$OUT" | sed -n 's/^trading=//p')
+          SESSION=$(printf '%s\n' "$OUT" | sed -n 's/^session_open=//p')
           echo "expected=$EXPECTED" >> "$GITHUB_OUTPUT"
-          echo "Target snapshot: ${EXPECTED} (trading day now: ${TRADING}; schedule: '${SCHEDULE:-manual}')"
+          echo "Target snapshot: ${EXPECTED} (trading day now: ${TRADING}; session open now: ${SESSION}; schedule: '${SCHEDULE:-manual}')"
 
           if [ "$TRADING" != "true" ]; then
             echo "Non-trading day in ET — nothing to produce. Skipping."
@@ -96,6 +105,19 @@ jobs:
 
           if [ "$SCHEDULE" = "0 18 * * *" ]; then
             echo "::error::Snapshot ${EXPECTED}.json is still missing at the 18:00 recovery check — the 09:30 run failed to land it. NOT rescoring: a mid-session rescore would write live intraday price/change mislabeled as the ${EXPECTED} close and poison the no-look-ahead ledger. Backfill by hand from FMP historical close (see scripts/backfill-snapshots.ts)."
+            echo "mode=fail" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+
+          # Delayed-into-session guard. The 09:30 pre-market run is faithful only
+          # because /api/score's FMP /quote ≈ the prior settled close while the
+          # market is closed. If GitHub slips this run into the 09:30–16:00 ET
+          # session (it fired 11:04 ET on 2026-06-22 after a 5.5h delay), /quote
+          # is LIVE INTRADAY; freezing it under the ${EXPECTED} prior-close label
+          # contaminates the append-only ledger. Refuse — a missing snapshot
+          # self-heals at the next pre-market run; a contaminated one does not.
+          if [ "$SESSION" = "true" ] && [ "${FORCE_RUN:-}" != "1" ]; then
+            echo "::error::Refusing to build ${EXPECTED}.json: now is inside a regular trading session (09:30–16:00 ET) — GitHub delayed this run into market hours. /api/score returns LIVE INTRADAY prices that would be frozen under the ${EXPECTED} (prior-close) label and poison the no-look-ahead ledger (the 2026-06-22 contamination). This run self-heals at the next pre-market run. For a deliberate in-session backfill when the market is genuinely closed, dispatch manually with force_run=true."
             echo "mode=fail" >> "$GITHUB_OUTPUT"
             exit 1
           fi
