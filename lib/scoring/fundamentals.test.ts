@@ -214,9 +214,11 @@ test("nextEarningsStaleFlag: next report within 5 trading days → stale", () =>
   strictEqual(r.stale, true);
 });
 
-test("nextEarningsStaleFlag: report 10 trading days out → not stale", () => {
+test("nextEarningsStaleFlag: report 9 trading days out (Juneteenth excluded) → not stale", () => {
+  // Mon 06-15 → Mon 06-29 spans 10 weekdays but Fri 06-19 is Juneteenth, so
+  // countTradingDays (holiday-aware via isUsTradingDay, issue #48) returns 9.
   const r = nextEarningsStaleFlag([earning("2026-06-29", null)], MON, 5);
-  strictEqual(r.tradingDaysAway, 10);
+  strictEqual(r.tradingDaysAway, 9);
   strictEqual(r.stale, false);
 });
 
