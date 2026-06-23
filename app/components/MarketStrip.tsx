@@ -1,4 +1,5 @@
 import { fmp, type Quote } from "@/lib/scoring/fmp";
+import { isRegularSessionOpen } from "@/lib/market-date";
 import { MARKET_STRIP_ENABLED } from "@/lib/feature-flags";
 import marketStripData from "@/data/market-strip.json";
 
@@ -58,6 +59,13 @@ export default async function MarketStrip() {
   const quotes = await Promise.all(INDICES.map((i) => fetchIndexQuote(i.symbol)));
   const avg = universeAverage();
 
+  // Whether the US market is in a regular session right now. Like the quotes
+  // themselves this is captured at render and refreshes on the ~15-min ISR
+  // revalidation, so it can lag the 9:30/16:00 ET boundary by a few minutes —
+  // fine for a status badge. When closed, the levels above are the last
+  // settled close (not stale data), which the badge's tooltip makes explicit.
+  const marketOpen = isRegularSessionOpen(new Date());
+
   // If every quote failed (FMP outage or rate-limit) and we have no
   // universe average either, render nothing — better than a strip of
   // dashes. The page below renders normally without us.
@@ -67,6 +75,18 @@ export default async function MarketStrip() {
   return (
     <aside className="market-strip" aria-label="Market context">
       <ul className="market-strip-row">
+        <li
+          className="market-strip-item market-strip-status"
+          title={
+            marketOpen
+              ? "US market is open — index levels update through the session"
+              : "US market is closed — showing the last settled close"
+          }
+        >
+          <span className={`market-strip-change ${marketOpen ? "up" : "neutral"}`}>
+            {marketOpen ? "● Open" : "● Closed"}
+          </span>
+        </li>
         {INDICES.map((idx, i) => {
           const q = quotes[i];
           if (!q) return null;
