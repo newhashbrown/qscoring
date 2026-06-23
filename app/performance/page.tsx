@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import { summarizePerformance } from "@/lib/performance";
+import { summarizeForwardReturns } from "@/lib/forward-returns";
 import { formatMarketDate, marketCloseLabel } from "@/lib/market-date";
 
 export const metadata = {
@@ -46,9 +47,21 @@ function formatDate(iso: string | null): string {
   return formatMarketDate(iso);
 }
 
+function formatIC(ic: number | null): string {
+  if (ic === null) return "—";
+  return `${ic >= 0 ? "+" : ""}${ic.toFixed(3)}`;
+}
+
+function formatSpread(spread: number | null): string {
+  if (spread === null) return "—";
+  return `${spread >= 0 ? "+" : ""}${(spread * 100).toFixed(1)}%`;
+}
+
 export default function PerformancePage() {
   const summary = summarizePerformance();
-  const { trackedSinceDate, daysCaptured, totalObservations, averageTickersPerSnapshot, latestSnapshot, horizonStatus } = summary;
+  const { trackedSinceDate, daysCaptured, totalObservations, averageTickersPerSnapshot, latestSnapshot } = summary;
+  const forwardReturns = summarizeForwardReturns();
+  const anyPreliminary = forwardReturns.some((h) => h.preliminary);
 
   return (
     <>
@@ -96,39 +109,59 @@ export default function PerformancePage() {
         <section>
           <h2>Forward-return horizons</h2>
           <p>
-            Each horizon publishes information-coefficient (Spearman rank correlation between
-            composite QScore at snapshot date and forward total return) and long-short
-            quintile-spread metrics once enough trading days have passed. Until then the data is
-            still accumulating and the table below shows the gap.
+            Each horizon reports the information coefficient (Spearman rank correlation between
+            composite QScore at the snapshot date and the subsequent price return) and the
+            long-short quintile spread (mean return of the top-score fifth minus the bottom-score
+            fifth). Numbers appear once a full-universe snapshot has a forward partner the required
+            number of trading days out; until then the data is still accumulating.
+          </p>
+          <p>
+            IC is measured only over the full, stable stock universe, which has been captured
+            cleanly since 12 June 2026 (earlier snapshots covered a smaller or fund-contaminated
+            set and are excluded from the cross-section). The first 1-month reading therefore lands
+            in mid-July 2026.
           </p>
           <table className="method-table performance-horizons">
             <thead>
               <tr>
                 <th>Horizon</th>
-                <th>Trading days needed</th>
+                <th>Trading days</th>
+                <th>Mean IC</th>
+                <th>Quintile spread</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              {horizonStatus.map((h) => (
+              {forwardReturns.map((h) => (
                 <tr key={h.label}>
                   <td>{h.label}</td>
                   <td>{h.days}</td>
+                  <td>{formatIC(h.meanIC)}</td>
+                  <td>{formatSpread(h.meanSpread)}</td>
                   <td>
                     {h.available ? (
                       <span className="horizon-ready">
-                        Ready — IC + quintile computation pending
+                        Live · {h.cohortCount} cohort{h.cohortCount === 1 ? "" : "s"}
+                        {h.preliminary ? " · preliminary" : ""}
                       </span>
                     ) : (
-                      <span className="horizon-waiting">
-                        ~{h.daysRemaining} trading days remaining
-                      </span>
+                      <span className="horizon-waiting">Data accumulating</span>
                     )}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          {anyPreliminary && (
+            <p className="performance-footnote">
+              <strong>Preliminary</strong> marks horizons where fewer than two non-overlapping
+              windows of history exist — the IC is directional evidence, not yet a statistically
+              settled number. Returns are price-only (dividends not adjusted) and winsorized to the
+              interval [−50%, +100%] for the quintile means to neutralize split artifacts; the
+              rank-based IC is unaffected. Names dropped from the universe between snapshot and
+              horizon are excluded (a mild upward survivorship bias).
+            </p>
+          )}
         </section>
 
         <section>

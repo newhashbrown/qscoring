@@ -77,3 +77,18 @@ test("selectUniverse: rejects malformed tickers", () => {
   );
   deepStrictEqual(u.map((e) => e.symbol), ["GOOD"]);
 });
+
+test("selectUniverse: keeps real REITs and '…Trust' equities (no name heuristic)", () => {
+  // Regression guard against trading the fund-contamination bug for an
+  // exclusion bug: these are real large-caps whose names match the sitemap's
+  // derivative regex. The scored universe must filter on isEtf/isFund flags
+  // ONLY, never on the company name.
+  const rows = [
+    row({ symbol: "DLR", companyName: "Digital Realty Trust, Inc.", sector: "Real Estate" }),
+    row({ symbol: "FRT", companyName: "Federal Realty Investment Trust", sector: "Real Estate" }),
+    row({ symbol: "MSTR", companyName: "Strategy Inc", sector: "Technology" }),
+    row({ symbol: "NTRS", companyName: "Northern Trust Corporation", sector: "Financial Services" }),
+  ];
+  const u = selectUniverse(rows, { maxSize: 100 });
+  deepStrictEqual(u.map((e) => e.symbol).sort(), ["DLR", "FRT", "MSTR", "NTRS"]);
+});
