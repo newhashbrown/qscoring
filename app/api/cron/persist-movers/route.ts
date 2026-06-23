@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { isUsTradingDate } from "@/lib/market-date";
 
 // POST /api/cron/persist-movers
 //
@@ -115,6 +116,14 @@ export async function POST(req: Request) {
   if (!payload?.snapshotDate || !DATE_RE.test(payload.snapshotDate)) {
     return NextResponse.json(
       { ok: false, error: "snapshotDate must be YYYY-MM-DD" },
+      { status: 400 }
+    );
+  }
+  // Trading-day gate (audit area 4): refuse weekend/holiday dates so a phantom
+  // date can't enter the movers projection even via a direct token call.
+  if (!isUsTradingDate(payload.snapshotDate)) {
+    return NextResponse.json(
+      { ok: false, error: "snapshotDate must be a US trading day (not a weekend or NYSE holiday)" },
       { status: 400 }
     );
   }

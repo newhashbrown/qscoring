@@ -48,6 +48,9 @@ const FedRatesQuantInvestingBody = dynamic(
 const ScoringTheAiIposBody = dynamic(
   () => import("@/app/blog/bodies/scoring-the-ai-ipos")
 );
+const SandiskDoubledQscoreHoldBody = dynamic(
+  () => import("@/app/blog/bodies/sandisk-doubled-qscore-hold")
+);
 
 export type BlogCluster =
   | "qscore-methodology"
@@ -1571,6 +1574,18 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       "SpaceX raised ~$75B at $135 and trades today as SPCX; OpenAI has only filed a confidential S-1. The quant question isn't \"buy or not\" — it's \"can the model even see these yet?\" Momentum and risk are undefined without price history, value is distorted by losses, and the honest output is LOW confidence. Here's the factor-by-factor read on the year's biggest listings.",
     Body: ScoringTheAiIposBody,
+  },
+  {
+    slug: "sandisk-doubled-qscore-hold",
+    cluster: "market-signals",
+    title: "SanDisk doubled in two months. Our QScore never left HOLD — here's why.",
+    description:
+      "SNDK ran from ~$930 to a $2,274 close (about +140% at the peak) while its QScore sat at HOLD, MEDIUM confidence the entire time. Momentum scored 92, but risk scored 18 and value/growth lagged — so a doubling netted to a dead-neutral 50. A factor-by-factor look at why the model didn't chase the run.",
+    publishedAt: "2026-06-23",
+    readTimeMinutes: 7,
+    excerpt:
+      "As SanDisk (SNDK) doubled over two months, its QScore barely moved off 50 — HOLD, MEDIUM confidence. Momentum at 92 saw the run; risk at 18 and below-average value and growth pulled the other way, and they net to neutral. Built entirely on our committed no-look-ahead snapshots, here's why a doubling and a HOLD belong on the same page.",
+    Body: SandiskDoubledQscoreHoldBody,
   },
 ];
 
