@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import { QSCORE_MODEL_VERSION } from "@/lib/scoring";
@@ -60,7 +61,7 @@ export default function MethodologyPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(methodologyJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(methodologyJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

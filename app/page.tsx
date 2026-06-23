@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import DemoCard from "./components/DemoCard";
@@ -83,11 +84,11 @@ export default function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(organizationJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(webSiteJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

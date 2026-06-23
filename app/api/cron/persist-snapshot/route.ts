@@ -110,9 +110,17 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  if (!Array.isArray(payload.picks) || payload.picks.length === 0) {
+  // Cap the array length (audit M8). The investable universe is ~800 names;
+  // 2000 is generous headroom while bounding the work a (token-holding) caller
+  // can force into a single Worker invocation.
+  const MAX_PICKS = 2000;
+  if (
+    !Array.isArray(payload.picks) ||
+    payload.picks.length === 0 ||
+    payload.picks.length > MAX_PICKS
+  ) {
     return NextResponse.json(
-      { ok: false, error: "picks must be a non-empty array" },
+      { ok: false, error: `picks must be a non-empty array of at most ${MAX_PICKS}` },
       { status: 400 }
     );
   }

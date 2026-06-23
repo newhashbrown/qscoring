@@ -54,7 +54,10 @@ export async function GET(
       { headers: { "cache-control": "public, s-maxage=900, stale-while-revalidate=1800" } }
     );
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown error";
-    return NextResponse.json({ error: message, points: [] }, { status: 500 });
+    console.error("[api/score-history] error:", err);
+    return NextResponse.json(
+      { error: "Score history temporarily unavailable.", points: [] },
+      { status: 502 }
+    );
   }
 }

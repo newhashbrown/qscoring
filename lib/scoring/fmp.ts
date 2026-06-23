@@ -12,7 +12,7 @@ const MASSIVE_FALLBACK_DAYS = 730;
 // the plan (402) or doesn't exist (404). These bubble straight to the caller
 // so users see the helpful message instead of stale data from a delisted or
 // out-of-plan symbol.
-class FmpUnavailableError extends Error {
+export class FmpUnavailableError extends Error {
   constructor(message: string) {
     super(message);
     this.name = "FmpUnavailableError";
@@ -44,6 +44,15 @@ function fmpSymbol(symbol: string): string {
   return symbol.replace(/\./g, "-");
 }
 
+// Bound how long a single FMP call can take. Workers don't bill time spent
+// waiting on a subrequest, so a stalled upstream can otherwise hold a request
+// open indefinitely and pile up under load (security audit H2). PER_ATTEMPT
+// caps one fetch; OVERALL_BUDGET caps the whole call including the 429-retry
+// sleeps so retries can't stack into Worker-limit territory. A timeout throws a
+// (non-FmpUnavailable) error, which exits to fmpGet's stale-cache fallback.
+const FMP_PER_ATTEMPT_TIMEOUT_MS = 8_000;
+const FMP_OVERALL_BUDGET_MS = 12_000;
+
 async function fmpFetchLive<T>(
   path: string,
   params: Record<string, string | number>,
@@ -56,9 +65,15 @@ async function fmpFetchLive<T>(
   // Retry on 429 (rate limit) up to twice with exponential backoff. Other errors
   // are surfaced immediately because retry won't help.
   const maxAttempts = 3;
+  const deadline = Date.now() + FMP_OVERALL_BUDGET_MS;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const remainingMs = deadline - Date.now();
+    if (remainingMs <= 0) {
+      throw new Error(`FMP ${path}: timed out after ${FMP_OVERALL_BUDGET_MS}ms`);
+    }
     const res = await fetch(url.toString(), {
       next: { revalidate: revalidateSeconds },
+      signal: AbortSignal.timeout(Math.min(FMP_PER_ATTEMPT_TIMEOUT_MS, remainingMs)),
     });
     if (res.ok) return res.json() as Promise<T>;
 

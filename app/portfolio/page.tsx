@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import PortfolioAnalyzer from "./PortfolioAnalyzer";
@@ -30,7 +31,7 @@ export default function PortfolioPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(portfolioJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

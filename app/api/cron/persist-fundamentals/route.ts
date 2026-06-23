@@ -88,8 +88,9 @@ export async function POST(req: Request) {
   if (!TICKER_RE.test(ticker)) {
     return NextResponse.json({ ok: false, error: "Invalid ticker" }, { status: 400 });
   }
-  if (!Array.isArray(payload.facts) || payload.facts.length === 0) {
-    return NextResponse.json({ ok: false, error: "facts must be a non-empty array" }, { status: 400 });
+  const MAX_FACTS = 2000; // ~800-name universe; bounds work per invocation (audit M8)
+  if (!Array.isArray(payload.facts) || payload.facts.length === 0 || payload.facts.length > MAX_FACTS) {
+    return NextResponse.json({ ok: false, error: `facts must be a non-empty array of at most ${MAX_FACTS}` }, { status: 400 });
   }
 
   // Completeness gate: only filings with every required field present are
