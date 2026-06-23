@@ -73,4 +73,12 @@ export type ScoreResult = {
   // D1 cache was served instead. ISO timestamp of the oldest cached
   // payload used. Null/undefined means the score is fully live.
   staleSince?: string | null;
+  // Settled end-of-day close from FMP EOD history (NOT live /quote), used by
+  // the snapshot builder to freeze a timing-independent close into the
+  // no-look-ahead ledger. `price`/`changePercent` above stay live for the
+  // /score page. Optional so reconstructed/legacy results remain valid.
+  // See lib/snapshot-price.ts.
+  settledClose?: number | null;
+  settledChangePercent?: number | null;
+  settledCloseDate?: string | null;
 };

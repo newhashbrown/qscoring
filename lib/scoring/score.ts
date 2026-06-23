@@ -3,6 +3,7 @@ import { withStalenessTracking } from "./fmp-cache";
 import { buildCompanyHeader } from "./company-header";
 import { attachRelativeContext } from "./relative";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
+import { settledCloseFromHistory } from "../snapshot-price";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
   CategoryScore,
@@ -395,6 +396,11 @@ export function scoreFromFetched(
     history,
   });
 
+  // Settled EOD close for the snapshot ledger, from the (offset-adjusted)
+  // history so the "yesterday's snapshot" path stays internally consistent.
+  // `price`/`changePercent` below remain live (/quote) for the /score page.
+  const settled = settledCloseFromHistory(history);
+
   return {
     ticker,
     companyName: profile.companyName,
@@ -402,6 +408,9 @@ export function scoreFromFetched(
     industry: profile.industry || null,
     price: quote?.price ?? profile.price,
     changePercent: quote?.changePercentage ?? profile.changePercentage ?? 0,
+    settledClose: settled.close,
+    settledChangePercent: settled.changePercent,
+    settledCloseDate: settled.date,
     composite: Math.round(composite),
     signal,
     confidence,
