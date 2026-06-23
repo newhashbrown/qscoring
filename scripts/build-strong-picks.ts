@@ -17,7 +17,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { isUsTradingDay, marketCloseDate } from "../lib/market-date";
+import { isRegularSessionOpen, isUsTradingDay, marketCloseDate } from "../lib/market-date";
 import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
 import type { MoversFile } from "../lib/movers-board";
 import type { CompanyHeader } from "../lib/scoring/types";
@@ -210,6 +210,25 @@ async function main() {
   if (!isUsTradingDay(new Date()) && process.env.FORCE_RUN !== "1") {
     console.log("Non-trading day in ET — exiting without API calls or writes. Set FORCE_RUN=1 to override.");
     return;
+  }
+
+  // Delayed-into-session guard, enforced in code (not only in the workflow
+  // YAML) so a direct `npm run strong-picks` can't contaminate the ledger
+  // either. /api/score reads price/changePercent from FMP /quote (live
+  // intraday), but marketCloseDate() labels the snapshot with the PRIOR
+  // session — faithful only while the market is CLOSED. If this runs inside
+  // 09:30–16:00 ET, those live prices get frozen under a prior-close label
+  // (the 2026-06-22 contamination). Unlike the non-trading-day skip above,
+  // FORCE_RUN does NOT override this: there is no safe in-session live rescore;
+  // deliberate backfills go through scripts/backfill-snapshots.ts.
+  if (isRegularSessionOpen(new Date())) {
+    console.error(
+      "Refusing to score: a regular trading session is open (09:30–16:00 ET). " +
+        "FMP /quote returns LIVE INTRADAY prices that would be frozen under the " +
+        "prior-close label and poison the no-look-ahead ledger. Run pre-market, " +
+        "or backfill from FMP historical close via scripts/backfill-snapshots.ts."
+    );
+    process.exit(1);
   }
 
   const universe = await fetchScreenerUniverse();
