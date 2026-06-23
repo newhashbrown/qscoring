@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "./ScoreNav";
 import {
@@ -60,7 +61,7 @@ export default function BlogClusterPage({ cluster }: { cluster: BlogCluster }) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(collectionJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

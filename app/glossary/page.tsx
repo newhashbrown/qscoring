@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import { GLOSSARY, type GlossaryTerm } from "@/data/glossary";
@@ -64,7 +65,7 @@ export default function GlossaryPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(glossaryJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(glossaryJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

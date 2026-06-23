@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ScoreNav from "@/app/components/ScoreNav";
@@ -107,11 +108,11 @@ export default async function GlossaryTermPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(termJsonLd(term)) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(termJsonLd(term)) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(breadcrumbJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
