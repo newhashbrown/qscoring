@@ -22,6 +22,7 @@ import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
 import type { MoversFile } from "../lib/movers-board";
 import type { CompanyHeader } from "../lib/scoring/types";
 import { fetchUniverse, MAX_UNIVERSE_SIZE } from "../lib/scoring/universe";
+import { assertSectorConcentration, sectorCounts } from "../lib/scoring/universe-guards";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 
@@ -76,6 +77,13 @@ async function fetchScreenerUniverse(): Promise<readonly UniverseEntry[]> {
     name: e.companyName,
     ...(e.sector ? { sector: e.sector } : {}),
   }));
+
+  // Fail fast before the ~27-minute scoring loop if the universe is
+  // contaminated (the headline symptom is a single sector — Financial Services
+  // — ballooning past its ceiling). fetchUniverse already enforces no
+  // funds/ETFs; this catches a contaminated *distribution* before we spend the
+  // scoring budget on it.
+  assertSectorConcentration(sectorCounts(entries), entries.length);
 
   // Stable lexicographic order so downstream diffs (compare-universe.json,
   // scoreboard.json, snapshots) reflect score changes, not the upstream
