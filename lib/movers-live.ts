@@ -13,6 +13,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fmp } from "./scoring/fmp";
+import { isUsTradingDate } from "./market-date";
 import { listSnapshotDates, loadSnapshot } from "./performance";
 import { reconcile, type DatedSnapshot, type MoverRow, type MoversFile } from "./movers-board";
 import type { ScoreboardPick } from "@/data/categories";
@@ -130,9 +131,24 @@ export async function buildMoversFile(
 
 /** Write data/movers/<date>.json and refresh latest.json. */
 export function writeMoversFiles(file: MoversFile): void {
+  // Never publish a board for a non-trading date (weekend/holiday) — mirrors
+  // the snapshot ledger's trading-day-only contract (audit area 4).
+  if (!isUsTradingDate(file.date)) {
+    console.warn(`Refusing to write movers for non-trading date ${file.date} — skipping.`);
+    return;
+  }
   if (!fs.existsSync(MOVERS_DIR)) fs.mkdirSync(MOVERS_DIR, { recursive: true });
+  const datedPath = path.join(MOVERS_DIR, `${file.date}.json`);
+  // Append-only freeze: a dated board, once written, is immutable. The snapshot
+  // JSON is frozen the same way (build-strong-picks.ts), so without this a
+  // same-date re-run would silently overwrite the board while the snapshot is
+  // preserved — an asymmetry that could republish a board from re-fetched data.
+  if (fs.existsSync(datedPath)) {
+    console.log(`Movers ${file.date}.json already exists — preserving frozen copy.`);
+    return;
+  }
   const body = JSON.stringify(file, null, 2) + "\n";
-  fs.writeFileSync(path.join(MOVERS_DIR, `${file.date}.json`), body);
+  fs.writeFileSync(datedPath, body);
   fs.writeFileSync(path.join(MOVERS_DIR, "latest.json"), body);
 }
 

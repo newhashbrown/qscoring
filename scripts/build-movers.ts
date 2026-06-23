@@ -22,6 +22,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { listSnapshotDates, loadSnapshot } from "@/lib/performance";
+import { isUsTradingDate } from "@/lib/market-date";
 import { reconcile, isDivergence, type MoverRow, type MoversFile } from "@/lib/movers-board";
 
 const MOVERS_DIR = path.resolve(process.cwd(), "data", "movers");
@@ -68,6 +69,13 @@ function main(): void {
     const prior = loadSnapshot(priorDate);
     if (!today || !prior) {
       console.warn(`  skip ${todayDate}: missing snapshot file (today or prior).`);
+      continue;
+    }
+    // Defense-in-depth: snapshots are trading-day-only by construction, but
+    // never build a board for a phantom weekend/holiday date if one ever slips
+    // into data/snapshots/ (the 2026-06-19 class of contamination).
+    if (!isUsTradingDate(todayDate)) {
+      console.warn(`  skip ${todayDate}: not a US trading day (weekend/holiday).`);
       continue;
     }
 

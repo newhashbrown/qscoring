@@ -251,6 +251,25 @@ export function isUsTradingDay(date: Date): boolean {
   return !isNyseHoliday(date);
 }
 
+/**
+ * True when a YYYY-MM-DD calendar date is a real US trading day (ET weekday,
+ * not an NYSE holiday). Anchors at noon UTC — which is 07:00–08:00 ET, always
+ * within the same ET calendar day as the string regardless of DST — so the
+ * answer is stable no matter where the caller runs. Malformed input is false.
+ *
+ * Used to reject holiday/contaminated dates before they can be written to the
+ * append-only ledger projections (the D1 persist endpoints and the movers
+ * writer); the JSON snapshot ledger is already trading-day-only by construction.
+ */
+export function isUsTradingDate(yyyymmdd: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(yyyymmdd)) return false;
+  const date = new Date(`${yyyymmdd}T12:00:00Z`);
+  if (Number.isNaN(date.getTime())) return false;
+  // Reject inputs that JS silently rolled over (e.g. month 13 → next year).
+  if (date.toISOString().slice(0, 10) !== yyyymmdd) return false;
+  return isUsTradingDay(date);
+}
+
 const REGULAR_OPEN_MINUTES = 9 * 60 + 30; // 09:30 ET
 const REGULAR_CLOSE_MINUTES = 16 * 60; // 16:00 ET
 

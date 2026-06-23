@@ -3,6 +3,7 @@ import { strictEqual, ok } from "node:assert/strict";
 import {
   isNyseHoliday,
   isRegularSessionOpen,
+  isUsTradingDate,
   isUsTradingDay,
   marketCloseDate,
   NYSE_HOLIDAY_TABLE_THROUGH,
@@ -159,4 +160,35 @@ test("NYSE holiday table stays ahead of today — extend it before it lapses", (
     horizon.getTime() >= oneYearOut.getTime(),
     `NYSE holiday table ends ${NYSE_HOLIDAY_TABLE_THROUGH}; extend it (within 1y of today).`
   );
+});
+
+// --- isUsTradingDate: validate a YYYY-MM-DD calendar date is a real trading
+// day. Used to reject contaminated/holiday-dated rows at the D1 persist
+// endpoints and the movers writer (audit area 4). Must resolve the ET calendar
+// day from the date string itself (not the runner's local midnight), so it is
+// stable across time zones and DST.
+
+test("isUsTradingDate: a normal weekday → true", () => {
+  strictEqual(isUsTradingDate("2026-06-18"), true); // Thursday
+  strictEqual(isUsTradingDate("2026-06-22"), true); // Monday
+});
+
+test("isUsTradingDate: weekend dates → false", () => {
+  strictEqual(isUsTradingDate("2026-06-20"), false); // Saturday
+  strictEqual(isUsTradingDate("2026-06-21"), false); // Sunday
+});
+
+test("isUsTradingDate: NYSE holiday (Juneteenth 2026-06-19) → false", () => {
+  // The exact phantom date the 2026-06-19 contamination was filed under.
+  strictEqual(isUsTradingDate("2026-06-19"), false);
+});
+
+test("isUsTradingDate: New Year's Day → false", () => {
+  strictEqual(isUsTradingDate("2026-01-01"), false);
+});
+
+test("isUsTradingDate: malformed input → false (defensive)", () => {
+  strictEqual(isUsTradingDate("not-a-date"), false);
+  strictEqual(isUsTradingDate(""), false);
+  strictEqual(isUsTradingDate("2026-13-40"), false);
 });
