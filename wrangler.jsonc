@@ -71,6 +71,16 @@
       "name": "FMP_IP_LIMITER",
       "namespace_id": "2004",
       "simple": { "limit": 30, "period": 60 }
+    },
+    {
+      // Per-IP LIVE-SCORE budget for portfolio/analyze (audit H1). The
+      // ANALYZE_IP_LIMITER above counts requests; this counts off-scoreboard
+      // ("miss") tickers — each fans out to ~7 FMP calls — so total FMP cost
+      // per IP is bounded no matter how many misses are packed into a request.
+      // 20 misses/60s ≈ 140 FMP calls/min/IP worst case (was ~1050).
+      "name": "LIVE_SCORE_LIMITER",
+      "namespace_id": "2005",
+      "simple": { "limit": 20, "period": 60 }
     }
   ],
   "observability": {
