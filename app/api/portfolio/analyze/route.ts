@@ -80,7 +80,8 @@ export async function POST(req: Request) {
   // Strict per-IP budget — this endpoint fans out to many FMP calls per
   // request, so it's the most expensive abuse target. Check before any work.
   const rl = getRateLimitEnv();
-  if (!(await allow(rl?.ANALYZE_IP_LIMITER, clientIp(req)))) return tooManyRequests();
+  const ip = clientIp(req);
+  if (!(await allow(rl?.ANALYZE_IP_LIMITER, ip))) return tooManyRequests();
 
   let body: Body;
   try {
@@ -125,6 +126,27 @@ export async function POST(req: Request) {
       { ok: false, error: "No valid tickers after parsing" },
       { status: 400 }
     );
+  }
+
+  // Per-IP LIVE-SCORE budget (audit H1). The request-rate limit above counts
+  // REQUESTS, but cost lives in FMP calls: each off-scoreboard ("miss") ticker
+  // fans out to ~7 FMP calls via liveScore(), so 30 misses in one request is
+  // ~210 calls while spending a single request token. Charge one token per
+  // miss against a dedicated per-IP budget BEFORE any fan-out, so total FMP
+  // cost per IP is bounded regardless of how misses are packed into requests.
+  // Scoreboard hits cost nothing. NOTE: Workers rate-limit counters are
+  // per-PoP — an account-level Cloudflare WAF rate rule provides the cross-PoP
+  // backstop (see the deploy runbook / security audit H1, layer 2).
+  const liveCount = cleaned.reduce(
+    (n, c) => (scoreboardByTicker.has(c.ticker) ? n : n + 1),
+    0
+  );
+  for (let i = 0; i < liveCount; i++) {
+    if (!(await allow(rl?.LIVE_SCORE_LIMITER, ip))) {
+      return tooManyRequests(
+        "Too many uncached tickers right now — please remove some lesser-known symbols or try again in a minute."
+      );
+    }
   }
 
   // Score every ticker first — we need each ticker's price for "shares"

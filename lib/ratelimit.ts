@@ -2,9 +2,9 @@
  * Thin wrapper over Cloudflare Workers Rate Limiting bindings.
  *
  * Bindings are declared in wrangler.jsonc under `ratelimits` (EMAIL_IP_LIMITER,
- * EMAIL_RECIPIENT_LIMITER, ANALYZE_IP_LIMITER, FMP_IP_LIMITER). The platform
- * fixes `period` to 10 or 60s; `limit()` returns `{ success }` and counts per
- * the string `key` we pass.
+ * EMAIL_RECIPIENT_LIMITER, ANALYZE_IP_LIMITER, FMP_IP_LIMITER, LIVE_SCORE_LIMITER).
+ * The platform fixes `period` to 10 or 60s; `limit()` returns `{ success }` and
+ * counts per the string `key` we pass.
  *
  * The binding type is declared locally (rather than depending on the generated
  * cloudflare-env.d.ts) so routes can read it via the same `cf.env as {...}`
@@ -22,6 +22,7 @@ export type RateLimitEnv = {
   EMAIL_RECIPIENT_LIMITER?: RateLimiter;
   ANALYZE_IP_LIMITER?: RateLimiter;
   FMP_IP_LIMITER?: RateLimiter;
+  LIVE_SCORE_LIMITER?: RateLimiter;
 };
 
 /**
