@@ -19,6 +19,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { isRegularSessionOpen, isUsTradingDay, marketCloseDate } from "../lib/market-date";
 import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
+import { chooseLedgerPrice } from "../lib/snapshot-price";
 import type { MoversFile } from "../lib/movers-board";
 import type { CompanyHeader } from "../lib/scoring/types";
 import { fetchUniverse, MAX_UNIVERSE_SIZE } from "../lib/scoring/universe";
@@ -115,6 +116,11 @@ type ApiResponse = {
   shortTermScore: number;
   categories: ApiCategory[];
   header?: CompanyHeader;
+  // Settled EOD close for the ledger (see lib/snapshot-price.ts). Optional so
+  // a pre-deploy /api/score that predates these fields still scores.
+  settledClose?: number | null;
+  settledChangePercent?: number | null;
+  settledCloseDate?: string | null;
   error?: string;
 };
 
@@ -135,6 +141,15 @@ type Pick = {
   header?: CompanyHeader;
 };
 
+// What fetchScore returns: a Pick plus the settled-close fields the ledger
+// builder needs to choose a timing-independent close. The settled fields are
+// stripped before a Pick is frozen, so the snapshot's shape is unchanged.
+type ScoredPick = Pick & {
+  settledClose: number | null;
+  settledChangePercent: number | null;
+  settledCloseDate: string | null;
+};
+
 async function fetchScoreOnce(ticker: string): Promise<Response | null> {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
@@ -150,7 +165,7 @@ async function fetchScoreOnce(ticker: string): Promise<Response | null> {
   }
 }
 
-async function fetchScore(ticker: string): Promise<Pick | null> {
+async function fetchScore(ticker: string): Promise<ScoredPick | null> {
   for (let attempt = 0; attempt <= RETRY_BACKOFF_MS.length; attempt++) {
     const res = await fetchScoreOnce(ticker);
     if (!res) return null;
@@ -191,6 +206,9 @@ async function fetchScore(ticker: string): Promise<Pick | null> {
         score: Math.round(c.score),
       })),
       ...(data.header ? { header: data.header } : {}),
+      settledClose: data.settledClose ?? null,
+      settledChangePercent: data.settledChangePercent ?? null,
+      settledCloseDate: data.settledCloseDate ?? null,
     };
   }
   console.warn(`[${ticker}] exhausted retries — skipping`);
@@ -233,6 +251,10 @@ async function main() {
 
   const universe = await fetchScreenerUniverse();
   const generatedAt = new Date().toISOString();
+  // The labeled close date for this run (prior trading day pre-market, today
+  // after close). Used both to name the snapshot file (below) and to pick the
+  // settled EOD close for each ticker's ledger price.
+  const snapshotDate = marketCloseDate(generatedAt);
 
   // Write compare-universe.json FIRST, from the screener output, so the
   // /compare form's allow-list reflects the full attempted universe even if
@@ -249,12 +271,38 @@ async function main() {
   console.log(`Wrote ${universe.length} compare-universe entries → ${compareUniversePath}`);
 
   console.log(`Scanning ${universe.length} screener tickers via ${BASE}…`);
+  // Freeze the SETTLED EOD close into the ledger, not the live /quote price.
+  // chooseLedgerPrice uses the settled close when its EOD bar matches
+  // snapshotDate (the common pre-market case, and the in-session case where the
+  // settled prior close — not the live intraday print — is correct), and falls
+  // back to the live quote otherwise. The settled fields are stripped so the
+  // stored Pick shape is unchanged. See lib/snapshot-price.ts.
   const picks: Pick[] = [];
+  let settledCount = 0;
+  let liveCount = 0;
   for (const entry of universe) {
-    const result = await fetchScore(entry.symbol);
-    if (result) picks.push(result);
+    const scored = await fetchScore(entry.symbol);
+    if (scored) {
+      const chosen = chooseLedgerPrice({
+        snapshotDate,
+        settled: {
+          date: scored.settledCloseDate,
+          close: scored.settledClose,
+          changePercent: scored.settledChangePercent,
+        },
+        livePrice: scored.price,
+        liveChangePercent: scored.changePercent,
+      });
+      if (chosen.source === "settled") settledCount++;
+      else liveCount++;
+      const { settledClose: _c, settledChangePercent: _cp, settledCloseDate: _cd, ...pick } = scored;
+      picks.push({ ...pick, price: chosen.price, changePercent: chosen.changePercent });
+    }
     await sleep(REQUEST_GAP_MS);
   }
+  console.log(
+    `Ledger close source for ${snapshotDate}: ${settledCount} settled EOD, ${liveCount} live fallback.`
+  );
 
   // Defensive invariant: if too many tickers dropped, refuse to clobber the
   // existing scoreboard. The cron's `git diff --staged --quiet` skip behavior
@@ -329,7 +377,7 @@ async function main() {
   // midnight UTC for the previous trading day. Without the conversion the
   // file would be named 2026-05-09.json for what is actually the May 8
   // market close — visible to users as "Snapshot from tomorrow."
-  const snapshotDate = marketCloseDate(generatedAt);
+  // (snapshotDate is computed once near the top of main(), before scoring.)
   const snapshotsDir = path.resolve(process.cwd(), "data", "snapshots");
   if (!fs.existsSync(snapshotsDir)) {
     fs.mkdirSync(snapshotsDir, { recursive: true });
