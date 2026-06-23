@@ -21,6 +21,7 @@ import * as dotenv from "node:fs"; // placeholder; we read .env manually below
 import { fmp, type Profile, type Quote, type RatiosTtm, type KeyMetricsTtm, type FinancialGrowth, type PricePoint } from "../lib/scoring/fmp";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "../lib/scoring/momentum";
 import { fetchUniverse, MIN_MARKET_CAP, MAX_UNIVERSE_SIZE } from "../lib/scoring/universe";
+import { assertSectorConcentration, assertFundamentalsCoverage } from "../lib/scoring/universe-guards";
 import { computeQuantiles, QUANTILE_LEVELS } from "../lib/scoring/percentile";
 
 // Load .env manually so this script works without dotenv as a dep.
@@ -157,6 +158,18 @@ function computeStats(rawValues: number[]): Stats | null {
   return { mean, std, n: rawValues.length };
 }
 
+// A name has the "core fundamentals" that the value/growth/profitability
+// factors need when it carries at least one anchor from each family. Funds and
+// ETFs have none of these (they score as price-only), so coverage is a
+// sensitive contamination tripwire — see assertFundamentalsCoverage.
+function hasCoreFundamentals(m: TickerMetrics): boolean {
+  const has = (k: MetricKey) => m[k] !== undefined && Number.isFinite(m[k]);
+  const value = has("pe") || has("ps") || has("pb");
+  const profitability = has("roe") || has("netMargin") || has("roa");
+  const growth = has("revenueGrowth") || has("epsGrowth");
+  return value && profitability && growth;
+}
+
 async function main() {
   console.log("Resolving investable universe (funds/ETFs excluded)...");
   // Same shared selector + options as build-strong-picks.ts → identical
@@ -220,6 +233,25 @@ async function main() {
     }
     sectorOut[sector] = { size: rows.length, metrics: sm, quantiles: sq };
   }
+
+  // Regression tripwires (STEP 3): fail the build rather than ship a corrupted
+  // normalization corpus. These would have caught the fund contamination that
+  // pushed Financial Services to 60% and dropped fundamentals coverage to ~49%.
+  const sizeBySector: Record<string, number> = {};
+  for (const [sector, rows] of sectors) sizeBySector[sector] = rows.length;
+  assertSectorConcentration(sizeBySector, allMetrics.length);
+
+  const withCoreFundamentals = allMetrics.filter(hasCoreFundamentals).length;
+  assertFundamentalsCoverage(withCoreFundamentals, allMetrics.length);
+  console.log(
+    `Guards passed: max sector ${(
+      (100 * Math.max(...Object.values(sizeBySector))) /
+      allMetrics.length
+    ).toFixed(1)}%, fundamentals coverage ${(
+      (100 * withCoreFundamentals) /
+      allMetrics.length
+    ).toFixed(1)}%`
+  );
 
   const out: UniverseStatsFile = {
     generatedAt: new Date().toISOString(),

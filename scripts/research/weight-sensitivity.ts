@@ -31,6 +31,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { spearman } from "../../lib/scoring/rank-correlation";
 
 // ── Default category weights — MUST mirror lib/scoring/score.ts (W_LONG / W_SHORT).
 // Duplicated (not imported) to keep this script dependency-free and runnable
@@ -159,54 +160,9 @@ function rowComposite(
   return (lt + st) / 2;
 }
 
-// ── Spearman rank correlation (manual; pairwise over finite values) ───────────
-function rank(values: number[]): number[] {
-  const idx = values.map((v, i) => ({ v, i })).sort((a, b) => a.v - b.v);
-  const ranks = new Array<number>(values.length);
-  let i = 0;
-  while (i < idx.length) {
-    let j = i;
-    while (j + 1 < idx.length && idx[j + 1].v === idx[i].v) j++;
-    const avgRank = (i + j) / 2 + 1; // average rank for ties (1-based)
-    for (let k = i; k <= j; k++) ranks[idx[k].i] = avgRank;
-    i = j + 1;
-  }
-  return ranks;
-}
-
-function pearson(a: number[], b: number[]): number {
-  const n = a.length;
-  if (n === 0) return NaN;
-  const ma = a.reduce((s, x) => s + x, 0) / n;
-  const mb = b.reduce((s, x) => s + x, 0) / n;
-  let cov = 0;
-  let va = 0;
-  let vb = 0;
-  for (let i = 0; i < n; i++) {
-    const da = a[i] - ma;
-    const db = b[i] - mb;
-    cov += da * db;
-    va += da * da;
-    vb += db * db;
-  }
-  if (va === 0 || vb === 0) return NaN;
-  return cov / Math.sqrt(va * vb);
-}
-
-function spearman(x: Array<number | null>, y: Array<number | null>): number {
-  const xs: number[] = [];
-  const ys: number[] = [];
-  for (let i = 0; i < x.length; i++) {
-    const a = x[i];
-    const b = y[i];
-    if (a !== null && b !== null && Number.isFinite(a) && Number.isFinite(b)) {
-      xs.push(a);
-      ys.push(b);
-    }
-  }
-  if (xs.length < 2) return NaN;
-  return pearson(rank(xs), rank(ys));
-}
+// Spearman rank correlation now lives in lib/scoring/rank-correlation.ts so the
+// diagnostic stability metric here and the live forward-return IC on
+// /performance share identical math (imported above).
 
 function mean(vals: Array<number | null>): number {
   const f = vals.filter((v): v is number => v !== null && Number.isFinite(v));
