@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T15:04:03.414Z",
+  "generatedAt": "2026-06-23T12:20:04.919Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1318,6 +1318,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESE",
+      "name": "ESCO Technologies Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ESI",
       "name": "Element Solutions Inc",
       "sector": "Basic Materials"
@@ -1688,11 +1693,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "GWRE",
-      "name": "Guidewire Software, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "GWW",
       "name": "W.W. Grainger, Inc.",
       "sector": "Industrials"
@@ -1809,13 +1809,8 @@
     },
     {
       "symbol": "HUBB",
-      "name": "Hubbell Incorporated",
+      "name": "Hubbell Inc",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "HUBS",
-      "name": "HubSpot, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "HUM",
@@ -3621,6 +3616,11 @@
       "symbol": "UHAL",
       "name": "U-Haul Holding Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "UHS",
+      "name": "Universal Health Services, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "UI",
