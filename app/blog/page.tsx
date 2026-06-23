@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import {
@@ -69,7 +70,7 @@ export default function BlogIndexPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(blogJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />

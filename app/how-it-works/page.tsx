@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import CrossSectionalRank from "@/app/components/CrossSectionalRank";
@@ -102,7 +103,7 @@ export default function HowItWorksPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(jsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
