@@ -49,6 +49,8 @@ export const ALLOWED_EXCHANGES = new Set([
 const ODD_TICKER = /[^A-Z0-9.-]/;
 const VALID_TICKER = /^[A-Z][A-Z0-9.-]{0,9}$/;
 
+import { assertNoFunds } from "./universe-guards";
+
 const SCREENER_URL = "https://financialmodelingprep.com/stable/company-screener";
 
 // Raw FMP /company-screener row. Every field is optional because we never
@@ -210,6 +212,11 @@ export async function fetchUniverse(
         "aborting rather than shipping a truncated universe."
     );
   }
+
+  // Defense in depth: fail the build if any fund/ETF survived selectUniverse —
+  // catches the case where FMP's isEtf/isFund query params and row-level flags
+  // ever disagree. Tautological when they agree; cheap and decisive when not.
+  assertNoFunds(universe, body as ScreenerRow[]);
 
   return universe;
 }

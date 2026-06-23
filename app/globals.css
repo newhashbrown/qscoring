@@ -3335,6 +3335,15 @@ footer .footer-links .sep {
 .horizon-waiting {
   color: var(--text-muted);
 }
+.performance-footnote {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.performance-footnote strong {
+  color: var(--text);
+}
 .latest-snapshot-table td a {
   font-family: var(--mono);
   font-weight: 600;
