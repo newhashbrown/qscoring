@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { QSCORE_MODEL_VERSION } from "@/lib/scoring/model-version";
+import { isUsTradingDate } from "@/lib/market-date";
 
 // POST /api/cron/persist-snapshot
 //
@@ -107,6 +108,16 @@ export async function POST(req: Request) {
   if (!payload?.snapshotDate || !DATE_RE.test(payload.snapshotDate)) {
     return NextResponse.json(
       { ok: false, error: "snapshotDate must be YYYY-MM-DD" },
+      { status: 400 }
+    );
+  }
+  // Trading-day gate: D1 is a projection of the JSON ledger, but this endpoint
+  // is independently reachable with a token, so it must refuse holiday/weekend
+  // dates itself — a phantom date like Juneteenth 2026-06-19 must never enter
+  // the projection. (The JSON ledger is already trading-day-only by build.)
+  if (!isUsTradingDate(payload.snapshotDate)) {
+    return NextResponse.json(
+      { ok: false, error: "snapshotDate must be a US trading day (not a weekend or NYSE holiday)" },
       { status: 400 }
     );
   }
