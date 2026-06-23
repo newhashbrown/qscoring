@@ -54,9 +54,15 @@ type AggsResponse = {
   request_id: string;
 };
 
+// Bound a single Massive call so a stalled upstream can't hold a Worker
+// request open indefinitely (security audit H2). Massive is only hit as the
+// FMP fallback, so a timeout simply surfaces the upstream error to the caller.
+const MASSIVE_TIMEOUT_MS = 8_000;
+
 async function massiveGet<T>(path: string): Promise<T> {
   const res = await fetch(BASE + path, {
     headers: { Authorization: `Bearer ${getApiKey()}` },
+    signal: AbortSignal.timeout(MASSIVE_TIMEOUT_MS),
   });
   if (!res.ok) {
     const body = await res.text().catch(() => "");

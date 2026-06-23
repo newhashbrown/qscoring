@@ -118,9 +118,10 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  if (!Array.isArray(payload.rows) || payload.rows.length === 0) {
+  const MAX_ROWS = 2000; // movers is ~50 rows; generous cap bounds work per invocation (audit M8)
+  if (!Array.isArray(payload.rows) || payload.rows.length === 0 || payload.rows.length > MAX_ROWS) {
     return NextResponse.json(
-      { ok: false, error: "rows must be a non-empty array" },
+      { ok: false, error: `rows must be a non-empty array of at most ${MAX_ROWS}` },
       { status: 400 }
     );
   }

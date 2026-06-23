@@ -1,3 +1,4 @@
+import { safeJsonLdString } from "@/lib/json-ld";
 import Link from "next/link";
 import ScoreNav from "@/app/components/ScoreNav";
 import { summarizePerformance } from "@/lib/performance";
@@ -67,7 +68,7 @@ export default function PerformancePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(performanceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdString(performanceJsonLd) }}
       />
       <div className="glow-orb green" />
       <div className="glow-orb blue" />
