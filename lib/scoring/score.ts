@@ -4,6 +4,7 @@ import { buildCompanyHeader } from "./company-header";
 import { attachRelativeContext } from "./relative";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { settledCloseFromHistory } from "../snapshot-price";
+import { classifyCoverage } from "../coverage";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
   CategoryScore,
@@ -382,6 +383,17 @@ export function scoreFromFetched(
     categories.reduce((s, c) => s + c.completeness, 0) / categories.length;
   const confidence = deriveConfidence(avgCompleteness, composite);
 
+  // Where this name sits vs the reference universe (badge on every score page).
+  const coverage = classifyCoverage({
+    isEtf: profile.isEtf,
+    isFund: profile.isFund,
+    isActivelyTrading: profile.isActivelyTrading,
+    sector: profile.sector,
+    industry: profile.industry,
+    marketCap: profile.marketCap,
+    confidence,
+  });
+
   // ─── TIER 1a HEADER ────────────────────────────────────────
   // Point-in-time company facts. marketCap/range/avgVolume come from the
   // /profile payload, dividend yield from ratios-ttm, shares + float from
@@ -414,6 +426,7 @@ export function scoreFromFetched(
     composite: Math.round(composite),
     signal,
     confidence,
+    coverage,
     longTermScore: Math.round(longTerm),
     shortTermScore: Math.round(shortTerm),
     // Attach sector/universe percentile context for the relative-context tier.
