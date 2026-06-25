@@ -11,12 +11,19 @@
  * universe. Consolidating the screener + filter here means the fund exclusion
  * can never drift between the scorer and its z-score normalization corpus.
  *
- * Type filter: FMP's `isEtf` / `isFund` flags are the ONLY reliable
- * discriminator. Name-pattern heuristics (… Trust / REIT / Strategy / Index)
- * wrongly delete real large-caps — Digital Realty, Federal Realty, Essex,
- * Camden, Strategy Inc — so they are deliberately NOT used here. The sitemap
- * builder can afford trigger-happy name heuristics for SEO pages; the scored
- * universe and its normalization corpus cannot.
+ * Type filter: FMP's `isEtf` / `isFund` flags are UNRELIABLE — on 2026-06-23
+ * the screener returned ~30 mutual-fund share classes (AAFTX, ABALX, DFSVX …)
+ * AND a leveraged ETF (TQQQ), every one tagged `isFund=false isEtf=false
+ * exchange=NASDAQ`, which sailed past the flag check and displaced 30 real
+ * large-caps (AON, ASML, Digital Realty) out of the 800-cap. So the flags are
+ * necessary but not sufficient. We add two FLAG-INDEPENDENT discriminators:
+ *   - the mutual-fund ticker shape (5 letters ending in X) — ticker-, not
+ *     name-based, so it never touches REIT names like Digital Realty Trust,
+ *     and is verified to match ZERO of the clean 800 real names; and
+ *   - a NARROW ETF-issuer name list (ProShares, Direxion, iShares …) for
+ *     ETFs the ticker shape can't catch.
+ * Generic name tokens (Trust / REIT / Strategy / Index) stay banned — they
+ * wrongly delete Digital Realty, Federal Realty, Essex, Strategy Inc.
  */
 
 export const MIN_MARKET_CAP = 2_000_000_000;
@@ -86,6 +93,39 @@ export function normalizeSymbol(s: string): string {
   return s.trim().toUpperCase().replace(/\./g, "-");
 }
 
+// Mutual-fund share classes use a 5-letter ticker ending in X (AAFTX, ABALX,
+// DFSVX). Verified to match none of the clean 800 real names — the only
+// 5-letter tickers present are GOOGL, CMCSA, FWONK, … none ending in X — and
+// being ticker-based it never touches a REIT/operating-company NAME.
+const MUTUAL_FUND_TICKER = /^[A-Z]{4}X$/;
+
+// ETF issuers brand their products in ways operating-company names don't.
+// Deliberately narrow + specific (the generic Trust/Index/Strategy tokens are
+// banned — they kill real REITs). Catches names like TQQQ "ProShares UltraPro
+// QQQ" that FMP also mislabels isEtf=false.
+const ETF_ISSUER_NAME =
+  /\b(ProShares|Direxion|iShares|SPDR|VanEck|Global X|GraniteShares|Roundhill|Invesco QQQ)\b/i;
+
+/**
+ * Flag-independent fund/ETF detector. FMP's isEtf/isFund are necessary but not
+ * sufficient (see the module header), so also reject the mutual-fund ticker
+ * shape and a narrow ETF-issuer name list. Used by both selectUniverse and the
+ * assertNoFunds guard so the filter and its tripwire can never disagree.
+ */
+export function looksLikeFundOrEtf(row: {
+  symbol?: string;
+  companyName?: string;
+  isEtf?: boolean;
+  isFund?: boolean;
+}): boolean {
+  if (row.isEtf || row.isFund) return true;
+  const sym = normalizeSymbol(typeof row.symbol === "string" ? row.symbol : "");
+  if (MUTUAL_FUND_TICKER.test(sym)) return true;
+  const name = (row.companyName ?? "").trim();
+  if (name && ETF_ISSUER_NAME.test(name)) return true;
+  return false;
+}
+
 export type SelectOptions = {
   /** Hard cap on the returned universe, applied AFTER all exclusions. */
   maxSize: number;
@@ -113,9 +153,9 @@ export function selectUniverse(
   const seen = new Set<string>();
   const kept: UniverseEntry[] = [];
   for (const r of sorted) {
-    // Root-cause type filter: exclude funds and ETFs by FMP's flags. This is
-    // the single line whose absence caused the contamination.
-    if (r.isEtf || r.isFund) continue;
+    // Root-cause type filter: exclude funds and ETFs. Flag-independent —
+    // FMP's isEtf/isFund lie for mutual-fund share classes (see header).
+    if (looksLikeFundOrEtf(r)) continue;
 
     const sym = normalizeSymbol(typeof r.symbol === "string" ? r.symbol : "");
     if (!sym || ODD_TICKER.test(sym) || !VALID_TICKER.test(sym)) continue;

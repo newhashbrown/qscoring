@@ -8,7 +8,7 @@
  * fell to ~49%). Each guard below would have failed that build. See
  * universe.ts for the root-cause filter these defend.
  */
-import type { ScreenerRow, UniverseEntry } from "./universe";
+import { looksLikeFundOrEtf, type ScreenerRow, type UniverseEntry } from "./universe";
 
 // A clean universe maxes out around 17% in a single sector (Technology); the
 // contamination pushed Financial Services to 60%. 30% leaves wide margin for
@@ -21,10 +21,11 @@ export const MAX_SECTOR_SHARE = 0.3;
 export const MIN_FUNDAMENTALS_COVERAGE = 0.9;
 
 /**
- * Fail if any name in the final universe is a fund or ETF. Cross-checks the
- * kept symbols against the raw screener flags, so it catches the case where
- * FMP's `isEtf=false`/`isFund=false` query params and the row-level flags ever
- * disagree — not just a tautology over selectUniverse's own filter.
+ * Fail if any name in the final universe is a fund or ETF, using the SAME
+ * flag-independent detector as selectUniverse (looksLikeFundOrEtf) — not just
+ * FMP's isEtf/isFund flags. The old version trusted those flags and so missed
+ * the 2026-06-23 contamination, where ~30 mutual funds returned isFund=false.
+ * Checking the kept symbol/name (+ raw flags) catches that class decisively.
  */
 export function assertNoFunds(
   universe: readonly UniverseEntry[],
@@ -40,8 +41,15 @@ export function assertNoFunds(
   const offenders: string[] = [];
   for (const entry of universe) {
     const row = flagBySymbol.get(entry.symbol);
-    if (row && (row.isEtf || row.isFund)) {
-      offenders.push(`${entry.symbol}${row.isEtf ? " (ETF)" : " (fund)"}`);
+    if (
+      looksLikeFundOrEtf({
+        symbol: entry.symbol,
+        companyName: entry.companyName,
+        isEtf: row?.isEtf,
+        isFund: row?.isFund,
+      })
+    ) {
+      offenders.push(entry.symbol);
     }
   }
 
@@ -49,7 +57,7 @@ export function assertNoFunds(
     throw new Error(
       `Universe contains ${offenders.length} fund/ETF name(s) after filtering: ` +
         `${offenders.slice(0, 10).join(", ")}${offenders.length > 10 ? " …" : ""}. ` +
-        "The isEtf/isFund exclusion in selectUniverse is not holding — aborting."
+        "The fund/ETF exclusion in selectUniverse is not holding — aborting."
     );
   }
 }
