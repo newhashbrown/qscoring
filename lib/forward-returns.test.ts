@@ -92,6 +92,48 @@ test("cohortStats: drops tickers missing from the end snapshot (survivorship)", 
   strictEqual(cs.n, 4);
 });
 
+test("cohortStats: an exited name is INCLUDED via the exit-price store (survivorship fix #60)", () => {
+  const start = snap("2026-05-01", [
+    pick("A", 100, 10),
+    pick("B", 100, 20),
+    pick("C", 100, 30),
+    pick("D", 100, 40),
+    pick("E", 100, 50),
+  ]);
+  const end = snap("2026-06-01", [
+    pick("A", 105, 10),
+    pick("B", 110, 20),
+    pick("C", 115, 30),
+    pick("D", 120, 40),
+    // E left the universe by the end date — absent from end.picks …
+  ]);
+  // … but its real settled close on the end date is in the exit-price store.
+  const exitPrices = new Map<string, number>([["E", 130]]); // ret +0.30
+  const cs = cohortStats(start, end, "composite", { minN: 0, exitPrices })!;
+  strictEqual(cs.n, 5); // E is no longer survivorship-dropped
+  // E (score 50, +0.30) tops the spread; A (score 10, +0.05) bottoms it.
+  strictEqual(approx(cs.spread, 0.25), true);
+});
+
+test("cohortStats: a name with no end price anywhere is still dropped (no fabrication)", () => {
+  const start = snap("2026-05-01", [
+    pick("A", 100, 10),
+    pick("B", 100, 20),
+    pick("C", 100, 30),
+    pick("D", 100, 40),
+    pick("E", 100, 50),
+  ]);
+  const end = snap("2026-06-01", [
+    pick("A", 105, 10),
+    pick("B", 110, 20),
+    pick("C", 115, 30),
+    pick("D", 120, 40),
+  ]);
+  const exitPrices = new Map<string, number>([["Z", 999]]); // unrelated ticker
+  const cs = cohortStats(start, end, "composite", { minN: 0, exitPrices })!;
+  strictEqual(cs.n, 4); // E still dropped — the store has no price for it
+});
+
 test("cohortStats: winsorizes extreme returns in the quintile spread (split protection)", () => {
   // Lowest-score name suffers a split-like -95% print; it must be clipped to
   // -50% for the spread mean, while the IC (rank-based) is unaffected.
