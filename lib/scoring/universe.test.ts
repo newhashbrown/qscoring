@@ -38,6 +38,32 @@ test("selectUniverse: caps to maxSize AFTER exclusions, keeping the largest", ()
   deepStrictEqual(u.map((e) => e.symbol), ["BIG", "MID"]);
 });
 
+test("selectUniverse: excludes mutual funds / ETFs FMP mislabels isFund=false (2026-06-23 regression)", () => {
+  // These returned isFund=false isEtf=false exchange=NASDAQ and contaminated
+  // the universe. Caught now by the ticker shape (…X) and ETF-issuer name.
+  const rows = [
+    row({ symbol: "AAPL" }),
+    row({ symbol: "AAFTX", companyName: "American Funds 2050 Target Date", isFund: false, isEtf: false }),
+    row({ symbol: "DFSVX", companyName: "DFA U.S. Small Cap Value Portfolio", isFund: false, isEtf: false }),
+    row({ symbol: "TQQQ", companyName: "ProShares UltraPro QQQ", isEtf: false, isFund: false }),
+  ];
+  deepStrictEqual(selectUniverse(rows, { maxSize: 10 }).map((e) => e.symbol), ["AAPL"]);
+});
+
+test("selectUniverse: the fund filters do NOT catch real names (REITs, class shares, 5-letter non-X)", () => {
+  const rows = [
+    row({ symbol: "GOOGL" }),
+    row({ symbol: "CMCSA" }),
+    row({ symbol: "BRK.B", companyName: "Berkshire Hathaway" }),
+    row({ symbol: "DLR", companyName: "Digital Realty Trust, Inc.", sector: "Real Estate" }),
+    row({ symbol: "FRT", companyName: "Federal Realty Investment Trust", sector: "Real Estate" }),
+  ];
+  deepStrictEqual(
+    selectUniverse(rows, { maxSize: 10 }).map((e) => e.symbol).sort(),
+    ["BRK-B", "CMCSA", "DLR", "FRT", "GOOGL"]
+  );
+});
+
 test("selectUniverse: excludes sub-cap names", () => {
   const u = selectUniverse(
     [row({ symbol: "BIG", marketCap: 5e9 }), row({ symbol: "TINY", marketCap: 1e9 })],

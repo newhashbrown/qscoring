@@ -27,6 +27,25 @@ test("assertNoFunds: throws on an ETF, naming the offender", () => {
   throws(() => assertNoFunds(universe, raw), /ACWI/);
 });
 
+test("assertNoFunds: catches a mutual fund FMP mislabels isFund=false (2026-06-23 regression)", () => {
+  // The flag-trusting version missed this: AAFTX returned isFund=false.
+  const universe = [
+    entry({ symbol: "AAFTX", companyName: "American Funds 2050 Target Date" }),
+    entry({ symbol: "AAPL" }),
+  ];
+  const raw: ScreenerRow[] = [
+    { symbol: "AAFTX", isFund: false, isEtf: false },
+    { symbol: "AAPL", isFund: false, isEtf: false },
+  ];
+  throws(() => assertNoFunds(universe, raw), /AAFTX/);
+});
+
+test("assertNoFunds: catches an ETF-issuer name when FMP isEtf is false (TQQQ)", () => {
+  const universe = [entry({ symbol: "TQQQ", companyName: "ProShares UltraPro QQQ" })];
+  const raw: ScreenerRow[] = [{ symbol: "TQQQ", isEtf: false, isFund: false }];
+  throws(() => assertNoFunds(universe, raw), /fund\/ETF/);
+});
+
 test("assertNoFunds: passes a clean universe", () => {
   const universe = [entry({ symbol: "AAPL" }), entry({ symbol: "MSFT" })];
   const raw: ScreenerRow[] = [
