@@ -1,0 +1,61 @@
+name: Refresh exit prices
+
+# Rebuilds data/exit-prices.json — the survivorship-correction store the
+# forward-return engine consumes (issue #60). For each clean full-universe
+# snapshot it records the settled close of names that left the universe, so
+# /performance's IC includes them instead of survivorship-dropping them.
+#
+# Runs AFTER the morning snapshot build (refresh-strong-picks, 09:30 UTC) so it
+# sees the latest snapshot. The store is rebuilt in full each run (idempotent),
+# so a missed/late run self-heals the next day. Commits only when it changes.
+
+on:
+  schedule:
+    # 12:00 UTC — comfortably after the 09:30 UTC snapshot build lands.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build exit-prices store
+        run: npx tsx scripts/build-exit-prices.ts
+        env:
+          # Same key the snapshot build uses; reads FMP settled EOD closes.
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+
+      - name: Commit and push if changed
+        run: |
+          git add data/exit-prices.json
+          if git diff --staged --quiet; then
+            echo "Exit-prices store unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh exit-prices store"
+          # Rebase-retry push — refresh-strong-picks can push to main during this
+          # job; a bare push then loses to a non-fast-forward. Data is date-keyed
+          # JSON so a rebase conflict is near-impossible.
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push attempt $i rejected — rebasing on origin/main and retrying…"
+            git pull --rebase origin main
+          done
+          echo "::error::Push failed after 3 rebase-retry attempts."
+          exit 1
