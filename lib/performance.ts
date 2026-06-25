@@ -24,6 +24,7 @@ export type Snapshot = {
 };
 
 const SNAPSHOTS_DIR = path.resolve(process.cwd(), "data", "snapshots");
+const EXIT_PRICES_FILE = path.resolve(process.cwd(), "data", "exit-prices.json");
 
 // Number of trading days from snapshot to the forward-return horizon. We
 // approximate calendar months at ~21 trading days. Real backtests should
@@ -53,6 +54,28 @@ export function loadSnapshot(date: string): Snapshot | null {
     picks: ScoreboardPick[];
   };
   return { date, generatedAt: raw.generatedAt, picks: raw.picks };
+}
+
+/**
+ * Settled end-of-day closes for names that LEFT the universe, keyed by
+ * end-date → { ticker → close }. Forward-return cohorts use this to include an
+ * exited name (one present in a start snapshot but gone from the end snapshot)
+ * at its real end-date close, instead of survivorship-dropping it (issue #60).
+ *
+ * Precomputed committed JSON (part of the auditable no-look-ahead ledger,
+ * alongside data/snapshots/) written by the exit-price populator. Absent →
+ * {}, i.e. no correction — behavior identical to before #60.
+ */
+export function loadExitPrices(): Record<string, Record<string, number>> {
+  if (!fs.existsSync(EXIT_PRICES_FILE)) return {};
+  try {
+    return JSON.parse(fs.readFileSync(EXIT_PRICES_FILE, "utf-8")) as Record<
+      string,
+      Record<string, number>
+    >;
+  } catch {
+    return {};
+  }
 }
 
 export type PerformanceSummary = {
