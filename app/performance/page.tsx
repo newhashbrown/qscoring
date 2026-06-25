@@ -159,8 +159,13 @@ export default function PerformancePage() {
               windows of history exist — the IC is directional evidence, not yet a statistically
               settled number. Returns are price-only (dividends not adjusted) and winsorized to the
               interval [−50%, +100%] for the quintile means to neutralize split artifacts; the
-              rank-based IC is unaffected. Names dropped from the universe between snapshot and
-              horizon are excluded (a mild upward survivorship bias).
+              rank-based IC is unaffected. Names that leave the universe between snapshot and
+              horizon are included at their actual settled close on the horizon date (a committed
+              exit-price ledger), so survivors are no longer the only names counted; a true
+              delisting with no settled price is the rare excluded case. Fundamental factors
+              (value, growth, profitability) are scored from vendor TTM figures frozen as of each
+              snapshot date — so no look-ahead — rather than strictly as-reported, as-of-filing-date
+              data; an as-reported point-in-time reconstruction is on the roadmap.
             </p>
           )}
         </section>
