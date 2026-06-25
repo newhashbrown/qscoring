@@ -30,9 +30,12 @@ import { spearman } from "@/lib/scoring/rank-correlation";
 import {
   HORIZONS,
   listSnapshotDates,
+  loadExitPrices,
   loadSnapshot,
   tradingDaysBetween,
 } from "@/lib/performance";
+
+const EMPTY_EXIT_PRICES: ReadonlyMap<string, number> = new Map();
 
 export type ScoreKey = "composite" | "longTermScore" | "shortTermScore";
 
@@ -115,7 +118,7 @@ export function cohortStats(
   start: SnapLike,
   end: SnapLike,
   scoreKey: ScoreKey,
-  opts: { minN?: number } = {}
+  opts: { minN?: number; exitPrices?: ReadonlyMap<string, number> } = {}
 ): CohortStats | null {
   const minN = opts.minN ?? MIN_COHORT_N;
   const endPrice = new Map<string, number>();
@@ -123,8 +126,13 @@ export function cohortStats(
 
   const joined: Array<{ score: number; ret: number }> = [];
   for (const p of start.picks) {
-    const ep = endPrice.get(p.ticker);
-    if (ep === undefined) continue; // survivorship: dropped names excluded
+    // End price from the end snapshot — or, for a name that LEFT the universe
+    // by the end date, its real settled close on that date from the exit-price
+    // store. Including these removes the survivorship drop (issue #60). A name
+    // with no end price anywhere (e.g. a true delisting not yet backfilled —
+    // Phase B) is still skipped.
+    const ep = endPrice.get(p.ticker) ?? opts.exitPrices?.get(p.ticker);
+    if (ep === undefined) continue;
     if (!(p.price > 0) || !Number.isFinite(ep)) continue;
     const score = p[scoreKey];
     if (!Number.isFinite(score)) continue;
@@ -172,7 +180,9 @@ export function computeHorizonResults(
   dates: string[],
   load: (date: string) => SnapLike | null,
   today: string,
-  scoreKey: ScoreKey = "composite"
+  scoreKey: ScoreKey = "composite",
+  exitPricesFor: (endDate: string) => ReadonlyMap<string, number> = () =>
+    EMPTY_EXIT_PRICES
 ): HorizonResult[] {
   return HORIZONS.map((h) => {
     const cohorts: CohortStats[] = [];
@@ -182,7 +192,9 @@ export function computeHorizonResults(
       const start = load(dates[i]);
       const end = load(endDate);
       if (!start || !end) continue;
-      const cs = cohortStats(start, end, scoreKey);
+      const cs = cohortStats(start, end, scoreKey, {
+        exitPrices: exitPricesFor(endDate),
+      });
       if (cs) cohorts.push(cs);
     }
 
@@ -214,10 +226,23 @@ export function summarizeForwardReturns(
 ): HorizonResult[] {
   const dates = listSnapshotDates();
   const today = new Date().toISOString().split("T")[0];
+  // Exit-price store → per-end-date lookup maps, so cohorts whose start names
+  // left the universe by the end date use their real close instead of being
+  // survivorship-dropped (#60). Empty store → identical to pre-#60 behavior.
+  const exitStore = loadExitPrices();
+  const exitMaps = new Map<string, ReadonlyMap<string, number>>(
+    Object.entries(exitStore).map(([d, byTicker]) => [
+      d,
+      new Map(Object.entries(byTicker)),
+    ])
+  );
+  const exitPricesFor = (endDate: string): ReadonlyMap<string, number> =>
+    exitMaps.get(endDate) ?? EMPTY_EXIT_PRICES;
   return computeHorizonResults(
     dates,
     (date) => loadSnapshot(date) as SnapLike | null,
     today,
-    scoreKey
+    scoreKey,
+    exitPricesFor
   );
 }
