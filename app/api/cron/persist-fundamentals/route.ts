@@ -49,6 +49,15 @@ function coerceFact(raw: unknown): Partial<FundamentalFact> {
     grossMargin: num(r.grossMargin),
     operatingMargin: num(r.operatingMargin),
     netMargin: num(r.netMargin),
+    // PIT-reconstruction inputs (issue #61) — captured as available; optional,
+    // so they never gate completeness.
+    totalEquity: num(r.totalEquity),
+    totalAssets: num(r.totalAssets),
+    totalDebt: num(r.totalDebt),
+    cashAndEquivalents: num(r.cashAndEquivalents),
+    ebitda: num(r.ebitda),
+    netIncome: num(r.netIncome),
+    sharesDiluted: num(r.sharesDiluted),
   };
 }
 
@@ -117,8 +126,11 @@ export async function POST(req: Request) {
     `INSERT INTO fundamentals_facts (
        ticker, fiscal_period_end, filing_date, fiscal_year, period,
        reported_currency, revenue, eps_diluted, free_cash_flow,
-       gross_margin, operating_margin, net_margin
-     ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12)
+       gross_margin, operating_margin, net_margin,
+       total_equity, total_assets, total_debt, cash_and_equivalents,
+       ebitda, net_income, shares_diluted
+     ) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12,
+       ?13, ?14, ?15, ?16, ?17, ?18, ?19)
      ON CONFLICT(ticker, fiscal_period_end, filing_date) DO NOTHING`
   );
 
@@ -135,7 +147,14 @@ export async function POST(req: Request) {
       f.freeCashFlow,
       f.grossMargin,
       f.operatingMargin,
-      f.netMargin
+      f.netMargin,
+      f.totalEquity ?? null,
+      f.totalAssets ?? null,
+      f.totalDebt ?? null,
+      f.cashAndEquivalents ?? null,
+      f.ebitda ?? null,
+      f.netIncome ?? null,
+      f.sharesDiluted ?? null
     )
   );
 

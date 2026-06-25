@@ -20,6 +20,7 @@
 
 import { isUsTradingDay } from "../market-date";
 import type {
+  BalanceSheetStatement,
   CashFlowStatement,
   EarningsRow,
   IncomeStatement,
@@ -185,6 +186,20 @@ export type FundamentalFact = {
   grossMargin: number | null;
   operatingMargin: number | null;
   netMargin: number | null;
+  // As-reported absolutes a future as-of-date scorer needs to reconstruct the
+  // balance-sheet-driven factors (P/B, EV/EBITDA, ROE, ROA, FCF-yield) point-in-
+  // time (issue #61). CAPTURED-AS-AVAILABLE — deliberately NOT in
+  // REQUIRED_NUMERIC_FIELDS, so they never gate what gets stored or change the
+  // current scoring; they just accrue for the later PIT switch.
+  // Optional: captured-as-available, so a fact built before these were added
+  // (or a coerced payload that omits them) is still a valid FundamentalFact.
+  totalEquity?: number | null;
+  totalAssets?: number | null;
+  totalDebt?: number | null;
+  cashAndEquivalents?: number | null;
+  ebitda?: number | null;
+  netIncome?: number | null;
+  sharesDiluted?: number | null;
 };
 
 /**
@@ -195,17 +210,25 @@ export type FundamentalFact = {
  */
 export function extractFundamentalFacts(
   income: readonly IncomeStatement[] | null | undefined,
-  cashflow: readonly CashFlowStatement[] | null | undefined
+  cashflow: readonly CashFlowStatement[] | null | undefined,
+  balance?: readonly BalanceSheetStatement[] | null | undefined
 ): FundamentalFact[] {
   if (!income || income.length === 0) return [];
   const fcfByKey = new Map<string, number | null>();
   for (const cf of cashflow ?? []) {
     fcfByKey.set(`${cf.fiscalYear}:${cf.period}`, finite(cf.freeCashFlow));
   }
+  const balanceByKey = new Map<string, BalanceSheetStatement>();
+  for (const b of balance ?? []) {
+    balanceByKey.set(`${b.fiscalYear}:${b.period}`, b);
+  }
 
   const facts: FundamentalFact[] = [];
   for (const r of income) {
     if (!r.filingDate) continue; // no anchor → not storable
+    const epsDiluted = finite(r.epsDiluted) ?? finite(r.eps);
+    const netIncome = finite(r.netIncome);
+    const b = balanceByKey.get(`${r.fiscalYear}:${r.period}`);
     facts.push({
       fiscalPeriodEnd: r.date,
       filingDate: r.filingDate,
@@ -213,11 +236,25 @@ export function extractFundamentalFacts(
       period: r.period,
       reportedCurrency: r.reportedCurrency ?? null,
       revenue: finite(r.revenue),
-      epsDiluted: finite(r.epsDiluted) ?? finite(r.eps),
+      epsDiluted,
       freeCashFlow: fcfByKey.get(`${r.fiscalYear}:${r.period}`) ?? null,
       grossMargin: margin(r.grossProfit, r.revenue),
       operatingMargin: margin(r.operatingIncome, r.revenue),
       netMargin: margin(r.netIncome, r.revenue),
+      // PIT-reconstruction inputs (issue #61), captured as available.
+      totalEquity: b ? finite(b.totalStockholdersEquity) : null,
+      totalAssets: b ? finite(b.totalAssets) : null,
+      totalDebt: b ? finite(b.totalDebt) : null,
+      cashAndEquivalents: b ? finite(b.cashAndCashEquivalents) : null,
+      ebitda: finite(r.ebitda),
+      netIncome,
+      // Diluted share count: FMP's field when present, else derived from
+      // netIncome / dilutedEPS (the identity that defines diluted EPS).
+      sharesDiluted:
+        finite(r.weightedAverageShsOutDil) ??
+        (netIncome !== null && epsDiluted !== null && epsDiluted !== 0
+          ? netIncome / epsDiluted
+          : null),
     });
   }
   return facts;
