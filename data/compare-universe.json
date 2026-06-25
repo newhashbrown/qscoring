@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-24T12:04:45.504Z",
+  "generatedAt": "2026-06-25T12:00:46.685Z",
   "universeSize": 800,
   "entries": [
     {
@@ -240,11 +240,6 @@
     {
       "symbol": "AMFFX",
       "name": "American Funds American Mutual F1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMG",
-      "name": "Affiliated Managers Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -1173,6 +1168,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "ECHO",
+      "name": "EchoStar Corporation",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "ECL",
       "name": "Ecolab Inc",
       "sector": "Basic Materials"
@@ -1420,11 +1420,6 @@
     {
       "symbol": "FICO",
       "name": "Fair Isaac Corporation",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "FIG",
-      "name": "Figma, Inc.",
       "sector": "Technology"
     },
     {
@@ -1796,6 +1791,11 @@
       "symbol": "HRL",
       "name": "Hormel Foods Corporation",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "HSIC",
+      "name": "Henry Schein, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "HST",
