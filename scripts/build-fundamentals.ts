@@ -19,7 +19,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { extractFundamentalFacts } from "../lib/scoring/fundamentals";
-import type { CashFlowStatement, IncomeStatement } from "../lib/scoring/fmp";
+import type { BalanceSheetStatement, CashFlowStatement, IncomeStatement } from "../lib/scoring/fmp";
 
 const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 const FMP_BASE = "https://financialmodelingprep.com/stable";
@@ -103,11 +103,12 @@ async function main() {
   let skipped = 0;
   let failed = 0;
   for (const ticker of universe) {
-    const [income, cashflow] = await Promise.all([
+    const [income, cashflow, balance] = await Promise.all([
       fmpGet<IncomeStatement>("/income-statement", ticker),
       fmpGet<CashFlowStatement>("/cash-flow-statement", ticker),
+      fmpGet<BalanceSheetStatement>("/balance-sheet-statement", ticker),
     ]);
-    const facts = extractFundamentalFacts(income, cashflow);
+    const facts = extractFundamentalFacts(income, cashflow, balance);
     if (facts.length === 0) {
       skipped += 1;
     } else if (await persist(ticker, facts)) {

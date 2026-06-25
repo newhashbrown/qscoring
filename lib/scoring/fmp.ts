@@ -233,6 +233,24 @@ export type IncomeStatement = {
   netIncome: number | null;
   eps: number | null;
   epsDiluted: number | null;
+  // Extra inputs the as-reported PIT-fundamentals store captures (issue #61).
+  // Optional — not every FMP plan/response includes them.
+  ebitda?: number | null;
+  weightedAverageShsOutDil?: number | null;
+};
+
+// Balance-sheet absolutes the PIT-fundamentals store captures so a future
+// as-of-date scorer can reconstruct P/B, EV/EBITDA, ROE, ROA without a live
+// ratios call (issue #61). Fields optional — FMP responses vary by plan.
+export type BalanceSheetStatement = {
+  date: string;
+  filingDate: string | null;
+  fiscalYear: string;
+  period: string;
+  totalStockholdersEquity?: number | null;
+  totalAssets?: number | null;
+  totalDebt?: number | null;
+  cashAndCashEquivalents?: number | null;
 };
 
 export type CashFlowStatement = {
@@ -379,6 +397,15 @@ export const fmp = {
       { symbol: s, limit },
       TTL.fundamentals,
       `cashflow:${s}:${limit}`
+    );
+  },
+  balanceSheetStatement: (symbol: string, limit = 5) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<BalanceSheetStatement[]>(
+      "/balance-sheet-statement",
+      { symbol: s, limit },
+      TTL.fundamentals,
+      `balance:${s}:${limit}`
     );
   },
   earnings: (symbol: string, limit = 12) => {
