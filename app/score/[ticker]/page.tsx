@@ -11,6 +11,7 @@ import QualityHealth, { QualityHealthSkeleton } from "@/app/components/QualityHe
 import RiskPositioning, { RiskPositioningSkeleton } from "@/app/components/RiskPositioning";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
+import CoverageBadge from "@/app/components/CoverageBadge";
 import RelatedStocks from "@/app/components/RelatedStocks";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
 import { findBestMatch } from "@/lib/scoring/search";
@@ -231,6 +232,7 @@ export default async function TickerScorePage({
 
       <main>
         <OnboardingBanner />
+        <CoverageBadge coverage={result.coverage} />
         <ScoreView
           data={result}
           growthDetail={

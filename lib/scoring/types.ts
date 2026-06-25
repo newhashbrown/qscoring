@@ -1,3 +1,5 @@
+import type { Coverage } from "@/lib/coverage";
+
 export type Signal = "BUY_SHORT_TERM" | "BUY_LONG_TERM" | "HOLD" | "SHORT";
 export type Confidence = "HIGH" | "MEDIUM" | "LOW";
 export type CategoryName = "value" | "growth" | "momentum" | "profitability" | "risk";
@@ -64,6 +66,12 @@ export type ScoreResult = {
   confidence: Confidence;
   longTermScore: number;
   shortTermScore: number;
+  // Where this name sits relative to the reference universe the QScore is
+  // built on (in-universe / out-of-universe approximation / insufficient data /
+  // not an operating company). Surfaced as a badge on every score page so the
+  // coverage limitation is visible at the point of use. Optional so
+  // snapshot-reconstructed/legacy results stay valid. See lib/coverage.ts.
+  coverage?: Coverage;
   categories: CategoryScore[];
   // Tier 1a header context. Optional so snapshot-reconstructed results (which
   // predate this field) and any non-live code path remain valid.
