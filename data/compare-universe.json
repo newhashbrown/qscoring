@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T12:00:46.685Z",
+  "generatedAt": "2026-06-26T11:58:22.305Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,11 +11,6 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AAFTX",
-      "name": "American Funds 2050 Target Date Retirement Fund Class A",
-      "sector": "Financial Services"
     },
     {
       "symbol": "AAL",
@@ -38,11 +33,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "ABALX",
-      "name": "American Funds American Balanced A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "ABBV",
       "name": "AbbVie Inc.",
       "sector": "Healthcare"
@@ -58,6 +48,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "ACM",
+      "name": "Aecom",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "ACN",
       "name": "Accenture plc",
       "sector": "Technology"
@@ -66,6 +61,11 @@
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "ADC",
+      "name": "Agree Realty Corporation",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -193,11 +193,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ALLIX",
-      "name": "AB Large Cap Growth Fund Class I",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "ALLY",
       "name": "Ally Financial Inc.",
       "sector": "Financial Services"
@@ -233,13 +228,8 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "AMFCX",
-      "name": "American Funds American Mutual C",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AMFFX",
-      "name": "American Funds American Mutual F1",
+      "symbol": "AMG",
+      "name": "Affiliated Managers Group, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -333,6 +323,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
@@ -408,6 +403,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "AYI",
+      "name": "Acuity Brands, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "AZO",
       "name": "AutoZone, Inc.",
       "sector": "Consumer Cyclical"
@@ -420,11 +420,6 @@
     {
       "symbol": "BAC",
       "name": "Bank of America Corporation",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "BALFX",
-      "name": "American Funds American Balanced F1",
       "sector": "Financial Services"
     },
     {
@@ -553,14 +548,14 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BROS",
-      "name": "Dutch Bros Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "BRX",
@@ -636,6 +631,11 @@
       "symbol": "CAT",
       "name": "Caterpillar Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CAVA",
+      "name": "CAVA Group, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CBRE",
@@ -803,6 +803,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "CNM",
+      "name": "Core & Main, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "CNP",
       "name": "CenterPoint Energy, Inc.",
       "sector": "Utilities"
@@ -841,6 +846,11 @@
       "symbol": "COR",
       "name": "Cencora, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "CORZ",
+      "name": "Core Scientific, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "COST",
@@ -893,6 +903,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CRL",
+      "name": "Charles River Laboratories International, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
@@ -936,6 +951,11 @@
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CTRE",
+      "name": "CareTrust REIT, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "CTSH",
@@ -1008,6 +1028,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "DDS",
+      "name": "Dillard's, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "DE",
       "name": "Deere & Company",
       "sector": "Industrials"
@@ -1021,11 +1046,6 @@
       "symbol": "DELL",
       "name": "Dell Technologies Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "DFSVX",
-      "name": "DFA U.S. Small Cap Value Portfolio",
-      "sector": "Financial Services"
     },
     {
       "symbol": "DG",
@@ -1288,6 +1308,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESE",
+      "name": "ESCO Technologies Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ESI",
       "name": "Element Solutions Inc",
       "sector": "Basic Materials"
@@ -1403,11 +1428,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "FESOX",
-      "name": "First Eagle Overseas C",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FFIV",
       "name": "F5, Inc.",
       "sector": "Technology"
@@ -1420,6 +1440,11 @@
     {
       "symbol": "FICO",
       "name": "Fair Isaac Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "FIG",
+      "name": "Figma, Inc.",
       "sector": "Technology"
     },
     {
@@ -1463,21 +1488,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FNPFX",
-      "name": "New Perspective Fund - Class F-3",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FNSFX",
-      "name": "Fidelity Freedom 2060 K",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FOCKX",
-      "name": "Fidelity OTC K",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FORM",
       "name": "FormFactor, Inc.",
       "sector": "Technology"
@@ -1513,11 +1523,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "FSNVX",
-      "name": "Fidelity Freedom 2040 K",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FTAI",
       "name": "FTAI Aviation Ltd.",
       "sector": "Industrials"
@@ -1541,11 +1546,6 @@
       "symbol": "FWONK",
       "name": "Formula One Group",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "FZTKX",
-      "name": "Fidelity Freedom 2050 K6",
-      "sector": "Financial Services"
     },
     {
       "symbol": "GD",
@@ -1678,9 +1678,9 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "GWPEX",
-      "name": "American Funds Growth Portfolio F2",
-      "sector": "Financial Services"
+      "symbol": "GWRE",
+      "name": "Guidewire Software, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "GWW",
@@ -1743,11 +1743,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "HLMNX",
-      "name": "Harding Loevner International Equity Portfolio",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "HLT",
       "name": "Hilton Worldwide Holdings Inc.",
       "sector": "Consumer Cyclical"
@@ -1783,11 +1778,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "HRCAX",
-      "name": "Harbor Capital Appreciation Admin",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "HRL",
       "name": "Hormel Foods Corporation",
       "sector": "Consumer Defensive"
@@ -1811,6 +1801,11 @@
       "symbol": "HUBB",
       "name": "Hubbell Inc",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "HUBS",
+      "name": "HubSpot, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "HUM",
@@ -1873,11 +1868,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "INPFX",
-      "name": "American Funds Conservative Growth and Income Portfolio - Class F-1",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "INSM",
       "name": "Insmed Incorporated",
       "sector": "Healthcare"
@@ -1938,6 +1928,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "IT",
+      "name": "Gartner, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "ITT",
       "name": "ITT Inc.",
       "sector": "Industrials"
@@ -1971,6 +1966,11 @@
       "symbol": "JEF",
       "name": "Jefferies Financial Group Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "JKHY",
+      "name": "Jack Henry & Associates, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "JLL",
@@ -2083,11 +2083,6 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "LCEYX",
-      "name": "Invesco Diversified Dividend Fund Class Y",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "LDOS",
       "name": "Leidos Holdings, Inc.",
       "sector": "Technology"
@@ -2100,6 +2095,11 @@
     {
       "symbol": "LEN",
       "name": "Lennar Corporation",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "LEVI",
+      "name": "Levi Strauss & Co.",
       "sector": "Consumer Cyclical"
     },
     {
@@ -2143,6 +2143,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "LLYVK",
+      "name": "Liberty Live Group",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "LMT",
       "name": "Lockheed Martin Corporation",
       "sector": "Industrials"
@@ -2156,11 +2161,6 @@
       "symbol": "LNT",
       "name": "Alliant Energy Corporation",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "LOLDX",
-      "name": "Lord Abbett Short Duration Income F3",
-      "sector": "Financial Services"
     },
     {
       "symbol": "LOW",
@@ -2408,6 +2408,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "MSGS",
+      "name": "Madison Square Garden Sports Corp.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "MSI",
       "name": "Motorola Solutions, Inc.",
       "sector": "Technology"
@@ -2503,6 +2508,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "NNN",
+      "name": "NNN REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "NOC",
       "name": "Northrop Grumman Corporation",
       "sector": "Industrials"
@@ -2541,6 +2551,11 @@
       "symbol": "NUE",
       "name": "Nucor Corporation",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "NUVL",
+      "name": "Nuvalent, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "NVDA",
@@ -2653,6 +2668,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "OSK",
+      "name": "Oshkosh Corp",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2701,11 +2721,6 @@
       "symbol": "PCAR",
       "name": "PACCAR Inc",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "PCBIX",
-      "name": "Principal MidCap Institutional",
-      "sector": "Financial Services"
     },
     {
       "symbol": "PCG",
@@ -2808,11 +2823,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POGAX",
-      "name": "Putnam Large Cap Growth Fund;A",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "POWL",
       "name": "Powell Industries, Inc.",
       "sector": "Industrials"
@@ -2838,18 +2848,18 @@
       "sector": "Energy"
     },
     {
-      "symbol": "PRSVX",
-      "name": "T. Rowe Price Small-Cap Value",
+      "symbol": "PRI",
+      "name": "Primerica, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "PRMB",
+      "name": "Primo Brands Corporation",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "PRU",
       "name": "Prudential Financial, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PRUIX",
-      "name": "T. Rowe Price Equity Index 500 Fund I Class",
       "sector": "Financial Services"
     },
     {
@@ -2963,21 +2973,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "RGVGX",
-      "name": "American Funds U.S. Government Securities Fund® Class R-6",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RICAX",
-      "name": "American Funds Investment Company of America® Class R-1",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "RICBX",
-      "name": "American Funds Invmt Co of Amer R2",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "RIOT",
       "name": "Riot Platforms, Inc.",
       "sector": "Financial Services"
@@ -3016,11 +3011,6 @@
       "symbol": "RMD",
       "name": "ResMed Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "RNNEX",
-      "name": "American Funds New Economy R2E",
-      "sector": "Financial Services"
     },
     {
       "symbol": "ROK",
@@ -3088,8 +3078,8 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "RZB",
-      "name": "Reinsurance Group of America, Incorporated",
+      "symbol": "RZC",
+      "name": "7.125% Fixed-Rate Reset Subordinated Debentures due 2052",
       "sector": "Financial Services"
     },
     {
@@ -3101,6 +3091,11 @@
       "symbol": "SANM",
       "name": "Sanmina Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SARO",
+      "name": "StandardAero, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SATA",
@@ -3308,11 +3303,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SSEYX",
-      "name": "State Street Equity 500 Index II",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "SSNC",
       "name": "SS&C Technologies Holdings, Inc.",
       "sector": "Technology"
@@ -3408,11 +3398,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TAMVX",
-      "name": "T. Rowe Price Mid-Cap Value Adv",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TBB",
       "name": "AT&T Inc. 5.35% GLB NTS 66",
       "sector": "Communication Services"
@@ -3430,6 +3415,16 @@
     {
       "symbol": "TDY",
       "name": "Teledyne Technologies Incorporated",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "TECH",
+      "name": "Bio-Techne Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "TEM",
+      "name": "Tempus AI, Inc.",
       "sector": "Technology"
     },
     {
@@ -3508,11 +3503,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "TQQQ",
-      "name": "ProShares UltraPro QQQ",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TRGP",
       "name": "Targa Resources Corp.",
       "sector": "Energy"
@@ -3568,11 +3558,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "TWCUX",
-      "name": "American Century Ultra Fund",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
@@ -3621,6 +3606,11 @@
       "symbol": "UHAL",
       "name": "U-Haul Holding Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "UHS",
+      "name": "Universal Health Services, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "UI",
@@ -3768,6 +3758,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "VSAT",
+      "name": "Viasat, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "VST",
       "name": "Vistra Corp.",
       "sector": "Utilities"
@@ -3796,6 +3791,11 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "WAL",
+      "name": "Western Alliance Bancorporation",
+      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
