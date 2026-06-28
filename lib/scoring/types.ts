@@ -54,6 +54,33 @@ export type CompanyHeader = {
   sizeBucket: SizeBucket | null;
 };
 
+// "Trader's lens" — technical-setup context for the active/swing trader,
+// derived purely from the live price, FMP's 50/200-day moving averages, the
+// 52-week range and EOD history. PRESENTATION/CONTEXT only: it does NOT feed the
+// five-factor QScore, so a technical overlay can never move a fundamental score.
+// All scalars nullable; degrades gracefully on thin history. See trader-lens.ts.
+export type TraderSetup =
+  | "above_50dma"
+  | "below_50dma"
+  | "above_200dma"
+  | "below_200dma"
+  | "uptrend" // 50dma ≥ 200dma (golden-cross regime)
+  | "downtrend" // 50dma < 200dma (death-cross regime)
+  | "near_52w_high"
+  | "near_52w_low"
+  | "rising_volume"
+  | "strong_momentum";
+
+export type TraderLens = {
+  pctFrom50dma: number | null; // signed fraction: +0.04 = 4% above the 50-day SMA
+  pctFrom200dma: number | null;
+  pctFrom52wHigh: number | null; // ≤ 0 when below the high
+  pctFrom52wLow: number | null; // ≥ 0 when above the low
+  return20d: number | null; // 20-trading-day price return (fraction)
+  volumeTrend: number | null; // 5-day avg share volume ÷ 20-day avg
+  setups: TraderSetup[];
+};
+
 export type ScoreResult = {
   ticker: string;
   companyName: string;
@@ -76,6 +103,10 @@ export type ScoreResult = {
   // Tier 1a header context. Optional so snapshot-reconstructed results (which
   // predate this field) and any non-live code path remain valid.
   header?: CompanyHeader;
+  // Trader's-lens technical overlay (trend / breakout-proximity / momentum /
+  // volume). Optional so snapshot-reconstructed/legacy results stay valid.
+  // Derived, presentation-only — never an input to the QScore. See trader-lens.ts.
+  lens?: TraderLens;
   generatedAt: string;
   // Present when one or more underlying FMP fetches failed and the stale
   // D1 cache was served instead. ISO timestamp of the oldest cached

@@ -1,6 +1,7 @@
 import { fmp, type FinancialGrowth, type KeyMetricsTtm, type PricePoint, type Profile, type Quote, type RatiosTtm, type SharesFloat } from "./fmp";
 import { withStalenessTracking } from "./fmp-cache";
 import { buildCompanyHeader } from "./company-header";
+import { buildTraderLens } from "./trader-lens";
 import { attachRelativeContext } from "./relative";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { settledCloseFromHistory } from "../snapshot-price";
@@ -408,6 +409,20 @@ export function scoreFromFetched(
     history,
   });
 
+  // ─── TRADER'S LENS ─────────────────────────────────────────
+  // Technical-setup overlay (trend / breakout proximity / momentum / volume)
+  // for the active trader. Pure derivation over data already in hand: the live
+  // price, FMP's 50/200-day MAs from /quote, the 52-week range (via the header)
+  // and EOD history. Presentation-only — deliberately NOT an input to the score.
+  const lens = buildTraderLens({
+    price: quote?.price ?? profile.price,
+    sma50: quote?.priceAvg50,
+    sma200: quote?.priceAvg200,
+    week52High: header.week52High,
+    week52Low: header.week52Low,
+    history,
+  });
+
   // Settled EOD close for the snapshot ledger, from the (offset-adjusted)
   // history so the "yesterday's snapshot" path stays internally consistent.
   // `price`/`changePercent` below remain live (/quote) for the /score page.
@@ -433,6 +448,7 @@ export function scoreFromFetched(
     // Scoring math above used the bare categories; this is presentation-only.
     categories: attachRelativeContext(categories, sector),
     header,
+    lens,
     generatedAt: new Date().toISOString(),
   };
 }
