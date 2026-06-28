@@ -10,6 +10,7 @@ import {
 import scoreboardData from "@/data/scoreboard.json";
 import type { ScoreboardPick } from "@/data/categories";
 import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
+import { bodyExceeds, MAX_FORM_BODY_BYTES } from "@/lib/request-guards";
 
 const TICKER_RE = /^[A-Z][A-Z0-9.-]{0,9}$/;
 const SCORING_CONCURRENCY = 4;
@@ -82,6 +83,10 @@ export async function POST(req: Request) {
   const rl = getRateLimitEnv();
   const ip = clientIp(req);
   if (!(await allow(rl?.ANALYZE_IP_LIMITER, ip))) return tooManyRequests();
+
+  if (bodyExceeds(req, MAX_FORM_BODY_BYTES)) {
+    return NextResponse.json({ ok: false, error: "Payload too large" }, { status: 413 });
+  }
 
   let body: Body;
   try {
