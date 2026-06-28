@@ -37,6 +37,23 @@ export const MARKET_STRIP_ENABLED = true;
  */
 export const STRIPE_BILLING_ENABLED = true;
 
+/**
+ * Clerk authentication (ClerkProvider + sign-in/up + nav auth widgets).
+ *
+ * OFF while the Clerk PRODUCTION instance for clerk.qscoring.com is not yet
+ * deployed/verified: its Frontend API returns 403 for every endpoint (incl.
+ * core /.well-known/jwks.json), so ClerkProvider's clerk-js fails to load and
+ * throws `failed_to_load_clerk_js` on every page. Disabling it stops clerk-js
+ * from loading (no ClerkProvider mounted) and hides the auth widgets, silencing
+ * the site-wide console errors. No routes are gated yet, so nothing else changes.
+ *
+ * Re-enable (set to true, commit, push) once the Clerk dashboard shows
+ * clerk.qscoring.com as Deployed and `curl https://clerk.qscoring.com/.well-known/jwks.json`
+ * returns JSON instead of 403. middleware.ts (server-side) is intentionally left
+ * wired — it isn't the source of the browser errors.
+ */
+export const CLERK_ENABLED = false;
+
 // ─── Phase-2 factor experiments (offline A/B via research/ harness) ───
 // All default to current production behavior. Do NOT flip the defaults until
 // the backtest harness shows an IC improvement and the change is reviewed.

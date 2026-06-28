@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CLERK_ENABLED } from "@/lib/feature-flags";
 import TickerSearch from "./TickerSearch";
 
 const PRIMARY_LINKS: Array<{ href: string; label: string }> = [
@@ -105,17 +106,24 @@ export default function ScoreNav({ ticker, showSearch = true }: Props) {
             <TickerSearch initialValue={ticker ?? ""} size="compact" />
           </div>
         )}
-        <Show when="signed-out">
-          <SignInButton mode="modal">
-            <button type="button" className="nav-signin">Sign in</button>
-          </SignInButton>
-          <SignUpButton mode="modal">
-            <button type="button" className="nav-cta">Sign up</button>
-          </SignUpButton>
-        </Show>
-        <Show when="signed-in">
-          <UserButton />
-        </Show>
+        {/* Auth widgets render only when CLERK_ENABLED — without a mounted
+            ClerkProvider these would throw, and clerk-js isn't loaded anyway.
+            See lib/feature-flags.ts. */}
+        {CLERK_ENABLED && (
+          <>
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button type="button" className="nav-signin">Sign in</button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button type="button" className="nav-cta">Sign up</button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
+          </>
+        )}
       </div>
 
       <button
