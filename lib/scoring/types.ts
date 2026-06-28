@@ -90,3 +90,29 @@ export type ScoreResult = {
   settledChangePercent?: number | null;
   settledCloseDate?: string | null;
 };
+
+// Fama-French factor exposures (migrations/0009_factor_exposures.sql), computed
+// monthly by scripts/factor_exposures/run.py and READ here. betas/tstats/alpha
+// are null for an insufficient-history name (n_obs < 36, flagged
+// "insufficient_history") — the UI renders that state honestly rather than
+// drawing empty bars. See lib/scoring/factor-exposures.ts.
+export type FactorKey = "mktRf" | "smb" | "hml" | "rmw" | "cma" | "mom";
+
+export type FactorExposureFlag = "insufficient_history" | "low_explanatory_power";
+
+export type FactorExposure = {
+  ticker: string;
+  snapshotDate: string;
+  modelVersion: string | null;
+  betas: Record<FactorKey, number | null>;
+  tstats: Record<FactorKey, number | null>;
+  alphaAnnualized: number | null; // monthly alpha × 12
+  alphaTstat: number | null; // raw const t-stat (not annualized)
+  r2: number | null;
+  adjR2: number | null;
+  nObs: number;
+  windowStart: string | null;
+  windowEnd: string | null;
+  styleLabel: string | null;
+  flags: FactorExposureFlag[];
+};
