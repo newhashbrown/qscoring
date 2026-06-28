@@ -9,6 +9,7 @@ import FundamentalsTrend, { FundamentalsTrendSkeleton } from "@/app/components/F
 import AnalystSignals, { AnalystSignalsSkeleton } from "@/app/components/AnalystSignals";
 import QualityHealth, { QualityHealthSkeleton } from "@/app/components/QualityHealth";
 import RiskPositioning, { RiskPositioningSkeleton } from "@/app/components/RiskPositioning";
+import FactorProfile, { FactorProfileSkeleton } from "@/app/components/FactorProfile";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
 import CoverageBadge from "@/app/components/CoverageBadge";
@@ -251,6 +252,9 @@ export default async function TickerScorePage({
           </Suspense>
           <Suspense fallback={<RiskPositioningSkeleton />}>
             <RiskPositioning ticker={result.ticker} />
+          </Suspense>
+          <Suspense fallback={<FactorProfileSkeleton />}>
+            <FactorProfile ticker={result.ticker} />
           </Suspense>
         </div>
         <div className="commentary-wrap">

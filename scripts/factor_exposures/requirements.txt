@@ -1,0 +1,24 @@
+# Fama-French factor-exposure batch job — Python deps.
+#
+# Runs in GitHub Actions (refresh-factor-exposures.yml) and locally. This is the
+# statistical/research half of the pipeline (cf. research/): heavy regression
+# compute lives here in Python with AUDITED libraries (statsmodels), never
+# hand-rolled OLS/HAC in the Worker. The Worker only ever READS precomputed rows.
+#
+# Pinned to versions with cp313 wheels (shared pins mirror research/requirements.txt
+# so both Python areas resolve against the same numpy-2 stack). Use an isolated venv:
+#
+#   py -3 -m venv scripts/factor_exposures/.venv
+#   scripts/factor_exposures/.venv/Scripts/python.exe -m pip install -r scripts/factor_exposures/requirements.txt   # Windows
+#   # POSIX: python -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+#
+numpy==2.4.6
+pandas==2.3.3
+scipy==1.17.1
+statsmodels==0.14.6
+pandas-datareader==0.10.0
+pytest==8.4.2
+# pandas-datareader 0.10.0 still imports the stdlib `distutils`, removed in
+# Python 3.12+. setuptools vendors the shim (via distutils-precedence.pth), and
+# 3.12+ venvs no longer install setuptools by default — so it must be explicit.
+setuptools==82.0.1
