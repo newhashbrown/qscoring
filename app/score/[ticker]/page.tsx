@@ -10,6 +10,7 @@ import AnalystSignals, { AnalystSignalsSkeleton } from "@/app/components/Analyst
 import QualityHealth, { QualityHealthSkeleton } from "@/app/components/QualityHealth";
 import RiskPositioning, { RiskPositioningSkeleton } from "@/app/components/RiskPositioning";
 import FactorProfile, { FactorProfileSkeleton } from "@/app/components/FactorProfile";
+import TraderLens from "@/app/components/TraderLens";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
 import CoverageBadge from "@/app/components/CoverageBadge";
@@ -244,6 +245,9 @@ export default async function TickerScorePage({
         />
         <WatchButton ticker={result.ticker} />
         <div className="signal-sections">
+          {/* Trader's Lens reads result.lens directly (computed live, no fetch),
+              so it renders synchronously without a Suspense boundary. */}
+          <TraderLens lens={result.lens} />
           <Suspense fallback={<AnalystSignalsSkeleton />}>
             <AnalystSignals ticker={result.ticker} />
           </Suspense>

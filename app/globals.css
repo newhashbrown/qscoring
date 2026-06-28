@@ -1613,6 +1613,46 @@ footer .footer-links .sep {
   .fp-row { grid-template-columns: 92px 1fr 72px; gap: 8px; }
   .fp-name { font-size: 0.72rem; }
 }
+
+/* Trader's Lens (Tier 3) — setup chips + technical metric grid */
+.tl-setups { display: flex; flex-wrap: wrap; gap: 8px; }
+.tl-chip {
+  font-size: 0.74rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.tl-chip.bull {
+  color: var(--accent);
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.1);
+}
+.tl-chip.bear {
+  color: var(--red);
+  border-color: rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.1);
+}
+.tl-chip.neutral { color: var(--text-dim); }
+.tl-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px 20px;
+}
+.tl-metric { display: flex; flex-direction: column; gap: 2px; }
+.tl-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+/* No explicit color so .tone-bullish/.tone-bearish win when applied. */
+.tl-value { font-family: var(--mono); font-size: 0.95rem; }
+@media (max-width: 600px) {
+  .tl-metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
 .as-scroll { overflow-x: auto; }
 .as-table { width: 100%; border-collapse: collapse; min-width: 360px; }
 .as-table th, .as-table td {
