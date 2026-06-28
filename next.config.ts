@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Don't advertise the framework on every response.
+  poweredByHeader: false,
   // Canonical URL shape: no trailing slash (the default, set explicitly so
   // /foo and /foo/ never both resolve). The www/http → https://qscoring.com
   // 301s are a Cloudflare redirect rule, not a Next concern.
@@ -58,6 +60,16 @@ const nextConfig: NextConfig = {
           {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
+          },
+          // HSTS. Cloudflare already does Always-Use-HTTPS + www→apex 301, so
+          // every subdomain is HTTPS-reachable — includeSubDomains is safe.
+          // `preload` is intentionally omitted: submitting to the browser
+          // preload list is a one-way door (hard to undo), so that's a separate
+          // deliberate decision, ideally set at the Cloudflare edge (which also
+          // covers the static ASSETS binding this Next header does not).
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains",
           },
           // Report-only until validated (see note above), then rename.
           { key: "Content-Security-Policy-Report-Only", value: csp },
