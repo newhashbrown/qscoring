@@ -17,14 +17,17 @@
  * (customer.subscription.* → upsert D1 + Clerk publicMetadata) lands in
  * PR #15 alongside the checkout flow.
  *
- * The route MUST run on the Edge runtime: webhook signature
- * verification uses Web Crypto (SubtleCrypto), and the Stripe SDK's
- * Node HTTP client doesn't work on Workers.
+ * Do NOT add `export const runtime = "edge"` here. OpenNext on Cloudflare
+ * Workers does not support Next's edge runtime — declaring it makes the route
+ * 500 at the platform layer (a generic plaintext "Internal Server Error"
+ * BEFORE the handler runs, so even the missing-signature 400 below is never
+ * reached). The default OpenNext Workers runtime already provides `fetch` and
+ * `crypto.subtle`, and lib/stripe uses the fetch HTTP client + SubtleCrypto
+ * provider, so signature verification works fine on it.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { verifyStripeWebhook } from "@/lib/stripe";
-
-export const runtime = "edge";
+import { bodyExceeds, MAX_WEBHOOK_BODY_BYTES } from "@/lib/request-guards";
 
 // Stripe sends an empty 200 expectation for the success case. Any 2xx
 // counts as "delivered" and stops retries; non-2xx triggers exponential
@@ -35,6 +38,10 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const signature = req.headers.get("stripe-signature");
   if (!signature) {
     return NextResponse.json({ error: "missing stripe-signature header" }, { status: 400 });
+  }
+
+  if (bodyExceeds(req, MAX_WEBHOOK_BODY_BYTES)) {
+    return NextResponse.json({ error: "payload too large" }, { status: 413 });
   }
 
   // Read the raw body — Stripe's signature is computed over the raw

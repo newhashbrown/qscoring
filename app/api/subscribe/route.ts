@@ -8,6 +8,7 @@ import {
   adminNotifyText,
 } from "@/lib/email/admin-notify";
 import { getRateLimitEnv, allow, tooManyRequests, clientIp } from "@/lib/ratelimit";
+import { bodyExceeds, MAX_FORM_BODY_BYTES } from "@/lib/request-guards";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const ALLOWED_SOURCES = new Set(["waitlist", "early_access", "score_page", "footer"]);
@@ -23,6 +24,9 @@ async function hashIp(ip: string): Promise<string> {
 }
 
 export async function POST(req: Request) {
+  if (bodyExceeds(req, MAX_FORM_BODY_BYTES)) {
+    return NextResponse.json({ ok: false, error: "Payload too large" }, { status: 413 });
+  }
   let body: { email?: string; source?: string };
   try {
     body = await req.json();

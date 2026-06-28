@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { timingSafeEqual } from "@/lib/request-guards";
 import { isUsTradingDate } from "@/lib/market-date";
 
 // POST /api/cron/persist-movers
@@ -97,7 +98,7 @@ export async function POST(req: Request) {
   const expectedToken = (env?.SNAPSHOT_CRON_TOKEN ?? "").trim();
   const auth = req.headers.get("authorization") ?? "";
   const got = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
-  if (!expectedToken || got !== expectedToken) {
+  if (!expectedToken || !(await timingSafeEqual(got, expectedToken))) {
     return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
   }
 
