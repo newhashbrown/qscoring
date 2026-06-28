@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { CLERK_ENABLED } from "@/lib/feature-flags";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
@@ -56,6 +57,23 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Market strip + page content. Mounted with or without ClerkProvider
+  // depending on CLERK_ENABLED (see lib/feature-flags.ts).
+  const appTree = (
+    <>
+      {/* Brand/entity JSON-LD (Organization + WebSite) renders on the
+          homepage only — see app/page.tsx — so the entity schema isn't
+          duplicated on every route. */}
+      {/* Market context strip — toggled by MARKET_STRIP_ENABLED in
+          lib/feature-flags.ts. Wrapped in Suspense so a slow FMP
+          response never blocks the rest of the page render. */}
+      <Suspense fallback={null}>
+        <MarketStrip />
+      </Suspense>
+      {children}
+    </>
+  );
+
   return (
     <html lang="en" className={`${inter.variable} ${jetBrainsMono.variable}`}>
       <body>
@@ -69,18 +87,10 @@ export default function RootLayout({
           href="/logo.webp"
           fetchPriority="high"
         />
-        <ClerkProvider>
-          {/* Brand/entity JSON-LD (Organization + WebSite) renders on the
-              homepage only — see app/page.tsx — so the entity schema isn't
-              duplicated on every route. */}
-          {/* Market context strip — toggled by MARKET_STRIP_ENABLED in
-              lib/feature-flags.ts. Wrapped in Suspense so a slow FMP
-              response never blocks the rest of the page render. */}
-          <Suspense fallback={null}>
-            <MarketStrip />
-          </Suspense>
-          {children}
-        </ClerkProvider>
+        {/* Auth provider mounted only when CLERK_ENABLED — while the prod
+            Clerk instance is unverified we skip ClerkProvider entirely so
+            clerk-js never loads (see lib/feature-flags.ts). */}
+        {CLERK_ENABLED ? <ClerkProvider>{appTree}</ClerkProvider> : appTree}
 
         {/* Google Analytics (gtag.js) — production only, afterInteractive so
             it never blocks first paint. Loads site-wide via the root layout. */}
