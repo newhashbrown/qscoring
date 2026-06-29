@@ -17,26 +17,33 @@ name: Refresh strong picks
 
 on:
   schedule:
-    # 09:30 UTC = ~4:30am ET, before US pre-market activity. Picks reflect
-    # the prior trading day's close. This PRE-MARKET run is the only one
-    # allowed to rescore: /api/score returns the prior session's settled
-    # close, so the snapshot's price/changePercent are faithful. If GitHub
-    # delays this run INTO the 09:30–16:00 ET session (it slipped to 11:04 ET
-    # on 2026-06-22), /quote returns live intraday prices — the snapshot guard
-    # refuses the build (session_open) rather than freeze them under the
-    # prior-close label and contaminate the ledger.
-    - cron: '30 9 * * *'
+    # 06:00 UTC = ~2am ET, before US pre-market activity. Picks reflect the
+    # prior trading day's close. This PRE-MARKET run is the only one allowed to
+    # rescore: /api/score returns the prior session's settled close, so the
+    # snapshot's price/changePercent are faithful. If GitHub delays this run
+    # INTO the 09:30–16:00 ET session, /quote returns live intraday prices —
+    # the snapshot guard refuses the build (session_open) rather than freeze
+    # them under the prior-close label and contaminate the ledger.
+    #
+    # Moved 09:30→06:00 UTC after 2026-06-29: a 4.3h GitHub delay slipped the
+    # old 09:30 UTC fire to 09:49 ET — INSIDE the session → guard refused → the
+    # 2026-06-26 snapshot was lost. 06:00 UTC gives ~7.5h of delay headroom
+    # before the 09:30 ET open (vs ~4h before) and is genuinely pre-pre-market.
+    - cron: '0 6 * * *'
     # 18:00 UTC = ~13:00–14:00 ET, MID-SESSION. Recovery DETECTOR only. On a
     # good day the 09:30 snapshot already exists → guard skips (no-op). On a
     # bad day the guard FAILS LOUDLY rather than rescoring: a mid-session
     # rescore would write live intraday price/change mislabeled as the prior
-    # close and contaminate the no-look-ahead ledger. A genuinely-missed
-    # snapshot is backfilled by hand from FMP historical close.
+    # close and contaminate the no-look-ahead ledger. A genuinely-missed day
+    # has NO turnkey backfill (scripts/backfill-snapshots.ts only re-syncs
+    # existing JSON into D1, it does not reconstruct) — accept the 1-day gap (a
+    # missing snapshot beats a contaminated one) or rebuild it deliberately
+    # as-of from FMP historical close.
     - cron: '0 18 * * *'
   workflow_dispatch:
     inputs:
       force_run:
-        description: 'Local/debug flag only. Does NOT bypass the snapshot guard: non-trading-day and in-session runs are always refused to protect the no-look-ahead ledger. Backfill a missed day from FMP historical close via scripts/backfill-snapshots.ts.'
+        description: 'Local/debug flag only. Does NOT bypass the snapshot guard: non-trading-day and in-session runs are always refused to protect the no-look-ahead ledger. A genuinely-missed day has no turnkey backfill (scripts/backfill-snapshots.ts only re-syncs existing JSON to D1) — accept the 1-day gap or rebuild it deliberately as-of from FMP historical close.'
         type: boolean
         default: false
 
@@ -115,9 +122,9 @@ jobs:
               ;;
             fail)
               if [ "$REASON" = "recovery-detector-snapshot-missing" ]; then
-                echo "::error::Snapshot ${EXPECTED}.json is still missing at the 18:00 recovery check — the 09:30 run failed to land it. NOT rescoring: a mid-session rescore would write live intraday price/change mislabeled as the ${EXPECTED} close and poison the no-look-ahead ledger. Backfill by hand from FMP historical close (see scripts/backfill-snapshots.ts)."
+                echo "::error::Snapshot ${EXPECTED}.json is still missing at the 18:00 recovery check — the pre-market run failed to land it. NOT rescoring: a mid-session rescore would write live intraday price/change mislabeled as the ${EXPECTED} close and poison the no-look-ahead ledger. No turnkey backfill exists (scripts/backfill-snapshots.ts only re-syncs existing JSON into D1, it does not reconstruct a missing day) — accept the 1-day gap or rebuild ${EXPECTED} deliberately as-of from FMP historical close."
               else
-                echo "::error::Refusing to build ${EXPECTED}.json: now is inside a regular trading session (09:30–16:00 ET) — GitHub delayed this run into market hours. /api/score returns LIVE INTRADAY prices that would be frozen under the ${EXPECTED} (prior-close) label and poison the no-look-ahead ledger (the 2026-06-22 contamination). A missing snapshot self-heals at the next pre-market run; a contaminated one does not. For a deliberate backfill use scripts/backfill-snapshots.ts (FMP historical close)."
+                echo "::error::Refusing to build ${EXPECTED}.json: now is inside a regular trading session (09:30–16:00 ET) — GitHub delayed this run into market hours. /api/score returns LIVE INTRADAY prices that would be frozen under the ${EXPECTED} (prior-close) label and poison the no-look-ahead ledger (the 2026-06-22 contamination). A missing snapshot self-heals at the next pre-market run UNLESS that run is also delayed into the session; a contaminated one never recovers. No turnkey backfill exists (scripts/backfill-snapshots.ts only re-syncs existing JSON) — accept the 1-day gap or rebuild ${EXPECTED} deliberately as-of from FMP historical close."
               fi
               exit 1
               ;;
@@ -262,4 +269,4 @@ jobs:
           curl -fsS -X POST https://api.resend.com/emails \
             -H "Authorization: Bearer $RESEND_API_KEY" \
             -H "Content-Type: application/json" \
-            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Workflow '$WF' failed.\n\nRun: $RUN_URL\n\nIf this is the 18:00 recovery check, the prior trading day's snapshot is missing — backfill from FMP historical close (scripts/backfill-snapshots.ts).\"}"
+            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Workflow '$WF' failed.\n\nRun: $RUN_URL\n\nIf this is the 18:00 recovery check, the prior trading day's snapshot is missing. No turnkey backfill exists (backfill-snapshots.ts only re-syncs existing JSON to D1); accept the 1-day gap or rebuild it deliberately as-of from FMP.\"}"
