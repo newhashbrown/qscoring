@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-26T11:58:22.305Z",
+  "generatedAt": "2026-06-30T09:23:09.152Z",
   "universeSize": 800,
   "entries": [
     {
@@ -46,11 +46,6 @@
       "symbol": "ABT",
       "name": "Abbott Laboratories",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "ACM",
-      "name": "Aecom",
-      "sector": "Industrials"
     },
     {
       "symbol": "ACN",
@@ -353,6 +348,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "ATHS",
+      "name": "Athene Holding Ltd. 7.250% Fixe",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "ATI",
       "name": "ATI Inc.",
       "sector": "Industrials"
@@ -494,7 +494,7 @@
     },
     {
       "symbol": "BKR",
-      "name": "Baker Hughes Co",
+      "name": "Baker Hughes Company",
       "sector": "Energy"
     },
     {
@@ -503,13 +503,13 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "BLK",
-      "name": "BlackRock, Inc.",
-      "sector": "Financial Services"
+      "symbol": "BLDR",
+      "name": "Builders FirstSource, Inc.",
+      "sector": "Industrials"
     },
     {
-      "symbol": "BMNP",
-      "name": "Bitmine Immersion Technologies, Inc.",
+      "symbol": "BLK",
+      "name": "BlackRock, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -556,6 +556,11 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BROS",
+      "name": "Dutch Bros Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "BRX",
@@ -803,11 +808,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "CNM",
-      "name": "Core & Main, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "CNP",
       "name": "CenterPoint Energy, Inc.",
       "sector": "Utilities"
@@ -848,9 +848,9 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "CORZ",
-      "name": "Core Scientific, Inc.",
-      "sector": "Technology"
+      "symbol": "CORT",
+      "name": "Corcept Therapeutics Incorporated",
+      "sector": "Healthcare"
     },
     {
       "symbol": "COST",
@@ -939,7 +939,7 @@
     },
     {
       "symbol": "CSL",
-      "name": "Carlisle Cos.",
+      "name": "Carlisle Companies Incorporated",
       "sector": "Industrials"
     },
     {
@@ -1026,11 +1026,6 @@
       "symbol": "DDOG",
       "name": "Datadog, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "DDS",
-      "name": "Dillard's, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DE",
@@ -1148,6 +1143,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "DTW",
+      "name": "DTE Energy Company JR SUB DB 2017 E",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "DUK",
       "name": "Duke Energy Corporation",
       "sector": "Utilities"
@@ -1194,7 +1194,7 @@
     },
     {
       "symbol": "ECL",
-      "name": "Ecolab Inc",
+      "name": "Ecolab Inc.",
       "sector": "Basic Materials"
     },
     {
@@ -1306,11 +1306,6 @@
       "symbol": "ES",
       "name": "Eversource Energy",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "ESE",
-      "name": "ESCO Technologies Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "ESI",
@@ -1698,6 +1693,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "HALO",
+      "name": "Halozyme Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "HAS",
       "name": "Hasbro, Inc.",
       "sector": "Consumer Cyclical"
@@ -1799,7 +1799,7 @@
     },
     {
       "symbol": "HUBB",
-      "name": "Hubbell Inc",
+      "name": "Hubbell Incorporated",
       "sector": "Industrials"
     },
     {
@@ -1815,7 +1815,7 @@
     {
       "symbol": "HUT",
       "name": "Hut 8 Corp.",
-      "sector": "Technology"
+      "sector": "Financial Services"
     },
     {
       "symbol": "HWM",
@@ -1831,6 +1831,11 @@
       "symbol": "IBM",
       "name": "International Business Machines Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "IBRX",
+      "name": "ImmunityBio, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ICE",
@@ -1874,12 +1879,12 @@
     },
     {
       "symbol": "INTC",
-      "name": "Intel Corporation",
+      "name": "Intel Corp.",
       "sector": "Technology"
     },
     {
       "symbol": "INTU",
-      "name": "Intuit Inc",
+      "name": "Intuit Inc.",
       "sector": "Technology"
     },
     {
@@ -1926,11 +1931,6 @@
       "symbol": "ISRG",
       "name": "Intuitive Surgical, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "IT",
-      "name": "Gartner, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "ITT",
@@ -1983,11 +1983,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "JOBY",
-      "name": "Joby Aviation, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "JPM",
       "name": "JPMorgan Chase & Co.",
       "sector": "Financial Services"
@@ -2034,7 +2029,7 @@
     },
     {
       "symbol": "KMB",
-      "name": "Kimberly-Clark Corp",
+      "name": "Kimberly-Clark Corporation",
       "sector": "Consumer Defensive"
     },
     {
@@ -2061,11 +2056,6 @@
       "symbol": "KRYS",
       "name": "Krystal Biotech, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "KTOS",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "KVUE",
@@ -2183,6 +2173,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "LTH",
+      "name": "Life Time Group Holdings, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "LUV",
       "name": "Southwest Airlines Co.",
       "sector": "Industrials"
@@ -2291,6 +2286,16 @@
       "symbol": "MGM",
       "name": "MGM Resorts International",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "MGRB",
+      "name": "Affiliated Managers Group, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "MGRE",
+      "name": "Affiliated Managers Group, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "MKC",
@@ -2453,6 +2458,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "MXL",
+      "name": "MaxLinear, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "NBIX",
       "name": "Neurocrine Biosciences, Inc.",
       "sector": "Healthcare"
@@ -2505,11 +2515,6 @@
     {
       "symbol": "NLY",
       "name": "Annaly Capital Management, Inc.",
-      "sector": "Real Estate"
-    },
-    {
-      "symbol": "NNN",
-      "name": "NNN REIT, Inc.",
       "sector": "Real Estate"
     },
     {
@@ -2846,16 +2851,6 @@
       "symbol": "PR",
       "name": "Permian Resources Corporation",
       "sector": "Energy"
-    },
-    {
-      "symbol": "PRI",
-      "name": "Primerica, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "PRMB",
-      "name": "Primo Brands Corporation",
-      "sector": "Consumer Defensive"
     },
     {
       "symbol": "PRU",
@@ -3269,8 +3264,8 @@
     },
     {
       "symbol": "SPCX",
-      "name": "Space Exploration Technologies Corp",
-      "sector": "Technology"
+      "name": "Space Exploration Technologies Corp.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SPG",
@@ -3306,11 +3301,6 @@
       "symbol": "SSNC",
       "name": "SS&C Technologies Holdings, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "STE",
-      "name": "STERIS plc",
-      "sector": "Healthcare"
     },
     {
       "symbol": "STLD",
@@ -3356,6 +3346,11 @@
       "symbol": "SUI",
       "name": "Sun Communities, Inc.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "SUN",
+      "name": "Sunoco LP",
+      "sector": "Energy"
     },
     {
       "symbol": "SUNB",
@@ -3425,7 +3420,7 @@
     {
       "symbol": "TEM",
       "name": "Tempus AI, Inc.",
-      "sector": "Technology"
+      "sector": "Healthcare"
     },
     {
       "symbol": "TER",
@@ -3541,6 +3536,11 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
     },
     {
       "symbol": "TTMI",
