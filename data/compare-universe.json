@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T09:23:09.152Z",
+  "generatedAt": "2026-07-01T09:35:15.351Z",
   "universeSize": 800,
   "entries": [
     {
@@ -221,11 +221,6 @@
       "symbol": "AME",
       "name": "AMETEK, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "AMG",
-      "name": "Affiliated Managers Group, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "AMGN",
@@ -1308,6 +1303,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESE",
+      "name": "ESCO Technologies Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ESI",
       "name": "Element Solutions Inc",
       "sector": "Basic Materials"
@@ -1435,11 +1435,6 @@
     {
       "symbol": "FICO",
       "name": "Fair Isaac Corporation",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "FIG",
-      "name": "Figma, Inc.",
       "sector": "Technology"
     },
     {
@@ -2058,9 +2053,19 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "KTOS",
+      "name": "Kratos Defense & Security Solutions, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "KYMR",
+      "name": "Kymera Therapeutics, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "L",
@@ -3791,11 +3796,6 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "WAL",
-      "name": "Western Alliance Bancorporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
