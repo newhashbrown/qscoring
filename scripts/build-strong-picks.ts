@@ -60,18 +60,14 @@ type UniverseEntry = {
 // exclusion, leaving ~53% of the "universe" as mutual-fund share classes.
 // See docs/diagnosis/universe-fund-etf-contamination.md.
 async function fetchScreenerUniverse(): Promise<readonly UniverseEntry[]> {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
-  let universe;
-  try {
-    universe = await fetchUniverse({
-      maxSize: MAX_UNIVERSE_SIZE,
-      requireSector: true,
-      signal: ctrl.signal,
-    });
-  } finally {
-    clearTimeout(timer);
-  }
+  // No outer timeout here: fetchUniverse owns a per-attempt timeout and a
+  // 429/5xx retry-with-backoff (waits can total minutes by design — a burst
+  // 429 on this single call cost the 2026-07-01 snapshot). An outer 25s
+  // abort would kill the retry loop mid-backoff and defeat it.
+  const universe = await fetchUniverse({
+    maxSize: MAX_UNIVERSE_SIZE,
+    requireSector: true,
+  });
 
   const entries: UniverseEntry[] = universe.map((e) => ({
     symbol: e.symbol,
