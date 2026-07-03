@@ -4,6 +4,7 @@ import {
   splitFactor,
   toLedgerBasisFactor,
   splitFactorForStore,
+  detectLedgerBoundary,
   type SplitEvent,
   type SplitStore,
 } from "./splits";
@@ -100,6 +101,83 @@ test("toLedgerBasisFactor: round-trips with splitFactor for an exit-store join",
   const f = splitFactor(CRWD, "2026-06-30", "2026-07-01"); // ×4
   const ret = (stored * f) / entry - 1;
   strictEqual(ret > -0.05 && ret < 0.05, true);
+});
+
+// ─── detectLedgerBoundary (the store's correctness gate) ─────
+test("detectLedgerBoundary: finds the boundary a session BEFORE the FMP date (CRWD rebuild shape)", () => {
+  // 06-30 froze 763.14 old basis; the rebuilt 07-01 froze adjusted ~193 —
+  // one session before FMP's official 07-02.
+  const series: Array<[string, number]> = [
+    ["2026-06-29", 742.91],
+    ["2026-06-30", 763.14],
+    ["2026-07-01", 193.19],
+  ];
+  const r = detectLedgerBoundary(series, "2026-07-02", 4);
+  strictEqual(r.boundary, "2026-07-01");
+  strictEqual(r.scanned, true);
+});
+
+test("detectLedgerBoundary: finds the boundary AFTER the FMP date (weekend/holiday lag)", () => {
+  const series: Array<[string, number]> = [
+    ["2026-06-30", 100],
+    ["2026-07-06", 25.3], // first snapshot after a 07-02 split lands days later
+  ];
+  const r = detectLedgerBoundary(series, "2026-07-02", 4);
+  strictEqual(r.boundary, "2026-07-06");
+});
+
+test("detectLedgerBoundary: HON refusal — scanned prices show no re-basing → null + scanned", () => {
+  // FMP reported a 1:2 for HON @ 06-29 that never moved the frozen prices.
+  const series: Array<[string, number]> = [
+    ["2026-06-25", 231.24],
+    ["2026-06-29", 227.8],
+    ["2026-06-30", 223.9],
+  ];
+  const r = detectLedgerBoundary(series, "2026-06-29", 0.5);
+  strictEqual(r.boundary, null);
+  strictEqual(r.scanned, true); // positive evidence — caller must REFUSE the event
+});
+
+test("detectLedgerBoundary: name absent around the split → not scanned (fallback-eligible)", () => {
+  const series: Array<[string, number]> = [
+    ["2026-05-05", 80],
+    ["2026-05-06", 81], // left the universe long before the 07-02 split
+  ];
+  const r = detectLedgerBoundary(series, "2026-07-02", 4);
+  strictEqual(r.boundary, null);
+  strictEqual(r.scanned, false);
+});
+
+test("detectLedgerBoundary: reverse split (price jumps UP) detects too", () => {
+  const series: Array<[string, number]> = [
+    ["2026-06-24", 46.1],
+    ["2026-06-25", 137.8], // 1:3 → ×3
+  ];
+  const r = detectLedgerBoundary(series, "2026-06-24", 1 / 3);
+  strictEqual(r.boundary, "2026-06-25");
+});
+
+test("detectLedgerBoundary: organic drift inside the window is NOT mistaken for a small split", () => {
+  // A +12% real move must stay closer to "no split" than to a 4:1 ratio.
+  const series: Array<[string, number]> = [
+    ["2026-06-30", 100],
+    ["2026-07-01", 112],
+  ];
+  const r = detectLedgerBoundary(series, "2026-07-01", 4);
+  strictEqual(r.boundary, null);
+  strictEqual(r.scanned, true);
+});
+
+test("detectLedgerBoundary: non-finite/zero prices are skipped, not matched", () => {
+  const series: Array<[string, number]> = [
+    ["2026-06-30", 100],
+    ["2026-07-01", 0],
+    ["2026-07-02", 25],
+  ];
+  // 100→0 is skipped; 0→25 is skipped (observed 0); nothing detectable.
+  const r = detectLedgerBoundary(series, "2026-07-01", 4);
+  strictEqual(r.boundary, null);
+  strictEqual(r.scanned, true);
 });
 
 // ─── splitFactorForStore ─────────────────────────────────────

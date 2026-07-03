@@ -22,7 +22,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import type { SplitEvent, SplitStore } from "../lib/splits";
+import { detectLedgerBoundary, type SplitEvent, type SplitStore } from "../lib/splits";
 
 const SNAP_DIR = path.resolve(process.cwd(), "data", "snapshots");
 const OUT_FILE = path.resolve(process.cwd(), "data", "splits.json");
@@ -31,14 +31,16 @@ const REQUEST_TIMEOUT_MS = 10_000;
 const CALENDAR_CHUNK_DAYS = 80; // stay under FMP's ~90-day range cap
 const REQUEST_GAP_MS = 300;
 
-// Boundary detection: the observed consecutive-snapshot price ratio must be
-// closer (in log space) to the split ratio than to "no split".
-// Detection window around the FMP date, in calendar days.
-const DETECT_BEFORE_DAYS = 5;
-const DETECT_AFTER_DAYS = 7;
-
 // Tripwire: |move| beyond this without a split on record → loud warning.
 const LOG_JUMP_THRESHOLD = Math.log(1 / 0.6); // ≈ ±40% down / +67% up
+
+// console.warn + a ::warning:: line so GitHub Actions surfaces it as a run
+// annotation instead of burying it in the step log — these warnings are the
+// only signal when the store refuses/misses an event.
+function warnLoudly(message: string): void {
+  console.warn(message);
+  if (process.env.GITHUB_ACTIONS) console.log(`::warning::${message}`);
+}
 
 function getApiKey(): string {
   const key = process.env.FMP_API_KEY;
@@ -86,7 +88,14 @@ async function fetchCalendarChunk(from: string, to: string): Promise<CalendarRow
     );
     if (res?.ok) {
       const json = (await res.json().catch(() => null)) as CalendarRow[] | null;
-      return Array.isArray(json) ? json : [];
+      if (!Array.isArray(json)) {
+        // A 200 with an unexpected body (FMP error-wrapped JSON) is NOT the
+        // same as "no splits this window" — say so instead of silently
+        // returning nothing; the next daily run retries the whole window.
+        warnLoudly(`splits-calendar ${from}→${to}: HTTP 200 but non-array body — treating as empty.`);
+        return [];
+      }
+      return json;
     }
     const retryable = !res || res.status === 429 || res.status >= 500;
     if (!retryable || attempt >= 2) {
@@ -108,40 +117,6 @@ async function fetchSplits(from: string, to: string): Promise<CalendarRow[]> {
     if (chunkFrom <= to) await sleep(REQUEST_GAP_MS);
   }
   return rows;
-}
-
-/**
- * The first snapshot date whose frozen price is on the new basis: scan
- * consecutive snapshot pairs near the FMP date for the price jump matching
- * the split ratio (log-space nearest of "ratio" vs "no split").
- *
- * `scanned: true` with no boundary means the ledger HAD consecutive prices
- * around the date and they show no re-basing — positive evidence the FMP
- * record didn't touch this ledger (e.g. HON's 2026-06-29 "1:2" that never
- * moved the frozen prices). Recording such an event would fabricate the very
- * phantom this store exists to kill, so callers must skip it.
- */
-function detectLedgerBoundary(
-  series: Array<[string, number]>,
-  fmpDate: string,
-  ratio: number
-): { boundary: string | null; scanned: boolean } {
-  const windowLo = addDays(fmpDate, -DETECT_BEFORE_DAYS);
-  const windowHi = addDays(fmpDate, DETECT_AFTER_DAYS);
-  let scanned = false;
-  for (let i = 1; i < series.length; i++) {
-    const [d1, p1] = series[i - 1];
-    const [d2, p2] = series[i];
-    if (d2 < windowLo) continue;
-    if (d1 > windowHi) break;
-    scanned = true;
-    const observed = p1 / p2;
-    if (!(observed > 0) || !Number.isFinite(observed)) continue;
-    if (Math.abs(Math.log(observed / ratio)) < Math.abs(Math.log(observed))) {
-      return { boundary: d2, scanned };
-    }
-  }
-  return { boundary: null, scanned };
 }
 
 async function main() {
@@ -175,7 +150,11 @@ async function main() {
     const ratio = numerator / denominator;
     if (ratio === 1) continue;
 
-    // Already recorded (by fmpDate, or by a boundary matching this event)?
+    // Already recorded? Deliberately checked BEFORE detection so an already-
+    // committed boundary never churns — the cost is that a wrongly recorded
+    // event stays until data/splits.json is edited by hand (it is committed
+    // JSON precisely so such an edit is reviewable). Refused/missed events
+    // are NOT recorded, so they re-evaluate on every run and self-heal.
     const existing = store[symbol] ?? [];
     if (existing.some((e) => e.fmpDate === fmpDate)) continue;
 
@@ -188,9 +167,10 @@ async function main() {
         // The ledger has consecutive frozen prices around the date and they
         // never re-based → the FMP record doesn't apply to this ledger.
         // Recording it would FABRICATE a phantom, so skip loudly.
-        console.warn(
+        warnLoudly(
           `${symbol}: FMP reports ${numerator}:${denominator} @ ${fmpDate} but the ledger ` +
-            `shows no re-basing around it — skipped (nothing to correct).`
+            `shows no re-basing around it — skipped (nothing to correct). If this name is ` +
+            `still in the universe, verify the frozen prices by hand.`
         );
         continue;
       }
@@ -204,7 +184,7 @@ async function main() {
       ledgerDate = dates.find((d) => d >= fmpDate) ?? null;
       if (!ledgerDate) continue; // split newer than the whole ledger — next run
       fallbacks += 1;
-      console.warn(
+      warnLoudly(
         `${symbol}: ${numerator}:${denominator} @ ${fmpDate} — name left the universe around ` +
           `the split; fallback boundary ${ledgerDate} (drives exit-store basis conversion).`
       );
@@ -228,7 +208,7 @@ async function main() {
       const covered = (store[ticker] ?? []).some((e) => e.date === d2);
       if (covered) continue;
       suspicious += 1;
-      console.warn(
+      warnLoudly(
         `TRIPWIRE ${ticker}: ${d1} ${p1} → ${d2} ${p2} is a >40% basis-scale jump with no ` +
           `split on record — possible unrecorded corporate action.`
       );

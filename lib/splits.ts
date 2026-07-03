@@ -100,6 +100,64 @@ export function splitFactorForStore(
   return events ? splitFactor(events, entryDate, exitDate) : 1;
 }
 
+/** [snapshotDate, frozenPrice] pairs, ascending by date. */
+export type PricePoint = readonly [string, number];
+
+export type BoundaryDetection = {
+  /** First snapshot date on the NEW basis, or null when none matches. */
+  boundary: string | null;
+  /**
+   * True when the ledger had at least one consecutive price pair inside the
+   * detection window. `scanned && !boundary` is positive evidence the ledger
+   * never re-based (e.g. an FMP calendar artifact like HON's 2026-06-29
+   * "1:2") — recording such an event would FABRICATE a phantom, so callers
+   * must refuse it. `!scanned` means detection had nothing to look at (name
+   * absent around the date), which is a different, fallback-eligible case.
+   */
+  scanned: boolean;
+};
+
+const addDaysUtc = (date: string, n: number): string =>
+  new Date(new Date(`${date}T00:00:00Z`).getTime() + n * 86_400_000)
+    .toISOString()
+    .split("T")[0];
+
+/**
+ * Finds the ledger basis boundary for a split: scans consecutive snapshot
+ * price pairs in a window around FMP's effective date for the jump matching
+ * the split ratio. A pair matches when its observed ratio is closer in log
+ * space to the split ratio than to 1 ("no split"). The window is asymmetric
+ * because the boundary can precede fmpDate (an as-of rebuilt snapshot froze
+ * adjusted prices a session early) or trail it (weekends/holidays).
+ *
+ * This is the correctness gate for the whole store — a missed detection on a
+ * still-listed name means the phantom survives — so it lives here, exported
+ * and unit-tested, rather than inline in scripts/build-splits.ts.
+ */
+export function detectLedgerBoundary(
+  series: readonly PricePoint[],
+  fmpDate: string,
+  ratio: number,
+  window: { beforeDays?: number; afterDays?: number } = {}
+): BoundaryDetection {
+  const windowLo = addDaysUtc(fmpDate, -(window.beforeDays ?? 5));
+  const windowHi = addDaysUtc(fmpDate, window.afterDays ?? 7);
+  let scanned = false;
+  for (let i = 1; i < series.length; i++) {
+    const [d1, p1] = series[i - 1];
+    const [d2, p2] = series[i];
+    if (d2 < windowLo) continue;
+    if (d1 > windowHi) break;
+    scanned = true;
+    const observed = p1 / p2;
+    if (!(observed > 0) || !Number.isFinite(observed)) continue;
+    if (Math.abs(Math.log(observed / ratio)) < Math.abs(Math.log(observed))) {
+      return { boundary: d2, scanned };
+    }
+  }
+  return { boundary: null, scanned };
+}
+
 /** Reads data/splits.json; missing or corrupt file → empty store. */
 export function loadSplits(): SplitStore {
   try {

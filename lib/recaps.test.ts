@@ -53,3 +53,26 @@ test("analyzeWeek: split factor corrects the phantom and flags the row (#76)", (
   // The phantom must not dominate worstMovers anymore.
   strictEqual(recap.worstMovers.some((r) => r.forwardReturn < -0.5), false);
 });
+
+test("analyzeWeek: extreme return with NO split on record is flagged basisSuspect", () => {
+  // A split the store missed looks exactly like this: −74% raw with f = 1.
+  const start = snapFile([pick("A", 100), pick("X", 400)]);
+  const end = snapFile([pick("A", 105), pick("X", 101)]);
+  const recap = analyzeWeek(start, "2026-06-30", end, "2026-07-03");
+  const x = recap.rows.find((r) => r.ticker === "X")!;
+  strictEqual(x.basisSuspect, true);
+  strictEqual(x.basisAdjusted, undefined);
+  // A modest move is not flagged.
+  strictEqual(recap.rows.find((r) => r.ticker === "A")!.basisSuspect, undefined);
+});
+
+test("analyzeWeek: an adjusted row is not double-flagged as suspect", () => {
+  const start = snapFile([pick("CRWD", 763.14)]);
+  const end = snapFile([pick("CRWD", 193)]);
+  const recap = analyzeWeek(start, "2026-06-30", end, "2026-07-03", {
+    splitFactor: () => 4,
+  });
+  const crwd = recap.rows[0];
+  strictEqual(crwd.basisAdjusted, true);
+  strictEqual(crwd.basisSuspect, undefined);
+});

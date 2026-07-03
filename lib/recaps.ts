@@ -42,7 +42,17 @@ export type RecapRow = {
    * ledger values, so renderers should badge the basis change.
    */
   basisAdjusted?: boolean;
+  /**
+   * Set when the return is extreme (|ret| > BASIS_SUSPECT_THRESHOLD) with NO
+   * split on record — either a genuine outlier move or a corporate action
+   * data/splits.json hasn't caught. Renderers should present it with a
+   * "verify" caveat rather than as a clean best/worst mover.
+   */
+  basisSuspect?: boolean;
 };
+
+/** A weekly move beyond ±50% is possible but rare enough to flag. */
+export const BASIS_SUSPECT_THRESHOLD = 0.5;
 
 export type SignalHitStats = {
   signal: Signal;
@@ -127,6 +137,11 @@ export function analyzeWeek(
       signalCorrect: isSignalCorrect(startPick.signal, forwardReturn),
       signalFlipped: startPick.signal !== endPick.signal,
       ...(f !== 1 ? { basisAdjusted: true } : {}),
+      // Backstop for splits the store missed: an extreme return with no
+      // recorded split is either a real outlier or an uncaught re-basing.
+      ...(f === 1 && Math.abs(forwardReturn) > BASIS_SUSPECT_THRESHOLD
+        ? { basisSuspect: true }
+        : {}),
     });
   }
 

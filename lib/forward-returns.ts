@@ -16,8 +16,11 @@
  *   - Splits are corrected at join time (issue #76): cohorts straddling a
  *     split boundary multiply the exit leg by the ratio from data/splits.json
  *     (lib/splits), so old-basis entries join new-basis exits honestly instead
- *     of printing phantom −74% returns. Winsorization below remains as a
- *     second line of defense against any split the store hasn't caught yet.
+ *     of printing phantom −74% returns. A split the store misses still
+ *     corrupts that name's IC rank (winsorization only clips the quintile
+ *     MEANS, not the ranks); the detection net for misses is the daily
+ *     tripwire in scripts/build-splits.ts, which flags any >40% consecutive-
+ *     snapshot jump that has no split on record.
  *   - Quintile spread (top-score minus bottom-score mean return) uses the MEAN,
  *     so it IS sensitive to outliers. Forward returns are therefore winsorized
  *     to [WINSOR_LO, WINSOR_HI] for the spread. Dividends (a small effect at
