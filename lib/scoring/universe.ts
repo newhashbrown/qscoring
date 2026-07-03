@@ -201,13 +201,107 @@ function buildScreenerUrl(apiKey: string, limit: number): string {
   return url.toString();
 }
 
+// Retry policy for the single screener call. It is the FIRST FMP request of
+// every refresh run, so a transient burst 429 here used to kill the whole run
+// and permanently lose the day's snapshot (2026-07-01, run 28577341746 — the
+// same key succeeded an hour later). The pre-market window has hours of
+// headroom, so waiting out a one-minute rate-limit burst is free insurance.
+export type ScreenerRetryPolicy = {
+  /** Total attempts, including the first. */
+  attempts: number;
+  /** Wait before retry N (1-indexed); the last entry repeats. */
+  backoffMs: readonly number[];
+  /** Per-attempt fetch timeout. */
+  attemptTimeoutMs: number;
+  /** Ceiling on any single wait, including server-sent Retry-After. */
+  maxRetryAfterMs: number;
+};
+
+export const SCREENER_RETRY_DEFAULTS: ScreenerRetryPolicy = {
+  attempts: 4,
+  backoffMs: [30_000, 60_000, 120_000],
+  attemptTimeoutMs: 25_000,
+  maxRetryAfterMs: 180_000,
+};
+
 export type FetchUniverseOptions = {
   maxSize: number;
   minExpected?: number;
   requireSector?: boolean;
   fetchLimit?: number;
+  /** Caller-level abort. Aborting it stops immediately — no further retries. */
   signal?: AbortSignal;
+  /** Overrides for tests. */
+  retry?: Partial<ScreenerRetryPolicy>;
+  fetchImpl?: typeof fetch;
+  sleepImpl?: (ms: number) => Promise<void>;
 };
+
+// Retry-After arrives as delta-seconds on FMP 429s. HTTP-date form is not
+// worth parsing here — an unparseable header just falls back to the backoff.
+function parseRetryAfterMs(header: string | null): number | undefined {
+  if (!header) return undefined;
+  const seconds = Number(header);
+  return Number.isFinite(seconds) && seconds >= 0 ? seconds * 1000 : undefined;
+}
+
+// One screener request per attempt, each with its own timeout; 429/5xx and
+// network errors retry with backoff, other HTTP errors and caller aborts
+// throw immediately.
+async function fetchScreenerWithRetry(
+  url: string,
+  opts: FetchUniverseOptions
+): Promise<Response> {
+  const policy: ScreenerRetryPolicy = { ...SCREENER_RETRY_DEFAULTS, ...opts.retry };
+  const doFetch = opts.fetchImpl ?? fetch;
+  const sleep =
+    opts.sleepImpl ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)));
+
+  let lastFailure = "no attempt made";
+  for (let attempt = 1; attempt <= policy.attempts; attempt++) {
+    if (opts.signal?.aborted) {
+      throw new Error(
+        `Company-screener aborted by caller before attempt ${attempt} (last: ${lastFailure}).`
+      );
+    }
+
+    const ctrl = new AbortController();
+    const onCallerAbort = () => ctrl.abort();
+    opts.signal?.addEventListener("abort", onCallerAbort, { once: true });
+    const timer = setTimeout(() => ctrl.abort(), policy.attemptTimeoutMs);
+
+    let res: Response | undefined;
+    try {
+      res = await doFetch(url, { signal: ctrl.signal });
+    } catch (err) {
+      // A caller abort must not be swallowed into the retry loop.
+      if (opts.signal?.aborted) throw err;
+      lastFailure = `attempt ${attempt}: ${err instanceof Error ? err.message : String(err)}`;
+    } finally {
+      clearTimeout(timer);
+      opts.signal?.removeEventListener("abort", onCallerAbort);
+    }
+
+    if (res) {
+      if (res.ok) return res;
+      const body = await res.text().catch(() => "");
+      lastFailure = `attempt ${attempt}: HTTP ${res.status}: ${body.slice(0, 200)}`;
+      const retryable = res.status === 429 || res.status >= 500;
+      if (!retryable) throw new Error(`Company-screener ${lastFailure}`);
+    }
+
+    if (attempt < policy.attempts) {
+      const base =
+        policy.backoffMs[Math.min(attempt - 1, policy.backoffMs.length - 1)] ?? 0;
+      const retryAfter = res ? parseRetryAfterMs(res.headers.get("retry-after")) : undefined;
+      await sleep(Math.min(Math.max(base, retryAfter ?? 0), policy.maxRetryAfterMs));
+    }
+  }
+
+  throw new Error(
+    `Company-screener failed after ${policy.attempts} attempts — last ${lastFailure}`
+  );
+}
 
 /**
  * Resolve the universe live from FMP's company-screener: fetch → filter → cap,
@@ -225,11 +319,7 @@ export async function fetchUniverse(
   }
 
   const url = buildScreenerUrl(apiKey, opts.fetchLimit ?? SCREENER_FETCH_LIMIT);
-  const res = await fetch(url, opts.signal ? { signal: opts.signal } : undefined);
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Company-screener HTTP ${res.status}: ${body.slice(0, 200)}`);
-  }
+  const res = await fetchScreenerWithRetry(url, opts);
 
   const body = await res.json();
   if (!Array.isArray(body)) {

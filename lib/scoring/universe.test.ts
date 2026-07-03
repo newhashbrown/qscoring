@@ -1,6 +1,12 @@
 import { test } from "node:test";
-import { strictEqual, deepStrictEqual } from "node:assert/strict";
-import { selectUniverse, normalizeSymbol, type ScreenerRow } from "./universe";
+import { strictEqual, deepStrictEqual, rejects, match } from "node:assert/strict";
+import {
+  selectUniverse,
+  normalizeSymbol,
+  fetchUniverse,
+  SCREENER_RETRY_DEFAULTS,
+  type ScreenerRow,
+} from "./universe";
 
 function row(over: Partial<ScreenerRow> = {}): ScreenerRow {
   return {
@@ -102,6 +108,136 @@ test("selectUniverse: rejects malformed tickers", () => {
     { maxSize: 10 }
   );
   deepStrictEqual(u.map((e) => e.symbol), ["GOOD"]);
+});
+
+// ---- fetchUniverse retry behavior ------------------------------------------
+// fetchUniverse makes ONE screener call at the very start of every refresh
+// run. On 2026-07-02 a transient FMP burst 429 on that single unretried call
+// killed the pre-market run and lost the 2026-07-01 snapshot permanently
+// (run 28577341746) — the same key succeeded an hour later. These tests drive
+// the retry loop through injected fetchImpl/sleepImpl so no real network or
+// clock is involved.
+
+process.env.FMP_API_KEY = process.env.FMP_API_KEY || "test-key";
+
+const SCREENER_BODY = [row({ symbol: "AAPL" }), row({ symbol: "MSFT" })];
+
+function jsonResponse(
+  status: number,
+  body: unknown,
+  headers?: Record<string, string>
+): Response {
+  return new Response(JSON.stringify(body), { status, headers });
+}
+
+function scriptedFetch(responses: Array<() => Response | Error>) {
+  const calls: string[] = [];
+  const impl = (async (input: RequestInfo | URL) => {
+    calls.push(String(input));
+    // Past the end of the script, keep replaying the last response.
+    const next = responses[Math.min(calls.length - 1, responses.length - 1)];
+    const out = next();
+    if (out instanceof Error) throw out;
+    return out;
+  }) as typeof fetch;
+  return { impl, calls };
+}
+
+function recordedSleep() {
+  const waits: number[] = [];
+  const sleepImpl = async (ms: number) => {
+    waits.push(ms);
+  };
+  return { waits, sleepImpl };
+}
+
+const RETRY_OPTS = { maxSize: 10, minExpected: 1 } as const;
+
+test("fetchUniverse: retries a burst 429 and succeeds (2026-07-01 snapshot loss)", async () => {
+  const { impl, calls } = scriptedFetch([
+    () => jsonResponse(429, { "Error Message": "Limit Reach ." }),
+    () => jsonResponse(200, SCREENER_BODY),
+  ]);
+  const { waits, sleepImpl } = recordedSleep();
+  const u = await fetchUniverse({ ...RETRY_OPTS, fetchImpl: impl, sleepImpl });
+  deepStrictEqual(u.map((e) => e.symbol).sort(), ["AAPL", "MSFT"]);
+  strictEqual(calls.length, 2);
+  deepStrictEqual(waits, [SCREENER_RETRY_DEFAULTS.backoffMs[0]]);
+});
+
+test("fetchUniverse: retries 5xx and network errors, then succeeds", async () => {
+  const { impl, calls } = scriptedFetch([
+    () => jsonResponse(503, "upstream unavailable"),
+    () => new TypeError("fetch failed"),
+    () => jsonResponse(200, SCREENER_BODY),
+  ]);
+  const { waits, sleepImpl } = recordedSleep();
+  const u = await fetchUniverse({ ...RETRY_OPTS, fetchImpl: impl, sleepImpl });
+  strictEqual(u.length, 2);
+  strictEqual(calls.length, 3);
+  strictEqual(waits.length, 2);
+});
+
+test("fetchUniverse: honors Retry-After when longer than the base backoff", async () => {
+  const { impl } = scriptedFetch([
+    () => jsonResponse(429, {}, { "retry-after": "90" }),
+    () => jsonResponse(200, SCREENER_BODY),
+  ]);
+  const { waits, sleepImpl } = recordedSleep();
+  await fetchUniverse({ ...RETRY_OPTS, fetchImpl: impl, sleepImpl });
+  deepStrictEqual(waits, [90_000]);
+});
+
+test("fetchUniverse: caps Retry-After at maxRetryAfterMs", async () => {
+  const { impl } = scriptedFetch([
+    () => jsonResponse(429, {}, { "retry-after": "3600" }),
+    () => jsonResponse(200, SCREENER_BODY),
+  ]);
+  const { waits, sleepImpl } = recordedSleep();
+  await fetchUniverse({ ...RETRY_OPTS, fetchImpl: impl, sleepImpl });
+  deepStrictEqual(waits, [SCREENER_RETRY_DEFAULTS.maxRetryAfterMs]);
+});
+
+test("fetchUniverse: gives up after the attempt budget and reports the last error", async () => {
+  const { impl, calls } = scriptedFetch([
+    () => jsonResponse(429, { "Error Message": "Limit Reach ." }),
+  ]);
+  const { waits, sleepImpl } = recordedSleep();
+  await rejects(
+    fetchUniverse({ ...RETRY_OPTS, fetchImpl: impl, sleepImpl }),
+    (err: Error) => {
+      match(err.message, /429/);
+      match(err.message, new RegExp(`${SCREENER_RETRY_DEFAULTS.attempts} attempts`));
+      return true;
+    }
+  );
+  strictEqual(calls.length, SCREENER_RETRY_DEFAULTS.attempts);
+  strictEqual(waits.length, SCREENER_RETRY_DEFAULTS.attempts - 1);
+});
+
+test("fetchUniverse: does NOT retry non-retryable client errors (bad key)", async () => {
+  const { impl, calls } = scriptedFetch([
+    () => jsonResponse(401, { "Error Message": "Invalid API KEY." }),
+  ]);
+  const { waits, sleepImpl } = recordedSleep();
+  await rejects(
+    fetchUniverse({ ...RETRY_OPTS, fetchImpl: impl, sleepImpl }),
+    /401/
+  );
+  strictEqual(calls.length, 1);
+  strictEqual(waits.length, 0);
+});
+
+test("fetchUniverse: a caller abort is not retried", async () => {
+  const ctrl = new AbortController();
+  ctrl.abort();
+  const { impl, calls } = scriptedFetch([() => jsonResponse(200, SCREENER_BODY)]);
+  const { waits, sleepImpl } = recordedSleep();
+  await rejects(
+    fetchUniverse({ ...RETRY_OPTS, signal: ctrl.signal, fetchImpl: impl, sleepImpl })
+  );
+  strictEqual(calls.length, 0);
+  strictEqual(waits.length, 0);
 });
 
 test("selectUniverse: keeps real REITs and '…Trust' equities (no name heuristic)", () => {
