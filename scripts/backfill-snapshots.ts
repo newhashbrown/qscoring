@@ -24,6 +24,14 @@ const DRY_RUN = process.argv.includes("--dry-run");
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}\.json$/;
 
+// qscoring.com rate-limits /api/cron/persist-snapshot, so back-to-back POSTs
+// bounce off Cloudflare with 429 HTML pages. Pace between snapshots and retry
+// 429/5xx with backoff (same shape as rebuild-snapshot-asof.ts).
+const PACE_MS = 2_500;
+const RETRY_BACKOFF_MS = [5_000, 15_000, 30_000];
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
 // Same shape build-strong-picks.ts writes — only the fields we need.
 type SnapshotFile = {
   generatedAt: string;
@@ -42,15 +50,8 @@ type SnapshotFile = {
   }>;
 };
 
-async function postSnapshot(snapshotDate: string, file: SnapshotFile): Promise<void> {
+async function postOnce(snapshotDate: string, body: string): Promise<void> {
   const url = `${BASE}/api/cron/persist-snapshot`;
-  const body = JSON.stringify({ snapshotDate, picks: file.picks });
-
-  if (DRY_RUN) {
-    console.log(`[dry-run] ${snapshotDate}: ${file.picks.length} picks → ${url}`);
-    return;
-  }
-
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 25_000);
   try {
@@ -65,11 +66,39 @@ async function postSnapshot(snapshotDate: string, file: SnapshotFile): Promise<v
     });
     const text = await res.text();
     if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${text.slice(0, 300)}`);
+      const err = new Error(`HTTP ${res.status}: ${text.slice(0, 120)}`);
+      (err as Error & { retryable?: boolean }).retryable = res.status === 429 || res.status >= 500;
+      throw err;
     }
     console.log(`${snapshotDate}: ${text}`);
   } finally {
     clearTimeout(timer);
+  }
+}
+
+async function postSnapshot(snapshotDate: string, file: SnapshotFile): Promise<void> {
+  if (DRY_RUN) {
+    console.log(
+      `[dry-run] ${snapshotDate}: ${file.picks.length} picks → ${BASE}/api/cron/persist-snapshot`,
+    );
+    return;
+  }
+
+  const body = JSON.stringify({ snapshotDate, picks: file.picks });
+  for (let attempt = 0; ; attempt++) {
+    try {
+      await postOnce(snapshotDate, body);
+      return;
+    } catch (err) {
+      const retryable = err instanceof Error && (err as Error & { retryable?: boolean }).retryable;
+      const isTimeout = err instanceof Error && err.name === "AbortError";
+      if ((!retryable && !isTimeout) || attempt >= RETRY_BACKOFF_MS.length) throw err;
+      const wait = RETRY_BACKOFF_MS[attempt];
+      console.warn(
+        `${snapshotDate}: attempt ${attempt + 1} failed (${err instanceof Error ? err.message : err}) — retrying in ${wait / 1000}s`,
+      );
+      await sleep(wait);
+    }
   }
 }
 
@@ -99,8 +128,10 @@ async function main(): Promise<void> {
 
   let ok = 0;
   let failed = 0;
+  let sentAny = false;
   for (const name of files) {
     const snapshotDate = name.replace(/\.json$/, "");
+    if (sentAny && !DRY_RUN) await sleep(PACE_MS);
     const raw = fs.readFileSync(path.join(dir, name), "utf-8");
     let parsed: SnapshotFile;
     try {
@@ -116,6 +147,7 @@ async function main(): Promise<void> {
       continue;
     }
     try {
+      sentAny = true;
       await postSnapshot(snapshotDate, parsed);
       ok++;
     } catch (err) {
