@@ -28,6 +28,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import { tradingDaysBetween } from "../lib/performance";
 import { looksLikeFundOrEtf } from "../lib/scoring/universe";
+import { toLedgerBasisFactor, loadSplits } from "../lib/splits";
 
 const SNAP_DIR = path.resolve(process.cwd(), "data", "snapshots");
 const OUT_FILE = path.resolve(process.cwd(), "data", "exit-prices.json");
@@ -146,16 +147,23 @@ async function main() {
     }
   }
 
+  // FMP returns split-ADJUSTED history: a bar for end-date E fetched after a
+  // later split is on the newest basis, not the basis E traded on — which
+  // would silently re-base already-correct store rows on every daily rebuild.
+  // Multiply back by the ratio of every split after E (issue #76).
+  const splits = loadSplits();
+
   const tickers = [...needed.keys()].sort();
   let filled = 0;
   let missing = 0;
   console.log(`Resolving exit prices for ${tickers.length} exited tickers across ${dates.length} snapshots…`);
   for (const ticker of tickers) {
     const closes = await eodClosesByDate(ticker);
+    const events = splits[ticker] ?? [];
     for (const end of needed.get(ticker)!) {
       const close = closes.get(end);
       if (close !== undefined) {
-        (store[end] ??= {})[ticker] = close;
+        (store[end] ??= {})[ticker] = close * toLedgerBasisFactor(events, end);
         filled += 1;
       } else {
         missing += 1; // no bar on `end` — delisted before then, or a data gap (Phase B)

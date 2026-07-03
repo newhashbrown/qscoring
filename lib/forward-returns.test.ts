@@ -157,6 +157,76 @@ test("cohortStats: winsorizes extreme returns in the quintile spread (split prot
   strictEqual(approx(cs.spread, 1.5), true);
 });
 
+test("cohortStats: split factor converts an old-basis entry to an honest return (#76)", () => {
+  // "S" split 4:1 between the snapshots: entry froze 400 (old basis), end
+  // snapshot carries 101 (new basis). Raw join → −74.75% phantom that would
+  // falsely rank the top-score name worst; with the factor it's +1%.
+  const start = snap("2026-06-30", [
+    pick("A", 100, 10),
+    pick("B", 100, 20),
+    pick("C", 100, 30),
+    pick("D", 100, 40),
+    pick("S", 400, 50),
+  ]);
+  const end = snap("2026-07-03", [
+    pick("A", 100, 10), // 0.00
+    pick("B", 100.2, 20), // ~0.002
+    pick("C", 100.4, 30), // ~0.004
+    pick("D", 100.6, 40), // ~0.006
+    pick("S", 101, 50), // raw −0.7475; adjusted +0.01
+  ]);
+  const splitFactor = (ticker: string) => (ticker === "S" ? 4 : 1);
+
+  const phantom = cohortStats(start, end, "composite", { minN: 0 })!;
+  strictEqual(phantom.ic < 0.5, true); // S falsely dragged to worst rank kills the IC
+
+  const cs = cohortStats(start, end, "composite", { minN: 0, splitFactor })!;
+  strictEqual(approx(cs.ic, 1), true); // monotonic again
+  // top quintile (S, +0.01) − bottom (A, 0.00)
+  strictEqual(approx(cs.spread, 0.01), true);
+});
+
+test("cohortStats: split factor also applies to exit-price-store exits", () => {
+  const start = snap("2026-06-30", [
+    pick("A", 100, 10),
+    pick("B", 100, 20),
+    pick("C", 100, 30),
+    pick("D", 100, 40),
+    pick("S", 400, 50),
+  ]);
+  const end = snap("2026-07-03", [
+    pick("A", 105, 10),
+    pick("B", 110, 20),
+    pick("C", 115, 30),
+    pick("D", 120, 40),
+    // S left the universe; its end-date close (new basis) is in the store.
+  ]);
+  const exitPrices = new Map<string, number>([["S", 101]]);
+  const splitFactor = (ticker: string) => (ticker === "S" ? 4 : 1);
+  const cs = cohortStats(start, end, "composite", { minN: 0, exitPrices, splitFactor })!;
+  strictEqual(cs.n, 5);
+  // top quintile (S, 101·4/400−1 = +0.01) − bottom (A, +0.05) = −0.04
+  strictEqual(approx(cs.spread, -0.04), true);
+});
+
+test("computeHorizonResults: splitFactorFor is applied per cohort window", () => {
+  const { dates, load, today } = syntheticFixture();
+  // A factor of 1 for every ticker must reproduce the unadjusted results.
+  const plain = computeHorizonResults(dates, load, today, "composite");
+  const wired = computeHorizonResults(
+    dates,
+    load,
+    today,
+    "composite",
+    () => new Map<string, number>(),
+    () => () => 1
+  );
+  const a = plain.find((r) => r.label === "1-month")!;
+  const b = wired.find((r) => r.label === "1-month")!;
+  strictEqual(a.cohortCount, b.cohortCount);
+  strictEqual(approx(b.meanIC ?? NaN, a.meanIC ?? NaN), true);
+});
+
 test("cohortStats: below minimum sample size → null", () => {
   const start = snap("2026-05-01", [pick("A", 100, 10), pick("B", 100, 20)]);
   const end = snap("2026-06-01", [pick("A", 110, 10), pick("B", 110, 20)]);

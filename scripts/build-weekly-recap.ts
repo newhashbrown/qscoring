@@ -15,6 +15,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { analyzeWeek, type SnapshotFile } from "../lib/recaps";
+import { loadSplits, splitFactorForStore } from "../lib/splits";
 
 const ROOT = process.cwd();
 const SNAPSHOTS_DIR = path.resolve(ROOT, "data", "snapshots");
@@ -90,7 +91,12 @@ function main() {
   console.log(
     `Building recap: ${startDate} → ${endDate} (${start.picks.length} → ${end.picks.length} tickers)`
   );
-  const recap = analyzeWeek(start, startDate, end, endDate);
+  // Split-basis correction (#76): a week straddling a split boundary must not
+  // print a phantom "worst mover" from an old-basis entry vs new-basis exit.
+  const splits = loadSplits();
+  const recap = analyzeWeek(start, startDate, end, endDate, {
+    splitFactor: (ticker) => splitFactorForStore(splits, ticker, startDate, endDate),
+  });
 
   if (!fs.existsSync(RECAPS_DIR)) {
     fs.mkdirSync(RECAPS_DIR, { recursive: true });

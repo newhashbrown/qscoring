@@ -36,7 +36,23 @@ export type RecapRow = {
   signalCorrect: boolean | null;
   /** Did the signal flip during the week? */
   signalFlipped: boolean;
+  /**
+   * Set when a split between the snapshots re-based the price and the return
+   * was corrected for it (issue #76) — startPrice/endPrice remain the frozen
+   * ledger values, so renderers should badge the basis change.
+   */
+  basisAdjusted?: boolean;
+  /**
+   * Set when the return is extreme (|ret| > BASIS_SUSPECT_THRESHOLD) with NO
+   * split on record — either a genuine outlier move or a corporate action
+   * data/splits.json hasn't caught. Renderers should present it with a
+   * "verify" caveat rather than as a clean best/worst mover.
+   */
+  basisSuspect?: boolean;
 };
+
+/** A weekly move beyond ±50% is possible but rare enough to flag. */
+export const BASIS_SUSPECT_THRESHOLD = 0.5;
 
 export type SignalHitStats = {
   signal: Signal;
@@ -87,7 +103,14 @@ export function analyzeWeek(
   startSnap: SnapshotFile,
   startDate: string,
   endSnap: SnapshotFile,
-  endDate: string
+  endDate: string,
+  opts: {
+    /**
+     * Split-basis correction (issue #76): factor converting this ticker's
+     * old-basis entry price to the end snapshot's basis. Defaults to 1.
+     */
+    splitFactor?: (ticker: string) => number;
+  } = {}
 ): WeeklyRecap {
   // Index the end snapshot by ticker for O(1) lookup
   const endByTicker = new Map(endSnap.picks.map((p) => [p.ticker, p]));
@@ -99,7 +122,8 @@ export function analyzeWeek(
     if (!Number.isFinite(startPick.price) || startPick.price <= 0) continue;
     if (!Number.isFinite(endPick.price)) continue;
 
-    const forwardReturn = (endPick.price - startPick.price) / startPick.price;
+    const f = opts.splitFactor?.(startPick.ticker) ?? 1;
+    const forwardReturn = (endPick.price * f - startPick.price) / startPick.price;
     rows.push({
       ticker: startPick.ticker,
       companyName: startPick.companyName,
@@ -112,6 +136,12 @@ export function analyzeWeek(
       forwardReturn,
       signalCorrect: isSignalCorrect(startPick.signal, forwardReturn),
       signalFlipped: startPick.signal !== endPick.signal,
+      ...(f !== 1 ? { basisAdjusted: true } : {}),
+      // Backstop for splits the store missed: an extreme return with no
+      // recorded split is either a real outlier or an uncaught re-basing.
+      ...(f === 1 && Math.abs(forwardReturn) > BASIS_SUSPECT_THRESHOLD
+        ? { basisSuspect: true }
+        : {}),
     });
   }
 
