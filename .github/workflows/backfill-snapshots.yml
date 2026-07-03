@@ -1,0 +1,40 @@
+name: Backfill snapshots to D1
+
+# Manual re-sync of data/snapshots/*.json into D1 via /api/cron/persist-
+# snapshot — the same endpoint the daily build uses. Runs here (not locally)
+# because SNAPSHOT_CRON_TOKEN lives only in the Actions/Cloudflare secret
+# stores. The endpoint upserts on (ticker, snapshot_date), so re-syncing
+# already-persisted days is a harmless no-op. First use: pushing the
+# deliberately rebuilt 2026-07-01 snapshot (PR #75) into D1.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Print what would be synced without POSTing'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Re-sync data/snapshots into D1
+        env:
+          QSCORING_BASE: https://qscoring.com
+          SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
+        run: npx tsx scripts/backfill-snapshots.ts ${{ inputs.dry_run && '--dry-run' || '' }}
