@@ -12,11 +12,16 @@
  * Method notes / known limitations (surfaced honestly on the page):
  *   - IC is the cross-sectional Spearman rank correlation of score vs forward
  *     return, computed per start-snapshot ("cohort") and averaged. Rank-based,
- *     so robust to return outliers (splits, dividends).
+ *     so robust to return outliers.
+ *   - Splits are corrected at join time (issue #76): cohorts straddling a
+ *     split boundary multiply the exit leg by the ratio from data/splits.json
+ *     (lib/splits), so old-basis entries join new-basis exits honestly instead
+ *     of printing phantom −74% returns. Winsorization below remains as a
+ *     second line of defense against any split the store hasn't caught yet.
  *   - Quintile spread (top-score minus bottom-score mean return) uses the MEAN,
  *     so it IS sensitive to outliers. Forward returns are therefore winsorized
- *     to [WINSOR_LO, WINSOR_HI] for the spread to neutralize split-driven fake
- *     prints. Dividends (a small effect at these horizons) are not adjusted.
+ *     to [WINSOR_LO, WINSOR_HI] for the spread. Dividends (a small effect at
+ *     these horizons) are not adjusted.
  *   - Cohorts overlap heavily while data is thin; `independentWindows` reports
  *     how many non-overlapping horizons actually fit, and `preliminary` is set
  *     when fewer than two do, so the page never implies false significance.
@@ -27,6 +32,7 @@
 
 import fs from "node:fs";
 import { spearman } from "@/lib/scoring/rank-correlation";
+import { loadSplits, splitFactorForStore } from "@/lib/splits";
 import {
   HORIZONS,
   listSnapshotDates,
@@ -118,7 +124,16 @@ export function cohortStats(
   start: SnapLike,
   end: SnapLike,
   scoreKey: ScoreKey,
-  opts: { minN?: number; exitPrices?: ReadonlyMap<string, number> } = {}
+  opts: {
+    minN?: number;
+    exitPrices?: ReadonlyMap<string, number>;
+    /**
+     * Split-basis correction (issue #76): factor converting this ticker's
+     * old-basis entry price to the exit's basis. Honest return =
+     * (exit · factor) / entry − 1. Defaults to 1 (no split in the window).
+     */
+    splitFactor?: (ticker: string) => number;
+  } = {}
 ): CohortStats | null {
   const minN = opts.minN ?? MIN_COHORT_N;
   const endPrice = new Map<string, number>();
@@ -136,7 +151,8 @@ export function cohortStats(
     if (!(p.price > 0) || !Number.isFinite(ep)) continue;
     const score = p[scoreKey];
     if (!Number.isFinite(score)) continue;
-    joined.push({ score, ret: ep / p.price - 1 });
+    const f = opts.splitFactor?.(p.ticker) ?? 1;
+    joined.push({ score, ret: (ep * f) / p.price - 1 });
   }
 
   if (joined.length < minN) return null;
@@ -182,7 +198,8 @@ export function computeHorizonResults(
   today: string,
   scoreKey: ScoreKey = "composite",
   exitPricesFor: (endDate: string) => ReadonlyMap<string, number> = () =>
-    EMPTY_EXIT_PRICES
+    EMPTY_EXIT_PRICES,
+  splitFactorFor?: (startDate: string, endDate: string) => (ticker: string) => number
 ): HorizonResult[] {
   return HORIZONS.map((h) => {
     const cohorts: CohortStats[] = [];
@@ -194,6 +211,7 @@ export function computeHorizonResults(
       if (!start || !end) continue;
       const cs = cohortStats(start, end, scoreKey, {
         exitPrices: exitPricesFor(endDate),
+        splitFactor: splitFactorFor?.(dates[i], endDate),
       });
       if (cs) cohorts.push(cs);
     }
@@ -238,11 +256,19 @@ export function summarizeForwardReturns(
   );
   const exitPricesFor = (endDate: string): ReadonlyMap<string, number> =>
     exitMaps.get(endDate) ?? EMPTY_EXIT_PRICES;
+  // Split-basis correction (#76): a cohort straddling a split boundary joins
+  // an old-basis entry to a new-basis exit; the factor makes the join honest.
+  const splits = loadSplits();
+  const splitFactorFor =
+    (startDate: string, endDate: string) =>
+    (ticker: string): number =>
+      splitFactorForStore(splits, ticker, startDate, endDate);
   return computeHorizonResults(
     dates,
     (date) => loadSnapshot(date) as SnapLike | null,
     today,
     scoreKey,
-    exitPricesFor
+    exitPricesFor,
+    splitFactorFor
   );
 }

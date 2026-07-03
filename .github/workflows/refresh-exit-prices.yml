@@ -33,6 +33,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Splits FIRST: build-exit-prices converts fetched adjusted closes to
+      # each end date's ledger basis using data/splits.json (issue #76), so the
+      # store must already know about any split effective today.
+      - name: Build splits store
+        run: npx tsx scripts/build-splits.ts
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+
       - name: Build exit-prices store
         run: npx tsx scripts/build-exit-prices.ts
         env:
@@ -41,7 +49,7 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git add data/exit-prices.json
+          git add data/splits.json data/exit-prices.json
           if git diff --staged --quiet; then
             echo "Exit-prices store unchanged — nothing to commit."
             exit 0

@@ -36,6 +36,12 @@ export type RecapRow = {
   signalCorrect: boolean | null;
   /** Did the signal flip during the week? */
   signalFlipped: boolean;
+  /**
+   * Set when a split between the snapshots re-based the price and the return
+   * was corrected for it (issue #76) — startPrice/endPrice remain the frozen
+   * ledger values, so renderers should badge the basis change.
+   */
+  basisAdjusted?: boolean;
 };
 
 export type SignalHitStats = {
@@ -87,7 +93,14 @@ export function analyzeWeek(
   startSnap: SnapshotFile,
   startDate: string,
   endSnap: SnapshotFile,
-  endDate: string
+  endDate: string,
+  opts: {
+    /**
+     * Split-basis correction (issue #76): factor converting this ticker's
+     * old-basis entry price to the end snapshot's basis. Defaults to 1.
+     */
+    splitFactor?: (ticker: string) => number;
+  } = {}
 ): WeeklyRecap {
   // Index the end snapshot by ticker for O(1) lookup
   const endByTicker = new Map(endSnap.picks.map((p) => [p.ticker, p]));
@@ -99,7 +112,8 @@ export function analyzeWeek(
     if (!Number.isFinite(startPick.price) || startPick.price <= 0) continue;
     if (!Number.isFinite(endPick.price)) continue;
 
-    const forwardReturn = (endPick.price - startPick.price) / startPick.price;
+    const f = opts.splitFactor?.(startPick.ticker) ?? 1;
+    const forwardReturn = (endPick.price * f - startPick.price) / startPick.price;
     rows.push({
       ticker: startPick.ticker,
       companyName: startPick.companyName,
@@ -112,6 +126,7 @@ export function analyzeWeek(
       forwardReturn,
       signalCorrect: isSignalCorrect(startPick.signal, forwardReturn),
       signalFlipped: startPick.signal !== endPick.signal,
+      ...(f !== 1 ? { basisAdjusted: true } : {}),
     });
   }
 

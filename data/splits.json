@@ -1,0 +1,42 @@
+{
+  "CRWD": [
+    {
+      "date": "2026-07-01",
+      "numerator": 4,
+      "denominator": 1,
+      "fmpDate": "2026-07-02"
+    }
+  ],
+  "DD": [
+    {
+      "date": "2026-06-25",
+      "numerator": 1,
+      "denominator": 3,
+      "fmpDate": "2026-06-24"
+    }
+  ],
+  "FDX": [
+    {
+      "date": "2026-06-02",
+      "numerator": 1241,
+      "denominator": 1000,
+      "fmpDate": "2026-06-01"
+    }
+  ],
+  "KLAC": [
+    {
+      "date": "2026-06-12",
+      "numerator": 10,
+      "denominator": 1,
+      "fmpDate": "2026-06-12"
+    }
+  ],
+  "MLI": [
+    {
+      "date": "2026-07-01",
+      "numerator": 2,
+      "denominator": 1,
+      "fmpDate": "2026-07-01"
+    }
+  ]
+}
