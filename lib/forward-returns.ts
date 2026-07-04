@@ -28,14 +28,17 @@
  *   - Cohorts overlap heavily while data is thin; `independentWindows` reports
  *     how many non-overlapping horizons actually fit, and `preliminary` is set
  *     when fewer than two do, so the page never implies false significance.
- *   - Inner-joining on ticker drops names present at the start but gone by the
- *     end (delisted / removed from universe), which biases IC slightly upward
- *     (survivorship). Minor at monthly horizons; noted for completeness.
+ *   - Survivorship (issue #60): names that left the universe but kept trading
+ *     join at their real close from data/exit-prices.json (Phase A); names
+ *     whose history STOPPED (acquisition, bankruptcy) join at their last
+ *     settled close carried forward from data/terminal-values.json (Phase B).
+ *     Only a name with no verified price anywhere is skipped — never guessed.
  */
 
 import fs from "node:fs";
 import { spearman } from "@/lib/scoring/rank-correlation";
 import { loadSplits, splitFactorForStore } from "@/lib/splits";
+import { exitPricesWithTerminals, loadTerminalValues } from "@/lib/terminal-values";
 import {
   HORIZONS,
   listSnapshotDates,
@@ -145,10 +148,10 @@ export function cohortStats(
   const joined: Array<{ score: number; ret: number }> = [];
   for (const p of start.picks) {
     // End price from the end snapshot — or, for a name that LEFT the universe
-    // by the end date, its real settled close on that date from the exit-price
-    // store. Including these removes the survivorship drop (issue #60). A name
-    // with no end price anywhere (e.g. a true delisting not yet backfilled —
-    // Phase B) is still skipped.
+    // by the end date, from opts.exitPrices: its real close on that date
+    // (exit-price store, #60 Phase A) or its carried-forward terminal value
+    // for hard delistings (terminal-values store, #60 Phase B — merged in by
+    // the caller). Only a name with no verified price anywhere is skipped.
     const ep = endPrice.get(p.ticker) ?? opts.exitPrices?.get(p.ticker);
     if (ep === undefined) continue;
     if (!(p.price > 0) || !Number.isFinite(ep)) continue;
@@ -257,8 +260,16 @@ export function summarizeForwardReturns(
       new Map(Object.entries(byTicker)),
     ])
   );
+  // Hard delistings (#60 Phase B): names whose history STOPPED (acquisition,
+  // bankruptcy) get their last settled close carried forward, so cohorts
+  // measure them at their real terminal return instead of dropping them.
+  const terminals = loadTerminalValues();
   const exitPricesFor = (endDate: string): ReadonlyMap<string, number> =>
-    exitMaps.get(endDate) ?? EMPTY_EXIT_PRICES;
+    exitPricesWithTerminals(
+      exitMaps.get(endDate) ?? EMPTY_EXIT_PRICES,
+      terminals,
+      endDate
+    );
   // Split-basis correction (#76): a cohort straddling a split boundary joins
   // an old-basis entry to a new-basis exit; the factor makes the join honest.
   const splits = loadSplits();
