@@ -49,7 +49,7 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git add data/splits.json data/exit-prices.json
+          git add data/splits.json data/exit-prices.json data/terminal-values.json
           if git diff --staged --quiet; then
             echo "Exit-prices store unchanged — nothing to commit."
             exit 0
