@@ -70,9 +70,18 @@ function main() {
     process.exit(0);
   }
 
-  const endDate = dates[dates.length - 1];
+  // Default: recap the latest snapshot. `--end YYYY-MM-DD` rebuilds a specific
+  // historical week in place (e.g. to re-emit it with split-basis correction).
+  const endArgIdx = process.argv.indexOf("--end");
+  const endOverride = endArgIdx >= 0 ? process.argv[endArgIdx + 1] : undefined;
+  if (endOverride && !dates.includes(endOverride)) {
+    console.error(`--end ${endOverride} has no snapshot in data/snapshots.`);
+    process.exit(1);
+  }
+  const endDate = endOverride ?? dates[dates.length - 1];
+  const priorDates = dates.filter((d) => d < endDate);
   const startTarget = dateMinusDays(endDate, TARGET_GAP_DAYS);
-  const startDate = findClosestPriorSnapshot(startTarget, dates.slice(0, -1));
+  const startDate = findClosestPriorSnapshot(startTarget, priorDates);
 
   if (!startDate) {
     console.error(

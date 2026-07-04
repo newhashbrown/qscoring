@@ -2447,9 +2447,10 @@
       "endComposite": 55,
       "startPrice": 1929.2,
       "endPrice": 254.54,
-      "forwardReturn": -0.8680592991913747,
+      "forwardReturn": 0.3194070080862534,
       "signalCorrect": null,
-      "signalFlipped": false
+      "signalFlipped": false,
+      "basisAdjusted": true
     },
     {
       "ticker": "KMB",
@@ -4858,6 +4859,20 @@
   "endUniverseAvg": 50.77875,
   "bestMovers": [
     {
+      "ticker": "KLAC",
+      "companyName": "KLA Corporation",
+      "startSignal": "HOLD",
+      "startComposite": 53,
+      "endSignal": "HOLD",
+      "endComposite": 55,
+      "startPrice": 1929.2,
+      "endPrice": 254.54,
+      "forwardReturn": 0.3194070080862534,
+      "signalCorrect": null,
+      "signalFlipped": false,
+      "basisAdjusted": true
+    },
+    {
       "ticker": "SNDK",
       "companyName": "Sandisk Corporation",
       "startSignal": "HOLD",
@@ -4908,35 +4923,9 @@
       "forwardReturn": 0.2094763914534425,
       "signalCorrect": null,
       "signalFlipped": false
-    },
-    {
-      "ticker": "CASY",
-      "companyName": "Casey's General Stores, Inc.",
-      "startSignal": "HOLD",
-      "startComposite": 54,
-      "endSignal": "HOLD",
-      "endComposite": 53,
-      "startPrice": 759.4431,
-      "endPrice": 895.14,
-      "forwardReturn": 0.17867948237333386,
-      "signalCorrect": null,
-      "signalFlipped": false
     }
   ],
   "worstMovers": [
-    {
-      "ticker": "KLAC",
-      "companyName": "KLA Corporation",
-      "startSignal": "HOLD",
-      "startComposite": 53,
-      "endSignal": "HOLD",
-      "endComposite": 55,
-      "startPrice": 1929.2,
-      "endPrice": 254.54,
-      "forwardReturn": -0.8680592991913747,
-      "signalCorrect": null,
-      "signalFlipped": false
-    },
     {
       "ticker": "ADBE",
       "companyName": "Adobe Inc.",
@@ -4987,6 +4976,19 @@
       "endPrice": 82.41,
       "forwardReturn": -0.12765957446808512,
       "signalCorrect": true,
+      "signalFlipped": false
+    },
+    {
+      "ticker": "APP",
+      "companyName": "AppLovin Corporation",
+      "startSignal": "HOLD",
+      "startComposite": 51,
+      "endSignal": "HOLD",
+      "endComposite": 52,
+      "startPrice": 557.2,
+      "endPrice": 496.77,
+      "forwardReturn": -0.1084529791816225,
+      "signalCorrect": null,
       "signalFlipped": false
     }
   ],

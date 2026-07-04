@@ -3330,6 +3330,31 @@ footer .footer-links .sep {
 .recap-page .recap-hits td.flat,
 .recap-page .recap-mover-return.flat { color: var(--text-muted); }
 
+/* Basis provenance badges (issue #76): split-corrected / verify-manually */
+.recap-page .basis-badge {
+  display: inline-block;
+  margin-left: 0.45em;
+  padding: 0.1em 0.45em;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-size: 0.62em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 0.15em;
+  cursor: help;
+}
+.recap-page .basis-badge.adjusted {
+  color: var(--gold-bright);
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-soft);
+}
+.recap-page .basis-badge.suspect {
+  color: var(--red);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
 .recap-page .recap-note {
   margin-top: 14px;
   padding: 12px 16px;

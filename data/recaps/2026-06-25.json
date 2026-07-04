@@ -2551,9 +2551,10 @@
       "endComposite": 50,
       "startPrice": 47.69,
       "endPrice": 137.8,
-      "forwardReturn": 1.8894946529670795,
+      "forwardReturn": -0.03683511567764019,
       "signalCorrect": null,
-      "signalFlipped": false
+      "signalFlipped": false,
+      "basisAdjusted": true
     },
     {
       "ticker": "DDOG",
@@ -10097,19 +10098,6 @@
   "endUniverseAvg": 50.7125,
   "bestMovers": [
     {
-      "ticker": "DD",
-      "companyName": "DuPont de Nemours, Inc.",
-      "startSignal": "HOLD",
-      "startComposite": 50,
-      "endSignal": "HOLD",
-      "endComposite": 50,
-      "startPrice": 47.69,
-      "endPrice": 137.8,
-      "forwardReturn": 1.8894946529670795,
-      "signalCorrect": null,
-      "signalFlipped": false
-    },
-    {
       "ticker": "GLW",
       "companyName": "Corning Incorporated",
       "startSignal": "HOLD",
@@ -10158,6 +10146,19 @@
       "startPrice": 100,
       "endPrice": 113.53,
       "forwardReturn": 0.1353,
+      "signalCorrect": null,
+      "signalFlipped": false
+    },
+    {
+      "ticker": "AYI",
+      "companyName": "Acuity Brands, Inc.",
+      "startSignal": "HOLD",
+      "startComposite": 54,
+      "endSignal": "HOLD",
+      "endComposite": 54,
+      "startPrice": 317.28,
+      "endPrice": 359.39,
+      "forwardReturn": 0.1327218860312658,
       "signalCorrect": null,
       "signalFlipped": false
     }
