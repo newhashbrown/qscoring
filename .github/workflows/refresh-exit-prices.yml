@@ -1,9 +1,12 @@
 name: Refresh exit prices
 
-# Rebuilds data/exit-prices.json — the survivorship-correction store the
-# forward-return engine consumes (issue #60). For each clean full-universe
-# snapshot it records the settled close of names that left the universe, so
-# /performance's IC includes them instead of survivorship-dropping them.
+# Rebuilds the survivorship-correction stores the forward-return engine
+# consumes (issue #60): data/exit-prices.json (Phase A — settled closes of
+# names that left the universe but kept trading) and
+# data/terminal-values.json (Phase B — last settled close of confirmed hard
+# delistings, carried forward), plus data/splits.json (issue #76 — split
+# events, built FIRST so both price stores land on the right basis). With
+# these, /performance's IC includes exited names instead of dropping them.
 #
 # Runs AFTER the morning snapshot build (refresh-strong-picks, 09:30 UTC) so it
 # sees the latest snapshot. The store is rebuilt in full each run (idempotent),

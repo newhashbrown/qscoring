@@ -48,6 +48,41 @@ export function loadTerminalValues(): TerminalStore {
 }
 
 /**
+ * How the exit-price builder should treat one (ticker, endDate) pair. This is
+ * the correctness gate for terminal creation — whether a value is fabricated
+ * or a real delisting goes unrecorded is decided here — so it lives here,
+ * exported and unit-tested, rather than inline in build-exit-prices.ts (same
+ * precedent as detectLedgerBoundary in lib/splits.ts).
+ *
+ *  - "fill":               a real bar exists on the end date (Phase A row).
+ *  - "covered-by-terminal": a terminal is already on record for the ticker.
+ *  - "terminal-candidate":  history stops before the end date — record a
+ *                           terminal IF an independent delisting confirmation
+ *                           passes (the caller's job; fail-closed).
+ *  - "gap":                 bars exist after the end date but not on it (or
+ *                           no bars at all) — transient data hole; leave
+ *                           unresolved, retry next run, never fabricate.
+ */
+export type ExitPairClassification =
+  | "fill"
+  | "covered-by-terminal"
+  | "terminal-candidate"
+  | "gap";
+
+export function classifyExitPair(opts: {
+  hasBarOnEnd: boolean;
+  /** Most recent bar date in the ticker's fetched history, if any. */
+  lastBarDate: string | undefined;
+  endDate: string;
+  hasRecordedTerminal: boolean;
+}): ExitPairClassification {
+  if (opts.hasBarOnEnd) return "fill";
+  if (opts.hasRecordedTerminal) return "covered-by-terminal";
+  if (opts.lastBarDate && opts.lastBarDate < opts.endDate) return "terminal-candidate";
+  return "gap";
+}
+
+/**
  * The exit-price map for one cohort end date, extended with every terminal
  * value that applies (lastBarDate ≤ endDate). A real exit-price row — an
  * actual bar ON the end date — always wins over a carried-forward terminal.

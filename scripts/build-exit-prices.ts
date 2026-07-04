@@ -32,7 +32,7 @@ import * as path from "node:path";
 import { tradingDaysBetween } from "../lib/performance";
 import { looksLikeFundOrEtf } from "../lib/scoring/universe";
 import { toLedgerBasisFactor, loadSplits } from "../lib/splits";
-import type { TerminalStore } from "../lib/terminal-values";
+import { classifyExitPair, type TerminalStore } from "../lib/terminal-values";
 
 const SNAP_DIR = path.resolve(process.cwd(), "data", "snapshots");
 const OUT_FILE = path.resolve(process.cwd(), "data", "exit-prices.json");
@@ -91,6 +91,13 @@ async function eodClosesByDate(symbol: string): Promise<Map<string, number>> {
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// console.warn + a ::warning:: line so GitHub Actions surfaces it as a run
+// annotation (same shape as build-splits.ts).
+function warnLoudly(message: string): void {
+  console.warn(message);
+  if (process.env.GITHUB_ACTIONS) console.log(`::warning::${message}`);
+}
 
 /**
  * Is this symbol confirmed no-longer-trading? Guards terminal-value creation
@@ -189,48 +196,93 @@ async function main() {
   let filled = 0;
   let terminal = 0;
   let gaps = 0;
+  // Per-run cache of the delisting confirmation — both outcomes — so a ticker
+  // with many needed end dates costs at most one profile fetch per run.
+  const delistedCache = new Map<string, boolean>();
   console.log(`Resolving exit prices for ${tickers.length} exited tickers across ${dates.length} snapshots…`);
   for (const ticker of tickers) {
     const closes = await eodClosesByDate(ticker);
     const events = splits[ticker] ?? [];
     const lastBarDate = [...closes.keys()].sort().at(-1);
+
+    // Audit: a terminaled ticker with bars NEWER than its recorded last bar
+    // has resumed trading (the delisting flag was wrong, e.g. a long halt).
+    // Real prices already win everywhere one exists; surface it for a human
+    // to delete the stale row from data/terminal-values.json.
+    const known = terminals[ticker];
+    if (known && lastBarDate && lastBarDate > known.lastBarDate) {
+      warnLoudly(
+        `${ticker}: has bars through ${lastBarDate} but a terminal recorded at ` +
+          `${known.lastBarDate} — it RESUMED trading; delete its stale row from ` +
+          `data/terminal-values.json.`
+      );
+    }
+
     for (const end of needed.get(ticker)!) {
-      const close = closes.get(end);
-      if (close !== undefined) {
-        (store[end] ??= {})[ticker] = close * toLedgerBasisFactor(events, end);
-        filled += 1;
-        continue;
-      }
-      if (terminals[ticker]) continue; // terminal already on record — covered
-      if (lastBarDate && lastBarDate < end) {
-        // History STOPS before this end date — a hard-delisting candidate
-        // (acquisition halts at ~the deal price; bankruptcy trades to ~0).
-        // Confirm with the profile flag before recording; a data gap or a
-        // fetch hiccup must never fabricate a terminal.
-        if (await isConfirmedDelisted(ticker)) {
-          const lastClose = closes.get(lastBarDate)!;
-          terminals[ticker] = {
-            lastBarDate,
-            close: lastClose * toLedgerBasisFactor(events, lastBarDate),
-          };
-          terminal += 1;
-          console.log(
-            `${ticker}: history stops ${lastBarDate}, profile confirms delisted — ` +
-              `terminal value ${terminals[ticker].close} recorded.`
-          );
-        } else {
-          gaps += 1;
-          console.warn(
-            `${ticker}: no bar on ${end}, history stops ${lastBarDate}, but the profile does ` +
-              `NOT confirm delisting — leaving unresolved (no fabrication).`
-          );
+      const kind = classifyExitPair({
+        hasBarOnEnd: closes.has(end),
+        lastBarDate,
+        endDate: end,
+        hasRecordedTerminal: Boolean(terminals[ticker]),
+      });
+      switch (kind) {
+        case "fill":
+          (store[end] ??= {})[ticker] = closes.get(end)! * toLedgerBasisFactor(events, end);
+          filled += 1;
+          break;
+        case "covered-by-terminal":
+          break;
+        case "terminal-candidate": {
+          // History STOPS before this end date — a hard-delisting candidate
+          // (acquisition halts at ~the deal price; bankruptcy trades to ~0).
+          // Confirm with the profile flag before recording; a data gap or a
+          // fetch hiccup must never fabricate a terminal.
+          if (!delistedCache.has(ticker)) {
+            delistedCache.set(ticker, await isConfirmedDelisted(ticker));
+          }
+          if (delistedCache.get(ticker)) {
+            const lastClose = closes.get(lastBarDate!)!;
+            terminals[ticker] = {
+              lastBarDate: lastBarDate!,
+              close: lastClose * toLedgerBasisFactor(events, lastBarDate!),
+            };
+            terminal += 1;
+            console.log(
+              `${ticker}: history stops ${lastBarDate}, profile confirms delisted — ` +
+                `terminal value ${terminals[ticker].close} recorded.`
+            );
+          } else {
+            gaps += 1;
+            console.warn(
+              `${ticker}: no bar on ${end}, history stops ${lastBarDate}, but the profile does ` +
+                `NOT confirm delisting — leaving unresolved (no fabrication).`
+            );
+          }
+          break;
         }
-      } else {
-        // Bars exist after `end` but not on it — a data gap, not a delisting.
-        gaps += 1;
+        case "gap":
+          // Bars exist after `end` but not on it — or no bars at all. A
+          // transient data hole either way; retried next run.
+          gaps += 1;
+          break;
       }
     }
     await sleep(REQUEST_GAP_MS);
+  }
+
+  // Invariant guard: the join-time split factor runs from entry to the cohort
+  // END date, which is safe only because a delisted name can't split after
+  // its last bar. A splits.json event dated after a terminal's lastBarDate
+  // (ticker-symbol recycling, or a bad boundary) would silently violate that.
+  for (const [t, term] of Object.entries(terminals)) {
+    const late = (splits[t] ?? []).filter((e) => e.date > term.lastBarDate);
+    for (const e of late) {
+      warnLoudly(
+        `${t}: splits.json has a ${e.numerator}:${e.denominator} boundary @ ${e.date}, AFTER ` +
+          `its terminal's last bar ${term.lastBarDate} — possible ticker recycling; the ` +
+          `terminal's basis may be wrong. Resolve by hand.`
+      );
+    }
   }
 
   // Stable, sorted output for clean diffs.
