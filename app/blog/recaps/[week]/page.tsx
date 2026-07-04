@@ -71,6 +71,35 @@ function returnTone(r: number): "up" | "down" | "flat" {
   return "flat";
 }
 
+// Basis provenance badges (issue #76): a row's return may be split-corrected
+// (basisAdjusted — start/end prices are frozen ledger values on different
+// bases) or extreme with no split on record (basisSuspect).
+type BasisFlags = { basisAdjusted?: boolean; basisSuspect?: boolean };
+
+function BasisBadge({ row }: { row: BasisFlags }) {
+  if (row.basisAdjusted) {
+    return (
+      <span
+        className="basis-badge adjusted"
+        title="A share split re-based this stock's price during the week. The return shown is split-corrected; the start/end prices are the values frozen on each day's basis."
+      >
+        split-adj
+      </span>
+    );
+  }
+  if (row.basisSuspect) {
+    return (
+      <span
+        className="basis-badge suspect"
+        title="Extreme move with no split on record — either a genuine outlier or an uncaught corporate action. Verify before relying on it."
+      >
+        verify
+      </span>
+    );
+  }
+  return null;
+}
+
 export default async function RecapDetailPage({
   params,
 }: {
@@ -243,7 +272,10 @@ export default async function RecapDetailPage({
                     <td>
                       {r.startComposite} → {r.endComposite}
                     </td>
-                    <td className={returnTone(r.forwardReturn)}>{fmtPct(r.forwardReturn)}</td>
+                    <td className={returnTone(r.forwardReturn)}>
+                      {fmtPct(r.forwardReturn)}
+                      <BasisBadge row={r} />
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -292,6 +324,7 @@ function RecapMoverList({
             <span className="recap-mover-signal">{SIGNAL_LABEL[r.startSignal] ?? r.startSignal}</span>
             <span className={`recap-mover-return ${returnTone(r.forwardReturn)}`}>
               {fmtPct(r.forwardReturn)}
+              <BasisBadge row={r} />
             </span>
           </Link>
         </li>
