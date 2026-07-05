@@ -106,7 +106,7 @@ export default function MoversPage() {
               ))}
             </div>
             {gDiv === 0 && (
-              <p className="movers-empty-filtered">No divergences among today&apos;s gainers.</p>
+              <p className="movers-empty-filtered">No divergences among the session&apos;s gainers.</p>
             )}
           </section>
 
@@ -120,7 +120,7 @@ export default function MoversPage() {
               ))}
             </div>
             {lDiv === 0 && (
-              <p className="movers-empty-filtered">No divergences among today&apos;s losers.</p>
+              <p className="movers-empty-filtered">No divergences among the session&apos;s losers.</p>
             )}
           </section>
         </MoversBoard>
