@@ -1,7 +1,7 @@
 import { safeJsonLdString } from "@/lib/json-ld";
 import { Suspense } from "react";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
@@ -130,6 +130,14 @@ export default async function TickerScorePage({
     const matchedSymbol = await resolveBySearch(decoded);
     if (matchedSymbol) redirect(`/score/${matchedSymbol}`);
     notFound();
+  }
+
+  // Canonicalize case at the URL level: /score/aapl used to render a full
+  // duplicate of /score/AAPL (rel=canonical was the only signal). A 308 to
+  // the uppercase form keeps one indexable URL per ticker and stops shared
+  // lowercase links from splitting social/caching state.
+  if (decoded !== decoded.toUpperCase()) {
+    permanentRedirect(`/score/${encodeURIComponent(decoded.toUpperCase())}`);
   }
 
   let ticker: string;

@@ -13,6 +13,15 @@ export const metadata = {
   description:
     "Side-by-side QScore comparisons for popular ticker pairs: NVDA vs AMD, AAPL vs MSFT, GOOGL vs META, and more.",
   alternates: { canonical: "https://qscoring.com/compare" },
+  openGraph: {
+    title: "Compare Stocks Side by Side — QScore",
+    description:
+      "Side-by-side QScore comparisons for popular ticker pairs: NVDA vs AMD, AAPL vs MSFT, GOOGL vs META, and more.",
+    url: "https://qscoring.com/compare",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const collectionJsonLd = {
