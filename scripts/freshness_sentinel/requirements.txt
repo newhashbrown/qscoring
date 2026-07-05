@@ -1,0 +1,12 @@
+# Freshness sentinel — Python deps.
+#
+# Runs in GitHub Actions (freshness-sentinel.yml). Uses a REAL exchange
+# trading calendar (exchange_calendars XNYS) rather than weekday math, so
+# weekends and NYSE holidays are never miscounted as staleness — the exact
+# failure mode the 2026-07-02..04 incident exposed in ad-hoc date logic.
+#
+# pandas pin mirrors scripts/factor_exposures/requirements.txt so both Python
+# areas resolve against the same stack (cp313 wheels).
+pandas==2.3.3
+exchange-calendars>=4.8,<5
+pytest==8.4.2

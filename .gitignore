@@ -43,7 +43,10 @@ next-env.d.ts
 # Research harness (offline) — generated panels + Python venv
 research/data/
 research/.venv/
+# Python venvs for the batch jobs (factor exposures, freshness sentinel)
+scripts/**/.venv/
 __pycache__/
+.pytest_cache/
 
 # Local design/scratch artifacts (Stitch screenshots, dev logs)
 .stitch/
