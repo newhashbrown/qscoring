@@ -17,7 +17,7 @@
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { isRegularSessionOpen, isUsTradingDay, marketCloseDate } from "../lib/market-date";
+import { isRegularSessionOpen, marketCloseDate } from "../lib/market-date";
 import { publishMoversForDate, moversFileToRows } from "../lib/movers-live";
 import { chooseLedgerPrice } from "../lib/snapshot-price";
 import type { MoversFile } from "../lib/movers-board";
@@ -216,13 +216,29 @@ async function sleep(ms: number): Promise<void> {
 }
 
 async function main() {
-  // Weekend crons resolve marketCloseDate to the prior Friday and used to
-  // rewrite that frozen snapshot with a fresh `generatedAt` (and minor
-  // float drift from re-scored cache reads). Skip the entire run on
-  // non-trading days — also saves ~7 minutes of FMP-paced API calls per
-  // weekend day. FORCE_RUN=1 overrides for local debugging.
-  if (!isUsTradingDay(new Date()) && process.env.FORCE_RUN !== "1") {
-    console.log("Non-trading day in ET — exiting without API calls or writes. Set FORCE_RUN=1 to override.");
+  // Skip when the target close's snapshot is already committed: re-running
+  // would only churn generatedAt (plus minor float drift from re-scored
+  // cache reads) and burn ~7 minutes of FMP-paced API calls — the weekend
+  // case, where marketCloseDate resolves to a Friday that already landed.
+  // This replaces the old non-trading-day skip, which keyed on whether
+  // *today* trades and silently dropped the last close before a
+  // holiday/weekend whenever its build had failed (the 2026-07-02 close was
+  // skipped straight through the observed July-4th weekend). Market closed +
+  // snapshot missing is a faithful rescore regardless of today's calendar —
+  // /quote still returns the target session's settled close. Mirrors
+  // lib/snapshot-mode.ts. FORCE_RUN=1 overrides for local debugging (the
+  // append-only guard below still protects the frozen snapshot file).
+  const expectedSnapshotPath = path.resolve(
+    process.cwd(),
+    "data",
+    "snapshots",
+    `${marketCloseDate(new Date().toISOString())}.json`
+  );
+  if (fs.existsSync(expectedSnapshotPath) && process.env.FORCE_RUN !== "1") {
+    console.log(
+      `Target snapshot ${path.basename(expectedSnapshotPath)} already exists — ` +
+        "exiting without API calls or writes. Set FORCE_RUN=1 to override."
+    );
     return;
   }
 

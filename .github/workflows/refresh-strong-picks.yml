@@ -43,7 +43,7 @@ on:
   workflow_dispatch:
     inputs:
       force_run:
-        description: 'Local/debug flag only. Does NOT bypass the snapshot guard: non-trading-day and in-session runs are always refused to protect the no-look-ahead ledger. A genuinely-missed day has no turnkey backfill (scripts/backfill-snapshots.ts only re-syncs existing JSON to D1) — accept the 1-day gap or rebuild it deliberately as-of from FMP historical close.'
+        description: 'Local/debug flag only. Does NOT bypass the snapshot guard: in-session runs are always refused to protect the no-look-ahead ledger (holiday/weekend market-closed runs now build a MISSING prior close on their own — no flag needed). A genuinely-missed day has no turnkey backfill (scripts/backfill-snapshots.ts only re-syncs existing JSON to D1) — accept the 1-day gap or rebuild it deliberately as-of from FMP historical close.'
         type: boolean
         default: false
 
@@ -71,13 +71,17 @@ jobs:
         run: npm ci
 
       # Decide what this run should do BEFORE spending ~27 min rescoring.
-      # snapshot-guard.ts reuses lib/market-date (the same marketCloseDate +
-      # isUsTradingDay the build writes with), so the guard can never target a
-      # different date than build-strong-picks.ts produces.
-      #   mode=skip  — non-trading day, or the snapshot already landed on
-      #                origin/main (good-day no-op, esp. the 18:00 run).
-      #   mode=build — pre-market 09:30 / manual window with the snapshot
-      #                missing: proceed with a faithful rescore.
+      # snapshot-guard.ts reuses lib/market-date (the same marketCloseDate the
+      # build writes with), so the guard can never target a different date
+      # than build-strong-picks.ts produces.
+      #   mode=skip  — the snapshot already landed on origin/main (good-day
+      #                no-op, esp. the 18:00 run; also weekends, whose target
+      #                Friday close normally landed on Saturday).
+      #   mode=build — market-closed window with the snapshot missing: proceed
+      #                with a faithful rescore. This INCLUDES holiday/weekend
+      #                mornings whose prior close never landed — the
+      #                2026-07-02 close was silently skipped across the
+      #                July-4th weekend by the old non-trading-day rule.
       #   mode=fail  — 18:00 recovery window with the snapshot missing: a mid-
       #                session rescore would contaminate the no-look-ahead
       #                ledger, so fail loudly and let a human backfill.
@@ -105,7 +109,7 @@ jobs:
           IS_RECOVERY=false
           if [ "$SCHEDULE" = "0 18 * * *" ]; then IS_RECOVERY=true; fi
 
-          DEC=$(TRADING="$TRADING" SESSION_OPEN="$SESSION" SNAPSHOT_EXISTS="$SNAPSHOT_EXISTS" IS_RECOVERY="$IS_RECOVERY" npx tsx scripts/decide-snapshot-mode.ts)
+          DEC=$(SESSION_OPEN="$SESSION" SNAPSHOT_EXISTS="$SNAPSHOT_EXISTS" IS_RECOVERY="$IS_RECOVERY" npx tsx scripts/decide-snapshot-mode.ts)
           MODE=$(printf '%s\n' "$DEC" | sed -n 's/^mode=//p')
           REASON=$(printf '%s\n' "$DEC" | sed -n 's/^reason=//p')
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"

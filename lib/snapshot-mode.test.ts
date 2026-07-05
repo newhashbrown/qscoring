@@ -5,10 +5,10 @@ import { decideSnapshotMode } from "./snapshot-mode";
 // decideSnapshotMode is the single source of truth for what the
 // refresh-strong-picks guard does, replacing the bash `if` ladder that used
 // to live in the workflow YAML. Each case below maps to a real operational
-// scenario from the audit (areas 1, 5, 7).
+// scenario from the audit (areas 1, 5, 7) and the 2026-07-04 staleness
+// incident (missing prior close silently skipped across a holiday weekend).
 
 const base = {
-  trading: true,
   snapshotExists: false,
   isRecovery: false,
   sessionOpen: false,
@@ -31,8 +31,19 @@ test("delayed into the regular session (11:04 ET) on a trading day → fail", ()
   strictEqual(decideSnapshotMode({ ...base, sessionOpen: true }).mode, "fail");
 });
 
-test("non-trading day (weekend/holiday) → skip", () => {
-  strictEqual(decideSnapshotMode({ ...base, trading: false }).mode, "skip");
+test("holiday/weekend morning with the prior close MISSING → build", () => {
+  // The 2026-07-04 staleness incident: the 2026-07-02 close failed to build
+  // (FMP 429) and the old non-trading-day rule skipped every run across the
+  // observed July-4th holiday weekend. Market closed + snapshot missing is a
+  // faithful rescore regardless of today's calendar — build it.
+  strictEqual(decideSnapshotMode({ ...base }).mode, "build");
+});
+
+test("weekend morning with the prior close already present → skip (no churn)", () => {
+  // Sunday's expected=Friday already landed on Saturday: the append-only
+  // no-op that used to be guaranteed by the non-trading-day rule is now
+  // guaranteed by snapshotExists.
+  strictEqual(decideSnapshotMode({ ...base, snapshotExists: true }).mode, "skip");
 });
 
 test("snapshot already present → skip (append-only no-op)", () => {
@@ -55,13 +66,12 @@ test("18:00 recovery detector when snapshot exists → skip (no false alarm)", (
   );
 });
 
-test("non-trading day takes precedence over an open session", () => {
-  // Ordering guard: a holiday weekday inside session hours still skips
-  // (trading=false short-circuits before the session check).
-  strictEqual(
-    decideSnapshotMode({ ...base, trading: false, sessionOpen: true }).mode,
-    "skip"
-  );
+test("recovery detector outranks the session-open branch for its message", () => {
+  // Mid-session recovery run with a missing snapshot must report the
+  // recovery-specific reason (the workflow prints a targeted error for it).
+  const d = decideSnapshotMode({ ...base, isRecovery: true, sessionOpen: true });
+  strictEqual(d.mode, "fail");
+  strictEqual(d.reason, "recovery-detector-snapshot-missing");
 });
 
 test("decision carries a non-empty machine-readable reason", () => {
