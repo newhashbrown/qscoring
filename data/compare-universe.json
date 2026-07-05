@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-01T09:35:15.351Z",
+  "generatedAt": "2026-07-05T03:06:36.835Z",
   "universeSize": 800,
   "entries": [
     {
@@ -21,11 +21,6 @@
       "symbol": "AAOI",
       "name": "Applied Optoelectronics, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "AAON",
-      "name": "AAON, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
@@ -223,6 +218,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "AMG",
+      "name": "Affiliated Managers Group, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "AMGN",
       "name": "Amgen Inc.",
       "sector": "Healthcare"
@@ -340,7 +340,7 @@
     {
       "symbol": "ASTS",
       "name": "AST SpaceMobile, Inc.",
-      "sector": "Technology"
+      "sector": "Communication Services"
     },
     {
       "symbol": "ATHS",
@@ -363,6 +363,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "AVAV",
+      "name": "AeroVironment, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "AVB",
       "name": "AvalonBay Communities, Inc.",
       "sector": "Real Estate"
@@ -375,7 +380,7 @@
     {
       "symbol": "AVY",
       "name": "Avery Dennison Corporation",
-      "sector": "Basic Materials"
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "AWK",
@@ -455,7 +460,7 @@
     {
       "symbol": "BEPH",
       "name": "Brookfield BRP Holdings (Canada",
-      "sector": "Financial Services"
+      "sector": "Real Estate"
     },
     {
       "symbol": "BF-B",
@@ -493,14 +498,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "BLD",
-      "name": "TopBuild Corp.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "BLDR",
       "name": "Builders FirstSource, Inc.",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "BLK",
@@ -568,6 +568,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "BSY",
+      "name": "Bentley Systems, Incorporated",
+      "sector": "Technology"
+    },
+    {
       "symbol": "BTSG",
       "name": "BrightSpring Health Services, Inc. Common Stock",
       "sector": "Healthcare"
@@ -631,11 +636,6 @@
       "symbol": "CAT",
       "name": "Caterpillar Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "CAVA",
-      "name": "CAVA Group, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CBRE",
@@ -736,11 +736,6 @@
       "symbol": "CIEN",
       "name": "Ciena Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "CIFR",
-      "name": "Cipher Mining Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "CINF",
@@ -868,11 +863,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CPT",
-      "name": "Camden Property Trust",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CQP",
       "name": "Cheniere Energy Partners, L.P.",
       "sector": "Energy"
@@ -935,7 +925,7 @@
     {
       "symbol": "CSL",
       "name": "Carlisle Companies Incorporated",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "CSX",
@@ -1001,6 +991,11 @@
       "symbol": "DAL",
       "name": "Delta Air Lines, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "DAR",
+      "name": "Darling Ingredients Inc.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "DASH",
@@ -1175,7 +1170,7 @@
     {
       "symbol": "EA",
       "name": "Electronic Arts Inc.",
-      "sector": "Communication Services"
+      "sector": "Technology"
     },
     {
       "symbol": "EBAY",
@@ -1301,11 +1296,6 @@
       "symbol": "ES",
       "name": "Eversource Energy",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "ESE",
-      "name": "ESCO Technologies Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "ESI",
@@ -1438,6 +1428,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "FIG",
+      "name": "Figma, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FIS",
       "name": "Fidelity National Information Services, Inc.",
       "sector": "Technology"
@@ -1501,11 +1496,6 @@
       "symbol": "FROG",
       "name": "JFrog Ltd.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "FRT",
-      "name": "Federal Realty Investment Trust",
-      "sector": "Real Estate"
     },
     {
       "symbol": "FSLR",
@@ -1606,11 +1596,6 @@
       "symbol": "GLW",
       "name": "Corning Inc",
       "sector": "Technology"
-    },
-    {
-      "symbol": "GLXY",
-      "name": "Galaxy Digital",
-      "sector": "Financial Services"
     },
     {
       "symbol": "GM",
@@ -1748,13 +1733,13 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "HONAV",
-      "name": "Honeywell Aerospace Inc. Common Stock When Issued",
+      "symbol": "HONA",
+      "name": "Honeywell Aerospace Inc",
       "sector": "Industrials"
     },
     {
-      "symbol": "HONIV",
-      "name": "Honeywell International Inc. Common Stock Ex Distribution When Issued",
+      "symbol": "HONAV",
+      "name": "Honeywell Aerospace Inc. Common Stock When Issued",
       "sector": "Industrials"
     },
     {
@@ -1926,6 +1911,11 @@
       "symbol": "ISRG",
       "name": "Intuitive Surgical, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "IT",
+      "name": "Gartner, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "ITT",
@@ -2100,7 +2090,7 @@
     {
       "symbol": "LFUS",
       "name": "Littelfuse, Inc.",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "LGN",
@@ -2298,6 +2288,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "MGRD",
+      "name": "Affiliated Managers Group, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "MGRE",
       "name": "Affiliated Managers Group, Inc.",
       "sector": "Financial Services"
@@ -2463,11 +2458,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "MXL",
-      "name": "MaxLinear, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "NBIX",
       "name": "Neurocrine Biosciences, Inc.",
       "sector": "Healthcare"
@@ -2520,6 +2510,11 @@
     {
       "symbol": "NLY",
       "name": "Annaly Capital Management, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "NNN",
+      "name": "NNN REIT, Inc.",
       "sector": "Real Estate"
     },
     {
@@ -2590,7 +2585,7 @@
     {
       "symbol": "NXT",
       "name": "Nextpower Inc.",
-      "sector": "Technology"
+      "sector": "Energy"
     },
     {
       "symbol": "NYT",
@@ -2605,7 +2600,7 @@
     {
       "symbol": "OC",
       "name": "Owens Corning",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "ODFL",
@@ -2676,11 +2671,6 @@
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "OSK",
-      "name": "Oshkosh Corp",
-      "sector": "Industrials"
     },
     {
       "symbol": "OTIS",
@@ -2768,6 +2758,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "PFH",
+      "name": "Prudential Financial, Inc. 4.125% Junior Subordinated Notes due 2060",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "PG",
       "name": "The Procter & Gamble Company",
       "sector": "Consumer Defensive"
@@ -2833,11 +2828,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POWL",
-      "name": "Powell Industries, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2856,6 +2846,16 @@
       "symbol": "PR",
       "name": "Permian Resources Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "PRI",
+      "name": "Primerica, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "PRMB",
+      "name": "Primo Brands Corporation",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "PRU",
@@ -2971,11 +2971,6 @@
       "symbol": "RGLD",
       "name": "Royal Gold, Inc.",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "RIOT",
-      "name": "Riot Platforms, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "RIVN",
@@ -3105,7 +3100,7 @@
     {
       "symbol": "SATS",
       "name": "EchoStar Corporation",
-      "sector": "Technology"
+      "sector": "Communication Services"
     },
     {
       "symbol": "SBAC",
@@ -3405,7 +3400,7 @@
     {
       "symbol": "TCPA",
       "name": "TransCanada PipeLines Limited 6",
-      "sector": "Industrials"
+      "sector": "Energy"
     },
     {
       "symbol": "TDG",
@@ -3548,6 +3543,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3555,7 +3555,7 @@
     {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
-      "sector": "Communication Services"
+      "sector": "Technology"
     },
     {
       "symbol": "TW",
@@ -3695,7 +3695,7 @@
     {
       "symbol": "VG",
       "name": "Venture Global, Inc.",
-      "sector": "Industrials"
+      "sector": "Energy"
     },
     {
       "symbol": "VIAV",
