@@ -48,6 +48,38 @@ function getDb(): D1Database | null {
   }
 }
 
+/**
+ * Maximum age of the newest factor month before the profile fails closed.
+ *
+ * The regression window ends at the last complete month Ken French has
+ * published (~monthly cadence with lag), refreshed by the monthly Actions
+ * job. 75 days ≈ two missed publications: one missed refresh still renders
+ * (the data is merely one month behind, normal for FF lag), a second means
+ * the pipeline is broken and the profile must show its existing no-data
+ * state rather than silently aging — the same fail-closed philosophy as the
+ * snapshot ledger.
+ */
+export const FACTOR_STALENESS_MAX_DAYS = 75;
+
+const MS_PER_DAY = 86_400_000;
+
+/**
+ * True when the exposure row's data recency (window_end, falling back to
+ * snapshot_date) is more than FACTOR_STALENESS_MAX_DAYS before `now` — or
+ * cannot be determined at all (fail closed, never fail open).
+ */
+export function isFactorDataStale(
+  windowEnd: string | null,
+  snapshotDate: string | null,
+  now: Date
+): boolean {
+  const recency = windowEnd ?? snapshotDate;
+  if (!recency) return true;
+  const t = Date.parse(`${recency}T00:00:00Z`);
+  if (Number.isNaN(t)) return true;
+  return now.getTime() - t > FACTOR_STALENESS_MAX_DAYS * MS_PER_DAY;
+}
+
 function parseFlags(raw: string | null): FactorExposureFlag[] {
   if (!raw) return [];
   try {
@@ -116,7 +148,18 @@ export async function getFactorExposures(ticker: string): Promise<FactorExposure
       )
       .bind(cleaned)
       .first<RawRow>();
-    return row ? mapRow(row) : null;
+    if (!row) return null;
+    // Staleness guard: a factor profile whose newest month is > 75 days old
+    // means the monthly refresh job has missed ~two publications — show the
+    // existing fail-closed no-data state instead of silently aging betas.
+    if (isFactorDataStale(row.window_end, row.snapshot_date, new Date())) {
+      console.warn(
+        `factor_exposures for ${cleaned} are stale (window_end=${row.window_end}, ` +
+          `snapshot_date=${row.snapshot_date}) — failing closed to the no-data state.`
+      );
+      return null;
+    }
+    return mapRow(row);
   } catch (err) {
     console.error(`factor_exposures read failed (${cleaned}):`, err);
     return null;
