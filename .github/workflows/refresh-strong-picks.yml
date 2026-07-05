@@ -43,7 +43,7 @@ on:
   workflow_dispatch:
     inputs:
       force_run:
-        description: 'Local/debug flag only. Does NOT bypass the snapshot guard: non-trading-day and in-session runs are always refused to protect the no-look-ahead ledger. A genuinely-missed day has no turnkey backfill (scripts/backfill-snapshots.ts only re-syncs existing JSON to D1) — accept the 1-day gap or rebuild it deliberately as-of from FMP historical close.'
+        description: 'Local/debug flag only. Does NOT bypass the snapshot guard: in-session runs are always refused to protect the no-look-ahead ledger (holiday/weekend market-closed runs now build a MISSING prior close on their own — no flag needed). A genuinely-missed day has no turnkey backfill (scripts/backfill-snapshots.ts only re-syncs existing JSON to D1) — accept the 1-day gap or rebuild it deliberately as-of from FMP historical close.'
         type: boolean
         default: false
 
@@ -71,13 +71,17 @@ jobs:
         run: npm ci
 
       # Decide what this run should do BEFORE spending ~27 min rescoring.
-      # snapshot-guard.ts reuses lib/market-date (the same marketCloseDate +
-      # isUsTradingDay the build writes with), so the guard can never target a
-      # different date than build-strong-picks.ts produces.
-      #   mode=skip  — non-trading day, or the snapshot already landed on
-      #                origin/main (good-day no-op, esp. the 18:00 run).
-      #   mode=build — pre-market 09:30 / manual window with the snapshot
-      #                missing: proceed with a faithful rescore.
+      # snapshot-guard.ts reuses lib/market-date (the same marketCloseDate the
+      # build writes with), so the guard can never target a different date
+      # than build-strong-picks.ts produces.
+      #   mode=skip  — the snapshot already landed on origin/main (good-day
+      #                no-op, esp. the 18:00 run; also weekends, whose target
+      #                Friday close normally landed on Saturday).
+      #   mode=build — market-closed window with the snapshot missing: proceed
+      #                with a faithful rescore. This INCLUDES holiday/weekend
+      #                mornings whose prior close never landed — the
+      #                2026-07-02 close was silently skipped across the
+      #                July-4th weekend by the old non-trading-day rule.
       #   mode=fail  — 18:00 recovery window with the snapshot missing: a mid-
       #                session rescore would contaminate the no-look-ahead
       #                ledger, so fail loudly and let a human backfill.
@@ -105,7 +109,7 @@ jobs:
           IS_RECOVERY=false
           if [ "$SCHEDULE" = "0 18 * * *" ]; then IS_RECOVERY=true; fi
 
-          DEC=$(TRADING="$TRADING" SESSION_OPEN="$SESSION" SNAPSHOT_EXISTS="$SNAPSHOT_EXISTS" IS_RECOVERY="$IS_RECOVERY" npx tsx scripts/decide-snapshot-mode.ts)
+          DEC=$(SESSION_OPEN="$SESSION" SNAPSHOT_EXISTS="$SNAPSHOT_EXISTS" IS_RECOVERY="$IS_RECOVERY" npx tsx scripts/decide-snapshot-mode.ts)
           MODE=$(printf '%s\n' "$DEC" | sed -n 's/^mode=//p')
           REASON=$(printf '%s\n' "$DEC" | sed -n 's/^reason=//p')
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
@@ -236,22 +240,35 @@ jobs:
             # surfaced in the response body for debugging.
           fi
 
-      # Dead-man's-switch ping. Fires on any successful completion — a real
-      # build, an 18:00 no-op, or a non-trading-day skip — so the absence of a
-      # ping (e.g. a hung or never-scheduled run) is itself the alert.
+      # Dead-man's-switch ping — attests DATA FRESHNESS, not job completion.
+      # The 2026-07-02..04 staleness incident: skip-mode runs exited green and
+      # pinged, so healthchecks stayed quiet for days while no fresh corpus
+      # landed. The ping now fires ONLY after re-verifying that this run's
+      # target snapshot is actually committed on origin/main — a real build
+      # that landed, or a no-op run whose target already landed earlier. A
+      # green-but-stale run does NOT ping, so healthchecks alarms after its
+      # grace period. Never fires at job start or on a run that produced (and
+      # found) nothing.
       # continue-on-error + the URL coming from a secret means this is inert
       # until HEALTHCHECK_URL is set; create the healthchecks.io check and add
       # the secret to arm it.
-      - name: Ping healthcheck on success
+      - name: Ping healthcheck when the target snapshot is verifiably fresh
         if: success()
         continue-on-error: true
         env:
           HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+          EXPECTED: ${{ steps.guard.outputs.expected }}
         run: |
           if [ -z "$HEALTHCHECK_URL" ]; then
             echo "HEALTHCHECK_URL not set — skipping ping (create the healthchecks.io check and add the secret to arm this)."
             exit 0
           fi
+          git fetch origin main --depth=1
+          if ! git cat-file -e "FETCH_HEAD:data/snapshots/${EXPECTED}.json" 2>/dev/null; then
+            echo "Target snapshot ${EXPECTED}.json is NOT on origin/main — withholding the healthcheck ping so the dead-man's switch fires."
+            exit 0
+          fi
+          echo "Verified data/snapshots/${EXPECTED}.json on origin/main — pinging."
           curl -fsS "$HEALTHCHECK_URL"
 
       # Email alert on ANY failure — a timeout, a coverage abort, a push that
