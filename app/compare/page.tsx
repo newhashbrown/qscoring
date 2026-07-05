@@ -94,7 +94,7 @@ export default function CompareIndexPage() {
         </ul>
 
         <p className="back-to-top">
-          Snapshot from {dateLabel} · refreshed daily
+          As of {dateLabel} · updated after each NYSE session
         </p>
       </main>
 
