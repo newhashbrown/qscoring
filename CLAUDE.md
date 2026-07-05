@@ -37,7 +37,7 @@ npm run sitemap-tickers   # rebuild data/sitemap-tickers.json
 npm run backfill-snapshots
 ```
 
-There is no test runner configured. There is no linter beyond `tsc --noEmit` (run via `next build`).
+`npm test` runs the lib unit-test suite via `tsx --test`. There is no linter beyond `tsc --noEmit` (run via `next build`).
 
 ## Deploy environment — IMPORTANT
 

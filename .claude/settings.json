@@ -1,0 +1,59 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/git-guard.js",
+            "timeout": 10,
+            "statusMessage": "git staging guard"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/quality-gate.js",
+            "timeout": 120,
+            "statusMessage": "console.log + tsc gate"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(npm run build*)",
+      "Bash(npm test*)",
+      "Bash(npm run test*)",
+      "Bash(npx tsc --noEmit*)",
+      "Bash(gh pr view*)",
+      "Bash(gh pr list*)",
+      "Bash(gh pr checks*)",
+      "Bash(gh run list*)",
+      "Bash(gh run view*)",
+      "Bash(gh api repos/*)",
+      "Bash(npx wrangler tail*)",
+      "Bash(wrangler tail*)"
+    ],
+    "ask": [
+      "Bash(git push*)",
+      "Bash(npm run deploy*)",
+      "Bash(npx wrangler deploy*)",
+      "Bash(wrangler deploy*)",
+      "Bash(npx wrangler d1*)",
+      "Bash(wrangler d1*)",
+      "Bash(rm*)"
+    ]
+  }
+}
