@@ -64,3 +64,6 @@ __pycache__/
 *CP_575*
 *RegistrationCertificate*
 *deptoftreasury*
+
+# Claude Code local (machine-specific, never commit)
+CLAUDE.local.md

@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project
 
 QScoring is a Next.js 16 marketing + waitlist site that exposes a 0–100 Quant Score and buy/hold/short signal for any US-listed equity. Deployed as a single Cloudflare Worker via OpenNext. The site is currently waitlist-stage ("Launching Summer 2026"); email is the only user identity (no accounts, no sessions).
+
+**This repo is PUBLIC.** Never commit secrets, business plans, or proprietary docs.
 
 ## Canonical documentation
 
@@ -43,6 +43,8 @@ There is no test runner configured. There is no linter beyond `tsc --noEmit` (ru
 
 **Production deploys must run from WSL Ubuntu (Node 22).** Windows OpenNext + `@vercel/og` has a wasm bug that breaks dynamic OG card generation. `npm run deploy` from Windows will appear to succeed but produce a broken worker. Use the GitHub Actions `deploy.yml` workflow (Ubuntu runner) for production, or run from WSL locally.
 
+Deploy verification: Workers Builds reports as GitHub **check runs**, not commit statuses — poll `commits/{sha}/check-runs` (`commits/{sha}/status` stays "pending" forever). A live browser check is authoritative.
+
 ## Architecture cheat sheet
 
 - **Worker bindings** (declared in `wrangler.jsonc`): `DB` (D1), `ASSETS` (static), `AI` (reserved, not wired). Access via `getCloudflareContext().env.DB` in route handlers.
@@ -57,6 +59,13 @@ There is no test runner configured. There is no linter beyond `tsc --noEmit` (ru
   Workflows commit-if-changed and push; Cloudflare Workers Builds redeploys on push.
 - **Email:** Hand-rolled HTTP client in `lib/email/send.ts` (Resend SDK would bloat the Worker bundle). All sends go through `ctx.waitUntil(...)` — best-effort, never blocks the user response, failures logged not thrown.
 - **Path alias:** `@/*` resolves to repo root (see `tsconfig.json`).
+
+## Hard platform constraints
+
+- Never `export const runtime = "edge"` — on OpenNext/Workers it 500s at the platform layer before the handler runs (plaintext "Internal Server Error" = workerd-layer fail). The default runtime already has `fetch` + `crypto.subtle`.
+- Pages that read `data/*.json` via `fs` (`/performance`, `/movers`) MUST stay static — no `searchParams` — or prod hits the empty-state fallback on Workers. Use static `/[date]` routes, not query params.
+- Cloudflare's ~400ms startup CPU limit: blog posts over ~250 lines of JSX must register via `next/dynamic` from `app/blog/bodies/`.
+- Clerk on Workers: use `middleware.ts`, NOT `proxy.ts` (proxy.ts is Node-only).
 
 ## API conventions
 
