@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-05T03:06:36.835Z",
+  "generatedAt": "2026-07-07T09:30:34.774Z",
   "universeSize": 800,
   "entries": [
     {
@@ -313,11 +313,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ARE",
-      "name": "Alexandria Real Estate Equities, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
@@ -361,11 +356,6 @@
       "symbol": "AUR",
       "name": "Aurora Innovation, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "AVAV",
-      "name": "AeroVironment, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AVB",
@@ -496,11 +486,6 @@
       "symbol": "BKR",
       "name": "Baker Hughes Company",
       "sector": "Energy"
-    },
-    {
-      "symbol": "BLDR",
-      "name": "Builders FirstSource, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "BLK",
@@ -2208,6 +2193,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "MAR",
       "name": "Marriott International, Inc.",
       "sector": "Consumer Cyclical"
@@ -2463,11 +2453,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "NCLH",
-      "name": "Norwegian Cruise Line Holdings Ltd.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "NDAQ",
       "name": "Nasdaq, Inc.",
       "sector": "Financial Services"
@@ -2510,11 +2495,6 @@
     {
       "symbol": "NLY",
       "name": "Annaly Capital Management, Inc.",
-      "sector": "Real Estate"
-    },
-    {
-      "symbol": "NNN",
-      "name": "NNN REIT, Inc.",
       "sector": "Real Estate"
     },
     {
@@ -2673,6 +2653,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "OSK",
+      "name": "Oshkosh Corp",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2826,6 +2811,11 @@
       "symbol": "PODD",
       "name": "Insulet Corp.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "POWL",
+      "name": "Powell Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "PPG",
@@ -3081,6 +3071,11 @@
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "SAIL",
+      "name": "SailPoint, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "SANM",
@@ -3796,6 +3791,11 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "WAL",
+      "name": "Western Alliance Bancorporation",
+      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
