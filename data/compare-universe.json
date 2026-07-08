@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T09:30:34.774Z",
+  "generatedAt": "2026-07-08T08:14:43.119Z",
   "universeSize": 800,
   "entries": [
     {
@@ -21,6 +21,11 @@
       "symbol": "AAOI",
       "name": "Applied Optoelectronics, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AAON",
+      "name": "AAON, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
@@ -283,11 +288,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "APLD",
-      "name": "Applied Digital Corp.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "APO",
       "name": "Apollo Global Management, Inc.",
       "sector": "Financial Services"
@@ -526,11 +526,6 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -1078,6 +1073,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "DOCU",
+      "name": "DocuSign, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "DOV",
       "name": "Dover Corporation",
       "sector": "Industrials"
@@ -1383,6 +1383,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "FDS",
+      "name": "FactSet Research Systems Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FDX",
       "name": "FedEx Corporation",
       "sector": "Industrials"
@@ -1456,11 +1461,6 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -2078,11 +2078,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "LGN",
-      "name": "Legence Corp. Class A Common stock",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "LH",
       "name": "Labcorp Holdings Inc.",
       "sector": "Healthcare"
@@ -2423,6 +2418,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "MTCH",
+      "name": "Match Group, Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "MTD",
       "name": "Mettler-Toledo International Inc.",
       "sector": "Healthcare"
@@ -2498,6 +2498,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "NNN",
+      "name": "NNN REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "NOC",
       "name": "Northrop Grumman Corporation",
       "sector": "Industrials"
@@ -2531,6 +2536,11 @@
       "symbol": "NTRA",
       "name": "Natera, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "NTRS",
+      "name": "Northern Trust Corporation",
+      "sector": "Financial Services"
     },
     {
       "symbol": "NUE",
@@ -2603,11 +2613,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "OKLO",
-      "name": "Oklo Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "OKTA",
       "name": "Okta, Inc.",
       "sector": "Technology"
@@ -2650,11 +2655,6 @@
     {
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "OSK",
-      "name": "Oshkosh Corp",
       "sector": "Consumer Cyclical"
     },
     {
@@ -2813,11 +2813,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POWL",
-      "name": "Powell Industries, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2876,6 +2871,11 @@
       "symbol": "PTC",
       "name": "PTC Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "PTGX",
+      "name": "Protagonist Therapeutics, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "PWR",
