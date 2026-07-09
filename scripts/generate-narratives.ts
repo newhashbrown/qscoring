@@ -187,7 +187,8 @@ async function runBatch(
           toolInput && typeof toolInput === "object"
             ? Object.keys(toolInput as Record<string, unknown>).join(",")
             : typeof toolInput;
-        console.warn(`  [${ticker}] tool output failed schema — keys=[${keys}] issues=[${issues ?? "?"}]`);
+        const raw = JSON.stringify(toolInput).slice(0, 500);
+        console.warn(`  [${ticker}] tool output failed schema — keys=[${keys}] issues=[${issues ?? "?"}] raw=${raw}`);
       }
     }
     byTicker.set(ticker, parsed);
