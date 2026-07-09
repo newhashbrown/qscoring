@@ -68,3 +68,5 @@ __pycache__/
 # Claude Code local (machine-specific, never commit)
 CLAUDE.local.md
 policy-sample-output.json
+policy-batch-output.json
+policy-batch-upserts.sql

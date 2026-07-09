@@ -18,6 +18,7 @@
     "narratives": "tsx scripts/generate-narratives.ts",
     "policy-tags": "tsx scripts/generate-policy-tags.ts",
     "policy-sample": "tsx scripts/policy-sample.ts",
+    "policy-batch-local": "tsx scripts/policy-batch-local.ts",
     "movers:backfill": "tsx scripts/build-movers.ts",
     "movers:dryrun": "tsx scripts/movers-dryrun.ts",
     "movers:backtest": "tsx scripts/movers-backtest.ts",
