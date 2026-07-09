@@ -44,7 +44,11 @@ export const LEVEL_RANK: Record<PolicyLevel, number> = { none: 0, low: 1, medium
 export type PolicyExposure = { level: PolicyLevel; rationale: string };
 export type PolicyExposures = Record<PolicyTagKey, PolicyExposure>;
 
-const RationaleSchema = z.string().trim().min(3).max(240);
+// Raised from 240: the most policy-dense names (e.g. Pfizer) legitimately run
+// longer per theme. The prompt still asks for ~40 words to keep the UI tidy;
+// this cap is the hard ceiling, not the target.
+export const MAX_RATIONALE_CHARS = 480;
+const RationaleSchema = z.string().trim().min(3).max(MAX_RATIONALE_CHARS);
 
 // Level normalized before the enum check: Haiku occasionally returns "High" /
 // "NONE " / " medium" — trim + lowercase so casing/whitespace doesn't reject an
@@ -92,7 +96,7 @@ export const POLICY_TOOL_SCHEMA = {
   properties: Object.fromEntries(
     POLICY_TAG_KEYS.flatMap((k) => [
       [levelField(k), { type: "string", enum: [...POLICY_LEVELS] }],
-      [rationaleField(k), { type: "string", minLength: 3, maxLength: 240 }],
+      [rationaleField(k), { type: "string", minLength: 3, maxLength: MAX_RATIONALE_CHARS }],
     ])
   ),
 } as const;

@@ -103,6 +103,17 @@ test("parsePolicyToolOutput: rejects an invalid level enum", () => {
   strictEqual(value, null);
 });
 
+test("parsePolicyToolOutput: accepts a long rationale under the raised 480 cap (PFE case)", () => {
+  const { value, error } = parsePolicyToolOutput(flatSample({ [rationaleField("drug_pricing")]: "x".repeat(450) }));
+  strictEqual(error, null);
+  strictEqual(value?.drug_pricing.rationale.length, 450);
+});
+
+test("parsePolicyToolOutput: still rejects a rationale over the 480 ceiling", () => {
+  const { value } = parsePolicyToolOutput(flatSample({ [rationaleField("drug_pricing")]: "x".repeat(600) }));
+  strictEqual(value, null);
+});
+
 test("mergeToolUseInputs: merges fields split across multiple tool_use blocks", () => {
   const half1: Record<string, unknown> = {};
   const half2: Record<string, unknown> = {};
