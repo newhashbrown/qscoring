@@ -22,7 +22,12 @@ export const NARRATIVE_PROMPT_VERSION = "v1";
 // keys by default (whereas .strict() would REJECT the whole narrative over one
 // extra field). We validate shape + sane length, not exact byte counts.
 const Section = z.string().trim().min(10).max(2400);
-const ShortItem = z.string().trim().min(1).max(320);
+const ShortItem = z.string().trim().min(1).max(500);
+
+/** Never let list size sink a narrative: cap at 8 items, truncate a runaway item. */
+function clampItems(items: string[]): string[] {
+  return items.slice(0, 8).map((s) => (s.length > 480 ? s.slice(0, 479).trimEnd() + "…" : s));
+}
 
 /**
  * Coerce a list field to an array of strings. Haiku (like most models) is
@@ -33,7 +38,7 @@ const ShortItem = z.string().trim().min(1).max(320);
  */
 function toStringList(v: unknown): unknown {
   if (Array.isArray(v)) {
-    return v
+    const mapped = v
       .map((item) => {
         if (typeof item === "string") return item;
         if (item && typeof item === "object") {
@@ -45,6 +50,7 @@ function toStringList(v: unknown): unknown {
       })
       .map((s) => s.trim())
       .filter(Boolean);
+    return clampItems(mapped);
   }
   if (typeof v === "string") {
     const t = v.trim();
@@ -56,10 +62,11 @@ function toStringList(v: unknown): unknown {
         /* fall through to delimiter split */
       }
     }
-    return t
+    const split = t
       .split(/\r?\n|;|•|·/)
       .map((s) => s.replace(/^[\s\-*•·]+/, "").replace(/^\d+[.)]\s*/, "").trim())
       .filter(Boolean);
+    return clampItems(split);
   }
   return v;
 }
