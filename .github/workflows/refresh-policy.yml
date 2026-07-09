@@ -1,0 +1,69 @@
+name: Refresh policy exposures
+
+# Policy exposure tagging (AI-analysis roadmap, Phase 3).
+#
+# Offline + idempotent: scripts/generate-policy-tags.ts reads each ticker's
+# sector/industry/description grounding from the Worker, skips tickers whose
+# input_hash is unchanged, classifies only the rest through the Anthropic Message
+# Batches API, runs the degeneracy guard, and persists back through the Worker.
+# Policy exposure is slow-moving profile data, so a weekly run is cheap — it
+# reclassifies only companies whose profile actually changed.
+#
+# NOTE: requires the policy-grounding + persist-policy-tags routes to be live in
+# production (they deploy with this branch's merge to main via Workers Builds).
+
+on:
+  schedule:
+    - cron: "0 10 * * 0" # 10:00 UTC Sunday — after refresh-narratives (09:00 UTC Sun)
+  workflow_dispatch:
+    inputs:
+      sample:
+        description: "Classify only the 5-ticker sample"
+        type: boolean
+        default: false
+      max_tickers:
+        description: "Cap tickers per run (blank = no cap)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Classify policy exposures
+        env:
+          QSCORING_BASE: https://qscoring.com
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
+          POLICY_MAX_TICKERS: ${{ github.event.inputs.max_tickers }}
+          SAMPLE: ${{ github.event.inputs.sample }}
+        run: |
+          if [ "$SAMPLE" = "true" ]; then
+            npm run policy-tags -- --sample
+          else
+            npm run policy-tags
+          fi
+
+      - name: Email alert on failure
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          WF: ${{ github.workflow }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then echo "No Resend key; skipping alert"; exit 0; fi
+          curl -fsS -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" -H "Content-Type: application/json" \
+            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Policy classification failed. Run: $RUN_URL\"}"
