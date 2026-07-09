@@ -17,19 +17,21 @@ import { z } from "zod";
 /** Bump to force regeneration + invalidate stored narratives on read. */
 export const NARRATIVE_PROMPT_VERSION = "v1";
 
-const Section = z.string().trim().min(20).max(1200);
-const ShortItem = z.string().trim().min(3).max(200);
+// Bounds are deliberately generous and the object is NON-strict: LLM tool output
+// routinely runs a little long or adds a stray key, and z.object() strips unknown
+// keys by default (whereas .strict() would REJECT the whole narrative over one
+// extra field). We validate shape + sane length, not exact byte counts.
+const Section = z.string().trim().min(10).max(2400);
+const ShortItem = z.string().trim().min(3).max(320);
 
-export const NarrativeSchema = z
-  .object({
-    financial_health: Section,
-    competitive_position: Section,
-    factor_macro_profile: Section,
-    risk_flags: z.array(ShortItem).min(1).max(6),
-    catalyst_watch: z.array(ShortItem).min(1).max(6),
-    one_line_summary: z.string().trim().min(10).max(240),
-  })
-  .strict();
+export const NarrativeSchema = z.object({
+  financial_health: Section,
+  competitive_position: Section,
+  factor_macro_profile: Section,
+  risk_flags: z.array(ShortItem).min(1).max(8),
+  catalyst_watch: z.array(ShortItem).min(1).max(8),
+  one_line_summary: z.string().trim().min(8).max(400),
+});
 
 export type Narrative = z.infer<typeof NarrativeSchema>;
 
