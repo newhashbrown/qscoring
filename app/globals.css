@@ -1697,6 +1697,39 @@ footer .footer-links .sep {
   .rdcf-controls { grid-template-columns: 1fr; }
 }
 
+/* Policy Exposure (Phase 3) — per-theme none/low/medium/high badge + rationale.
+   Level colors reuse the signal palette: gray→none, blue→low, amber→medium,
+   red→high (exposure magnitude, not a good/bad judgment). */
+.policy-rows { display: flex; flex-direction: column; gap: 10px; }
+.policy-row {
+  display: grid;
+  grid-template-columns: 150px 84px 1fr;
+  align-items: baseline;
+  gap: 12px;
+}
+.policy-tag { font-size: 0.82rem; color: var(--text); font-weight: 600; }
+.policy-badge {
+  justify-self: start;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.policy-badge.lvl-none { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+.policy-badge.lvl-low { background: var(--signal-info-dim); color: var(--signal-info); }
+.policy-badge.lvl-medium { background: var(--signal-hold-dim); color: var(--signal-hold); }
+.policy-badge.lvl-high { background: var(--signal-short-dim); color: var(--signal-short); }
+.policy-rationale { font-size: 0.82rem; color: var(--text-dim); line-height: 1.45; }
+.policy-row:has(.lvl-none) .policy-tag,
+.policy-row:has(.lvl-none) .policy-rationale { opacity: 0.6; }
+
+@media (max-width: 600px) {
+  .policy-row { grid-template-columns: 1fr auto; row-gap: 4px; }
+  .policy-rationale { grid-column: 1 / -1; }
+}
+
 /* Trader's Lens (Tier 3) — setup chips + technical metric grid */
 .tl-setups { display: flex; flex-wrap: wrap; gap: 8px; }
 .tl-chip {
