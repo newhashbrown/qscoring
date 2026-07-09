@@ -22,14 +22,62 @@ export const NARRATIVE_PROMPT_VERSION = "v1";
 // keys by default (whereas .strict() would REJECT the whole narrative over one
 // extra field). We validate shape + sane length, not exact byte counts.
 const Section = z.string().trim().min(10).max(2400);
-const ShortItem = z.string().trim().min(3).max(320);
+const ShortItem = z.string().trim().min(1).max(320);
+
+/**
+ * Coerce a list field to an array of strings. Haiku (like most models) is
+ * inconsistent about array fields in tool output: it may return a single
+ * newline/semicolon/bullet-delimited STRING, a JSON-encoded array string, or an
+ * array of `{...}` objects instead of an array of plain strings. Rather than
+ * reject an otherwise-good narrative, normalize all of those to `string[]`.
+ */
+function toStringList(v: unknown): unknown {
+  if (Array.isArray(v)) {
+    return v
+      .map((item) => {
+        if (typeof item === "string") return item;
+        if (item && typeof item === "object") {
+          const o = item as Record<string, unknown>;
+          const pick = o.text ?? o.flag ?? o.item ?? o.value ?? o.description ?? Object.values(o)[0];
+          return typeof pick === "string" ? pick : JSON.stringify(item);
+        }
+        return String(item);
+      })
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+  if (typeof v === "string") {
+    const t = v.trim();
+    if (t.startsWith("[")) {
+      try {
+        const arr = JSON.parse(t);
+        if (Array.isArray(arr)) return toStringList(arr);
+      } catch {
+        /* fall through to delimiter split */
+      }
+    }
+    return t
+      .split(/\r?\n|;|•|·/)
+      .map((s) => s.replace(/^[\s\-*•·]+/, "").replace(/^\d+[.)]\s*/, "").trim())
+      .filter(Boolean);
+  }
+  return v;
+}
+
+// Coerce shape AND tolerate a missing/empty list: the model sometimes omits one
+// of these fields, and an absent risk/catalyst list shouldn't sink an otherwise
+// good narrative (the paragraph sections carry the substance; the UI just hides
+// an empty list). It still caps at 8 to reject a runaway.
+const ShortItemList = z
+  .preprocess((v) => toStringList(v ?? []), z.array(ShortItem).max(8))
+  .default([]);
 
 export const NarrativeSchema = z.object({
   financial_health: Section,
   competitive_position: Section,
   factor_macro_profile: Section,
-  risk_flags: z.array(ShortItem).min(1).max(8),
-  catalyst_watch: z.array(ShortItem).min(1).max(8),
+  risk_flags: ShortItemList,
+  catalyst_watch: ShortItemList,
   one_line_summary: z.string().trim().min(8).max(400),
 });
 
