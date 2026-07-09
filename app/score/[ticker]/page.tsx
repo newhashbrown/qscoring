@@ -11,6 +11,7 @@ import AnalystSignals, { AnalystSignalsSkeleton } from "@/app/components/Analyst
 import QualityHealth, { QualityHealthSkeleton } from "@/app/components/QualityHealth";
 import RiskPositioning, { RiskPositioningSkeleton } from "@/app/components/RiskPositioning";
 import FactorProfile, { FactorProfileSkeleton } from "@/app/components/FactorProfile";
+import ReverseDCF, { ReverseDCFSkeleton } from "@/app/components/ReverseDCF";
 import TraderLens from "@/app/components/TraderLens";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
@@ -260,6 +261,9 @@ export default async function TickerScorePage({
           </Suspense>
           <Suspense fallback={<FactorProfileSkeleton />}>
             <FactorProfile ticker={result.ticker} />
+          </Suspense>
+          <Suspense fallback={<ReverseDCFSkeleton />}>
+            <ReverseDCF ticker={result.ticker} />
           </Suspense>
         </div>
         <div className="commentary-wrap">
