@@ -37,9 +37,18 @@ const MODEL = process.env.POLICY_MODEL ?? "claude-haiku-4-5-20251001";
 const DEFAULT_SAMPLE = ["AAPL", "PFE", "XOM", "GOOGL", "WMT"]; // tech/pharma/energy/antitrust/retail
 
 async function classify(client: Anthropic, ticker: string): Promise<void> {
-  const profile = (await fmp.profile(ticker).catch(() => []))[0];
+  // Surface the real FMP failure instead of silently swallowing it — an empty
+  // result and an auth error need very different fixes.
+  let profileRows;
+  try {
+    profileRows = await fmp.profile(ticker);
+  } catch (err) {
+    console.log(`\n=== ${ticker} — FMP profile ERROR: ${err instanceof Error ? err.message : String(err)} ===`);
+    return;
+  }
+  const profile = profileRows[0];
   if (!profile) {
-    console.log(`\n=== ${ticker} — no FMP profile ===`);
+    console.log(`\n=== ${ticker} — FMP returned an empty profile (no row) ===`);
     return;
   }
   const { payload } = buildPolicyPayload({
@@ -81,9 +90,16 @@ async function classify(client: Anthropic, ticker: string): Promise<void> {
 async function main() {
   if (!process.env.ANTHROPIC_API_KEY) throw new Error("ANTHROPIC_API_KEY is not set");
   if (!process.env.FMP_API_KEY) throw new Error("FMP_API_KEY is not set");
+  // Safe key diagnostics (lengths only, never values): a trailing newline/quote
+  // from `$env:FMP_API_KEY = "..."` is a common reason a valid key gets rejected.
+  const ak = process.env.ANTHROPIC_API_KEY ?? "";
+  const fk = process.env.FMP_API_KEY ?? "";
+  const flag = (s: string) => (s !== s.trim() ? " ⚠ surrounding whitespace" : "");
+  console.log(`keys: ANTHROPIC len=${ak.length}${flag(ak)}, FMP len=${fk.length}${flag(fk)}`);
+
   const tickers = process.argv.slice(2).map((s) => s.toUpperCase()).filter(Boolean);
   const list = tickers.length ? tickers : DEFAULT_SAMPLE;
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const client = new Anthropic({ apiKey: ak.trim() });
   console.log(`Policy sample: ${list.join(", ")} (model ${MODEL}) — print-only, no D1, no deploy`);
   for (const ticker of list) {
     try {
