@@ -30,6 +30,8 @@ CONTENT:
 - catalyst_watch: 1-6 short, neutral items to monitor (upcoming filings, margin trend, debt levels) — observational, never predictive of price.
 - one_line_summary: a single neutral sentence, no recommendation.
 
+FORMAT for risk_flags and catalyst_watch: return each as a JSON ARRAY of short strings — each item a brief phrase of at most ~15 words, not a paragraph. Do NOT state any specific number (dollar amount, percentage, count) in these list items unless that exact figure appears in the payload; prefer qualitative wording ("elevated leverage", "margin compression") over invented figures.
+
 Call the ${NARRATIVE_TOOL_NAME} tool exactly once with your briefing. Do not write anything outside the tool call.`;
 
 export const NARRATIVE_TOOL = {

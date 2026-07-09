@@ -41,6 +41,24 @@ test("parseNarrative: coerces an array of objects to strings", () => {
   deepStrictEqual(n?.risk_flags, ["Elevated leverage", "Margin risk"]);
 });
 
+test("parseNarrative: clamps an over-long list to 8 items", () => {
+  const many = Array.from({ length: 15 }, (_, i) => `Risk number ${i + 1}`);
+  const n = parseNarrative({ ...base, risk_flags: many });
+  strictEqual(n?.risk_flags.length, 8);
+});
+
+test("parseNarrative: truncates a runaway item instead of rejecting", () => {
+  const n = parseNarrative({ ...base, catalyst_watch: ["x".repeat(1000)] });
+  strictEqual(n !== null, true);
+  strictEqual((n?.catalyst_watch[0].length ?? 0) <= 500, true);
+});
+
+test("parseNarrative: a single undelimited string blob becomes one clamped item", () => {
+  const n = parseNarrative({ ...base, risk_flags: "y".repeat(900) });
+  strictEqual(n?.risk_flags.length, 1);
+  strictEqual((n?.risk_flags[0].length ?? 0) <= 500, true);
+});
+
 test("parseNarrative: a MISSING list field defaults to [] (does not fail)", () => {
   const { catalyst_watch: _omit, ...noCatalyst } = base;
   const n = parseNarrative(noCatalyst);
