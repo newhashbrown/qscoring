@@ -126,6 +126,14 @@ test("validateNarrativeNumbers: a fabricated growth rate is rejected", () => {
   strictEqual(res.offending.some((o) => o.value === 88), true);
 });
 
+test("validateNarrativeNumbers: the score band string is grounded (70-79)", () => {
+  const res = validateNarrativeNumbers(
+    narrative({ one_line_summary: "Scores in the 70-79 QScore band." }),
+    payload
+  );
+  strictEqual(res.ok, true); // 70 and 79 appear inside the payload's band string
+});
+
 test("validateNarrativeNumbers: a real payload figure in billions passes", () => {
   const res = validateNarrativeNumbers(
     narrative({ financial_health: "Free cash flow was about $112 billion." }),

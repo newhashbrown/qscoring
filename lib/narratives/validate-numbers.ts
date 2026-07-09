@@ -85,12 +85,18 @@ export function isGrounded(
   return false;
 }
 
-/** Every finite number appearing anywhere in the grounding payload. */
+/**
+ * Every number that appears anywhere in the grounding payload — including numbers
+ * embedded in STRING values (e.g. the "70-79" score band, the "2026-07-07" date),
+ * since those literally "appear in the payload" and a model may quote them.
+ */
 export function collectAllowedNumbers(payload: GroundingPayload): number[] {
   const nums: number[] = [];
   const walk = (v: unknown): void => {
     if (typeof v === "number") {
       if (Number.isFinite(v)) nums.push(Math.abs(v));
+    } else if (typeof v === "string") {
+      for (const tok of extractNumbers(v)) nums.push(tok.value);
     } else if (Array.isArray(v)) {
       v.forEach(walk);
     } else if (v && typeof v === "object") {
