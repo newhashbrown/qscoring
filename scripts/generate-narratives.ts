@@ -23,7 +23,12 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
-import { NARRATIVE_PROMPT_VERSION, NARRATIVE_TOOL_NAME, parseNarrative } from "../lib/narratives/types";
+import {
+  NARRATIVE_PROMPT_VERSION,
+  NARRATIVE_TOOL_NAME,
+  NarrativeSchema,
+  parseNarrative,
+} from "../lib/narratives/types";
 import {
   NARRATIVE_SYSTEM_PROMPT,
   NARRATIVE_TOOL,
@@ -159,10 +164,30 @@ async function runBatch(
     usage.output += msg.usage?.output_tokens ?? 0;
     // Discriminated-union narrowing: inside the type guard, `block.input` is typed.
     let parsed: Narrative | null = null;
+    let toolInput: unknown;
+    let sawTool = false;
     for (const block of msg.content) {
       if (block.type === "tool_use") {
+        sawTool = true;
+        toolInput = block.input;
         parsed = parseNarrative(block.input);
         break;
+      }
+    }
+    if (!parsed) {
+      // Log WHY it failed — a bare "unparseable" is un-debuggable.
+      if (!sawTool) {
+        console.warn(`  [${ticker}] no tool_use block; content=[${msg.content.map((b) => b.type).join(",")}]`);
+      } else {
+        const issues = NarrativeSchema.safeParse(toolInput)
+          .error?.issues?.slice(0, 6)
+          .map((i) => `${i.path.join(".") || "(root)"}:${i.code}`)
+          .join("; ");
+        const keys =
+          toolInput && typeof toolInput === "object"
+            ? Object.keys(toolInput as Record<string, unknown>).join(",")
+            : typeof toolInput;
+        console.warn(`  [${ticker}] tool output failed schema — keys=[${keys}] issues=[${issues ?? "?"}]`);
       }
     }
     byTicker.set(ticker, parsed);
@@ -289,6 +314,15 @@ async function main() {
     `Tokens: in=${totalUsage.input} out=${totalUsage.output} | run cost ≈ $${cost.toFixed(4)} ` +
       `(batch $0.50/$2.50 per MTok)`
   );
+
+  // Don't let the job go green on a total wipeout: candidates existed but every
+  // one failed validation. A partial success (some written) is fine.
+  if (written === 0 && toGenerate.length > 0) {
+    throw new Error(
+      `Generated 0 narratives from ${toGenerate.length} candidate(s) — ` +
+        `parse-failed=${failedParse}, number-rejected=${failedNumbers}. See per-ticker logs above.`
+    );
+  }
 }
 
 main().catch((err) => {
