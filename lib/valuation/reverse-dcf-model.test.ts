@@ -88,6 +88,26 @@ test("buildReverseDcfModel: null when there's under two years of FCF", () => {
   strictEqual(m, null);
 });
 
+test("buildReverseDcfModel: null when the filing currency isn't USD (FX mismatch guard)", () => {
+  const m = buildReverseDcfModel({
+    cashflow: NEWEST_FIRST,
+    profile: profile(80_000), // marketCap is USD; FCF would be EUR → mismatched basis
+    income: income("EUR"),
+    estimates: [],
+  });
+  strictEqual(m, null);
+});
+
+test("buildReverseDcfModel: builds when reportedCurrency is null (assume USD)", () => {
+  const m = buildReverseDcfModel({
+    cashflow: NEWEST_FIRST,
+    profile: profile(80_000),
+    income: income(null),
+    estimates: [],
+  });
+  ok(m !== null);
+});
+
 test("buildReverseDcfModel: null when market cap is missing", () => {
   const m = buildReverseDcfModel({
     cashflow: NEWEST_FIRST,

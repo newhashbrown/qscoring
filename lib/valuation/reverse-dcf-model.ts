@@ -67,6 +67,14 @@ export function buildReverseDcfModel(inputs: {
   income: IncomeStatement[];
   estimates: AnalystEstimate[];
 }): ReverseDcfModel | null {
+  // Currency-basis guard: FMP reports profile.marketCap in USD but statement
+  // FCF in the filing currency. Equating them in the solve only holds when both
+  // are USD — for a foreign filer (e.g. an ADR reporting in EUR/JPY) the implied
+  // growth would be silently wrong. Hide the section rather than mislead; a
+  // proper FX conversion is a future refinement.
+  const currency = inputs.income[0]?.reportedCurrency ?? null;
+  if (currency !== null && currency !== "USD") return null;
+
   const series = annualFcfSeries(inputs.cashflow);
   if (series.length < 2) return null; // need a couple of years to normalize + trend
 
@@ -93,7 +101,7 @@ export function buildReverseDcfModel(inputs: {
         : { kind: "none", growth: null, label: "No comparison available" };
 
   return {
-    currency: inputs.income[0]?.reportedCurrency ?? null,
+    currency,
     marketCap,
     baseFcf,
     baseFcfLabel,
