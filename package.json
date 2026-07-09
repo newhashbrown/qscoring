@@ -15,22 +15,25 @@
     "weekly-recap": "tsx scripts/build-weekly-recap.ts",
     "backfill-snapshots": "tsx scripts/backfill-snapshots.ts",
     "fundamentals": "tsx scripts/build-fundamentals.ts",
+    "narratives": "tsx scripts/generate-narratives.ts",
     "movers:backfill": "tsx scripts/build-movers.ts",
     "movers:dryrun": "tsx scripts/movers-dryrun.ts",
     "movers:backtest": "tsx scripts/movers-backtest.ts",
     "cross-check": "tsx scripts/cross-check-massive.ts",
     "research:export": "tsx scripts/research/export-factor-panel.ts",
     "research:lookahead": "tsx scripts/research/lookahead-check.ts",
-    "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts lib/json-ld.test.ts lib/coverage.test.ts lib/performance.test.ts lib/scoring/momentum-factor.test.ts lib/scoring/risk-factor.test.ts lib/movers-board.test.ts lib/scoring/company-header.test.ts lib/scoring/trader-lens.test.ts lib/scoring/snapshot-header-compat.test.ts lib/scoring/fundamentals.test.ts lib/score-history.test.ts lib/scoring/universe.test.ts lib/scoring/factor-exposures.test.ts lib/scoring/universe-guards.test.ts lib/scoring/percentile.test.ts lib/scoring/relative.test.ts lib/scoring/analyst.test.ts lib/scoring/quality.test.ts lib/scoring/risk-stats.test.ts lib/scoring/insider.test.ts lib/scoring/rank-correlation.test.ts lib/forward-returns.test.ts lib/snapshot-mode.test.ts lib/snapshot-price.test.ts lib/snapshot-rebuild.test.ts lib/splits.test.ts lib/recaps.test.ts lib/terminal-values.test.ts"
+    "test": "tsx --test lib/scoring/zscore.test.ts lib/market-date.test.ts lib/json-ld.test.ts lib/coverage.test.ts lib/performance.test.ts lib/scoring/momentum-factor.test.ts lib/scoring/risk-factor.test.ts lib/movers-board.test.ts lib/scoring/company-header.test.ts lib/scoring/trader-lens.test.ts lib/scoring/snapshot-header-compat.test.ts lib/scoring/fundamentals.test.ts lib/score-history.test.ts lib/scoring/universe.test.ts lib/scoring/factor-exposures.test.ts lib/scoring/universe-guards.test.ts lib/scoring/percentile.test.ts lib/scoring/relative.test.ts lib/scoring/analyst.test.ts lib/scoring/quality.test.ts lib/scoring/risk-stats.test.ts lib/scoring/insider.test.ts lib/scoring/rank-correlation.test.ts lib/forward-returns.test.ts lib/snapshot-mode.test.ts lib/snapshot-price.test.ts lib/snapshot-rebuild.test.ts lib/splits.test.ts lib/recaps.test.ts lib/terminal-values.test.ts lib/narratives/grounding.test.ts lib/narratives/validate-numbers.test.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.4.1",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "stripe": "^22.1.1"
+    "stripe": "^22.1.1",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.68.0",
     "@opennextjs/cloudflare": "^1.19.7",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

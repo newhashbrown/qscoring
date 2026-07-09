@@ -2043,6 +2043,92 @@ footer .footer-links .sep {
   100% { background-position: -200% 0; }
 }
 
+/* ─── QSCORE AI ANALYSIS ─── */
+.qai-card {
+  padding: 28px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+}
+.qai-head { margin-bottom: 16px; }
+.qai-head .section-title { margin-top: 4px; }
+.qai-summary {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.qai-section { margin-bottom: 20px; }
+.qai-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.qai-section-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  margin: 0;
+}
+.qai-asof {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.qai-summary .qai-asof { margin-left: 10px; font-style: italic; }
+.qai-text { line-height: 1.6; color: var(--text-muted); margin: 0; }
+.qai-list { margin: 0; padding-left: 18px; color: var(--text-muted); }
+.qai-list li { margin-bottom: 4px; line-height: 1.5; }
+.qai-empty { color: var(--text-muted); line-height: 1.6; margin: 8px 0 16px; }
+.qai-locked {
+  margin-top: 8px;
+  padding: 18px 20px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.qai-locked-head { font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.qai-locked-body { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 12px; }
+.qai-upgrade {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #05140d;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.qai-upgrade:hover { filter: brightness(1.08); }
+.qai-footer {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.qai-skeleton {
+  height: 120px;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.04)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
 /* ─── SCORE PAGE SKELETON ─── */
 .skel-line {
   background: linear-gradient(
