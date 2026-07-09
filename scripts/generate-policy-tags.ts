@@ -22,8 +22,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import {
   POLICY_PROMPT_VERSION,
   POLICY_TOOL_NAME,
-  PolicyExposuresSchema,
-  parsePolicyExposures,
+  parsePolicyToolOutput,
+  mergeToolUseInputs,
   degenerateReason,
   type PolicyExposures,
 } from "../lib/policy/types";
@@ -150,31 +150,18 @@ async function runBatch(client: Anthropic, requests: BatchRequest[]): Promise<Ba
     const msg = entry.result.message;
     usage.input += msg.usage?.input_tokens ?? 0;
     usage.output += msg.usage?.output_tokens ?? 0;
-    let parsed: PolicyExposures | null = null;
-    let toolInput: unknown;
-    let sawTool = false;
-    for (const block of msg.content) {
-      if (block.type === "tool_use") {
-        sawTool = true;
-        toolInput = block.input;
-        parsed = parsePolicyExposures(block.input);
-        break;
-      }
-    }
+    // Merge ALL tool_use blocks (Haiku sometimes splits the call), then parse the
+    // FLAT tool output and reassemble into the nested shape.
+    const sawTool = msg.content.some((b) => b.type === "tool_use");
+    const merged = mergeToolUseInputs(msg.content);
+    const { value: parsed, error } = parsePolicyToolOutput(merged);
     if (!parsed) {
       if (!sawTool) {
         console.warn(`  [${ticker}] no tool_use block; content=[${msg.content.map((b) => b.type).join(",")}]`);
       } else {
-        const issues = PolicyExposuresSchema.safeParse(toolInput)
-          .error?.issues?.slice(0, 6)
-          .map((i) => `${i.path.join(".") || "(root)"}:${i.code}`)
-          .join("; ");
-        const keys =
-          toolInput && typeof toolInput === "object"
-            ? Object.keys(toolInput as Record<string, unknown>).join(",")
-            : typeof toolInput;
-        const rawStr = JSON.stringify(toolInput).slice(0, 500);
-        console.warn(`  [${ticker}] tool output failed schema — keys=[${keys}] issues=[${issues ?? "?"}] raw=${rawStr}`);
+        const issues = error?.issues?.slice(0, 6).map((i) => `${i.path.join(".") || "(root)"}:${i.code}`).join("; ");
+        const rawStr = JSON.stringify(merged).slice(0, 500);
+        console.warn(`  [${ticker}] tool output failed schema — issues=[${issues ?? "?"}] raw=${rawStr}`);
       }
     }
     byTicker.set(ticker, parsed);

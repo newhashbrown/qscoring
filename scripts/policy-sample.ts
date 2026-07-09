@@ -30,7 +30,8 @@ import {
 import {
   POLICY_TOOL_NAME,
   POLICY_TAGS,
-  parsePolicyExposures,
+  parsePolicyToolOutput,
+  mergeToolUseInputs,
   degenerateReason,
   type PolicyExposures,
 } from "../lib/policy/types";
@@ -43,7 +44,8 @@ type Attempt = {
   parsed: PolicyExposures | null;
   stopReason: string | null;
   blockTypes: string[];
-  rawToolInput: string | null; // truncated JSON of the tool_use input, for debugging
+  rawToolInput: string | null; // truncated JSON of the merged tool_use input, for debugging
+  zodIssues: string[] | null; // exact validation failures (path:code), when parse fails
 };
 
 type Result = {
@@ -71,17 +73,18 @@ async function callOnce(client: Anthropic, payload: PolicyPayload): Promise<Atte
     messages: [{ role: "user", content: buildPolicyUserMessage(payload) }],
   });
 
-  // Select the tool_use block by TYPE (don't assume it's content[0]).
-  const toolBlock = msg.content.find((b) => b.type === "tool_use");
-  const rawToolInput =
-    toolBlock && toolBlock.type === "tool_use" ? JSON.stringify(toolBlock.input).slice(0, 600) : null;
-  const parsed = toolBlock && toolBlock.type === "tool_use" ? parsePolicyExposures(toolBlock.input) : null;
+  // Merge ALL tool_use blocks (Haiku sometimes splits the call), then parse the
+  // FLAT tool output and reassemble into the nested shape.
+  const hasToolUse = msg.content.some((b) => b.type === "tool_use");
+  const merged = mergeToolUseInputs(msg.content);
+  const { value: parsed, error } = parsePolicyToolOutput(merged);
 
   return {
     parsed,
     stopReason: msg.stop_reason ?? null,
     blockTypes: msg.content.map((b) => b.type),
-    rawToolInput,
+    rawToolInput: hasToolUse ? JSON.stringify(merged).slice(0, 600) : null,
+    zodIssues: error ? error.issues.slice(0, 8).map((i) => `${i.path.join(".") || "(root)"}:${i.code}`) : null,
   };
 }
 
@@ -151,7 +154,8 @@ function printResult(r: Result): void {
         `    attempt ${i + 1}: stop_reason=${a.stopReason} blocks=[${a.blockTypes.join(",")}]` +
           (a.stopReason === "max_tokens" ? "  ← TRUNCATED (raise POLICY_MAX_TOKENS)" : "")
       );
-      console.log(`      raw tool_use.input: ${a.rawToolInput ?? "(no tool_use block)"}`);
+      console.log(`      zod issues: ${a.zodIssues?.join("; ") ?? "(none — no tool_use block)"}`);
+      console.log(`      raw merged tool input: ${a.rawToolInput ?? "(no tool_use block)"}`);
     });
     return;
   }

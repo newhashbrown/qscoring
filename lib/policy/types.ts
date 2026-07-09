@@ -45,12 +45,26 @@ export type PolicyExposure = { level: PolicyLevel; rationale: string };
 export type PolicyExposures = Record<PolicyTagKey, PolicyExposure>;
 
 const RationaleSchema = z.string().trim().min(3).max(240);
+
+// Level normalized before the enum check: Haiku occasionally returns "High" /
+// "NONE " / " medium" — trim + lowercase so casing/whitespace doesn't reject an
+// otherwise-valid classification (this was AAPL's valid-JSON-but-rejected case).
+const LevelSchema = z.preprocess(
+  (v) => (typeof v === "string" ? v.trim().toLowerCase() : v),
+  z.enum(POLICY_LEVELS)
+);
+
 const ExposureSchema = z.object({
-  level: z.enum(POLICY_LEVELS),
+  level: LevelSchema,
   rationale: RationaleSchema,
 });
 
-/** zod object keyed by the six tags (all required, unknown keys stripped). */
+/**
+ * Nested schema — the STORAGE + read/UI shape (one key per tag holding
+ * {level, rationale}). This is what persist-policy-tags validates and what
+ * exposures_json holds. The MODEL does not emit this shape directly; see the
+ * FLAT tool schema + parsePolicyToolOutput below.
+ */
 export const PolicyExposuresSchema = z.object(
   Object.fromEntries(POLICY_TAG_KEYS.map((k) => [k, ExposureSchema])) as Record<
     PolicyTagKey,
@@ -58,33 +72,88 @@ export const PolicyExposuresSchema = z.object(
   >
 );
 
-/**
- * JSON-Schema mirror used as the Anthropic tool `input_schema` so the model is
- * FORCED to emit exactly these keys/types. zod remains the authority on the
- * parsed result.
- */
-const EXPOSURE_JSON_SCHEMA = {
-  type: "object",
-  additionalProperties: false,
-  required: ["level", "rationale"],
-  properties: {
-    level: { type: "string", enum: [...POLICY_LEVELS] },
-    rationale: { type: "string", minLength: 3, maxLength: 240 },
-  },
-} as const;
-
 export const POLICY_TOOL_NAME = "emit_policy_exposures";
+
+// Flat field names, two per tag: `${tag}_level` + `${tag}_rationale`.
+export const levelField = (k: PolicyTagKey) => `${k}_level` as const;
+export const rationaleField = (k: PolicyTagKey) => `${k}_rationale` as const;
+
+/**
+ * FLAT JSON-Schema tool mirror. A nested object-of-objects schema makes Haiku
+ * leak tool-call scaffolding (literal `<parameter name="level">` strings, fields
+ * hoisted to siblings, the call split across multiple tool_use blocks). A flat
+ * schema of 12 scalar fields serializes far more reliably; parsePolicyToolOutput
+ * reassembles it into the nested storage shape.
+ */
 export const POLICY_TOOL_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: [...POLICY_TAG_KEYS],
-  properties: Object.fromEntries(POLICY_TAG_KEYS.map((k) => [k, EXPOSURE_JSON_SCHEMA])),
+  required: POLICY_TAG_KEYS.flatMap((k) => [levelField(k), rationaleField(k)]),
+  properties: Object.fromEntries(
+    POLICY_TAG_KEYS.flatMap((k) => [
+      [levelField(k), { type: "string", enum: [...POLICY_LEVELS] }],
+      [rationaleField(k), { type: "string", minLength: 3, maxLength: 240 }],
+    ])
+  ),
 } as const;
 
-/** Parse untrusted JSON into PolicyExposures; null on any schema violation. */
+/** zod for the FLAT tool output: 12 fields, level normalized, unknown stripped. */
+export const FlatPolicyOutputSchema = z.object(
+  Object.fromEntries(
+    POLICY_TAG_KEYS.flatMap((k) => [
+      [levelField(k), LevelSchema],
+      [rationaleField(k), RationaleSchema],
+    ])
+  ) as Record<string, typeof LevelSchema | typeof RationaleSchema>
+);
+
+/** Parse the STORED (nested) shape; null on any schema violation. */
 export function parsePolicyExposures(raw: unknown): PolicyExposures | null {
   const result = PolicyExposuresSchema.safeParse(raw);
   return result.success ? (result.data as PolicyExposures) : null;
+}
+
+/** Reassemble validated flat fields into the nested storage shape. */
+function flatToNested(flat: Record<string, unknown>): PolicyExposures {
+  const out = {} as PolicyExposures;
+  for (const k of POLICY_TAG_KEYS) {
+    out[k] = {
+      level: flat[levelField(k)] as PolicyLevel,
+      rationale: flat[rationaleField(k)] as string,
+    };
+  }
+  return out;
+}
+
+/**
+ * Merge the `input` of ALL tool_use blocks in a message. Haiku sometimes splits
+ * one forced tool call across several tool_use blocks; taking only the first
+ * would drop fields, so we shallow-merge them (unknown keys are stripped by the
+ * flat schema during parse).
+ */
+export function mergeToolUseInputs(
+  content: ReadonlyArray<{ type: string; input?: unknown }>
+): Record<string, unknown> {
+  const merged: Record<string, unknown> = {};
+  for (const b of content) {
+    if (b.type === "tool_use" && b.input && typeof b.input === "object") {
+      Object.assign(merged, b.input as Record<string, unknown>);
+    }
+  }
+  return merged;
+}
+
+/**
+ * Parse the model's FLAT tool output into the nested PolicyExposures. Returns
+ * the value plus the zod error (when it fails) so callers can log exactly what
+ * tripped validation.
+ */
+export function parsePolicyToolOutput(
+  raw: unknown
+): { value: PolicyExposures | null; error: z.ZodError | null } {
+  const result = FlatPolicyOutputSchema.safeParse(raw);
+  if (!result.success) return { value: null, error: result.error };
+  return { value: flatToNested(result.data as Record<string, unknown>), error: null };
 }
 
 /**
