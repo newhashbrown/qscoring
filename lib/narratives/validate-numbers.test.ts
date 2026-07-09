@@ -26,6 +26,7 @@ const payload: GroundingPayload = {
       { name: "value", label: "Value", score: 41 },
       { name: "growth", label: "Growth", score: 66 },
     ],
+    history: null,
   },
   fundamentals: {
     currency: "USD",

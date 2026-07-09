@@ -144,6 +144,50 @@ test("stableHash: order-independent, deterministic", () => {
   notStrictEqual(stableHash({ a: 1 }), stableHash({ a: 2 }));
 });
 
+// ─── QScore history summary ────────────────────────────────────────────────
+test("buildGroundingPayload: summarizes QScore history + last signal change", () => {
+  const history = [
+    { snapshot_date: "2026-06-01", composite: 61, signal: "HOLD" },
+    { snapshot_date: "2026-06-15", composite: 67, signal: "HOLD" },
+    { snapshot_date: "2026-07-01", composite: 70, signal: "BUY_LONG_TERM" },
+    { snapshot_date: "2026-07-07", composite: 73, signal: "BUY_LONG_TERM" },
+  ];
+  const { payload } = buildGroundingPayload({ ...inputs(), history });
+  const h = payload.qscore.history!;
+  strictEqual(h.window_snapshots, 4);
+  strictEqual(h.composite_start, 61);
+  strictEqual(h.composite_change, 12); // 73 - 61
+  strictEqual(h.composite_min, 61);
+  strictEqual(h.composite_max, 73);
+  deepStrictEqual(h.last_signal_change, { date: "2026-07-01", from: "HOLD", to: "BUY_LONG_TERM" });
+});
+
+test("history is null with fewer than two points", () => {
+  const { payload } = buildGroundingPayload({
+    ...inputs(),
+    history: [{ snapshot_date: "2026-07-07", composite: 73, signal: "HOLD" }],
+  });
+  strictEqual(payload.qscore.history, null);
+});
+
+test("input_hash ignores history (daily-moving, not a regen trigger)", () => {
+  const a = buildGroundingPayload({
+    ...inputs(),
+    history: [
+      { snapshot_date: "2026-07-01", composite: 70, signal: "HOLD" },
+      { snapshot_date: "2026-07-07", composite: 73, signal: "HOLD" },
+    ],
+  });
+  const b = buildGroundingPayload({
+    ...inputs(),
+    history: [
+      { snapshot_date: "2026-07-01", composite: 71, signal: "BUY_LONG_TERM" },
+      { snapshot_date: "2026-07-07", composite: 73, signal: "BUY_LONG_TERM" },
+    ],
+  });
+  strictEqual(a.inputHash, b.inputHash);
+});
+
 // ─── degenerate input ──────────────────────────────────────────────────────
 test("buildGroundingPayload: tolerates missing fundamentals", () => {
   const { payload } = buildGroundingPayload(inputs({ fundamentals: [] }));

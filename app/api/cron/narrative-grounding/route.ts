@@ -108,6 +108,15 @@ export async function POST(req: Request) {
         .bind(ticker)
         .first<FactorRow>();
 
+      // Recent daily history for the QScore trend summary (kept out of the hash).
+      const { results: historyRows } = await db
+        .prepare(
+          `SELECT snapshot_date, composite, signal
+             FROM score_snapshots WHERE ticker = ?1 ORDER BY snapshot_date DESC LIMIT 30`
+        )
+        .bind(ticker)
+        .all<{ snapshot_date: string; composite: number; signal: string }>();
+
       const rank = await db
         .prepare(
           `SELECT
@@ -134,6 +143,7 @@ export async function POST(req: Request) {
         fundamentals: fundRows ?? [],
         factor: factor ?? null,
         universePercentile,
+        history: historyRows ?? [],
       });
 
       results.push({

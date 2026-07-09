@@ -25,7 +25,7 @@ STRICT GROUNDING RULES — these override any instinct to sound complete:
 CONTENT:
 - financial_health: revenue trajectory, margins, cash flow, and balance-sheet strength from the fundamentals in the payload.
 - competitive_position: what the fundamentals and factor scores imply about the company's standing; qualify carefully since the payload has no qualitative market data.
-- factor_macro_profile: read the QScore factor scores and any Fama-French betas — value/growth/momentum/quality/risk tilts and market sensitivity.
+- factor_macro_profile: read the QScore factor scores and any Fama-French betas — value/growth/momentum/quality/risk tilts and market sensitivity. When qscore.history is present, note the composite trend (composite_change over the window) and any last_signal_change.
 - risk_flags: 1-6 short, concrete risks visible in the payload (leverage, margin compression, negative FCF, high beta, weak factor scores, etc.).
 - catalyst_watch: 1-6 short, neutral items to monitor (upcoming filings, margin trend, debt levels) — observational, never predictive of price.
 - one_line_summary: a single neutral sentence, no recommendation.

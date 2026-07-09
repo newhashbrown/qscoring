@@ -65,6 +65,13 @@ export type NarrativeFactorRow = {
   beta_mom?: number | null;
 } | null;
 
+/** A prior daily snapshot, for the QScore trend summary. */
+export type NarrativeHistoryRow = {
+  snapshot_date: string;
+  composite: number;
+  signal: string;
+};
+
 export type GroundingInputs = {
   snapshot: NarrativeSnapshotRow;
   /** FY fundamentals rows (any order); Q rows should be filtered out by caller. */
@@ -72,6 +79,17 @@ export type GroundingInputs = {
   factor: NarrativeFactorRow;
   /** 0–100 integer rank of the composite within the snapshot date, or null. */
   universePercentile: number | null;
+  /** Recent daily snapshots (any order) for the QScore history summary. */
+  history?: NarrativeHistoryRow[];
+};
+
+export type QScoreHistory = {
+  window_snapshots: number;
+  composite_start: number;
+  composite_change: number;
+  composite_min: number;
+  composite_max: number;
+  last_signal_change: { date: string; from: string; to: string } | null;
 };
 
 export type FactorScore = { name: string; label: string; score: number };
@@ -90,6 +108,7 @@ export type GroundingPayload = {
     short_term: number | null;
     universe_percentile: number | null;
     factor_scores: FactorScore[];
+    history: QScoreHistory | null;
   };
   fundamentals: {
     currency: string | null;
@@ -185,6 +204,35 @@ function parseFactorScores(json: string | null): FactorScore[] {
   } catch {
     return [];
   }
+}
+
+/** Summarize recent snapshots into a compact QScore trend (needs ≥2 points). */
+function summarizeHistory(rows: NarrativeHistoryRow[] | undefined): QScoreHistory | null {
+  if (!rows || rows.length < 2) return null;
+  const ordered = [...rows].sort((a, b) => a.snapshot_date.localeCompare(b.snapshot_date));
+  const composites = ordered.map((r) => Math.round(r.composite));
+  const start = composites[0];
+  const end = composites[composites.length - 1];
+
+  let lastSignalChange: QScoreHistory["last_signal_change"] = null;
+  for (let i = 1; i < ordered.length; i++) {
+    if (ordered[i].signal !== ordered[i - 1].signal) {
+      lastSignalChange = {
+        date: ordered[i].snapshot_date,
+        from: ordered[i - 1].signal,
+        to: ordered[i].signal,
+      };
+    }
+  }
+
+  return {
+    window_snapshots: ordered.length,
+    composite_start: start,
+    composite_change: end - start,
+    composite_min: Math.min(...composites),
+    composite_max: Math.max(...composites),
+    last_signal_change: lastSignalChange,
+  };
 }
 
 /** FMP statements are newest-first; sort FY rows oldest→newest by period end. */
@@ -306,6 +354,9 @@ export function buildGroundingPayload(inputs: GroundingInputs): GroundingResult 
       short_term: finite(s.short_term) === null ? null : Math.round(s.short_term!),
       universe_percentile: universePercentile === null ? null : Math.round(universePercentile),
       factor_scores: parseFactorScores(s.categories_json),
+      // Daily-moving trend summary — shown to the model but, like the valuation
+      // multiples, DELIBERATELY excluded from input_hash so it can't churn regen.
+      history: summarizeHistory(inputs.history),
     },
     fundamentals: {
       currency: latest?.reported_currency ?? fy[0]?.reported_currency ?? null,
