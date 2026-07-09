@@ -1,0 +1,82 @@
+name: Refresh AI narratives
+
+# Grounded per-ticker AI narratives (AI-analysis roadmap, Phase 1).
+#
+# Generation is offline + idempotent: scripts/generate-narratives.ts reads each
+# ticker's grounding payload from D1 (via the Worker), skips tickers whose
+# input_hash is unchanged, generates only the rest through the Anthropic Message
+# Batches API, validates, and persists back through the Worker. So a weekly run
+# is cheap — it regenerates only what actually changed since last week.
+#
+# Runs weekly AND after the fundamentals ingest completes (workflow_run), so new
+# quarterly filings flow into narratives within the same cycle.
+
+on:
+  schedule:
+    - cron: "0 9 * * 0" # 09:00 UTC Sunday — after refresh-fundamentals (07:00 UTC Sun)
+  workflow_run:
+    workflows: ["Refresh fundamentals store"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      sample:
+        description: "Generate only the 5-ticker sample"
+        type: boolean
+        default: false
+      max_tickers:
+        description: "Cap tickers per run (blank = no cap)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    # On the workflow_run trigger, only proceed if the fundamentals job succeeded.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate narratives
+        env:
+          QSCORING_BASE: https://qscoring.com
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
+          NARRATIVE_MAX_TICKERS: ${{ github.event.inputs.max_tickers }}
+          SAMPLE: ${{ github.event.inputs.sample }}
+        run: |
+          if [ "$SAMPLE" = "true" ]; then
+            npm run narratives -- --sample
+          else
+            npm run narratives
+          fi
+
+      - name: Ping healthcheck on success
+        if: success()
+        continue-on-error: true
+        env:
+          HEALTHCHECK_NARRATIVES_URL: ${{ secrets.HEALTHCHECK_NARRATIVES_URL }}
+        run: |
+          if [ -z "$HEALTHCHECK_NARRATIVES_URL" ]; then echo "No healthcheck URL set; skipping ping"; exit 0; fi
+          curl -fsS "$HEALTHCHECK_NARRATIVES_URL"
+
+      - name: Email alert on failure
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          WF: ${{ github.workflow }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then echo "No Resend key; skipping alert"; exit 0; fi
+          curl -fsS -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" -H "Content-Type: application/json" \
+            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Narrative generation failed. Run: $RUN_URL\"}"
