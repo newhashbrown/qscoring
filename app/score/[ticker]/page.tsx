@@ -5,6 +5,7 @@ import { notFound, redirect } from "next/navigation";
 import ScoreNav from "@/app/components/ScoreNav";
 import ScoreView from "@/app/components/ScoreView";
 import Commentary, { CommentarySkeleton } from "@/app/components/Commentary";
+import QScoreAIAnalysis from "@/app/components/QScoreAIAnalysis";
 import FundamentalsTrend, { FundamentalsTrendSkeleton } from "@/app/components/FundamentalsTrend";
 import AnalystSignals, { AnalystSignalsSkeleton } from "@/app/components/AnalystSignals";
 import QualityHealth, { QualityHealthSkeleton } from "@/app/components/QualityHealth";
@@ -265,6 +266,11 @@ export default async function TickerScorePage({
           <Suspense fallback={<CommentarySkeleton />}>
             <Commentary scoreResult={result} />
           </Suspense>
+        </div>
+        <div className="commentary-wrap">
+          {/* Client-fetch (not inline) so the tier-gated, `private` narrative is
+              never baked into this ISR-cached, public page body. */}
+          <QScoreAIAnalysis ticker={result.ticker} />
         </div>
         <RelatedStocks
           ticker={result.ticker}
