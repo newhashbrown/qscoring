@@ -1614,6 +1614,89 @@ footer .footer-links .sep {
   .fp-name { font-size: 0.72rem; }
 }
 
+/* Reverse DCF (Phase 2) — "what the price implies" interactive calculator.
+   Bars reuse the signed fp-bar visual language; there are intentionally NO
+   transitions on the fills so they track the sliders instantly (and are
+   reduced-motion-safe by construction). */
+.rdcf { display: flex; flex-direction: column; gap: 18px; }
+.rdcf-lede { font-size: 0.86rem; color: var(--text-dim); line-height: 1.55; margin: 0; }
+.rdcf-lede em { font-style: italic; color: var(--text); }
+
+.rdcf-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.rdcf-implied-val {
+  font-family: var(--mono);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.rdcf-implied-cap { font-size: 0.76rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+.rdcf-bars { display: flex; flex-direction: column; gap: 12px; }
+.rdcf-bar-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 64px;
+  align-items: center;
+  gap: 12px;
+}
+.rdcf-bar-label { font-size: 0.78rem; color: var(--text-dim); }
+.rdcf-bar {
+  position: relative;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+.rdcf-bar::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--border);
+}
+.rdcf-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 4px; }
+.rdcf-bar-fill.implied.pos { background: var(--accent); }
+.rdcf-bar-fill.implied.neg { background: var(--red); }
+.rdcf-bar-fill.baseline { background: var(--text-muted); opacity: 0.7; }
+.rdcf-bar-val { font-family: var(--mono); font-size: 0.82rem; text-align: right; color: var(--text); }
+
+.rdcf-compare { font-size: 0.86rem; color: var(--text-dim); margin: 0; line-height: 1.5; }
+.rdcf-hot { color: var(--accent); }
+.rdcf-cool { color: var(--red); }
+
+.rdcf-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.rdcf-control { display: flex; flex-direction: column; gap: 8px; }
+.rdcf-control-head { font-size: 0.8rem; color: var(--text-dim); display: flex; justify-content: space-between; }
+.rdcf-control-head strong { color: var(--text); font-family: var(--mono); }
+.rdcf-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.rdcf-control input[type="range"]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.rdcf-basis { font-size: 0.74rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+.rdcf-basis strong { color: var(--text-dim); font-family: var(--mono); }
+
+@media (max-width: 600px) {
+  .rdcf-bar-row { grid-template-columns: 120px 1fr 52px; gap: 8px; }
+  .rdcf-bar-label { font-size: 0.72rem; }
+  .rdcf-controls { grid-template-columns: 1fr; }
+}
+
 /* Trader's Lens (Tier 3) — setup chips + technical metric grid */
 .tl-setups { display: flex; flex-wrap: wrap; gap: 8px; }
 .tl-chip {

@@ -336,6 +336,18 @@ export type InsiderTrade = {
   price: number | null;
 };
 
+// /analyst-estimates — forward consensus revenue/EPS by fiscal year. Used ONLY
+// as an optional "consensus" comparison for the reverse-DCF implied growth
+// (Phase 2). This endpoint is commonly plan-gated: the caller must treat a
+// FmpUnavailableError as "no consensus" and fall back to historical FCF CAGR.
+export type AnalystEstimate = {
+  symbol: string;
+  date: string; // forward fiscal year end, e.g. "2027-12-31"
+  revenueAvg: number | null;
+  epsAvg: number | null;
+  netIncomeAvg: number | null;
+};
+
 export const fmp = {
   profile: (symbol: string) => {
     const s = fmpSymbol(symbol);
@@ -460,6 +472,15 @@ export const fmp = {
       { symbol: s },
       TTL.fundamentals,
       `insiderTrading:${s}`
+    );
+  },
+  analystEstimates: (symbol: string, limit = 5) => {
+    const s = fmpSymbol(symbol);
+    return fmpGet<AnalystEstimate[]>(
+      "/analyst-estimates",
+      { symbol: s, period: "annual", limit },
+      TTL.fundamentals,
+      `analystEstimates:${s}:${limit}`
     );
   },
   historical: (symbol: string) => {
