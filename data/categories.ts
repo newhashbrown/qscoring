@@ -6,6 +6,25 @@
  */
 
 import type { CategoryName, CompanyHeader, Signal } from "@/lib/scoring";
+import policyLevelsData from "@/data/policy-levels.json";
+
+// Levels-only projection of the policy_exposures D1 table (data/policy-levels.json,
+// written by scripts/export-policy-levels.ts). Imported here — NOT baked into the
+// daily-rebuilt scoreboard.json — so the policy category predicates below can
+// filter picks on their own cadence. categories.ts is server-only, so this map
+// never ships to the client. Regenerate with `npm run policy-levels`.
+const POLICY_LEVELS_MAP = policyLevelsData.levels as Record<string, Record<string, string>>;
+
+/** Policy exposure level for a ticker+theme, or undefined if unclassified. */
+function policyLevel(ticker: string, theme: string): string | undefined {
+  return POLICY_LEVELS_MAP[ticker.toUpperCase()]?.[theme];
+}
+
+// Same framing the on-page chips carry — required at parity because a public,
+// SEO-indexed page that names companies under a charged theme is a higher-stakes
+// surface than a detail-page chip.
+const POLICY_DISCLAIMER =
+  "These tags are AI-classified policy/regulatory sensitivity, derived from each company's sector, industry, and business description. They describe exposure and sensitivity only — not a political opinion, a claim of wrongdoing, a prediction of government action, or investment advice.";
 
 export type ScoreboardPick = {
   ticker: string;
@@ -144,6 +163,71 @@ export const CATEGORIES: CategoryDef[] = [
       type: "predicate",
       predicate: (p) => factorScore(p, "growth") >= 60 && factorScore(p, "value") <= 40,
     },
+  },
+  {
+    slug: "high-tariff-exposure",
+    title: "High Tariff Exposure Stocks",
+    shortDescription:
+      "Companies whose costs or revenue are most sensitive to import tariffs and trade policy — global manufacturers, importers, and cross-border supply chains.",
+    intro: [
+      "Tariffs land unevenly. A domestic services business barely notices them; a company that imports components, assembles goods abroad, or sells into markets that can retaliate feels them directly in cost of goods and margins. This list isolates the names carrying the highest tariff sensitivity in the QScore universe.",
+      "It reads across sectors — consumer electronics and hardware, autos and industrials, and materials producers exposed to cross-border metals flows all surface here. Each card links to the full QScore breakdown; the tariff tag reflects the strength of the policy channel to the business, not a view on the stock.",
+      POLICY_DISCLAIMER,
+    ],
+    criteriaLabel: "Policy exposure: tariffs = High",
+    selector: { type: "predicate", predicate: (p) => policyLevel(p.ticker, "tariffs") === "high" },
+  },
+  {
+    slug: "high-drug-pricing-exposure",
+    title: "High Drug-Pricing Exposure Stocks",
+    shortDescription:
+      "Pharmaceutical, biotech, insurer, and distributor names most exposed to drug-pricing policy — government negotiation, reimbursement, and reference pricing.",
+    intro: [
+      "Drug-pricing policy is a concentrated theme: it barely touches most of the market, but for branded-drug makers, biotech, health insurers, and pharmaceutical distributors it is a central channel to revenue and margins. Medicare negotiation, reimbursement rules, and international reference pricing all flow through this group.",
+      "The list below is the high-exposure cluster — the pharma and healthcare-payer names where policy shifts move the fundamentals most. The QScore for each is shown for context; the drug-pricing tag measures policy sensitivity, not clinical or competitive standing.",
+      POLICY_DISCLAIMER,
+    ],
+    criteriaLabel: "Policy exposure: drug_pricing = High",
+    selector: { type: "predicate", predicate: (p) => policyLevel(p.ticker, "drug_pricing") === "high" },
+  },
+  {
+    slug: "high-antitrust-exposure",
+    title: "High Antitrust Exposure Stocks",
+    shortDescription:
+      "Companies most exposed to antitrust and competition policy — dominant platforms, networks, and concentrated-market operators facing regulatory scrutiny.",
+    intro: [
+      "Antitrust exposure concentrates at the top of markets: dominant digital platforms, payment networks, and operators with commanding share in concentrated industries. For these companies, competition policy can reshape how they distribute, price, or acquire — a genuine channel to the business rather than background noise.",
+      "This is a deliberately short list — only the names where market position makes competition policy a material, first-order consideration clear the bar. The tag reflects exposure to scrutiny, not a finding that any company has done anything wrong.",
+      POLICY_DISCLAIMER,
+    ],
+    criteriaLabel: "Policy exposure: antitrust = High",
+    selector: { type: "predicate", predicate: (p) => policyLevel(p.ticker, "antitrust") === "high" },
+  },
+  {
+    slug: "high-china-supply-chain-exposure",
+    title: "High China / Supply-Chain Exposure Stocks",
+    shortDescription:
+      "Companies most exposed to China-linked supply-chain and trade-restriction policy — semiconductors, hardware, and China-sourced goods.",
+    intro: [
+      "China supply-chain exposure runs deepest in semiconductors and hardware, in retailers whose goods are sourced there, and in industrials with meaningful China manufacturing or sales. For these names, export controls, trade restrictions, and geopolitical friction are a direct operational risk to sourcing, cost, and market access.",
+      "The list gathers the highest-exposure names across those groups. As with every QScore category the composite score is shown for context; the tag captures the strength of the China/supply-chain policy channel, not a judgment on the company.",
+      POLICY_DISCLAIMER,
+    ],
+    criteriaLabel: "Policy exposure: china_supply_chain = High",
+    selector: { type: "predicate", predicate: (p) => policyLevel(p.ticker, "china_supply_chain") === "high" },
+  },
+  {
+    slug: "high-energy-regulation-exposure",
+    title: "High Energy-Regulation Exposure Stocks",
+    shortDescription:
+      "Companies most exposed to energy and emissions regulation — energy-intensive producers, utilities-adjacent operators, and heavy industrials.",
+    intro: [
+      "Energy-regulation exposure clusters in the energy-intensive corners of the market: producers and heavy industrials whose economics turn on electricity pricing, emissions rules, and fuel standards, plus businesses whose core operations depend on regulated energy inputs. Policy here moves production costs and capital plans directly.",
+      "Below are the highest-exposure names, where energy and emissions policy is a first-order driver rather than a marginal cost line. The QScore is shown for context; the tag reflects regulatory sensitivity, not an environmental rating.",
+      POLICY_DISCLAIMER,
+    ],
+    criteriaLabel: "Policy exposure: energy_regulation = High",
+    selector: { type: "predicate", predicate: (p) => policyLevel(p.ticker, "energy_regulation") === "high" },
   },
 ];
 
