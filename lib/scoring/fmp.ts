@@ -138,6 +138,7 @@ export type Profile = {
   beta: number;
   sector: string;
   industry: string;
+  description: string | null; // long-form business description (used for policy tagging)
   isActivelyTrading: boolean;
   isEtf: boolean;
   isFund: boolean;
