@@ -155,7 +155,7 @@ export async function fetchTickerData(rawTicker: string): Promise<FetchedTickerD
 export function scoreFromFetched(
   rawTicker: string,
   data: FetchedTickerData,
-  opts: { historyOffset?: number } = {}
+  opts: { historyOffset?: number; applyApplicability?: boolean } = {}
 ): ScoreResult {
   const ticker = validateTicker(rawTicker);
   const offset = opts.historyOffset ?? 0;
@@ -168,7 +168,10 @@ export function scoreFromFetched(
   // Industry-based metric gating (model v0.4): metrics not meaningful for this
   // company's industry (e.g. EV/EBITDA / FCF for a bank) are marked n/m so they
   // drop out of the average + completeness rather than scoring nonsense.
-  const naMetrics = notApplicableMetrics(sector, profile.industry);
+  // opts.applyApplicability=false reproduces the pre-v0.4 (ungated) behavior on
+  // the SAME inputs — used only by the v0.4 impact dry-run for exact A/B deltas.
+  const naMetrics =
+    opts.applyApplicability === false ? new Set<string>() : notApplicableMetrics(sector, profile.industry);
   const gate = (metrics: MetricScore[]): MetricScore[] =>
     metrics.map((m) => (naMetrics.has(m.name) ? { ...m, applicable: false, score: null } : m));
 
