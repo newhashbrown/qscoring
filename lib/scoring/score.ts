@@ -6,6 +6,7 @@ import { attachRelativeContext } from "./relative";
 import { return1mo, return3mo, return12mo, rsi14, realizedVolatility, maCrossover } from "./momentum";
 import { settledCloseFromHistory } from "../snapshot-price";
 import { classifyCoverage } from "../coverage";
+import { notApplicableMetrics } from "./applicability";
 import { getStats, scoreHigher, scoreLower, scoreBeta, scoreRsi, scoreMaCross } from "./zscore";
 import type {
   CategoryScore,
@@ -53,11 +54,15 @@ export type FetchedTickerData = {
   history: PricePoint[];
 };
 
-function aggregate(metrics: MetricScore[]): { score: number; completeness: number } {
-  const scored = metrics.filter(
+export function aggregate(metrics: MetricScore[]): { score: number; completeness: number } {
+  // Not-applicable metrics (e.g. EV/EBITDA for a bank) are excluded ENTIRELY —
+  // from both the weighted average AND the completeness denominator — so an
+  // n/m metric neither moves the score nor penalizes confidence. (Model v0.4.)
+  const applicable = metrics.filter((m) => m.applicable !== false);
+  const scored = applicable.filter(
     (m): m is MetricScore & { score: number } => m.score !== null && Number.isFinite(m.score)
   );
-  const totalWeight = metrics.reduce((s, m) => s + m.weight, 0);
+  const totalWeight = applicable.reduce((s, m) => s + m.weight, 0);
   if (scored.length === 0) return { score: 50, completeness: 0 };
   let weightSum = 0;
   let scoreSum = 0;
@@ -159,6 +164,13 @@ export function scoreFromFetched(
   const { profile, quote, ratios, km, growth, sharesFloat } = data;
   const sector = profile.sector || null;
   const stat = (key: Parameters<typeof getStats>[0]) => getStats(key, sector);
+
+  // Industry-based metric gating (model v0.4): metrics not meaningful for this
+  // company's industry (e.g. EV/EBITDA / FCF for a bank) are marked n/m so they
+  // drop out of the average + completeness rather than scoring nonsense.
+  const naMetrics = notApplicableMetrics(sector, profile.industry);
+  const gate = (metrics: MetricScore[]): MetricScore[] =>
+    metrics.map((m) => (naMetrics.has(m.name) ? { ...m, applicable: false, score: null } : m));
 
   // ─── VALUE ─────────────────────────────────────────────────
   const valueMetrics: MetricScore[] = [
@@ -349,11 +361,11 @@ export function scoreFromFetched(
   ];
 
   const sections = [
-    { name: "value" as const, label: "Value", metrics: valueMetrics },
-    { name: "growth" as const, label: "Growth", metrics: growthMetrics },
-    { name: "momentum" as const, label: "Momentum", metrics: momentumMetrics },
-    { name: "profitability" as const, label: "Profitability", metrics: profMetrics },
-    { name: "risk" as const, label: "Risk", metrics: riskMetrics },
+    { name: "value" as const, label: "Value", metrics: gate(valueMetrics) },
+    { name: "growth" as const, label: "Growth", metrics: gate(growthMetrics) },
+    { name: "momentum" as const, label: "Momentum", metrics: gate(momentumMetrics) },
+    { name: "profitability" as const, label: "Profitability", metrics: gate(profMetrics) },
+    { name: "risk" as const, label: "Risk", metrics: gate(riskMetrics) },
   ];
 
   const categories: CategoryScore[] = sections.map((s) => {
@@ -386,6 +398,7 @@ export function scoreFromFetched(
 
   // Where this name sits vs the reference universe (badge on every score page).
   const coverage = classifyCoverage({
+    symbol: ticker,
     isEtf: profile.isEtf,
     isFund: profile.isFund,
     isActivelyTrading: profile.isActivelyTrading,

@@ -1,4 +1,5 @@
 import { fmp } from "@/lib/scoring/fmp";
+import { NOT_MEANINGFUL_LABEL } from "@/lib/scoring/applicability";
 import {
   qualityScreens,
   shareholderYield,
@@ -22,10 +23,10 @@ const BAND_TONE: Record<string, Tone> = {
   weak: "bearish", distress: "bearish", high: "bearish",
 };
 
-function Screen({ label, value, band }: { label: string; value: string; band: string | null }) {
+function Screen({ label, value, band, title }: { label: string; value: string; band: string | null; title?: string }) {
   const tone = band ? BAND_TONE[band] ?? "neutral" : "neutral";
   return (
-    <div className="qh-screen">
+    <div className="qh-screen" title={title}>
       <span className="qh-screen-label">{label}</span>
       <span className="qh-screen-value">{value}</span>
       {band && <span className={`qh-band tone-${tone}`}>{band}</span>}
@@ -34,17 +35,39 @@ function Screen({ label, value, band }: { label: string; value: string; band: st
 }
 
 function QualityGrid({ q }: { q: QualityScreens }) {
+  // model v0.4: metrics flagged not-meaningful for this industry (lib/scoring/
+  // applicability.ts) render "n/m" in place of value + band. Their values are
+  // already null upstream, so no band shows and completeness ignores them.
+  const nm = q.notMeaningful;
+  const NM_TITLE = "Not meaningful for banks";
   return (
     <div className="as-block">
       <div className="as-row"><span className="as-label">Quality &amp; health screens</span></div>
       <div className="qh-grid">
         <Screen label="Piotroski F" value={q.piotroski === null ? "—" : `${q.piotroski}/9`} band={q.piotroskiBand} />
-        <Screen label="Altman Z" value={q.altmanZ === null ? "—" : q.altmanZ.toFixed(1)} band={q.altmanZone} />
-        <Screen label="Net Debt / EBITDA" value={ratio(q.netDebtToEbitda)} band={q.leverageBand} />
+        <Screen
+          label="Altman Z"
+          value={nm.has("altmanZ") ? NOT_MEANINGFUL_LABEL : q.altmanZ === null ? "—" : q.altmanZ.toFixed(1)}
+          band={q.altmanZone}
+          title={nm.has("altmanZ") ? NM_TITLE : undefined}
+        />
+        <Screen
+          label="Net Debt / EBITDA"
+          value={nm.has("netDebtToEbitda") ? NOT_MEANINGFUL_LABEL : ratio(q.netDebtToEbitda)}
+          band={q.leverageBand}
+          title={nm.has("netDebtToEbitda") ? NM_TITLE : undefined}
+        />
         <Screen
           label="Interest Coverage"
-          value={q.coverageBand === "n/a" ? "n/a" : ratio(q.interestCoverage)}
+          value={
+            nm.has("interestCoverage")
+              ? NOT_MEANINGFUL_LABEL
+              : q.coverageBand === "n/a"
+                ? "n/a"
+                : ratio(q.interestCoverage)
+          }
           band={q.coverageBand}
+          title={nm.has("interestCoverage") ? NM_TITLE : undefined}
         />
       </div>
     </div>
@@ -79,7 +102,9 @@ export default async function QualityHealth({ ticker }: { ticker: string }) {
     fmp.profile(ticker).catch(() => []),
   ]);
 
-  const q = qualityScreens(scoresR[0], kmR[0], ratiosR[0]);
+  // model v0.4: pass sector/industry so bank-inapplicable quality metrics are
+  // marked "n/m" and dropped from completeness (lib/scoring/applicability.ts).
+  const q = qualityScreens(scoresR[0], kmR[0], ratiosR[0], profileR[0]?.sector, profileR[0]?.industry);
   const y = shareholderYield(ratiosR[0]?.dividendYieldTTM ?? null, cashR[0], profileR[0]?.marketCap ?? null);
 
   const hasQuality = q.piotroski !== null || q.altmanZ !== null || q.netDebtToEbitda !== null || q.interestCoverage !== null;

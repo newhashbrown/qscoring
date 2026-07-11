@@ -1,4 +1,5 @@
 import { urlsetXml, SITEMAP_HEADERS } from "@/lib/sitemap/xml";
+import { looksLikeFundOrEtf } from "@/lib/scoring/universe";
 import popularTickers from "@/data/popular-tickers.json";
 
 const SITE = "https://qscoring.com";
@@ -12,8 +13,11 @@ export const revalidate = 3600;
 export async function GET() {
   const today = new Date().toISOString().split("T")[0];
 
+  // Mirror the universe fund/ETF filter (issues #62/#63) so fund-shaped tickers
+  // never surface a /score page in the sitemap.
   const tickers = (popularTickers as string[])
     .filter((t) => !PREFERRED_SHARE_RE.test(t))
+    .filter((t) => !looksLikeFundOrEtf({ symbol: t }))
     .sort();
 
   const xml = urlsetXml(

@@ -4,6 +4,7 @@ import {
   ratingRevisionTrend,
   earningsSurpriseHistory,
   priceTargetRevision,
+  MIN_TARGET_OBS,
   type ConsensusSummary,
   type RevisionTrend,
   type SurpriseHistory,
@@ -92,14 +93,41 @@ const TARGET_LABEL: Record<PriceTargetRevision["direction"], string> = {
 };
 
 function EstimateRevisionLine({ r }: { r: PriceTargetRevision }) {
-  const tone = TARGET_TONE[r.direction];
-  const arrow = r.direction === "raising" ? "▲" : r.direction === "lowering" ? "▼" : "→";
+  // Insufficient recent data: fewer than MIN_TARGET_OBS analysts refreshed a
+  // target in the last month. Never compute a delta or a directional label off a
+  // zero/near-zero-observation window (FMP reports a $0 average for it).
+  if (!r.sufficient) {
+    return (
+      <div className="as-block">
+        <div className="as-row">
+          <span className="as-label">Estimate revision (price target)</span>
+          <span className="as-value tone-neutral">No recent target data</span>
+        </div>
+        <p className="as-detail">
+          Fewer than {MIN_TARGET_OBS} analysts refreshed a price target in the last month, so no
+          revision can be computed.
+          {r.lastQuarterAvg !== null && (
+            <> Prior quarter: <strong>${r.lastQuarterAvg.toFixed(0)}</strong> avg across{" "}
+              {r.lastQuarterCount} analysts.</>
+          )}
+        </p>
+      </div>
+    );
+  }
+
+  // No computable delta (recent window is fine, but the prior quarter is below
+  // the floor, so there's no baseline): show a neutral "Latest target" rather
+  // than "Targets steady", which would imply a comparison that didn't happen.
+  const noDelta = r.changePct === null;
+  const tone = noDelta ? "neutral" : TARGET_TONE[r.direction];
+  const arrow = noDelta ? "" : r.direction === "raising" ? "▲" : r.direction === "lowering" ? "▼" : "→";
+  const label = noDelta ? "Latest target" : TARGET_LABEL[r.direction];
   return (
     <div className="as-block">
       <div className="as-row">
         <span className="as-label">Estimate revision (price target)</span>
         <span className={`as-value tone-${tone}`}>
-          <span aria-hidden="true">{arrow}</span> {TARGET_LABEL[r.direction]}
+          {arrow && <span aria-hidden="true">{arrow}</span>} {label}
         </span>
       </div>
       <p className="as-detail">

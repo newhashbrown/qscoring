@@ -38,7 +38,15 @@ import pandas as pd
 
 TOLERANCE_TRADING_DAYS = 1
 SNAPSHOT_DIR = Path("data/snapshots")
+UNIVERSE_FILE = Path("data/compare-universe.json")
 SNAPSHOT_NAME_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})\.json$")
+
+# Per-ticker staleness: a current-universe ticker absent from the last
+# STALE_COVERAGE_SESSIONS snapshots has data-as-of older than ~3 trading days.
+# A small tolerance absorbs names legitimately mid-transition (added to the
+# universe today but not yet in a committed snapshot).
+STALE_COVERAGE_SESSIONS = 3
+STALE_COVERAGE_TOLERANCE = 3
 
 # Mirror the Resend sender/recipient used by every workflow failure email.
 ALERT_FROM = "QScoring Alerts <alerts@qscoring.com>"
@@ -97,6 +105,43 @@ def trading_days_behind(cal, snapshot: date, last_session: date) -> int:
     return int(cal.sessions_distance(snap_ts, last_ts)) - 1
 
 
+def _tickers_in_snapshot(path: Path) -> set[str]:
+    data = json.loads(path.read_text())
+    picks = data.get("picks", data) if isinstance(data, dict) else data
+    return {
+        str(p["ticker"]).upper()
+        for p in picks
+        if isinstance(p, dict) and p.get("ticker")
+    }
+
+
+def stale_universe_tickers(snapshot_dir: Path, universe_file: Path, sessions: int) -> set[str]:
+    """Current-universe tickers absent from the newest `sessions` snapshots.
+
+    Snapshots write every universe ticker daily, so a current-universe name
+    missing from the last `sessions` (~trading days) of the ledger has stale
+    data — it silently fell out of scoring. Compares against the CURRENT
+    universe so a name that legitimately left the universe is not flagged.
+    """
+    universe = {
+        str(e["symbol"]).upper()
+        for e in json.loads(universe_file.read_text()).get("entries", [])
+        if isinstance(e, dict) and e.get("symbol")
+    }
+    if not universe:
+        raise RuntimeError(f"no universe symbols found in {universe_file}")
+    files = sorted(
+        (p for p in snapshot_dir.iterdir() if SNAPSHOT_NAME_RE.match(p.name)),
+        key=lambda p: p.name,
+    )[-sessions:]
+    if not files:
+        raise RuntimeError(f"no snapshots found in {snapshot_dir}")
+    recent: set[str] = set()
+    for p in files:
+        recent |= _tickers_in_snapshot(p)
+    return universe - recent
+
+
 def send_alert(subject: str, text: str) -> None:
     """Send a Resend alert. Raises on any failure — the workflow-level
     failure email is the backstop, so a swallowed send would be silent."""
@@ -138,6 +183,7 @@ def main() -> int:
         snapshot = latest_snapshot_date(SNAPSHOT_DIR)
         last_session = last_completed_session(cal, now)
         behind = trading_days_behind(cal, snapshot, last_session)
+        stale_tickers = stale_universe_tickers(SNAPSHOT_DIR, UNIVERSE_FILE, STALE_COVERAGE_SESSIONS)
     except Exception as err:  # noqa: BLE001 — fail-loud contract
         msg = (
             "The freshness sentinel could not determine snapshot freshness — "
@@ -163,6 +209,26 @@ def main() -> int:
         print(f"::error::{msg}", file=sys.stderr)
         send_alert(
             f"🚨 QScoring snapshot is stale: {behind} trading days behind ({snapshot} vs {last_session})",
+            msg,
+        )
+        return 1
+
+    # Per-ticker staleness: current-universe names missing from the last
+    # STALE_COVERAGE_SESSIONS snapshots have data-as-of older than ~3 trading days.
+    print(f"Per-ticker coverage: {len(stale_tickers)} universe ticker(s) stale (tolerance {STALE_COVERAGE_TOLERANCE}).")
+    if len(stale_tickers) > STALE_COVERAGE_TOLERANCE:
+        sample = ", ".join(sorted(stale_tickers)[:30])
+        msg = (
+            f"{len(stale_tickers)} universe tickers are absent from the last "
+            f"{STALE_COVERAGE_SESSIONS} committed snapshots — their scores are stale "
+            f"(data-as-of older than ~{STALE_COVERAGE_SESSIONS} trading days) even though "
+            f"the ledger head ({snapshot}) is fresh.\n\nStale (first 30): {sample}\n\n"
+            f"This usually means those names silently fell out of scoring (FMP errors "
+            f"during the daily build). Check the refresh-strong-picks runs.\n\nRun: {run_url}"
+        )
+        print(f"::error::{msg}", file=sys.stderr)
+        send_alert(
+            f"🚨 QScoring per-ticker staleness: {len(stale_tickers)} universe tickers missing from recent snapshots",
             msg,
         )
         return 1

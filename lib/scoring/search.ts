@@ -3,6 +3,8 @@
  * "Apple" or "Microsoft" instead of a ticker.
  */
 
+import { looksLikeFundOrEtf } from "@/lib/scoring/universe";
+
 const BASE = "https://financialmodelingprep.com/stable";
 
 export type SearchMatch = {
@@ -215,6 +217,9 @@ export async function searchSymbols(query: string, limit = 8): Promise<SearchMat
     if (NON_EQUITY_CURRENCIES.has(currency)) continue;
     if (!SCOREABLE_EXCHANGES.has(exchange)) continue;
     if (DERIVATIVE_PRODUCT_PATTERN.test(d.name ?? "")) continue;
+    // Mirror the universe fund/ETF filter (issues #62/#63): catches mutual-fund
+    // share classes whose FMP name lacks derivative tokens and whose isFund lies.
+    if (looksLikeFundOrEtf({ symbol: d.symbol, companyName: d.name })) continue;
     seen.add(d.symbol);
     merged.push({
       symbol: d.symbol,

@@ -30,6 +30,9 @@ export type Coverage = {
 };
 
 export type CoverageInput = {
+  /** Ticker symbol — needed to catch mutual-fund share classes whose FMP
+   *  isFund/isEtf flags LIE (return false); see MUTUAL_FUND_TICKER below. */
+  symbol?: string | null;
   isEtf?: boolean;
   isFund?: boolean;
   isActivelyTrading?: boolean;
@@ -40,6 +43,13 @@ export type CoverageInput = {
   country?: string | null;
   confidence?: "HIGH" | "MEDIUM" | "LOW";
 };
+
+// Mutual-fund share-class ticker shape (5 letters ending in X: JMUEX, JUESX,
+// JUEZX, AAFTX…). FMP's isFund/isEtf flags return FALSE for these, so the
+// ticker shape is the reliable signal — this is the same predicate the snapshot
+// universe filter uses (issues #62/#63), applied here so the score PAGE (which
+// bypasses the universe filter) also refuses to score them.
+const MUTUAL_FUND_TICKER = /^[A-Z]{4}X$/;
 
 // Methodology: reference universe is US-listed equities with market cap above
 // this floor (capped at 800 names per refresh).
@@ -64,11 +74,14 @@ function isShellOrSpac(industry?: string | null): boolean {
 }
 
 export function classifyCoverage(input: CoverageInput): Coverage {
-  const { isEtf, isFund, isActivelyTrading, sector, industry, marketCap, country, confidence } =
+  const { symbol, isEtf, isFund, isActivelyTrading, sector, industry, marketCap, country, confidence } =
     input;
 
   // 1. Not a single operating company at all → don't pretend to score it.
-  if (isEtf || isFund) {
+  //    Check the mutual-fund ticker shape too: FMP's isFund/isEtf flags LIE for
+  //    mutual-fund share classes (return false), so the flags alone let JMUEX-
+  //    style tickers through to a full (meaningless) score page.
+  if (isEtf || isFund || (symbol && MUTUAL_FUND_TICKER.test(symbol.toUpperCase()))) {
     return {
       state: "do_not_score",
       label: "Not scored",

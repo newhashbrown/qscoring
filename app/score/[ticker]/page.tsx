@@ -17,6 +17,7 @@ import UpcomingCatalysts, { UpcomingCatalystsSkeleton } from "@/app/components/U
 import TraderLens from "@/app/components/TraderLens";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
+import OutOfScopeNotice from "@/app/components/OutOfScopeNotice";
 import CoverageBadge from "@/app/components/CoverageBadge";
 import RelatedStocks from "@/app/components/RelatedStocks";
 import { scoreTicker, validateTicker } from "@/lib/scoring";
@@ -57,6 +58,18 @@ export async function generateMetadata({
 
   try {
     const result = await scoreTicker(t);
+
+    // Out-of-model-scope (fund/ETF share class, SPAC, delisted): don't index a
+    // page that renders no score. follow stays true so internal links pass.
+    if (result.coverage?.state === "do_not_score") {
+      return {
+        title: `${result.ticker} — outside QScoring model scope`,
+        description: `${result.companyName ?? result.ticker} is outside the QScore's single-company model scope (fund/ETF, SPAC, or delisted). No score is computed.`,
+        alternates: { canonical: `https://qscoring.com/score/${result.ticker}` },
+        robots: { index: false, follow: true },
+      };
+    }
+
     const signal = SIGNAL_LABEL_META[result.signal] ?? result.signal;
     const cat = (n: string) =>
       Math.round(result.categories.find((c) => c.name === n)?.score ?? 0);
@@ -178,6 +191,19 @@ export default async function TickerScorePage({
           <p>© 2026 QScoring.com. All rights reserved.</p>
         </footer>
       </>
+    );
+  }
+
+  // Out-of-model-scope tickers (fund/ETF share class, SPAC, delisted) get a
+  // plain notice instead of a score/JSON-LD (matches generateMetadata noindex).
+  const coverage = result.coverage;
+  if (coverage?.state === "do_not_score") {
+    return (
+      <OutOfScopeNotice
+        ticker={result.ticker}
+        companyName={result.companyName}
+        reason={coverage.reason}
+      />
     );
   }
 

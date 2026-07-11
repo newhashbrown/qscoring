@@ -109,18 +109,35 @@ export type PriceTargetRevision = {
   lastQuarterCount: number;
   changePct: number | null; // (lastMonth − lastQuarter) / lastQuarter
   direction: "raising" | "lowering" | "stable";
+  /** False when the recent (last-month) window has < MIN_TARGET_OBS analysts —
+   *  the component renders an explicit insufficient-data state and no delta. */
+  sufficient: boolean;
 };
 
 const TARGET_STABLE_BAND = 0.02; // <2% move is noise, not a revision
+
+// Minimum analyst observations for a window to be usable. FMP reports a $0
+// average for a ZERO-analyst window; without this gate, a quarter with 26
+// analysts at $318 followed by a zero-analyst month computed (0 − 318)/318 =
+// −100% → "Targets cut". A window below this floor is treated as absent (avg
+// null, no delta, no direction) rather than an economic signal.
+export const MIN_TARGET_OBS = 3;
 
 export function priceTargetRevision(
   s: PriceTargetSummary | null | undefined
 ): PriceTargetRevision | null {
   if (!s) return null;
-  const lm = finite(s.lastMonthAvgPriceTarget);
-  const lq = finite(s.lastQuarterAvgPriceTarget);
+  const lastMonthCount = num(s.lastMonthCount);
+  const lastQuarterCount = num(s.lastQuarterCount);
+
+  // Gate each window on its own analyst count BEFORE reading its average — a
+  // window below the floor contributes no value (never a $0 or a −100%).
+  const lm = lastMonthCount >= MIN_TARGET_OBS ? finite(s.lastMonthAvgPriceTarget) : null;
+  const lq = lastQuarterCount >= MIN_TARGET_OBS ? finite(s.lastQuarterAvgPriceTarget) : null;
   if (lm === null && lq === null) return null;
 
+  // A delta requires BOTH windows to clear the floor; otherwise there is no
+  // meaningful before→after and direction stays "stable".
   const changePct = lm !== null && lq !== null && lq !== 0 ? (lm - lq) / lq : null;
   const direction =
     changePct === null
@@ -134,10 +151,11 @@ export function priceTargetRevision(
   return {
     lastMonthAvg: lm,
     lastQuarterAvg: lq,
-    lastMonthCount: num(s.lastMonthCount),
-    lastQuarterCount: num(s.lastQuarterCount),
+    lastMonthCount,
+    lastQuarterCount,
     changePct,
     direction,
+    sufficient: lastMonthCount >= MIN_TARGET_OBS,
   };
 }
 
