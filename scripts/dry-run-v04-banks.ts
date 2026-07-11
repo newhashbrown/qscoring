@@ -14,7 +14,9 @@ import * as path from "node:path";
 import { fetchTickerData, scoreFromFetched } from "../lib/scoring/score";
 import { industryGroup } from "../lib/scoring/applicability";
 
-const GAP_MS = 250; // pace FMP (~7 calls/ticker) under the 300/min plan ceiling
+// Pace FMP: each ticker fires ~7 parallel calls, so keep tickers ≥1.5s apart to
+// stay under the 300/min plan ceiling (250ms burst-429'd 10 names last run).
+const GAP_MS = 1500;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function financialTickers(): string[] {
