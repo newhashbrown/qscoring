@@ -34,14 +34,8 @@ const BASE = process.env.QSCORING_BASE ?? "https://qscoring.com";
 const OUT_SQL = path.resolve(process.cwd(), "events-upserts.sql");
 const WINDOW_DAYS = 90;
 const EARNINGS_FALLBACK_GAP_MS = 200; // ~5 req/s, under FMP 300/min
-const PERSIST_CHUNK = 5000;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-function chunk<T>(xs: T[], n: number): T[][] {
-  const out: T[][] = [];
-  for (let i = 0; i < xs.length; i += n) out.push(xs.slice(i, i + n));
-  return out;
-}
 
 function loadUniverse(): string[] {
   const p = path.resolve(process.cwd(), "data", "compare-universe.json");
@@ -81,25 +75,23 @@ async function earningsFallback(universe: string[], asOf: string): Promise<Ticke
 }
 
 async function persist(rows: unknown[], token: string): Promise<{ written: number; replaced: boolean }> {
-  let written = 0;
-  let replaced = false;
-  // Single request when it fits (a full replace must be atomic); chunk only as a
-  // guard for pathologically large windows.
-  for (const group of chunk(rows, PERSIST_CHUNK)) {
-    const res = await fetch(`${BASE}/api/cron/persist-events`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ rows: group }),
-    });
-    if (!res.ok) {
-      console.warn(`persist HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
-      continue;
-    }
-    const body = (await res.json()) as { written?: number; replaced?: boolean };
-    written += body.written ?? 0;
-    replaced = replaced || Boolean(body.replaced);
+  // ONE atomic request — the persist route does DELETE-all + insert in a single
+  // transaction, so a full replace MUST be a single POST. Chunking would make
+  // each chunk's DELETE wipe the prior chunk's inserts (only the last survives).
+  // The route caps at MAX_ROWS=20000, well above the ~2k events a ~800-name
+  // universe produces; an over-cap payload 400s and fails loud below (replaced
+  // stays false → the assertion in main() throws) rather than corrupting silently.
+  const res = await fetch(`${BASE}/api/cron/persist-events`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ rows }),
+  });
+  if (!res.ok) {
+    console.warn(`persist HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+    return { written: 0, replaced: false };
   }
-  return { written, replaced };
+  const body = (await res.json()) as { written?: number; replaced?: boolean };
+  return { written: body.written ?? 0, replaced: Boolean(body.replaced) };
 }
 
 const sqlStr = (s: string): string => `'${s.replace(/'/g, "''")}'`;
@@ -154,7 +146,10 @@ async function main() {
     ...mapSplits(split.rows as Parameters<typeof mapSplits>[0]),
   ];
 
-  // 2. Earnings fallback when the calendar yielded no earnings.
+  // 2. Earnings fallback when the calendar yielded no earnings. Trigger is
+  //    PRESENCE-based (did the market-wide calendar return any earnings row),
+  //    not coverage-based — fine because this endpoint returns full market
+  //    coverage or fails/402s wholesale; it doesn't return a truncated page.
   const hasEarnings = events.some((e) => e.eventType === "earnings");
   if (!hasEarnings) {
     const fb = await earningsFallback([...universe], asOf);
