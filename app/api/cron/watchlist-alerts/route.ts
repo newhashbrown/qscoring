@@ -52,8 +52,15 @@ export async function POST(req: Request) {
     );
   }
 
-  const env = cf?.env as { WATCHLIST_CRON_TOKEN?: string; DB?: D1Database } | undefined;
+  const env = cf?.env as
+    | { WATCHLIST_CRON_TOKEN?: string; DB?: D1Database; SUPPRESS_FLIP_ALERTS?: string }
+    | undefined;
   const expectedToken = (env?.WATCHLIST_CRON_TOKEN ?? "").trim();
+  // One-run suppression for a MODEL-DRIVEN flip wave (e.g. the v0.4 bank change):
+  // set SUPPRESS_FLIP_ALERTS=1 for the transition run so signal flips are absorbed
+  // into last_signal WITHOUT emailing users (a model bump isn't a market move),
+  // then unset it. Normal alerting resumes the next run.
+  const suppressFlips = String(env?.SUPPRESS_FLIP_ALERTS ?? "").trim() === "1";
   const auth = req.headers.get("authorization") ?? "";
   const got = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   if (!expectedToken || !(await timingSafeEqual(got, expectedToken))) {
@@ -160,6 +167,7 @@ export async function POST(req: Request) {
   let recipientCount = 0;
   let totalChanges = 0;
   for (const [email, changes] of changesByEmail) {
+    if (suppressFlips) break; // absorb this run's flips silently (see above)
     recipientCount++;
     totalChanges += changes.length;
     sendPromises.push(
@@ -193,16 +201,20 @@ export async function POST(req: Request) {
           .run();
       }
       for (const u of flippedUpdates) {
+        // Suppressed run: absorb the flip (advance last_signal so it doesn't
+        // re-fire next run) but DON'T record a notification — none was sent.
         await db
           .prepare(
-            `UPDATE watchlist_entries
-             SET last_signal = ?,
-                 last_composite = ?,
-                 last_notified_at = ?,
-                 notification_count = notification_count + 1
-             WHERE id = ?`
+            suppressFlips
+              ? `UPDATE watchlist_entries SET last_signal = ?, last_composite = ? WHERE id = ?`
+              : `UPDATE watchlist_entries
+                 SET last_signal = ?,
+                     last_composite = ?,
+                     last_notified_at = ?,
+                     notification_count = notification_count + 1
+                 WHERE id = ?`
           )
-          .bind(u.signal, u.composite, now, u.id)
+          .bind(...(suppressFlips ? [u.signal, u.composite, u.id] : [u.signal, u.composite, now, u.id]))
           .run();
       }
       for (const u of compositeOnlyUpdates) {
@@ -237,6 +249,7 @@ export async function POST(req: Request) {
       skippedNoScoreboardEntry: skipped,
       digestsSent: recipientCount,
       totalSignalChangesAlerted: totalChanges,
+      flipAlertsSuppressed: suppressFlips,
     },
   });
 }
