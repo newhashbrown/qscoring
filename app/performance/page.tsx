@@ -81,9 +81,15 @@ export default function PerformancePage() {
           <h1>Live forward-return tracking</h1>
           <p className="method-lede">
             Every QScore and closing price below was committed to public source control on the date
-            shown. No revisionism, no survivorship filtering, no look-ahead bias possible by
-            construction. As trading days accrue, this page publishes information-coefficient and
-            quintile-spread numbers against the locked-in scores — until the formal backtest in the
+            shown. Any correction is itself a public commit — the history is tamper-evident and fully
+            auditable, and no look-ahead bias is possible because each score was recorded before the
+            forward returns it&apos;s measured against existed (
+            <a href="https://github.com/newhashbrown/qscoring/blob/main/DATA_CORRECTIONS.md" target="_blank" rel="noopener">
+              see the data-corrections log
+            </a>
+            ). As trading days accrue, this page publishes
+            information-coefficient and quintile-spread numbers against the locked-in scores — until
+            the formal backtest in the
             <Link href="/methodology#validation"> methodology validation section</Link> lands.
           </p>
         </header>
