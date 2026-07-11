@@ -13,16 +13,20 @@ filled in.
 ## v0.4 — 2026-07-11
 
 **Industry-based metric applicability.** Metrics that are not economically
-meaningful for a company's industry are now marked **"n/m"** and excluded from
-the category average **and** the completeness denominator (so the company is not
-penalized on confidence), instead of being z-scored and producing a misleading
-number.
+meaningful for a company's industry are now marked **"n/m"** instead of being
+z-scored into a misleading number.
 
-- **Banks** (`Banks - Diversified`, `Banks - Regional`): the following are
-  n/m — **EV/EBITDA, FCF Yield, FCF Growth** (composite factors), and
-  **Altman-Z, Net-Debt/EBITDA, Interest Coverage** (quality panel). These are
-  enterprise-value / free-cash-flow / leverage constructs that misfire on a
-  deposit-funded, book-value-driven balance sheet.
+- **Banks** (`Banks - Diversified`, `Banks - Regional`):
+  - **Composite factors** — **EV/EBITDA** (Value), **FCF Yield**
+    (Profitability), **FCF Growth** (Growth) — are excluded from the category
+    average **and** the completeness denominator, so a bank is neither scored on
+    them nor penalized on confidence for their absence.
+  - **Quality panel** — **Altman-Z, Net-Debt/EBITDA, Interest Coverage** — is a
+    display-only Tier-3 panel that is **not** part of the composite or confidence
+    math; for banks these simply render "n/m" instead of a value (no effect on
+    the score or completeness).
+  - These are all enterprise-value / free-cash-flow / leverage constructs that
+    misfire on a deposit-funded, book-value-driven balance sheet.
 - Insurers and REITs are stubbed in the applicability map
   (`lib/scoring/applicability.ts`) for a later model iteration; their metrics are
   unchanged in v0.4.

@@ -12,10 +12,13 @@
  *          Subsequent v1.x bumps require a documented changelog.
  *
  * Update notes for v0.4 (see MODEL_CHANGELOG.md):
- *   - Industry-based metric applicability: metrics that are not meaningful for a
- *     company's industry (EV/EBITDA, FCF yield/growth, Altman-Z, net-debt/EBITDA,
- *     interest coverage for banks) are marked "n/m" and excluded from the
- *     category average AND the completeness denominator, rather than scored.
+ *   - Industry-based metric applicability. For banks, COMPOSITE metrics not
+ *     meaningful for the industry (EV/EBITDA, FCF yield, FCF growth) are marked
+ *     "n/m" and excluded from the category average AND the completeness
+ *     denominator (so confidence isn't penalized), rather than scored. The
+ *     quality-panel metrics (Altman-Z, net-debt/EBITDA, interest coverage) are a
+ *     display-only Tier-3 panel — not part of the composite/confidence math — so
+ *     for banks they simply render "n/m" instead of a value.
  *
  * Update notes for v0.3:
  *   - Universe expanded from $15B large-cap to $2B mid+large-cap (May 2026)

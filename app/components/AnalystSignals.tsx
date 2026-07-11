@@ -115,14 +115,19 @@ function EstimateRevisionLine({ r }: { r: PriceTargetRevision }) {
     );
   }
 
-  const tone = TARGET_TONE[r.direction];
-  const arrow = r.direction === "raising" ? "▲" : r.direction === "lowering" ? "▼" : "→";
+  // No computable delta (recent window is fine, but the prior quarter is below
+  // the floor, so there's no baseline): show a neutral "Latest target" rather
+  // than "Targets steady", which would imply a comparison that didn't happen.
+  const noDelta = r.changePct === null;
+  const tone = noDelta ? "neutral" : TARGET_TONE[r.direction];
+  const arrow = noDelta ? "" : r.direction === "raising" ? "▲" : r.direction === "lowering" ? "▼" : "→";
+  const label = noDelta ? "Latest target" : TARGET_LABEL[r.direction];
   return (
     <div className="as-block">
       <div className="as-row">
         <span className="as-label">Estimate revision (price target)</span>
         <span className={`as-value tone-${tone}`}>
-          <span aria-hidden="true">{arrow}</span> {TARGET_LABEL[r.direction]}
+          {arrow && <span aria-hidden="true">{arrow}</span>} {label}
         </span>
       </div>
       <p className="as-detail">

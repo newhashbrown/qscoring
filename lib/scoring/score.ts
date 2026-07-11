@@ -54,7 +54,7 @@ export type FetchedTickerData = {
   history: PricePoint[];
 };
 
-function aggregate(metrics: MetricScore[]): { score: number; completeness: number } {
+export function aggregate(metrics: MetricScore[]): { score: number; completeness: number } {
   // Not-applicable metrics (e.g. EV/EBITDA for a bank) are excluded ENTIRELY —
   // from both the weighted average AND the completeness denominator — so an
   // n/m metric neither moves the score nor penalizes confidence. (Model v0.4.)
