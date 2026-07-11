@@ -70,3 +70,4 @@ CLAUDE.local.md
 policy-sample-output.json
 policy-batch-output.json
 policy-batch-upserts.sql
+events-upserts.sql
