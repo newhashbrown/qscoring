@@ -4,6 +4,7 @@ import {
   ratingRevisionTrend,
   earningsSurpriseHistory,
   priceTargetRevision,
+  MIN_TARGET_OBS,
   type ConsensusSummary,
   type RevisionTrend,
   type SurpriseHistory,
@@ -92,6 +93,28 @@ const TARGET_LABEL: Record<PriceTargetRevision["direction"], string> = {
 };
 
 function EstimateRevisionLine({ r }: { r: PriceTargetRevision }) {
+  // Insufficient recent data: fewer than MIN_TARGET_OBS analysts refreshed a
+  // target in the last month. Never compute a delta or a directional label off a
+  // zero/near-zero-observation window (FMP reports a $0 average for it).
+  if (!r.sufficient) {
+    return (
+      <div className="as-block">
+        <div className="as-row">
+          <span className="as-label">Estimate revision (price target)</span>
+          <span className="as-value tone-neutral">No recent target data</span>
+        </div>
+        <p className="as-detail">
+          Fewer than {MIN_TARGET_OBS} analysts refreshed a price target in the last month, so no
+          revision can be computed.
+          {r.lastQuarterAvg !== null && (
+            <> Prior quarter: <strong>${r.lastQuarterAvg.toFixed(0)}</strong> avg across{" "}
+              {r.lastQuarterCount} analysts.</>
+          )}
+        </p>
+      </div>
+    );
+  }
+
   const tone = TARGET_TONE[r.direction];
   const arrow = r.direction === "raising" ? "▲" : r.direction === "lowering" ? "▼" : "→";
   return (

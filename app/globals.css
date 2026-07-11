@@ -2076,6 +2076,10 @@ footer .footer-links .sep {
   align-items: center;
   gap: 10px;
 }
+/* Not-meaningful-for-industry metric (e.g. EV/EBITDA for a bank, model v0.4). */
+.metric-row.metric-na { opacity: 0.5; }
+.metric-row.metric-na .metric-raw,
+.metric-row.metric-na .metric-score { color: var(--text-muted); font-style: italic; }
 .metric-name {
   font-size: 0.8rem;
   color: var(--text-dim);

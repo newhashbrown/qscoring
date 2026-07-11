@@ -107,6 +107,32 @@ test("priceTargetRevision: null / missing windows → null or stable", () => {
   strictEqual(priceTargetRevision(pts(345, 3, null, 0))!.changePct, null);
 });
 
+// Zero-observation "after" period must NEVER become a −100% "Targets cut"
+// signal. FMP reports a $0 average for a zero-analyst month (the JPM bug:
+// prior qtr $318/26 analysts, last month 0 analysts).
+test("priceTargetRevision: zero-analyst last month → insufficient, no delta, no direction", () => {
+  const r = priceTargetRevision(pts(0, 0, 318, 26))!;
+  strictEqual(r.sufficient, false);
+  strictEqual(r.lastMonthAvg, null); // never surfaces the $0
+  strictEqual(r.changePct, null); // never computes −100%
+  strictEqual(r.direction, "stable"); // never "lowering"/"Targets cut"
+  strictEqual(r.lastQuarterAvg, 318); // prior context still available
+});
+
+test("priceTargetRevision: below MIN_TARGET_OBS analysts last month → insufficient", () => {
+  const r = priceTargetRevision(pts(310, 2, 318, 26))!; // 2 < 3
+  strictEqual(r.sufficient, false);
+  strictEqual(r.lastMonthAvg, null);
+  strictEqual(r.changePct, null);
+});
+
+test("priceTargetRevision: >=MIN_TARGET_OBS both windows → normal delta (sufficient)", () => {
+  const r = priceTargetRevision(pts(345, 3, 327.77, 13))!;
+  strictEqual(r.sufficient, true);
+  strictEqual(r.direction, "raising");
+  strictEqual(approx(r.changePct, (345 - 327.77) / 327.77), true);
+});
+
 test("earningsSurpriseHistory: missing estimate → null surprise, excluded from beat rate", () => {
   const h = earningsSurpriseHistory([earning("2026-04-30", 2.0, null)], 8);
   strictEqual(h.quarters[0].surprisePct, null);

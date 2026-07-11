@@ -8,6 +8,7 @@
  */
 
 import type { CashFlowStatement, FinancialScores, KeyMetricsTtm, RatiosTtm } from "./fmp";
+import { notApplicableQuality } from "./applicability";
 
 function finite(v: number | null | undefined): number | null {
   return v !== null && v !== undefined && Number.isFinite(v) ? v : null;
@@ -27,6 +28,10 @@ export type QualityScreens = {
   leverageBand: LeverageBand | null;
   interestCoverage: number | null;
   coverageBand: CoverageBand | null;
+  // Quality keys not meaningful for this company's industry group (model v0.4,
+  // lib/scoring/applicability.ts). Nulled above + collected here so the render
+  // path shows "n/m" and the completeness check excludes them (vs. missing data).
+  notMeaningful: ReadonlySet<string>;
 };
 
 function piotroskiBand(s: number): PiotroskiBand {
@@ -57,12 +62,20 @@ function coverageBand(coverage: number, netDebt: number | null): CoverageBand {
 export function qualityScreens(
   scores: FinancialScores | null | undefined,
   km: KeyMetricsTtm | null | undefined,
-  ratios: RatiosTtm | null | undefined
+  ratios: RatiosTtm | null | undefined,
+  sector?: string | null,
+  industry?: string | null
 ): QualityScreens {
+  // model v0.4: Altman-Z / net-debt-EBITDA / interest-coverage are enterprise/
+  // industrial constructs that misfire on banks (see lib/scoring/applicability.ts).
+  // Null a not-meaningful metric so its band is null and it drops out of the
+  // completeness check — treat as excluded, never as a bad/zero value.
+  const nm = notApplicableQuality(sector, industry);
+
   const piotroski = finite(scores?.piotroskiScore);
-  const altmanZ = finite(scores?.altmanZScore);
-  const netDebtToEbitda = finite(km?.netDebtToEBITDATTM);
-  const interestCoverage = finite(ratios?.interestCoverageRatioTTM);
+  const altmanZ = nm.has("altmanZ") ? null : finite(scores?.altmanZScore);
+  const netDebtToEbitda = nm.has("netDebtToEbitda") ? null : finite(km?.netDebtToEBITDATTM);
+  const interestCoverage = nm.has("interestCoverage") ? null : finite(ratios?.interestCoverageRatioTTM);
 
   return {
     piotroski,
@@ -73,6 +86,7 @@ export function qualityScreens(
     leverageBand: netDebtToEbitda === null ? null : leverageBand(netDebtToEbitda),
     interestCoverage,
     coverageBand: interestCoverage === null ? null : coverageBand(interestCoverage, netDebtToEbitda),
+    notMeaningful: nm,
   };
 }
 

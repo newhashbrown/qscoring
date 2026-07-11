@@ -25,6 +25,11 @@ export type MetricScore = {
   weight: number;
   format?: "percent" | "ratio" | "number";
   relative?: MetricRelative;
+  /** False when the metric is NOT MEANINGFUL for this company's industry (e.g.
+   *  EV/EBITDA for a bank). Treated exactly like missing data — excluded from the
+   *  category average AND the completeness denominator — and rendered as "n/m"
+   *  rather than a score. Undefined = applicable (the default). (Model v0.4.) */
+  applicable?: boolean;
 };
 
 export type CategoryScore = {

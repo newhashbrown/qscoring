@@ -179,22 +179,34 @@ function CategoryCard({ category }: { category: CategoryScore }) {
         <div className="category-score">{Math.round(category.score)}</div>
       </div>
       <div className="metric-list">
-        {category.metrics.map((m) => (
-          <div key={m.name} className="metric-item">
-            <div className="metric-row">
-              <span className="metric-name">{m.name}</span>
-              <span className="metric-raw">{formatRaw(m)}</span>
-              <div className="metric-track" aria-hidden="true">
-                <div
-                  className={`metric-fill ${scoreColor(m.score)}`}
-                  style={{ width: m.score === null ? "0%" : `${m.score}%` }}
-                />
+        {category.metrics.map((m) => {
+          // Not meaningful for this industry (e.g. EV/EBITDA for a bank, model
+          // v0.4): render "n/m" instead of a score/bar — it's excluded from the
+          // category average, not a zero.
+          const na = m.applicable === false;
+          return (
+            <div key={m.name} className="metric-item">
+              <div className={`metric-row${na ? " metric-na" : ""}`}>
+                <span className="metric-name">{m.name}</span>
+                <span className="metric-raw" title={na ? "Not meaningful for this industry" : undefined}>
+                  {na ? "n/m" : formatRaw(m)}
+                </span>
+                <div className="metric-track" aria-hidden="true">
+                  {!na && (
+                    <div
+                      className={`metric-fill ${scoreColor(m.score)}`}
+                      style={{ width: m.score === null ? "0%" : `${m.score}%` }}
+                    />
+                  )}
+                </div>
+                <span className="metric-score" title={na ? "Not meaningful for banks" : undefined}>
+                  {na ? "n/m" : m.score === null ? "—" : Math.round(m.score)}
+                </span>
               </div>
-              <span className="metric-score">{m.score === null ? "—" : Math.round(m.score)}</span>
+              {!na && <MetricRelativeLine m={m} />}
             </div>
-            <MetricRelativeLine m={m} />
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -302,7 +314,10 @@ export default function ScoreView({
         <div className="insight-head">
           <span className="insight-eyebrow">What this says</span>
           <span className="insight-meta">
-            QScore model {QSCORE_MODEL_VERSION} · Generated {formatGeneratedAt(data.generatedAt)}
+            QScore model {QSCORE_MODEL_VERSION} ·{" "}
+            <span title="The QScore is computed live from current fundamentals each time this page is rendered — this is that compute time, not a fixed publication date. Very low-traffic tickers may serve a cached render until the next visit refreshes it.">
+              Score computed {formatGeneratedAt(data.generatedAt)}
+            </span>
             {data.staleSince ? (
               <>
                 {" "}·{" "}

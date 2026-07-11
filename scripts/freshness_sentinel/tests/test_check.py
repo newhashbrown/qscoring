@@ -7,6 +7,7 @@ calendar from exchange_calendars — the same object production uses — so the
 holiday handling under test is the shipped behavior, not a mock's.
 """
 
+import json
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -16,6 +17,7 @@ import pytest
 from freshness_sentinel.check import (
     last_completed_session,
     latest_snapshot_date,
+    stale_universe_tickers,
     trading_days_behind,
 )
 
@@ -90,3 +92,49 @@ class TestLatestSnapshotDate:
     def test_missing_directory_raises(self, tmp_path: Path):
         with pytest.raises(RuntimeError, match="does not exist"):
             latest_snapshot_date(tmp_path / "nope")
+
+
+class TestStaleUniverseTickers:
+    """Per-ticker staleness: a current-universe name absent from the last N
+    snapshots has data-as-of older than ~N trading days."""
+
+    def _setup(self, tmp_path, snapshots, universe):
+        snap_dir = tmp_path / "snapshots"
+        snap_dir.mkdir()
+        for d, tickers in snapshots.items():
+            (snap_dir / f"{d}.json").write_text(
+                json.dumps({"picks": [{"ticker": t} for t in tickers]})
+            )
+        uni = tmp_path / "compare-universe.json"
+        uni.write_text(json.dumps({"entries": [{"symbol": s} for s in universe]}))
+        return snap_dir, uni
+
+    def test_all_covered_recently_none_stale(self, tmp_path):
+        snap_dir, uni = self._setup(
+            tmp_path,
+            {"2026-07-07": ["AAPL", "MSFT"], "2026-07-08": ["AAPL", "MSFT"], "2026-07-09": ["AAPL", "MSFT"]},
+            ["AAPL", "MSFT"],
+        )
+        assert stale_universe_tickers(snap_dir, uni, 3) == set()
+
+    def test_ticker_absent_from_last_3_is_stale(self, tmp_path):
+        snap_dir, uni = self._setup(
+            tmp_path,
+            {
+                "2026-07-05": ["AAPL", "MSFT", "JPM"],  # JPM only here (4th-newest)
+                "2026-07-07": ["AAPL", "MSFT"],
+                "2026-07-08": ["AAPL", "MSFT"],
+                "2026-07-09": ["AAPL", "MSFT"],
+            },
+            ["AAPL", "MSFT", "JPM"],
+        )
+        assert stale_universe_tickers(snap_dir, uni, 3) == {"JPM"}
+
+    def test_ticker_not_in_current_universe_not_flagged(self, tmp_path):
+        # MSFT left the universe — absent from snapshots but NOT flagged stale.
+        snap_dir, uni = self._setup(
+            tmp_path,
+            {"2026-07-07": ["AAPL"], "2026-07-08": ["AAPL"], "2026-07-09": ["AAPL"]},
+            ["AAPL"],
+        )
+        assert stale_universe_tickers(snap_dir, uni, 3) == set()

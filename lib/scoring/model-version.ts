@@ -11,10 +11,16 @@
  *   v1.x — first stable release after the validation section is filled in.
  *          Subsequent v1.x bumps require a documented changelog.
  *
+ * Update notes for v0.4 (see MODEL_CHANGELOG.md):
+ *   - Industry-based metric applicability: metrics that are not meaningful for a
+ *     company's industry (EV/EBITDA, FCF yield/growth, Altman-Z, net-debt/EBITDA,
+ *     interest coverage for banks) are marked "n/m" and excluded from the
+ *     category average AND the completeness denominator, rather than scored.
+ *
  * Update notes for v0.3:
  *   - Universe expanded from $15B large-cap to $2B mid+large-cap (May 2026)
  *   - Signal logic now rounds before threshold comparison so displayed
  *     factor scores match the integer thresholds in deriveSignal
  *   - Daily snapshot filenames use US market close date, not UTC date
  */
-export const QSCORE_MODEL_VERSION = "v0.3";
+export const QSCORE_MODEL_VERSION = "v0.4";

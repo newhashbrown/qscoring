@@ -1,6 +1,7 @@
 import Link from "next/link";
 import scoreboardData from "@/data/scoreboard.json";
 import type { ScoreboardPick } from "@/data/categories";
+import { looksLikeFundOrEtf } from "@/lib/scoring/universe";
 
 // Internal-linking module for /score/[ticker]: cross-links each ticker page to
 // sector peers (and, when a sector is thin, to similar-QScore names) so the
@@ -31,8 +32,15 @@ export default function RelatedStocks({
   let related: ScoreboardPick[] = [];
   let heading = "Related stocks";
 
+  // Mirror the universe fund/ETF filter (issues #62/#63): a stale scoreboard.json
+  // could still carry a fund share class, so drop it here too.
   if (sector) {
-    related = PICKS.filter((p) => p.sector === sector && !taken.has(p.ticker.toUpperCase()))
+    related = PICKS.filter(
+      (p) =>
+        p.sector === sector &&
+        !taken.has(p.ticker.toUpperCase()) &&
+        !looksLikeFundOrEtf({ symbol: p.ticker, companyName: p.companyName })
+    )
       .sort((a, b) => b.composite - a.composite)
       .slice(0, MAX);
     related.forEach((p) => taken.add(p.ticker.toUpperCase()));
@@ -41,7 +49,11 @@ export default function RelatedStocks({
 
   // Fill from nearest-QScore names when the sector is thin (or absent).
   if (related.length < 4) {
-    const extra = PICKS.filter((p) => !taken.has(p.ticker.toUpperCase()))
+    const extra = PICKS.filter(
+      (p) =>
+        !taken.has(p.ticker.toUpperCase()) &&
+        !looksLikeFundOrEtf({ symbol: p.ticker, companyName: p.companyName })
+    )
       .sort((a, b) => Math.abs(a.composite - target) - Math.abs(b.composite - target))
       .slice(0, MAX - related.length);
     related = [...related, ...extra];
