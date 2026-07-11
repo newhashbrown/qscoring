@@ -1730,6 +1730,40 @@ footer .footer-links .sep {
   .policy-rationale { grid-column: 1 / -1; }
 }
 
+/* Upcoming Catalysts (Phase 4) — dated events + AI catalyst_watch */
+.uc-events { list-style: none; margin: 0 0 4px; padding: 0; display: flex; flex-direction: column; }
+.uc-event {
+  display: grid;
+  grid-template-columns: 24px 108px 96px 1fr;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86rem;
+}
+.uc-event:last-child { border-bottom: none; }
+.uc-icon { font-size: 0.95rem; line-height: 1; }
+.uc-kind { color: var(--text); font-weight: 600; }
+.uc-date { color: var(--text); font-family: var(--mono); font-size: 0.82rem; }
+.uc-detail { color: var(--text-dim); font-size: 0.82rem; }
+.uc-event.uc-earnings .uc-kind { color: var(--accent); }
+.uc-event.uc-split .uc-kind { color: var(--gold); }
+
+.uc-watch { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+.uc-watch-head {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.uc-watch-list { margin: 8px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; }
+.uc-watch-list li { font-size: 0.84rem; color: var(--text-dim); line-height: 1.45; }
+
+@media (max-width: 600px) {
+  .uc-event { grid-template-columns: 20px 1fr auto; row-gap: 2px; }
+  .uc-detail { grid-column: 2 / -1; }
+}
+
 /* Trader's Lens (Tier 3) — setup chips + technical metric grid */
 .tl-setups { display: flex; flex-wrap: wrap; gap: 8px; }
 .tl-chip {
