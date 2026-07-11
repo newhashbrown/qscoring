@@ -1,0 +1,61 @@
+name: Refresh catalyst calendar
+
+# Catalyst calendar ingest (AI-analysis roadmap, Phase 4).
+#
+# Daily FULL REPLACE of the ticker_events table: scripts/build-events.ts fetches
+# upcoming earnings / ex-dividend / split events from FMP for a 90-day window,
+# filters to the scored universe, and persists a full replace through the Worker
+# (POST /api/cron/persist-events). D1-only — no git commit. The persist route
+# refuses an empty replace, so a plan-gated / transient FMP failure can't wipe
+# the calendar.
+
+on:
+  schedule:
+    - cron: "30 8 * * *" # 08:30 UTC daily — before US pre-market
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Fetch + log only, do not persist"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Ingest catalyst calendar
+        env:
+          QSCORING_BASE: https://qscoring.com
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          SNAPSHOT_CRON_TOKEN: ${{ secrets.SNAPSHOT_CRON_TOKEN }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            npm run events -- --dry-run
+          else
+            npm run events
+          fi
+
+      - name: Email alert on failure
+        if: failure()
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          WF: ${{ github.workflow }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$RESEND_API_KEY" ]; then echo "No Resend key; skipping alert"; exit 0; fi
+          curl -fsS -X POST https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" -H "Content-Type: application/json" \
+            -d "{\"from\":\"QScoring Alerts <alerts@qscoring.com>\",\"to\":[\"gagansingh2000@yahoo.com\"],\"subject\":\"❌ $WF failed\",\"text\":\"Catalyst calendar ingest failed. Run: $RUN_URL\"}"

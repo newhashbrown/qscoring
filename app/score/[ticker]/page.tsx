@@ -13,6 +13,7 @@ import RiskPositioning, { RiskPositioningSkeleton } from "@/app/components/RiskP
 import FactorProfile, { FactorProfileSkeleton } from "@/app/components/FactorProfile";
 import ReverseDCF, { ReverseDCFSkeleton } from "@/app/components/ReverseDCF";
 import PolicyExposure, { PolicyExposureSkeleton } from "@/app/components/PolicyExposure";
+import UpcomingCatalysts, { UpcomingCatalystsSkeleton } from "@/app/components/UpcomingCatalysts";
 import TraderLens from "@/app/components/TraderLens";
 import WatchButton from "@/app/components/WatchButton";
 import OnboardingBanner from "@/app/components/OnboardingBanner";
@@ -268,6 +269,9 @@ export default async function TickerScorePage({
           </Suspense>
           <Suspense fallback={<PolicyExposureSkeleton />}>
             <PolicyExposure ticker={result.ticker} />
+          </Suspense>
+          <Suspense fallback={<UpcomingCatalystsSkeleton />}>
+            <UpcomingCatalysts ticker={result.ticker} />
           </Suspense>
         </div>
         <div className="commentary-wrap">

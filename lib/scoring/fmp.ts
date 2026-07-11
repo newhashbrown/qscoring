@@ -349,11 +349,40 @@ export type AnalystEstimate = {
   netIncomeAvg: number | null;
 };
 
+// Bulk calendar endpoints (Phase 4 catalyst calendar). Date-range scoped, one
+// call each covers the whole market for a window; the ingest filters to the
+// universe. May be plan-gated (like analyst-estimates) — callers degrade.
+export type EarningsCalendarRow = {
+  symbol: string;
+  date: string;
+  epsEstimated: number | null;
+  revenueEstimated: number | null;
+};
+export type DividendCalendarRow = {
+  symbol: string;
+  date: string; // ex-dividend date
+  dividend: number | null;
+  adjDividend: number | null;
+  paymentDate: string | null;
+};
+export type SplitCalendarRow = {
+  symbol: string;
+  date: string;
+  numerator: number | null;
+  denominator: number | null;
+};
+
 export const fmp = {
   profile: (symbol: string) => {
     const s = fmpSymbol(symbol);
     return fmpGet<Profile[]>("/profile", { symbol: s }, TTL.profile, `profile:${s}`);
   },
+  earningsCalendar: (from: string, to: string) =>
+    fmpGet<EarningsCalendarRow[]>("/earnings-calendar", { from, to }, TTL.fundamentals, `earnCal:${from}:${to}`),
+  dividendsCalendar: (from: string, to: string) =>
+    fmpGet<DividendCalendarRow[]>("/dividends-calendar", { from, to }, TTL.fundamentals, `divCal:${from}:${to}`),
+  splitsCalendar: (from: string, to: string) =>
+    fmpGet<SplitCalendarRow[]>("/splits-calendar", { from, to }, TTL.fundamentals, `splitCal:${from}:${to}`),
   quote: (symbol: string) => {
     const s = fmpSymbol(symbol);
     return fmpGet<Quote[]>("/quote", { symbol: s }, TTL.quote, `quote:${s}`);

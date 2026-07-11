@@ -100,8 +100,17 @@ export const NARRATIVE_SECTIONS = [
   "one_line_summary",
 ] as const;
 
-/** Sections visible without a paid subscription. Everything else is gated. */
-export const FREE_SECTIONS: ReadonlySet<keyof Narrative> = new Set(["financial_health"]);
+/**
+ * Sections visible without a paid subscription. Everything else is gated.
+ * `catalyst_watch` is free (Phase 4): it powers the merged "Upcoming Catalysts"
+ * section alongside dated events, and is rendered there rather than in the AI
+ * Analysis card. This Set is the single source of truth for the free/paid split
+ * across the read route AND the UI, so the gate can't drift between them.
+ */
+export const FREE_SECTIONS: ReadonlySet<keyof Narrative> = new Set([
+  "financial_health",
+  "catalyst_watch",
+]);
 
 /**
  * JSON-Schema mirror of NarrativeSchema, used as the Anthropic tool `input_schema`

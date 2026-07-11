@@ -16,16 +16,15 @@ const PARAGRAPH_SECTIONS = [
   { key: "factor_macro_profile", label: "Factor & Macro Profile" },
 ] as const;
 
-const LIST_SECTIONS = [
-  { key: "risk_flags", label: "Risk Flags" },
-  { key: "catalyst_watch", label: "Catalyst Watch" },
-] as const;
+// catalyst_watch is intentionally NOT rendered here (Phase 4): it moved to the
+// merged "Upcoming Catalysts" section and is free. The read route still returns
+// it, but this card ignores it to avoid duplication.
+const LIST_SECTIONS = [{ key: "risk_flags", label: "Risk Flags" }] as const;
 
 const GATED_LABELS: Record<string, string> = {
   competitive_position: "Competitive Position",
   factor_macro_profile: "Factor & Macro Profile",
   risk_flags: "Risk Flags",
-  catalyst_watch: "Catalyst Watch",
   one_line_summary: "Summary",
 };
 
