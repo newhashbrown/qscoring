@@ -178,7 +178,7 @@ export const GLOSSARY: GlossaryTerm[] = [
       "Sector-normalized scoring puts each stock head-to-head with peers facing roughly similar economic dynamics. The trade-off is that the best stock in a weak sector can score the same as the best stock in a strong sector — sector tilts have to be made elsewhere.",
     ],
     inQScoring: [
-      "QScoring [z-scores](/glossary/z-score-normalization) each metric against the distribution of that metric across the stock's sector. If the sector has fewer than 15 covered names, the system falls back to the full universe of US large-caps. The reference universe is currently US-listed stocks above $15B market cap. See the [combining section](/methodology#combining) and the [limitations](/methodology#limitations) for known coverage gaps.",
+      "QScoring [z-scores](/glossary/z-score-normalization) each metric against the distribution of that metric across the stock's sector. If the sector has fewer than 15 covered names, the system falls back to the full universe of US large-caps. The reference universe is currently US-listed stocks above $2B market cap (mid-cap and larger). See the [combining section](/methodology#combining) and the [limitations](/methodology#limitations) for known coverage gaps.",
     ],
     related: ["z-score-normalization", "composite-score"],
   },

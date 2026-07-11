@@ -50,9 +50,10 @@ export default function OnboardingBanner() {
         <div className="onboarding-section">
           <div className="onboarding-section-title">Score (0–100)</div>
           <p className="onboarding-section-body">
-            Higher is stronger. <strong>65+</strong> = buy signal,{" "}
-            <strong>40–64</strong> = hold, <strong>below 40</strong> = short.
-            Long-term and short-term scores weight the same factors differently.
+            Higher is stronger. The Buy / Hold / Short <strong>signal</strong> isn&apos;t a single
+            cutoff on the composite — it comes from the long-term and short-term sub-scores together
+            (e.g. Buy Short-Term when the short-term score leads and clears its bar). See the{" "}
+            <Link href="/methodology#signals" className="onboarding-link">signal rules</Link>.
           </p>
         </div>
 

@@ -402,9 +402,9 @@ export default function MethodologyPage() {
                   side — the short leg of HML.
                 </td>
                 <td>
-                  We include sector-relative fundamental growth as a descriptive input and weight it
-                  modestly (5% long-term, 15% short-term). We describe what it measures and
-                  deliberately make <strong>no academic-pedigree claim</strong> for it.
+                  We include sector-relative fundamental growth as a descriptive input, weighted
+                  20% long-term and 15% short-term (see the weights table below). We describe what it
+                  measures and deliberately make <strong>no academic-pedigree claim</strong> for it.
                 </td>
               </tr>
             </tbody>
@@ -676,8 +676,9 @@ export default function MethodologyPage() {
             <p>
               The <Link href="/performance">live performance page</Link> publishes a daily, locked-in
               snapshot of every QScore and price we compute. Each snapshot is committed to public
-              source control on the date shown — no revisionism is possible, and forward returns
-              against those snapshots are what feed the backtest pledge above as data accrues.
+              source control on the date shown — any correction is itself a public commit, so the
+              record is tamper-evident and fully auditable — and forward returns against those
+              snapshots are what feed the backtest pledge above as data accrues.
             </p>
           </div>
         </section>
