@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T09:23:55.815Z",
+  "generatedAt": "2026-07-11T07:45:05.176Z",
   "universeSize": 800,
   "entries": [
     {
@@ -121,11 +121,6 @@
       "symbol": "AGNC",
       "name": "AGNC Investment Corp.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "AGX",
-      "name": "Argan, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AHR",
@@ -856,6 +851,11 @@
       "symbol": "CPRT",
       "name": "Copart, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CPT",
+      "name": "Camden Property Trust",
+      "sector": "Real Estate"
     },
     {
       "symbol": "CQP",
@@ -1818,11 +1818,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "IBRX",
-      "name": "ImmunityBio, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
@@ -1916,6 +1911,11 @@
       "symbol": "ISRG",
       "name": "Intuitive Surgical, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "IT",
+      "name": "Gartner, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "ITT",
@@ -2523,6 +2523,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "NNN",
+      "name": "NNN REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "NOC",
       "name": "Northrop Grumman Corporation",
       "sector": "Industrials"
@@ -2678,6 +2683,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "OSK",
+      "name": "Oshkosh Corp",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2796,11 +2806,6 @@
       "symbol": "PKG",
       "name": "Packaging Corporation of America",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "PL",
-      "name": "Planet Labs PBC",
-      "sector": "Industrials"
     },
     {
       "symbol": "PLD",
@@ -3436,11 +3441,6 @@
       "symbol": "TGT",
       "name": "Target Corporation",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TGTX",
-      "name": "TG Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "THC",
