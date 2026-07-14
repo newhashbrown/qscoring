@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T07:45:05.176Z",
+  "generatedAt": "2026-07-14T07:51:59.571Z",
   "universeSize": 800,
   "entries": [
     {
@@ -48,9 +48,9 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "ACN",
-      "name": "Accenture plc",
-      "sector": "Technology"
+      "symbol": "ACM",
+      "name": "Aecom",
+      "sector": "Industrials"
     },
     {
       "symbol": "ADBE",
@@ -283,11 +283,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "APLD",
-      "name": "Applied Digital Corp.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "APO",
       "name": "Apollo Global Management, Inc.",
       "sector": "Financial Services"
@@ -353,6 +348,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "AU",
+      "name": "AngloGold Ashanti plc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "AUR",
       "name": "Aurora Innovation, Inc.",
       "sector": "Technology"
@@ -416,6 +416,11 @@
       "symbol": "BALL",
       "name": "Ball Corporation",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "BAM",
+      "name": "Brookfield Asset Management Ltd.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "BAX",
@@ -723,11 +728,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CIFR",
-      "name": "Cipher Mining Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CINF",
       "name": "Cincinnati Financial Corporation",
       "sector": "Financial Services"
@@ -878,11 +878,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "CRDO",
-      "name": "Credo Technology Group Holding Ltd",
-      "sector": "Technology"
-    },
-    {
       "symbol": "CRL",
       "name": "Charles River Laboratories International, Inc.",
       "sector": "Healthcare"
@@ -891,6 +886,11 @@
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CRNX",
+      "name": "Crinetics Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "CRS",
@@ -1398,6 +1398,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "FDS",
+      "name": "FactSet Research Systems Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FDX",
       "name": "FedEx Corporation",
       "sector": "Industrials"
@@ -1411,6 +1416,11 @@
       "symbol": "FE",
       "name": "FirstEnergy Corp.",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "FERG",
+      "name": "Ferguson plc",
+      "sector": "Industrials"
     },
     {
       "symbol": "FFIV",
@@ -1458,9 +1468,9 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FLS",
-      "name": "Flowserve Corporation",
-      "sector": "Industrials"
+      "symbol": "FLEX",
+      "name": "Flex Ltd.",
+      "sector": "Technology"
     },
     {
       "symbol": "FLUT",
@@ -1471,11 +1481,6 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1556,6 +1561,11 @@
       "symbol": "GEV",
       "name": "GE Vernova Inc.",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "GFL",
+      "name": "GFL Environmental Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "GFS",
@@ -2093,11 +2103,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "LGN",
-      "name": "Legence Corp. Class A Common stock",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "LH",
       "name": "Labcorp Holdings Inc.",
       "sector": "Healthcare"
@@ -2261,11 +2266,6 @@
       "symbol": "MDLZ",
       "name": "Mondelez International, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "MDT",
-      "name": "Medtronic plc",
-      "sector": "Healthcare"
     },
     {
       "symbol": "MEDP",
@@ -2658,11 +2658,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ONC",
-      "name": "BeOne Medicines AG",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ONTO",
       "name": "Onto Innovation Inc.",
       "sector": "Technology"
@@ -2911,6 +2906,11 @@
       "symbol": "QCOM",
       "name": "QUALCOMM Incorporated",
       "sector": "Technology"
+    },
+    {
+      "symbol": "QSR",
+      "name": "Restaurant Brands International Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "QXO",
@@ -3368,11 +3368,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "SWKS",
-      "name": "Skyworks Solutions, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "SYF",
       "name": "Synchrony Financial",
       "sector": "Financial Services"
@@ -3381,11 +3376,6 @@
       "symbol": "SYK",
       "name": "Stryker Corporation",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "SYM",
-      "name": "Symbotic Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "SYY",
@@ -3541,6 +3531,11 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
     },
     {
       "symbol": "TTD",
@@ -3741,6 +3736,11 @@
       "symbol": "VNOM",
       "name": "Viper Energy, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VOYA",
+      "name": "Voya Financial, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "VRSK",
