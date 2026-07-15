@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-07-14T07:51:59.571Z",
+  "generatedAt": "2026-07-15T07:55:59.385Z",
   "universeSize": 800,
   "picks": [
     {
       "ticker": "EIX",
       "companyName": "Edison International",
       "sector": "Utilities",
-      "price": 75.97,
-      "changePercent": 1.0239361702127607,
-      "composite": 66,
+      "price": 76.58,
+      "changePercent": 0.802948532315387,
+      "composite": 69,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 66,
-      "shortTermScore": 66,
+      "longTermScore": 69,
+      "shortTermScore": 70,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 77
+          "score": 80
         },
         {
           "name": "growth",
@@ -27,28 +27,28 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 73
+          "score": 79
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 62
+          "score": 67
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 52
+          "score": 51
         }
       ],
       "header": {
-        "marketCap": 29232795698,
+        "marketCap": 29467520002,
         "sharesOutstanding": 384793941,
         "floatShares": 363357071,
         "freeFloatPercent": 94.42900011775393,
-        "avgDollarVolume20": 172713277.5075,
-        "week52High": 77.015,
+        "avgDollarVolume20": 178570119.86150002,
+        "week52High": 77.9499,
         "week52Low": 50.19,
-        "dividendYield": 0.04554429,
+        "dividendYield": 0.04518151,
         "sizeBucket": "large"
       }
     },
@@ -56,13 +56,13 @@
       "ticker": "INCY",
       "companyName": "Incyte Corporation",
       "sector": "Healthcare",
-      "price": 114.23,
-      "changePercent": -2.1249250278467913,
+      "price": 114.88,
+      "changePercent": 0.5690274008579107,
       "composite": 65,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 64,
-      "shortTermScore": 65,
+      "shortTermScore": 67,
       "categories": [
         {
           "name": "value",
@@ -72,12 +72,12 @@
         {
           "name": "growth",
           "label": "Growth",
-          "score": 82
+          "score": 83
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 63
+          "score": 65
         },
         {
           "name": "profitability",
@@ -91,11 +91,11 @@
         }
       ],
       "header": {
-        "marketCap": 22821115566,
+        "marketCap": 22950973966,
         "sharesOutstanding": 199782155,
         "floatShares": 197923028,
         "freeFloatPercent": 99.06942313741685,
-        "avgDollarVolume20": 218239646.3455,
+        "avgDollarVolume20": 218847059.86099997,
         "week52High": 118.97,
         "week52Low": 67.17,
         "dividendYield": 0,
@@ -103,11 +103,11 @@
       }
     },
     {
-      "ticker": "KEY",
-      "companyName": "KeyCorp",
-      "sector": "Financial Services",
-      "price": 23.22,
-      "changePercent": -0.3433476394849865,
+      "ticker": "ES",
+      "companyName": "Eversource Energy",
+      "sector": "Utilities",
+      "price": 74.64,
+      "changePercent": -0.2938819129040861,
       "composite": 64,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -117,12 +117,62 @@
         {
           "name": "value",
           "label": "Value",
-          "score": 58
+          "score": 70
         },
         {
           "name": "growth",
           "label": "Growth",
-          "score": 83
+          "score": 74
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 66
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 50
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 59
+        }
+      ],
+      "header": {
+        "marketCap": 28070611200,
+        "sharesOutstanding": 376080000,
+        "floatShares": 375509110,
+        "freeFloatPercent": 99.8482,
+        "avgDollarVolume20": 188445973.62799996,
+        "week52High": 76.41,
+        "week52Low": 61.53,
+        "dividendYield": 0.04126474,
+        "sizeBucket": "large"
+      }
+    },
+    {
+      "ticker": "KEY",
+      "companyName": "KeyCorp",
+      "sector": "Financial Services",
+      "price": 23.3,
+      "changePercent": 0.3445305770887246,
+      "composite": 64,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "MEDIUM",
+      "longTermScore": 63,
+      "shortTermScore": 64,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 57
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 82
         },
         {
           "name": "momentum",
@@ -141,64 +191,14 @@
         }
       ],
       "header": {
-        "marketCap": 25062971400,
+        "marketCap": 25149321000,
         "sharesOutstanding": 1079370000,
-        "floatShares": 1079671940,
-        "freeFloatPercent": 100.0279737254139,
-        "avgDollarVolume20": 258992383.738,
+        "floatShares": 1079661098,
+        "freeFloatPercent": 100.02696925058136,
+        "avgDollarVolume20": 258518663.96000004,
         "week52High": 23.72,
         "week52Low": 16.47,
-        "dividendYield": 0.03531438,
-        "sizeBucket": "large"
-      }
-    },
-    {
-      "ticker": "ALL",
-      "companyName": "The Allstate Corporation",
-      "sector": "Financial Services",
-      "price": 256.45,
-      "changePercent": 1.923611939112108,
-      "composite": 62,
-      "signal": "BUY_SHORT_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 61,
-      "shortTermScore": 62,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 64
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 66
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 70
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 66
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 45
-        }
-      ],
-      "header": {
-        "marketCap": 66015615450,
-        "sharesOutstanding": 257421000,
-        "floatShares": 255860959,
-        "freeFloatPercent": 99.39397290819319,
-        "avgDollarVolume20": 449457450.3665,
-        "week52High": 257.67,
-        "week52Low": 188.08,
-        "dividendYield": 0.01622149,
+        "dividendYield": 0.03519313,
         "sizeBucket": "large"
       }
     },
@@ -206,13 +206,13 @@
       "ticker": "AMG",
       "companyName": "Affiliated Managers Group, Inc.",
       "sector": "Financial Services",
-      "price": 359.78,
-      "changePercent": -1.8094484320842912,
-      "composite": 62,
+      "price": 366,
+      "changePercent": 1.7288342876202198,
+      "composite": 63,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 60,
-      "shortTermScore": 64,
+      "shortTermScore": 66,
       "categories": [
         {
           "name": "value",
@@ -222,12 +222,12 @@
         {
           "name": "growth",
           "label": "Growth",
-          "score": 61
+          "score": 60
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 72
+          "score": 77
         },
         {
           "name": "profitability",
@@ -241,33 +241,83 @@
         }
       ],
       "header": {
-        "marketCap": 9502545338,
+        "marketCap": 9666828600,
         "sharesOutstanding": 26412100,
         "floatShares": 25410803,
         "freeFloatPercent": 96.20894589979592,
-        "avgDollarVolume20": 106305597.3675,
+        "avgDollarVolume20": 105522308.63650002,
         "week52High": 369.94,
         "week52Low": 199.59,
-        "dividendYield": 0.000111179054,
+        "dividendYield": 0.000109289617,
         "sizeBucket": "mid"
+      }
+    },
+    {
+      "ticker": "ALL",
+      "companyName": "The Allstate Corporation",
+      "sector": "Financial Services",
+      "price": 250.35,
+      "changePercent": -2.378631312146615,
+      "composite": 62,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "MEDIUM",
+      "longTermScore": 61,
+      "shortTermScore": 63,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 64
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 66
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 71
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 66
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 45
+        }
+      ],
+      "header": {
+        "marketCap": 64445347350,
+        "sharesOutstanding": 257421000,
+        "floatShares": 255858385,
+        "freeFloatPercent": 99.39297298977162,
+        "avgDollarVolume20": 460995458.88250005,
+        "week52High": 257.67,
+        "week52Low": 188.08,
+        "dividendYield": 0.01661674,
+        "sizeBucket": "large"
       }
     },
     {
       "ticker": "BIPI",
       "companyName": "BIP Bermuda Holdings I Limited",
       "sector": "Industrials",
-      "price": 16.37,
-      "changePercent": 0.06112469437653768,
+      "price": 16.3857,
+      "changePercent": 0.09590714722051885,
       "composite": 62,
       "signal": "BUY_LONG_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 67,
-      "shortTermScore": 57,
+      "shortTermScore": 58,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 75
+          "score": 74
         },
         {
           "name": "growth",
@@ -277,12 +327,12 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 42
+          "score": 43
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 68
+          "score": 69
         },
         {
           "name": "risk",
@@ -291,78 +341,28 @@
         }
       ],
       "header": {
-        "marketCap": 13013518020,
+        "marketCap": 13025998914,
         "sharesOutstanding": 794961394,
         "floatShares": 0,
         "freeFloatPercent": 0,
-        "avgDollarVolume20": 669214.0644999999,
+        "avgDollarVolume20": 667942.5139649999,
         "week52High": 18.18,
         "week52Low": 15.84,
-        "dividendYield": 0.07826573,
+        "dividendYield": 0.07819074,
         "sizeBucket": "large"
       }
     },
     {
-      "ticker": "ES",
-      "companyName": "Eversource Energy",
-      "sector": "Utilities",
-      "price": 74.86,
-      "changePercent": 0.05346164127239542,
+      "ticker": "MU",
+      "companyName": "Micron Technology, Inc.",
+      "sector": "Technology",
+      "price": 983.12,
+      "changePercent": 4.922091782283886,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
-      "longTermScore": 62,
+      "longTermScore": 60,
       "shortTermScore": 63,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 67
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 72
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 64
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 50
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 60
-        }
-      ],
-      "header": {
-        "marketCap": 28153348800,
-        "sharesOutstanding": 376080000,
-        "floatShares": 375509110,
-        "freeFloatPercent": 99.8482,
-        "avgDollarVolume20": 193601780.31799996,
-        "week52High": 76.41,
-        "week52Low": 61.53,
-        "dividendYield": 0.04114347,
-        "sizeBucket": "large"
-      }
-    },
-    {
-      "ticker": "PAYX",
-      "companyName": "Paychex, Inc.",
-      "sector": "Industrials",
-      "price": 110.75,
-      "changePercent": 2.984935837827779,
-      "composite": 62,
-      "signal": "BUY_LONG_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 63,
-      "shortTermScore": 60,
       "categories": [
         {
           "name": "value",
@@ -372,47 +372,47 @@
         {
           "name": "growth",
           "label": "Growth",
-          "score": 55
+          "score": 94
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 53
+          "score": 78
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 83
+          "score": 73
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 66
+          "score": 20
         }
       ],
       "header": {
-        "marketCap": 39382700000,
-        "sharesOutstanding": 355600000,
-        "floatShares": 319158112,
-        "freeFloatPercent": 89.752,
-        "avgDollarVolume20": 386903864.32199997,
-        "week52High": 148.11,
-        "week52Low": 85.45,
-        "dividendYield": 0.04,
-        "sizeBucket": "large"
+        "marketCap": 1110325896800,
+        "sharesOutstanding": 1129390000,
+        "floatShares": 1124428589,
+        "freeFloatPercent": 99.5607,
+        "avgDollarVolume20": 55445962773.202,
+        "week52High": 1255,
+        "week52Low": 103.38,
+        "dividendYield": 0.000539100008,
+        "sizeBucket": "mega"
       }
     },
     {
       "ticker": "UMBF",
       "companyName": "UMB Financial Corporation",
       "sector": "Financial Services",
-      "price": 144.29,
-      "changePercent": -0.20748322843904235,
+      "price": 142.61,
+      "changePercent": -1.1643218518261684,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 60,
-      "shortTermScore": 65,
+      "shortTermScore": 64,
       "categories": [
         {
           "name": "value",
@@ -427,7 +427,7 @@
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 68
+          "score": 65
         },
         {
           "name": "profitability",
@@ -441,14 +441,14 @@
         }
       ],
       "header": {
-        "marketCap": 10962970519,
+        "marketCap": 10835326257,
         "sharesOutstanding": 75978727,
         "floatShares": 72269446,
         "freeFloatPercent": 95.11800059508762,
-        "avgDollarVolume20": 111656190.54799998,
+        "avgDollarVolume20": 111958858.11499998,
         "week52High": 146.9,
         "week52Low": 103.38,
-        "dividendYield": 0.01171252,
+        "dividendYield": 0.0118505,
         "sizeBucket": "large"
       }
     },
@@ -456,8 +456,8 @@
       "ticker": "VOYA",
       "companyName": "Voya Financial, Inc.",
       "sector": "Financial Services",
-      "price": 98.96,
-      "changePercent": 1.4350143501434927,
+      "price": 98.3,
+      "changePercent": -0.6669361358124462,
       "composite": 62,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
@@ -472,7 +472,7 @@
         {
           "name": "growth",
           "label": "Growth",
-          "score": 39
+          "score": 40
         },
         {
           "name": "momentum",
@@ -491,114 +491,114 @@
         }
       ],
       "header": {
-        "marketCap": 8972338532,
+        "marketCap": 8912498765,
         "sharesOutstanding": 90666315,
         "floatShares": 90342439,
         "freeFloatPercent": 99.642783514914,
-        "avgDollarVolume20": 116839945.70349999,
-        "week52High": 99.32,
+        "avgDollarVolume20": 110055157.98849997,
+        "week52High": 99.5,
         "week52Low": 64.5,
-        "dividendYield": 0.01879547,
+        "dividendYield": 0.01892167,
         "sizeBucket": "mid"
       }
     },
     {
-      "ticker": "CDE",
-      "companyName": "Coeur Mining, Inc.",
-      "sector": "Basic Materials",
-      "price": 15.59,
-      "changePercent": -2.440550688360454,
-      "composite": 61,
-      "signal": "BUY_LONG_TERM",
-      "confidence": "MEDIUM",
-      "longTermScore": 63,
-      "shortTermScore": 58,
-      "categories": [
-        {
-          "name": "value",
-          "label": "Value",
-          "score": 57
-        },
-        {
-          "name": "growth",
-          "label": "Growth",
-          "score": 94
-        },
-        {
-          "name": "momentum",
-          "label": "Momentum",
-          "score": 52
-        },
-        {
-          "name": "profitability",
-          "label": "Profitability",
-          "score": 64
-        },
-        {
-          "name": "risk",
-          "label": "Risk",
-          "score": 45
-        }
-      ],
-      "header": {
-        "marketCap": 10151721140,
-        "sharesOutstanding": 651168771,
-        "floatShares": 644836260,
-        "freeFloatPercent": 99.02751624212397,
-        "avgDollarVolume20": 753209061.2630001,
-        "week52High": 27.77,
-        "week52Low": 8.57,
-        "dividendYield": 0.00128287,
-        "sizeBucket": "large"
-      }
-    },
-    {
-      "ticker": "DINO",
-      "companyName": "HF Sinclair Corporation",
-      "sector": "Energy",
-      "price": 81.7,
-      "changePercent": 4.64967337005253,
+      "ticker": "BNY",
+      "companyName": "Bank of New York Mellon Corp",
+      "sector": "Financial Services",
+      "price": 154.5,
+      "changePercent": 2.135254842334891,
       "composite": 61,
       "signal": "BUY_SHORT_TERM",
       "confidence": "MEDIUM",
       "longTermScore": 56,
-      "shortTermScore": 66,
+      "shortTermScore": 65,
       "categories": [
         {
           "name": "value",
           "label": "Value",
-          "score": 64
+          "score": 53
         },
         {
           "name": "growth",
           "label": "Growth",
-          "score": 59
+          "score": 50
         },
         {
           "name": "momentum",
           "label": "Momentum",
-          "score": 82
+          "score": 74
         },
         {
           "name": "profitability",
           "label": "Profitability",
-          "score": 41
+          "score": 45
         },
         {
           "name": "risk",
           "label": "Risk",
-          "score": 55
+          "score": 74
         }
       ],
       "header": {
-        "marketCap": 14728467500,
-        "sharesOutstanding": 180275000,
-        "floatShares": 167925261,
-        "freeFloatPercent": 93.1495,
-        "avgDollarVolume20": 176852020.055,
-        "week52High": 82.05,
-        "week52Low": 42.16,
-        "dividendYield": 0.0244798,
+        "marketCap": 106045562453,
+        "sharesOutstanding": 686379045,
+        "floatShares": 684484639,
+        "freeFloatPercent": 99.72400002392264,
+        "avgDollarVolume20": 628217968.6925,
+        "week52High": 155.09,
+        "week52Low": 93.37,
+        "dividendYield": 0.01372168,
+        "sizeBucket": "large"
+      }
+    },
+    {
+      "ticker": "EXPD",
+      "companyName": "Expeditors International of Washington, Inc.",
+      "sector": "Industrials",
+      "price": 178.22,
+      "changePercent": 1.5498575498575493,
+      "composite": 61,
+      "signal": "BUY_SHORT_TERM",
+      "confidence": "MEDIUM",
+      "longTermScore": 58,
+      "shortTermScore": 64,
+      "categories": [
+        {
+          "name": "value",
+          "label": "Value",
+          "score": 55
+        },
+        {
+          "name": "growth",
+          "label": "Growth",
+          "score": 46
+        },
+        {
+          "name": "momentum",
+          "label": "Momentum",
+          "score": 68
+        },
+        {
+          "name": "profitability",
+          "label": "Profitability",
+          "score": 55
+        },
+        {
+          "name": "risk",
+          "label": "Risk",
+          "score": 75
+        }
+      ],
+      "header": {
+        "marketCap": 23309595723,
+        "sharesOutstanding": 130791133,
+        "floatShares": 129971725,
+        "freeFloatPercent": 99.37349894812826,
+        "avgDollarVolume20": 213794747.67249998,
+        "week52High": 178.64,
+        "week52Low": 110.48,
+        "dividendYield": 0.00886545,
         "sizeBucket": "large"
       }
     }

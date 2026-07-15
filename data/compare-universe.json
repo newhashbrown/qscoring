@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T07:51:59.571Z",
+  "generatedAt": "2026-07-15T07:55:59.385Z",
   "universeSize": 800,
   "entries": [
     {
@@ -48,11 +48,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "ACM",
-      "name": "Aecom",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
@@ -75,7 +70,7 @@
     {
       "symbol": "ADP",
       "name": "Automatic Data Processing, Inc.",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "ADSK",
@@ -443,6 +438,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "BDXA",
+      "name": "Becton, Dickinson and Company",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "BE",
       "name": "Bloom Energy Corporation",
       "sector": "Industrials"
@@ -495,6 +495,11 @@
     {
       "symbol": "BLK",
       "name": "BlackRock, Inc.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "BMNR",
+      "name": "Bitmine Immersion Technologies, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -888,11 +893,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CRNX",
-      "name": "Crinetics Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "CRS",
       "name": "Carpenter Technology Corporation",
       "sector": "Industrials"
@@ -920,7 +920,7 @@
     {
       "symbol": "CSL",
       "name": "Carlisle Companies Incorporated",
-      "sector": "Basic Materials"
+      "sector": "Industrials"
     },
     {
       "symbol": "CSX",
@@ -1460,7 +1460,7 @@
     {
       "symbol": "FIVE",
       "name": "Five Below, Inc.",
-      "sector": "Consumer Defensive"
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "FIX",
@@ -1481,6 +1481,11 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1505,7 +1510,7 @@
     {
       "symbol": "FSLR",
       "name": "First Solar, Inc.",
-      "sector": "Energy"
+      "sector": "Technology"
     },
     {
       "symbol": "FTAI",
@@ -1520,7 +1525,7 @@
     {
       "symbol": "FTV",
       "name": "Fortive Corporation",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "FWONA",
@@ -1560,7 +1565,7 @@
     {
       "symbol": "GEV",
       "name": "GE Vernova Inc.",
-      "sector": "Utilities"
+      "sector": "Industrials"
     },
     {
       "symbol": "GFL",
@@ -1686,11 +1691,6 @@
       "symbol": "HAL",
       "name": "Halliburton Company",
       "sector": "Energy"
-    },
-    {
-      "symbol": "HALO",
-      "name": "Halozyme Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "HAS",
@@ -1925,7 +1925,7 @@
     {
       "symbol": "IT",
       "name": "Gartner, Inc.",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "ITT",
@@ -2225,7 +2225,7 @@
     {
       "symbol": "MAS",
       "name": "Masco Corporation",
-      "sector": "Consumer Cyclical"
+      "sector": "Industrials"
     },
     {
       "symbol": "MCD",
@@ -2600,7 +2600,7 @@
     {
       "symbol": "NXT",
       "name": "Nextpower Inc.",
-      "sector": "Energy"
+      "sector": "Technology"
     },
     {
       "symbol": "NYT",
@@ -2725,7 +2725,7 @@
     {
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "PCAR",
@@ -3150,7 +3150,7 @@
     {
       "symbol": "SGI",
       "name": "Somnigroup International Inc",
-      "sector": "Consumer Defensive"
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "SHW",
@@ -3378,6 +3378,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "SYM",
+      "name": "Symbotic Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "SYY",
       "name": "Sysco Corporation",
       "sector": "Consumer Defensive"
@@ -3531,11 +3536,6 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TTC",
-      "name": "The Toro Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "TTD",
