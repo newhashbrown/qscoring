@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T07:55:59.385Z",
+  "generatedAt": "2026-07-16T08:01:31.669Z",
   "universeSize": 800,
   "entries": [
     {
@@ -16,11 +16,6 @@
       "symbol": "AAL",
       "name": "American Airlines Group Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "AAOI",
-      "name": "Applied Optoelectronics, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "AAON",
@@ -438,11 +433,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "BDXA",
-      "name": "Becton, Dickinson and Company",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "BE",
       "name": "Bloom Energy Corporation",
       "sector": "Industrials"
@@ -536,11 +526,6 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -1534,7 +1519,7 @@
     },
     {
       "symbol": "FWONK",
-      "name": "Formula One Group",
+      "name": "Liberty Media Corporation",
       "sector": "Communication Services"
     },
     {
@@ -1693,6 +1678,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "HALO",
+      "name": "Halozyme Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "HAS",
       "name": "Hasbro, Inc.",
       "sector": "Consumer Cyclical"
@@ -1750,11 +1740,6 @@
     {
       "symbol": "HONA",
       "name": "Honeywell Aerospace Inc",
-      "sector": "Industrials"
-    },
-    {
-      "symbol": "HONAV",
-      "name": "Honeywell Aerospace Inc. Common Stock When Issued",
       "sector": "Industrials"
     },
     {
@@ -2363,11 +2348,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MP",
-      "name": "MP Materials Corp.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2833,6 +2813,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "POWL",
+      "name": "Powell Industries, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2856,6 +2841,11 @@
       "symbol": "PRI",
       "name": "Primerica, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "PRMB",
+      "name": "Primo Brands Corporation",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "PRU",
@@ -3079,7 +3069,7 @@
     },
     {
       "symbol": "RZC",
-      "name": "7.125% Fixed-Rate Reset Subordinated Debentures due 2052",
+      "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
     },
     {
@@ -3538,6 +3528,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTD",
       "name": "The Trade Desk, Inc.",
       "sector": "Communication Services"
@@ -3796,6 +3791,11 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "WAL",
+      "name": "Western Alliance Bancorporation",
+      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
