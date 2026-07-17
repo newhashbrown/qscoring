@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T08:01:31.669Z",
+  "generatedAt": "2026-07-17T07:59:04.468Z",
   "universeSize": 800,
   "entries": [
     {
@@ -41,6 +41,11 @@
       "symbol": "ABT",
       "name": "Abbott Laboratories",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "ACM",
+      "name": "Aecom",
+      "sector": "Industrials"
     },
     {
       "symbol": "ADBE",
@@ -156,11 +161,6 @@
       "symbol": "ALB",
       "name": "Albemarle Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "ALGM",
-      "name": "Allegro MicroSystems, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "ALGN",
@@ -444,7 +444,7 @@
     },
     {
       "symbol": "BEPH",
-      "name": "Brookfield BRP Holdings (Canada",
+      "name": "Brookfield BRP Holdings (Canada) Inc 4.625 % Notes 2021-Without Fixed Maturity Global Sub",
       "sector": "Real Estate"
     },
     {
@@ -488,11 +488,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BMNR",
-      "name": "Bitmine Immersion Technologies, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "BMRN",
       "name": "BioMarin Pharmaceutical Inc.",
       "sector": "Healthcare"
@@ -505,11 +500,6 @@
     {
       "symbol": "BNY",
       "name": "Bank of New York Mellon Corp",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "BPOP",
-      "name": "Popular, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -526,6 +516,11 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -708,6 +703,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "CHWY",
+      "name": "Chewy, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "CI",
       "name": "Cigna Corporation",
       "sector": "Healthcare"
@@ -876,6 +876,11 @@
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CRNX",
+      "name": "Crinetics Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "CRS",
@@ -1458,6 +1463,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "FLS",
+      "name": "Flowserve Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "FLUT",
       "name": "Flutter Entertainment plc",
       "sector": "Consumer Cyclical"
@@ -1466,11 +1476,6 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1486,6 +1491,16 @@
       "symbol": "FPS",
       "name": "Forgent Power Solutions, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "FR",
+      "name": "First Industrial Realty Trust, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "FRHC",
+      "name": "Freedom Holding Corp.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "FROG",
@@ -2038,11 +2053,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "KTOS",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2171,11 +2181,6 @@
       "symbol": "LVS",
       "name": "Las Vegas Sands Corp.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "LYB",
-      "name": "LyondellBasell Industries N.V.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "LYV",
@@ -2813,11 +2818,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POWL",
-      "name": "Powell Industries, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -3078,14 +3078,14 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "SANM",
-      "name": "Sanmina Corporation",
+      "symbol": "SAIL",
+      "name": "SailPoint, Inc.",
       "sector": "Technology"
     },
     {
-      "symbol": "SARO",
-      "name": "StandardAero, Inc.",
-      "sector": "Industrials"
+      "symbol": "SANM",
+      "name": "Sanmina Corporation",
+      "sector": "Technology"
     },
     {
       "symbol": "SATA",
@@ -3196,11 +3196,6 @@
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "SNEX",
-      "name": "StoneX Group Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "SNOW",
@@ -3400,6 +3395,11 @@
     {
       "symbol": "TDY",
       "name": "Teledyne Technologies Incorporated",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "TEAM",
+      "name": "Atlassian Corporation",
       "sector": "Technology"
     },
     {
