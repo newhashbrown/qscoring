@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T07:59:04.468Z",
+  "generatedAt": "2026-07-18T07:38:59.289Z",
   "universeSize": 800,
   "entries": [
     {
@@ -41,11 +41,6 @@
       "symbol": "ABT",
       "name": "Abbott Laboratories",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "ACM",
-      "name": "Aecom",
-      "sector": "Industrials"
     },
     {
       "symbol": "ADBE",
@@ -488,6 +483,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BMNR",
+      "name": "Bitmine Immersion Technologies, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "BMRN",
       "name": "BioMarin Pharmaceutical Inc.",
       "sector": "Healthcare"
@@ -701,11 +701,6 @@
       "symbol": "CHTR",
       "name": "Charter Communications, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CI",
@@ -1461,11 +1456,6 @@
       "symbol": "FLEX",
       "name": "Flex Ltd.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "FLS",
-      "name": "Flowserve Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "FLUT",
@@ -2878,6 +2868,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PTGX",
+      "name": "Protagonist Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "PWR",
       "name": "Quanta Services, Inc.",
       "sector": "Industrials"
@@ -3086,6 +3081,11 @@
       "symbol": "SANM",
       "name": "Sanmina Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SARO",
+      "name": "StandardAero, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SATA",
@@ -3353,6 +3353,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "SWKS",
+      "name": "Skyworks Solutions, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SYF",
       "name": "Synchrony Financial",
       "sector": "Financial Services"
@@ -3531,11 +3536,6 @@
       "symbol": "TTC",
       "name": "The Toro Company",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "TTD",
-      "name": "The Trade Desk, Inc.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "TTMI",
