@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T07:38:59.289Z",
+  "generatedAt": "2026-07-21T08:14:23.115Z",
   "universeSize": 800,
   "entries": [
     {
@@ -15,11 +15,6 @@
     {
       "symbol": "AAL",
       "name": "American Airlines Group Inc.",
-      "sector": "Industrials"
-    },
-    {
-      "symbol": "AAON",
-      "name": "AAON, Inc.",
       "sector": "Industrials"
     },
     {
@@ -483,6 +478,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BMNP",
+      "name": "Bitmine Immersion Technologies, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "BMNR",
       "name": "Bitmine Immersion Technologies, Inc.",
       "sector": "Financial Services"
@@ -516,11 +516,6 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -703,6 +698,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "CHWY",
+      "name": "Chewy, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "CI",
       "name": "Cigna Corporation",
       "sector": "Healthcare"
@@ -796,6 +796,11 @@
       "symbol": "COKE",
       "name": "Coca-Cola Consolidated, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "COLB",
+      "name": "Columbia Banking System, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "COO",
@@ -2798,6 +2803,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "PNFP",
+      "name": "Pinnacle Financial Partners, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "PNW",
       "name": "Pinnacle West Capital Corporation",
       "sector": "Utilities"
@@ -2866,11 +2876,6 @@
       "symbol": "PTC",
       "name": "PTC Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "PTGX",
-      "name": "Protagonist Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "PWR",
@@ -3071,11 +3076,6 @@
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "SAIL",
-      "name": "SailPoint, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "SANM",
@@ -3413,11 +3413,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "TEM",
-      "name": "Tempus AI, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "TER",
       "name": "Teradyne, Inc.",
       "sector": "Technology"
@@ -3536,6 +3531,11 @@
       "symbol": "TTC",
       "name": "The Toro Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "sector": "Communication Services"
     },
     {
       "symbol": "TTMI",
