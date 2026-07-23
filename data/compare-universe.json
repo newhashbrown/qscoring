@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T08:14:38.666Z",
+  "generatedAt": "2026-07-23T08:18:54.537Z",
   "universeSize": 800,
   "entries": [
     {
@@ -443,11 +443,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BEPH",
-      "name": "Brookfield BRP Holdings (Canada) Inc 4.625 % Notes 2021-Without Fixed Maturity Global Sub",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "BF-B",
       "name": "Brown-Forman Corporation",
       "sector": "Consumer Defensive"
@@ -551,11 +546,6 @@
       "symbol": "BSX",
       "name": "Boston Scientific Corporation",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "BSY",
-      "name": "Bentley Systems, Incorporated",
-      "sector": "Technology"
     },
     {
       "symbol": "BTSG",
@@ -898,6 +888,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CRNX",
+      "name": "Crinetics Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "CRS",
       "name": "Carpenter Technology Corporation",
       "sector": "Basic Materials"
@@ -1016,6 +1011,11 @@
       "symbol": "DDOG",
       "name": "Datadog, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "DDS",
+      "name": "Dillard's, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DE",
@@ -1893,6 +1893,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "IONS",
+      "name": "Ionis Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "IOT",
       "name": "Samsara Inc.",
       "sector": "Technology"
@@ -1921,11 +1926,6 @@
       "symbol": "ISRG",
       "name": "Intuitive Surgical, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "IT",
-      "name": "Gartner, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "ITT",
@@ -2206,11 +2206,6 @@
       "symbol": "MAIR",
       "name": "Madison Air Solutions Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "MANH",
-      "name": "Manhattan Associates, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "MAR",
@@ -2828,11 +2823,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POWL",
-      "name": "Powell Industries, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2886,11 +2876,6 @@
       "symbol": "PTC",
       "name": "PTC Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "PTGX",
-      "name": "Protagonist Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "PWR",
@@ -3051,6 +3036,11 @@
       "symbol": "RPRX",
       "name": "Royalty Pharma plc",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "RRC",
+      "name": "Range Resources Corporation",
+      "sector": "Energy"
     },
     {
       "symbol": "RRX",
@@ -3543,6 +3533,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3796,6 +3791,11 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "WAL",
+      "name": "Western Alliance Bancorporation",
+      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
