@@ -38,5 +38,13 @@
       "denominator": 1,
       "fmpDate": "2026-07-01"
     }
+  ],
+  "SNEX": [
+    {
+      "date": "2026-07-23",
+      "numerator": 3,
+      "denominator": 2,
+      "fmpDate": "2026-07-20"
+    }
   ]
 }
