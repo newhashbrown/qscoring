@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T08:18:54.537Z",
+  "generatedAt": "2026-07-24T08:13:39.446Z",
   "universeSize": 800,
   "entries": [
     {
@@ -21,6 +21,11 @@
       "symbol": "AAOI",
       "name": "Applied Optoelectronics, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AAON",
+      "name": "AAON, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
@@ -548,6 +553,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "BSY",
+      "name": "Bentley Systems, Incorporated",
+      "sector": "Technology"
+    },
+    {
       "symbol": "BTSG",
       "name": "BrightSpring Health Services, Inc. Common Stock",
       "sector": "Healthcare"
@@ -701,11 +711,6 @@
       "symbol": "CHTR",
       "name": "Charter Communications, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CI",
@@ -1011,11 +1016,6 @@
       "symbol": "DDOG",
       "name": "Datadog, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "DDS",
-      "name": "Dillard's, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DE",
@@ -1383,11 +1383,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
@@ -1473,6 +1468,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "FLS",
+      "name": "Flowserve Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "FLUT",
       "name": "Flutter Entertainment plc",
       "sector": "Consumer Cyclical"
@@ -1496,11 +1496,6 @@
       "symbol": "FPS",
       "name": "Forgent Power Solutions, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "FR",
-      "name": "First Industrial Realty Trust, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "FRHC",
@@ -1928,6 +1923,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "IT",
+      "name": "Gartner, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ITT",
       "name": "ITT Inc.",
       "sector": "Industrials"
@@ -2101,6 +2101,11 @@
       "symbol": "LFUS",
       "name": "Littelfuse, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "LGN",
+      "name": "Legence Corp. Class A Common stock",
+      "sector": "Industrials"
     },
     {
       "symbol": "LH",
@@ -2423,11 +2428,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "MTCH",
-      "name": "Match Group, Inc.",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "MTD",
       "name": "Mettler-Toledo International Inc.",
       "sector": "Healthcare"
@@ -2456,11 +2456,6 @@
       "symbol": "NBIX",
       "name": "Neurocrine Biosciences, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "NCLH",
-      "name": "Norwegian Cruise Line Holdings Ltd.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "NDAQ",
@@ -2823,6 +2818,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "POWL",
+      "name": "Powell Industries, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2966,6 +2966,11 @@
       "symbol": "RGLD",
       "name": "Royal Gold, Inc.",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "RIVN",
@@ -3201,6 +3206,11 @@
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SNEX",
+      "name": "StoneX Group Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "SNOW",
@@ -3533,11 +3543,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TTC",
-      "name": "The Toro Company",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3731,11 +3736,6 @@
       "symbol": "VNOM",
       "name": "Viper Energy, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "VOYA",
-      "name": "Voya Financial, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "VRSK",
