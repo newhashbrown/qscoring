@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T08:13:39.446Z",
+  "generatedAt": "2026-07-25T07:55:54.895Z",
   "universeSize": 800,
   "entries": [
     {
@@ -15,16 +15,6 @@
     {
       "symbol": "AAL",
       "name": "American Airlines Group Inc.",
-      "sector": "Industrials"
-    },
-    {
-      "symbol": "AAOI",
-      "name": "Applied Optoelectronics, Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "AAON",
-      "name": "AAON, Inc.",
       "sector": "Industrials"
     },
     {
@@ -46,6 +36,11 @@
       "symbol": "ABT",
       "name": "Abbott Laboratories",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "ACM",
+      "name": "Aecom",
+      "sector": "Industrials"
     },
     {
       "symbol": "ADBE",
@@ -161,11 +156,6 @@
       "symbol": "ALB",
       "name": "Albemarle Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "ALGM",
-      "name": "Allegro MicroSystems, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "ALGN",
@@ -301,6 +291,11 @@
       "symbol": "ARCC",
       "name": "Ares Capital Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ARES",
@@ -893,11 +888,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CRNX",
-      "name": "Crinetics Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "CRS",
       "name": "Carpenter Technology Corporation",
       "sector": "Basic Materials"
@@ -1398,6 +1388,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "FDS",
+      "name": "FactSet Research Systems Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FDX",
       "name": "FedEx Corporation",
       "sector": "Industrials"
@@ -1493,9 +1488,9 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FPS",
-      "name": "Forgent Power Solutions, Inc.",
-      "sector": "Industrials"
+      "symbol": "FR",
+      "name": "First Industrial Realty Trust, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "FRHC",
@@ -2103,11 +2098,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "LGN",
-      "name": "Legence Corp. Class A Common stock",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "LH",
       "name": "Labcorp Holdings Inc.",
       "sector": "Healthcare"
@@ -2211,6 +2201,11 @@
       "symbol": "MAIR",
       "name": "Madison Air Solutions Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "MANH",
+      "name": "Manhattan Associates, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "MAR",
@@ -2456,6 +2451,11 @@
       "symbol": "NBIX",
       "name": "Neurocrine Biosciences, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "NCLH",
+      "name": "Norwegian Cruise Line Holdings Ltd.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "NDAQ",
@@ -2818,11 +2818,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POWL",
-      "name": "Powell Industries, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2953,6 +2948,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -2966,11 +2966,6 @@
       "symbol": "RGLD",
       "name": "Royal Gold, Inc.",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "RIOT",
-      "name": "Riot Platforms, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "RIVN",
@@ -3206,11 +3201,6 @@
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "SNEX",
-      "name": "StoneX Group Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "SNOW",
@@ -3543,6 +3533,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3736,6 +3731,11 @@
       "symbol": "VNOM",
       "name": "Viper Energy, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VOYA",
+      "name": "Voya Financial, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "VRSK",
