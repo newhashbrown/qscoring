@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-25T07:55:54.895Z",
+  "generatedAt": "2026-07-28T08:22:17.620Z",
   "universeSize": 800,
   "entries": [
     {
@@ -708,6 +708,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "CHWY",
+      "name": "Chewy, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "CI",
       "name": "Cigna Corporation",
       "sector": "Healthcare"
@@ -715,11 +720,6 @@
     {
       "symbol": "CIEN",
       "name": "Ciena Corporation",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "CIFR",
-      "name": "Cipher Mining Inc.",
       "sector": "Technology"
     },
     {
@@ -1006,6 +1006,11 @@
       "symbol": "DDOG",
       "name": "Datadog, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "DDS",
+      "name": "Dillard's, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "DE",
@@ -1373,6 +1378,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
@@ -1488,9 +1498,9 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FR",
-      "name": "First Industrial Realty Trust, Inc.",
-      "sector": "Real Estate"
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "FRHC",
@@ -2423,6 +2433,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "MTCH",
+      "name": "Match Group, Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "MTD",
       "name": "Mettler-Toledo International Inc.",
       "sector": "Healthcare"
@@ -2858,11 +2873,6 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "PSKY",
-      "name": "Paramount Skydance Corporation Class B Common Stock",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "PSX",
       "name": "Phillips 66",
       "sector": "Energy"
@@ -2948,11 +2958,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3036,11 +3041,6 @@
       "symbol": "RPRX",
       "name": "Royalty Pharma plc",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "RRC",
-      "name": "Range Resources Corporation",
-      "sector": "Energy"
     },
     {
       "symbol": "RRX",
