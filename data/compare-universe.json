@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T08:22:17.620Z",
+  "generatedAt": "2026-07-29T08:28:41.262Z",
   "universeSize": 800,
   "entries": [
     {
@@ -106,6 +106,11 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "AGCO",
+      "name": "AGCO Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -241,6 +246,11 @@
       "symbol": "ANET",
       "name": "Arista Networks, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AOS",
+      "name": "A. O. Smith Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "APA",
@@ -455,6 +465,11 @@
     {
       "symbol": "BIIB",
       "name": "Biogen Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "BIO",
+      "name": "Bio-Rad Laboratories, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -915,7 +930,7 @@
     {
       "symbol": "CSL",
       "name": "Carlisle Companies Incorporated",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "CSX",
@@ -1498,11 +1513,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FPS",
-      "name": "Forgent Power Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "FRHC",
       "name": "Freedom Holding Corp.",
       "sector": "Financial Services"
@@ -1570,7 +1580,7 @@
     {
       "symbol": "GEV",
       "name": "GE Vernova Inc.",
-      "sector": "Industrials"
+      "sector": "Utilities"
     },
     {
       "symbol": "GFL",
@@ -1601,11 +1611,6 @@
       "symbol": "GIS",
       "name": "General Mills, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "GKOS",
-      "name": "Glaukos Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "GL",
@@ -1930,7 +1935,7 @@
     {
       "symbol": "IT",
       "name": "Gartner, Inc.",
-      "sector": "Technology"
+      "sector": "Industrials"
     },
     {
       "symbol": "ITT",
@@ -2066,11 +2071,6 @@
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "KYMR",
-      "name": "Kymera Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "L",
@@ -2225,7 +2225,7 @@
     {
       "symbol": "MAS",
       "name": "Masco Corporation",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "MCD",
@@ -2720,7 +2720,7 @@
     {
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
-      "sector": "Technology"
+      "sector": "Industrials"
     },
     {
       "symbol": "PCAR",
@@ -3043,6 +3043,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "RRC",
+      "name": "Range Resources Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "RRX",
       "name": "Regal Rexnord Corporation",
       "sector": "Industrials"
@@ -3081,6 +3086,11 @@
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "SAIL",
+      "name": "SailPoint, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "SANM",
@@ -3275,7 +3285,7 @@
     {
       "symbol": "SPXC",
       "name": "SPX Technologies, Inc.",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "SRE",
@@ -3538,6 +3548,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3688,19 +3703,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "VIAV",
-      "name": "Viavi Solutions Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "VICR",
-      "name": "Vicor Corporation",
-      "sector": "Technology"
     },
     {
       "symbol": "VIRT",
@@ -3916,11 +3921,6 @@
       "symbol": "WTS",
       "name": "Watts Water Technologies, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "WULF",
-      "name": "TeraWulf Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "WWD",
