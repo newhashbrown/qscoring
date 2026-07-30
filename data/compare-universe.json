@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T08:28:41.262Z",
+  "generatedAt": "2026-07-30T08:12:33.987Z",
   "universeSize": 800,
   "entries": [
     {
@@ -106,11 +106,6 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "AGCO",
-      "name": "AGCO Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -248,11 +243,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "AOS",
-      "name": "A. O. Smith Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "APA",
       "name": "APA Corporation",
       "sector": "Energy"
@@ -366,6 +356,11 @@
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AVTR",
+      "name": "Avantor, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "AVY",
@@ -643,6 +638,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CBSH",
+      "name": "Commerce Bancshares, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "CCI",
       "name": "Crown Castle Inc.",
       "sector": "Real Estate"
@@ -823,11 +823,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "COLB",
-      "name": "Columbia Banking System, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "COO",
       "name": "The Cooper Companies, Inc.",
       "sector": "Healthcare"
@@ -901,6 +896,11 @@
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CRNX",
+      "name": "Crinetics Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "CRS",
@@ -1188,6 +1188,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "EAT",
+      "name": "Brinker International, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "EBAY",
       "name": "eBay Inc.",
       "sector": "Consumer Cyclical"
@@ -1313,11 +1318,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "ESI",
-      "name": "Element Solutions Inc",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "ET",
       "name": "Energy Transfer LP",
       "sector": "Energy"
@@ -1391,11 +1391,6 @@
       "symbol": "FAST",
       "name": "Fastenal Company",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
     },
     {
       "symbol": "FCNCA",
@@ -1611,6 +1606,11 @@
       "symbol": "GIS",
       "name": "General Mills, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "GKOS",
+      "name": "Glaukos Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "GL",
@@ -2063,11 +2063,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "KTOS",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2076,6 +2071,11 @@
       "symbol": "L",
       "name": "Loews Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "LAD",
+      "name": "Lithia Motors, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "LAMR",
@@ -2718,6 +2718,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PAYC",
+      "name": "Paycom Software, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
@@ -2958,6 +2963,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3090,11 +3100,6 @@
     {
       "symbol": "SAIL",
       "name": "SailPoint, Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "SANM",
-      "name": "Sanmina Corporation",
       "sector": "Technology"
     },
     {
@@ -3541,11 +3546,6 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TTC",
-      "name": "The Toro Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "TTD",
