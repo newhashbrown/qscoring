@@ -7,7 +7,11 @@
  * What it does, per ticker of the last-good snapshot before the target:
  *   - price/changePercent: the target date's settled close from FMP
  *     /historical-price-eod/light, change vs the prior trading day's bar.
- *     Bars after the target date are structurally ignored (no look-ahead).
+ *     Bars after the target date are structurally ignored (no look-ahead),
+ *     and the close is converted to the LEDGER's basis at the target date
+ *     via toLedgerBasisFactor — a split effective after the target has
+ *     already been applied backwards by FMP, and freezing that raw close
+ *     would shift the rebuilt day off the basis its neighbours froze.
  *   - everything else (composite, signals, categories, header): carried
  *     forward from the last-good snapshot — one day STALE by design. A
  *     rescore at rebuild time would leak post-target fundamentals/prices
@@ -19,6 +23,12 @@
  *
  * Usage:
  *   npx tsx scripts/rebuild-snapshot-asof.ts --date=2026-07-01 --scores-from=2026-06-30 [--dry-run]
+ *
+ * --exclude=TICKER[,TICKER] drops names whose target-date bars cannot be
+ * trusted (delisting / share-conversion in flight). Used for HONIV on the
+ * 2026-06-26 rebuild: FMP printed 512.02 on 1.3k-share volume with a phantom
+ * 2x adjustment its own /splits endpoint denies, and the name is already
+ * terminal-handled in data/terminal-values.json.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -29,6 +39,7 @@ import {
   type AsOfLedger,
   type EodBar,
 } from "../lib/snapshot-rebuild";
+import { loadSplits, toLedgerBasisFactor } from "../lib/splits";
 
 const SNAP_DIR = path.resolve(process.cwd(), "data", "snapshots");
 const FMP_BASE = "https://financialmodelingprep.com/stable";
@@ -103,6 +114,17 @@ async function main() {
   const target = arg("date");
   const scoresFrom = arg("scores-from");
   const dryRun = process.argv.includes("--dry-run");
+  // Names whose bars cannot be trusted on the target date — a delisting /
+  // share-conversion in progress prints wild closes that no splits.json entry
+  // legitimises. Dropping the row is honest; freezing a guessed basis is not
+  // (a missing ticker beats a contaminated one). Each exclusion is recorded in
+  // the snapshot's provenance so the gap is auditable rather than silent.
+  const excluded = new Set(
+    (arg("exclude") ?? "")
+      .split(",")
+      .map((t) => t.trim().toUpperCase())
+      .filter(Boolean)
+  );
   if (!target || !scoresFrom) {
     throw new Error(
       "Usage: rebuild-snapshot-asof.ts --date=YYYY-MM-DD --scores-from=YYYY-MM-DD [--dry-run]"
@@ -143,20 +165,68 @@ async function main() {
     universeSize: number;
     picks: Array<{ ticker: string; price: number; changePercent: number }>;
   };
+  const rebuildable = source.picks.filter((p) => !excluded.has(p.ticker));
+  const droppedByFlag = source.picks
+    .filter((p) => excluded.has(p.ticker))
+    .map((p) => p.ticker);
+  for (const t of droppedByFlag) {
+    console.warn(`[${t}] excluded by --exclude — no trustworthy as-of bar, row dropped.`);
+  }
+  const absent = [...excluded].filter((t) => !droppedByFlag.includes(t));
+  if (absent.length > 0) {
+    throw new Error(
+      `--exclude names not present in ${scoresFrom}: ${absent.join(", ")} — typo?`
+    );
+  }
   console.log(
-    `Rebuilding ${target} as-of: ${source.picks.length} tickers, scores carried from ${scoresFrom}.`
+    `Rebuilding ${target} as-of: ${rebuildable.length} tickers, scores carried from ${scoresFrom}.`
   );
+
+  // FMP bars come back on the NEWEST basis: a split effective AFTER the target
+  // date has already been applied backwards over the target's bar. Freezing
+  // that raw close writes a different basis than the neighbouring snapshots
+  // froze, minting a phantom gap on both sides of the rebuilt day (the
+  // "rebuilt-day boundary shift" behind the #76 phantoms). Convert every bar
+  // to the ledger's basis at the target date — same helper build-exit-prices
+  // uses, keyed off the same ledger boundary.
+  const splits = loadSplits();
+  const events = (ticker: string) => splits[ticker] ?? [];
+
+  // changePercent is a ratio of two bars, so a basis conversion cancels out —
+  // but only while BOTH bars sit on the same side of every boundary. A
+  // boundary landing inside the fetch window would break that, so refuse
+  // rather than silently freeze a mis-scaled change. Conservative: the prior
+  // bar is always >= scoresFrom, so the window is a superset of the real gap.
+  const straddling = rebuildable
+    .filter((p) => events(p.ticker).some((e) => e.date > scoresFrom && e.date <= target))
+    .map((p) => p.ticker);
+  if (straddling.length > 0) {
+    throw new Error(
+      `Split boundary falls inside (${scoresFrom}, ${target}] for ${straddling.join(", ")} — ` +
+        `changePercent would be mis-scaled. Handle these manually.`
+    );
+  }
 
   const ledger = new Map<string, AsOfLedger>();
   let done = 0;
-  for (const p of source.picks) {
+  for (const p of rebuildable) {
     const bars = await fetchBars(p.ticker, scoresFrom, target, apiKey);
-    const l = bars ? asOfLedgerPrice(bars, target) : null;
+    const raw = bars ? asOfLedgerPrice(bars, target) : null;
+    const basis = toLedgerBasisFactor(events(p.ticker), target);
+    const l = raw ? { ...raw, price: raw.price * basis } : null;
     if (l) {
       ledger.set(p.ticker, l);
+      if (basis !== 1) {
+        console.log(
+          `[${p.ticker}] basis-converted ${raw!.price} → ${l.price.toFixed(2)} ` +
+            `(x${basis}, split after ${target})`
+        );
+      }
       // Split/fat-finger tripwire: the frozen close should be near the source
       // day's close for a 1-day gap. Flag outliers for manual review instead
       // of silently freezing a corporate-action artifact into the ledger.
+      // Runs AFTER the basis conversion, so a surviving warning means a real
+      // move or a corporate action missing from data/splits.json.
       const drift = Math.abs(l.price / p.price - 1);
       if (drift > 0.2) {
         console.warn(
@@ -166,11 +236,11 @@ async function main() {
       }
     }
     done++;
-    if (done % 100 === 0) console.log(`  …${done}/${source.picks.length}`);
+    if (done % 100 === 0) console.log(`  …${done}/${rebuildable.length}`);
     await sleep(REQUEST_GAP_MS);
   }
 
-  const { picks, missing } = rebuildSnapshotPicks(source.picks, ledger);
+  const { picks, missing } = rebuildSnapshotPicks(rebuildable, ledger);
   if (missing.length > 0) {
     console.warn(`Dropped ${missing.length} tickers:`);
     for (const m of missing) console.warn(`  ${m.ticker}: ${m.reason}`);
@@ -190,7 +260,16 @@ async function main() {
       method: "asof-rebuild",
       scoresCarriedFrom: scoresFrom,
       pricesFrom: "fmp /historical-price-eod/light settled closes",
+      basisConvertedVia: "data/splits.json toLedgerBasisFactor (ledger basis at target date)",
       reason: "pre-market run lost; rebuilt per runbook (no-look-ahead: post-target bars excluded)",
+      ...(droppedByFlag.length > 0
+        ? {
+            excludedTickers: droppedByFlag,
+            excludedReason:
+              "untrustworthy bars on the target date (delisting/share-conversion in progress); " +
+              "row dropped rather than freezing a guessed basis",
+          }
+        : {}),
     },
     picks,
   };
@@ -199,7 +278,7 @@ async function main() {
   for (const s of sample) {
     console.log(`  sample ${s.ticker}: price=${s.price} changePercent=${s.changePercent.toFixed(3)}`);
   }
-  console.log(`Rebuilt ${picks.length}/${source.picks.length} rows for ${target}.`);
+  console.log(`Rebuilt ${picks.length}/${rebuildable.length} rows for ${target}.`);
 
   if (dryRun) {
     console.log("--dry-run: not writing.");
