@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T08:12:33.987Z",
+  "generatedAt": "2026-07-31T08:40:00.430Z",
   "universeSize": 800,
   "entries": [
     {
@@ -463,11 +463,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "BIO",
-      "name": "Bio-Rad Laboratories, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "BIPI",
       "name": "BIP Bermuda Holdings I Limited",
       "sector": "Industrials"
@@ -638,11 +633,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CBSH",
-      "name": "Commerce Bancshares, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CCI",
       "name": "Crown Castle Inc.",
       "sector": "Real Estate"
@@ -738,6 +728,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CIFR",
+      "name": "Cipher Mining Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "CINF",
       "name": "Cincinnati Financial Corporation",
       "sector": "Financial Services"
@@ -821,6 +816,11 @@
       "symbol": "COKE",
       "name": "Coca-Cola Consolidated, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "COLB",
+      "name": "Columbia Banking System, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "COO",
@@ -1468,6 +1468,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FITB-PM",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FIVE",
       "name": "Five Below, Inc.",
       "sector": "Consumer Cyclical"
@@ -1896,11 +1901,6 @@
       "symbol": "IONQ",
       "name": "IonQ, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "IONS",
-      "name": "Ionis Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "IOT",
@@ -2468,11 +2468,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "NCLH",
-      "name": "Norwegian Cruise Line Holdings Ltd.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "NDAQ",
       "name": "Nasdaq, Inc.",
       "sector": "Financial Services"
@@ -2718,11 +2713,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "PAYC",
-      "name": "Paycom Software, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
@@ -2888,6 +2878,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PTGX",
+      "name": "Protagonist Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "PWR",
       "name": "Quanta Services, Inc.",
       "sector": "Industrials"
@@ -2961,11 +2956,6 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
@@ -3103,6 +3093,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "SANM",
+      "name": "Sanmina Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SARO",
       "name": "StandardAero, Inc.",
       "sector": "Industrials"
@@ -3216,6 +3211,11 @@
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SNEX",
+      "name": "StoneX Group Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "SNOW",
@@ -3548,11 +3548,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TTD",
-      "name": "The Trade Desk, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3706,6 +3701,11 @@
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "sector": "Technology"
     },
     {
       "symbol": "VIRT",
