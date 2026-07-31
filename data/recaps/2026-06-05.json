@@ -2915,9 +2915,10 @@
       "endComposite": 57,
       "startPrice": 411.75,
       "endPrice": 331,
-      "forwardReturn": -0.19611414693381907,
+      "forwardReturn": -0.002377656344869423,
       "signalCorrect": null,
-      "signalFlipped": true
+      "signalFlipped": true,
+      "basisAdjusted": true
     },
     {
       "ticker": "FEGRX",
@@ -10281,19 +10282,6 @@
       "signalFlipped": false
     },
     {
-      "ticker": "FDX",
-      "companyName": "FedEx Corporation",
-      "startSignal": "HOLD",
-      "startComposite": 54,
-      "endSignal": "BUY_SHORT_TERM",
-      "endComposite": 57,
-      "startPrice": 411.75,
-      "endPrice": 331,
-      "forwardReturn": -0.19611414693381907,
-      "signalCorrect": null,
-      "signalFlipped": true
-    },
-    {
       "ticker": "COIN",
       "companyName": "Coinbase Global, Inc.",
       "startSignal": "HOLD",
@@ -10318,6 +10306,19 @@
       "forwardReturn": -0.17991832812875333,
       "signalCorrect": null,
       "signalFlipped": true
+    },
+    {
+      "ticker": "ASTS",
+      "companyName": "AST SpaceMobile, Inc.",
+      "startSignal": "SHORT",
+      "startComposite": 33,
+      "endSignal": "SHORT",
+      "endComposite": 30,
+      "startPrice": 113.41,
+      "endPrice": 94.47,
+      "forwardReturn": -0.16700467330923197,
+      "signalCorrect": true,
+      "signalFlipped": false
     }
   ],
   "signalFlips": [
@@ -10564,9 +10565,10 @@
       "endComposite": 57,
       "startPrice": 411.75,
       "endPrice": 331,
-      "forwardReturn": -0.19611414693381907,
+      "forwardReturn": -0.002377656344869423,
       "signalCorrect": null,
-      "signalFlipped": true
+      "signalFlipped": true,
+      "basisAdjusted": true
     },
     {
       "ticker": "FFOPX",
