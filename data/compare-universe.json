@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T08:40:00.430Z",
+  "generatedAt": "2026-08-01T08:09:40.516Z",
   "universeSize": 800,
   "entries": [
     {
@@ -898,11 +898,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CRNX",
-      "name": "Crinetics Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "CRS",
       "name": "Carpenter Technology Corporation",
       "sector": "Basic Materials"
@@ -1318,6 +1313,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "ET",
       "name": "Energy Transfer LP",
       "sector": "Energy"
@@ -1393,6 +1393,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
@@ -1464,6 +1469,11 @@
     },
     {
       "symbol": "FITB",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "FITB-PA",
       "name": "Fifth Third Bancorp",
       "sector": "Financial Services"
     },
@@ -1751,11 +1761,6 @@
       "symbol": "HL",
       "name": "Hecla Mining Company",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "HLI",
-      "name": "Houlihan Lokey, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "HLT",
@@ -2071,11 +2076,6 @@
       "symbol": "L",
       "name": "Loews Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "LAD",
-      "name": "Lithia Motors, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "LAMR",
@@ -2713,6 +2713,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PAYC",
+      "name": "Paycom Software, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
@@ -2876,11 +2881,6 @@
       "symbol": "PTC",
       "name": "PTC Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "PTGX",
-      "name": "Protagonist Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "PWR",
@@ -3698,6 +3698,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
@@ -3796,11 +3801,6 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "WAL",
-      "name": "Western Alliance Bancorporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
