@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-01T08:09:40.516Z",
+  "generatedAt": "2026-08-04T08:30:21.828Z",
   "universeSize": 800,
   "entries": [
     {
@@ -718,6 +718,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "CHYM",
+      "name": "Chime Financial, Inc. Class A Common Stock",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "CI",
       "name": "Cigna Corporation",
       "sector": "Healthcare"
@@ -816,11 +821,6 @@
       "symbol": "COKE",
       "name": "Coca-Cola Consolidated, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "COLB",
-      "name": "Columbia Banking System, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "COO",
@@ -1523,6 +1523,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "FRHC",
       "name": "Freedom Holding Corp.",
       "sector": "Financial Services"
@@ -1645,11 +1650,6 @@
     {
       "symbol": "GM",
       "name": "General Motors Company",
-      "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "GME",
-      "name": "GameStop Corp.",
       "sector": "Consumer Cyclical"
     },
     {
@@ -2068,6 +2068,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "KTOS",
+      "name": "Kratos Defense & Security Solutions, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2468,6 +2473,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "NCLH",
+      "name": "Norwegian Cruise Line Holdings Ltd.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "NDAQ",
       "name": "Nasdaq, Inc.",
       "sector": "Financial Services"
@@ -2510,11 +2520,6 @@
     {
       "symbol": "NLY",
       "name": "Annaly Capital Management, Inc.",
-      "sector": "Real Estate"
-    },
-    {
-      "symbol": "NNN",
-      "name": "NNN REIT, Inc.",
       "sector": "Real Estate"
     },
     {
@@ -3213,11 +3218,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "SNEX",
-      "name": "StoneX Group Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "SNOW",
       "name": "Snowflake Inc.",
       "sector": "Technology"
@@ -3853,11 +3853,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "WLK",
-      "name": "Westlake Corporation",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "WM",
       "name": "Waste Management, Inc.",
       "sector": "Industrials"
@@ -3921,6 +3916,11 @@
       "symbol": "WTS",
       "name": "Watts Water Technologies, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "WULF",
+      "name": "TeraWulf Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "WWD",
