@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T08:30:21.828Z",
+  "generatedAt": "2026-08-05T08:25:24.277Z",
   "universeSize": 800,
   "entries": [
     {
@@ -16,6 +16,11 @@
       "symbol": "AAL",
       "name": "American Airlines Group Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "AAOI",
+      "name": "Applied Optoelectronics, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "AAPL",
@@ -46,11 +51,6 @@
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "ADC",
-      "name": "Agree Realty Corporation",
-      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -293,11 +293,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ARE",
-      "name": "Alexandria Real Estate Equities, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
@@ -528,11 +523,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
@@ -733,11 +723,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CIFR",
-      "name": "Cipher Mining Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CINF",
       "name": "Cincinnati Financial Corporation",
       "sector": "Financial Services"
@@ -861,11 +846,6 @@
       "symbol": "CPRT",
       "name": "Copart, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "CPT",
-      "name": "Camden Property Trust",
-      "sector": "Real Estate"
     },
     {
       "symbol": "CQP",
@@ -1318,6 +1298,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "ESS",
+      "name": "Essex Property Trust, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "ET",
       "name": "Energy Transfer LP",
       "sector": "Energy"
@@ -1513,6 +1498,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -1691,11 +1681,6 @@
       "symbol": "GSAT",
       "name": "Globalstar, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "GTLS",
-      "name": "Chart Industries, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "GWRE",
@@ -1998,6 +1983,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "JXN",
+      "name": "Jackson Financial Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "KDP",
       "name": "Keurig Dr Pepper Inc.",
       "sector": "Consumer Defensive"
@@ -2276,6 +2266,11 @@
       "symbol": "MEDP",
       "name": "Medpace Holdings, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "MER-PK",
+      "name": "Merrill Lynch & Co., Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "MET",
@@ -2566,11 +2561,6 @@
       "symbol": "NUE",
       "name": "Nucor Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "NUVL",
-      "name": "Nuvalent, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "NVDA",
@@ -3213,6 +3203,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "SNAP",
+      "name": "Snap Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
@@ -3463,11 +3458,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TKR",
-      "name": "The Timken Company",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "TLN",
       "name": "Talen Energy Corporation",
       "sector": "Utilities"
@@ -3546,6 +3536,11 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
     },
     {
       "symbol": "TTMI",
@@ -3743,11 +3738,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "VOYA",
-      "name": "Voya Financial, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "VRSK",
       "name": "Verisk Analytics, Inc.",
       "sector": "Technology"
@@ -3803,6 +3793,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "WAL",
+      "name": "Western Alliance Bancorporation",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "WAT",
       "name": "Waters Corporation",
       "sector": "Healthcare"
@@ -3851,6 +3846,11 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "WLK",
+      "name": "Westlake Corporation",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
