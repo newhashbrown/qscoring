@@ -3,6 +3,10 @@
     "lastBarDate": "2026-07-01",
     "close": 354.53
   },
+  "GTLS": {
+    "lastBarDate": "2026-07-16",
+    "close": 209.9
+  },
   "HONAV": {
     "lastBarDate": "2026-07-23",
     "close": 195.87
@@ -14,6 +18,10 @@
   "MASI": {
     "lastBarDate": "2026-06-12",
     "close": 179.95
+  },
+  "NUVL": {
+    "lastBarDate": "2026-07-21",
+    "close": 123.96
   },
   "RZB": {
     "lastBarDate": "2026-06-16",
