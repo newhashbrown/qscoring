@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T08:25:24.277Z",
+  "generatedAt": "2026-08-07T07:04:25.350Z",
   "universeSize": 800,
   "entries": [
     {
@@ -51,6 +51,11 @@
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "ADC",
+      "name": "Agree Realty Corporation",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -353,11 +358,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "AVTR",
-      "name": "Avantor, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "AVY",
       "name": "Avery Dennison Corporation",
       "sector": "Consumer Cyclical"
@@ -455,6 +455,11 @@
     {
       "symbol": "BIIB",
       "name": "Biogen Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "BIO",
+      "name": "Bio-Rad Laboratories, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -1378,11 +1383,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
@@ -1891,6 +1891,11 @@
       "symbol": "IONQ",
       "name": "IonQ, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "IONS",
+      "name": "Ionis Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "IOT",
@@ -2433,11 +2438,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "MTCH",
-      "name": "Match Group, Inc.",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "MTD",
       "name": "Mettler-Toledo International Inc.",
       "sector": "Healthcare"
@@ -2466,11 +2466,6 @@
       "symbol": "NBIX",
       "name": "Neurocrine Biosciences, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "NCLH",
-      "name": "Norwegian Cruise Line Holdings Ltd.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "NDAQ",
@@ -2591,11 +2586,6 @@
       "symbol": "NYT",
       "name": "The New York Times Company",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "O",
-      "name": "Realty Income Corporation",
-      "sector": "Real Estate"
     },
     {
       "symbol": "OC",
@@ -2848,6 +2838,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "PRAX",
+      "name": "Praxis Precision Medicines, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "PRI",
       "name": "Primerica, Inc.",
       "sector": "Financial Services"
@@ -2868,6 +2863,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "PSKY",
+      "name": "Paramount Skydance Corporation Class B Common Stock",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "PSX",
       "name": "Phillips 66",
       "sector": "Energy"
@@ -2876,6 +2876,11 @@
       "symbol": "PTC",
       "name": "PTC Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "PTGX",
+      "name": "Protagonist Therapeutics, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "PWR",
@@ -2961,6 +2966,11 @@
       "symbol": "RGA",
       "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "RGEN",
+      "name": "Repligen Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "RGLD",
@@ -3103,11 +3113,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SATS",
-      "name": "EchoStar Corporation",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "SBAC",
       "name": "SBA Communications Corporation",
       "sector": "Real Estate"
@@ -3201,11 +3206,6 @@
       "symbol": "SNA",
       "name": "Snap-on Incorporated",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "SNAP",
-      "name": "Snap Inc.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "SNDK",
@@ -3543,6 +3543,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "TTEK",
+      "name": "Tetra Tech, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTMI",
       "name": "TTM Technologies, Inc.",
       "sector": "Technology"
@@ -3738,6 +3743,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "VOYA",
+      "name": "Voya Financial, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "VRSK",
       "name": "Verisk Analytics, Inc.",
       "sector": "Technology"
@@ -3791,11 +3801,6 @@
       "symbol": "WAB",
       "name": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "WAL",
-      "name": "Western Alliance Bancorporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "WAT",
@@ -3916,11 +3921,6 @@
       "symbol": "WTS",
       "name": "Watts Water Technologies, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "WULF",
-      "name": "TeraWulf Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "WWD",
