@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T07:04:25.350Z",
+  "generatedAt": "2026-08-08T06:39:33.829Z",
   "universeSize": 800,
   "entries": [
     {
@@ -51,11 +51,6 @@
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "ADC",
-      "name": "Agree Realty Corporation",
-      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -348,6 +343,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "AVAV",
+      "name": "AeroVironment, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "AVB",
       "name": "AvalonBay Communities, Inc.",
       "sector": "Real Estate"
@@ -356,6 +356,11 @@
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AVTR",
+      "name": "Avantor, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "AVY",
@@ -401,6 +406,11 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -1988,11 +1998,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "JXN",
-      "name": "Jackson Financial Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "KDP",
       "name": "Keurig Dr Pepper Inc.",
       "sector": "Consumer Defensive"
@@ -3046,11 +3051,6 @@
       "symbol": "RPRX",
       "name": "Royalty Pharma plc",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "RRC",
-      "name": "Range Resources Corporation",
-      "sector": "Energy"
     },
     {
       "symbol": "RRX",
