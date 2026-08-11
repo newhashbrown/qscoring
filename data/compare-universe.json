@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T06:39:33.829Z",
+  "generatedAt": "2026-08-11T06:55:27.450Z",
   "universeSize": 800,
   "entries": [
     {
@@ -541,11 +541,6 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BROS",
-      "name": "Dutch Bros Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "BRX",
@@ -1308,11 +1303,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "ESI",
-      "name": "Element Solutions Inc",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1506,11 +1496,6 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1998,6 +1983,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "JXN",
+      "name": "Jackson Financial Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "KDP",
       "name": "Keurig Dr Pepper Inc.",
       "sector": "Consumer Defensive"
@@ -2371,6 +2361,11 @@
       "symbol": "MOH",
       "name": "Molina Healthcare, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "MP",
+      "name": "MP Materials Corp.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "MPC",
@@ -3053,6 +3048,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "RRC",
+      "name": "Range Resources Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "RRX",
       "name": "Regal Rexnord Corporation",
       "sector": "Industrials"
@@ -3388,6 +3388,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "SYRE",
+      "name": "Spyre Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "SYY",
       "name": "Sysco Corporation",
       "sector": "Consumer Defensive"
@@ -3425,6 +3430,11 @@
     {
       "symbol": "TECH",
       "name": "Bio-Techne Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "TEM",
+      "name": "Tempus AI, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -3540,11 +3550,6 @@
     {
       "symbol": "TTC",
       "name": "The Toro Company",
-      "sector": "Industrials"
-    },
-    {
-      "symbol": "TTEK",
-      "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
     },
     {
@@ -3741,11 +3746,6 @@
       "symbol": "VNOM",
       "name": "Viper Energy, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "VOYA",
-      "name": "Voya Financial, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "VRSK",
