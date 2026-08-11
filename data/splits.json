@@ -39,6 +39,14 @@
       "fmpDate": "2026-07-01"
     }
   ],
+  "SCCO": [
+    {
+      "date": "2026-08-06",
+      "numerator": 253,
+      "denominator": 250,
+      "fmpDate": "2026-08-11"
+    }
+  ],
   "SNEX": [
     {
       "date": "2026-07-23",
