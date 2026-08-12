@@ -39,6 +39,14 @@
       "fmpDate": "2026-07-01"
     }
   ],
+  "MNST": [
+    {
+      "date": "2026-08-11",
+      "numerator": 2,
+      "denominator": 1,
+      "fmpDate": "2026-08-11"
+    }
+  ],
   "SCCO": [
     {
       "date": "2026-08-06",
