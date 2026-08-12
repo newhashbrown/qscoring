@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T06:55:27.450Z",
+  "generatedAt": "2026-08-12T07:14:43.404Z",
   "universeSize": 800,
   "entries": [
     {
@@ -41,11 +41,6 @@
       "symbol": "ABT",
       "name": "Abbott Laboratories",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "ACM",
-      "name": "Aecom",
-      "sector": "Industrials"
     },
     {
       "symbol": "ADBE",
@@ -1303,6 +1298,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1496,6 +1496,11 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1983,11 +1988,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "JXN",
-      "name": "Jackson Financial Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "KDP",
       "name": "Keurig Dr Pepper Inc.",
       "sector": "Consumer Defensive"
@@ -2090,11 +2090,6 @@
     {
       "symbol": "LEN",
       "name": "Lennar Corporation",
-      "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "LEVI",
-      "name": "Levi Strauss & Co.",
       "sector": "Consumer Cyclical"
     },
     {
@@ -2269,7 +2264,7 @@
     },
     {
       "symbol": "MER-PK",
-      "name": "Merrill Lynch & Co., Inc.",
+      "name": "Merrill Lynch Capital Trust I GTD CAP 6.45%",
       "sector": "Financial Services"
     },
     {
@@ -3208,6 +3203,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "SNAP",
+      "name": "Snap Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "SNDK",
       "name": "Sandisk Corporation",
       "sector": "Technology"
@@ -3388,11 +3388,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "SYRE",
-      "name": "Spyre Therapeutics, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "SYY",
       "name": "Sysco Corporation",
       "sector": "Consumer Defensive"
@@ -3550,6 +3545,11 @@
     {
       "symbol": "TTC",
       "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "TTEK",
+      "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
     },
     {
