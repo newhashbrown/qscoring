@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T07:14:43.404Z",
+  "generatedAt": "2026-08-13T07:17:07.241Z",
   "universeSize": 800,
   "entries": [
     {
@@ -538,11 +538,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "BSX",
       "name": "Boston Scientific Corporation",
       "sector": "Healthcare"
@@ -853,6 +848,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CPT",
+      "name": "Camden Property Trust",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CQP",
       "name": "Cheniere Energy Partners, L.P.",
       "sector": "Energy"
@@ -921,11 +921,6 @@
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "CTRE",
-      "name": "CareTrust REIT, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "CTSH",
@@ -1263,6 +1258,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "EP-PC",
+      "name": "El Paso Energy Capital Trust I PFD CV TR SECS",
+      "sector": "Energy"
+    },
+    {
       "symbol": "EPD",
       "name": "Enterprise Products Partners L.P.",
       "sector": "Energy"
@@ -1381,6 +1381,11 @@
       "symbol": "FAST",
       "name": "Fastenal Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
+      "sector": "Financial Services"
     },
     {
       "symbol": "FCNCA",
@@ -1526,6 +1531,11 @@
       "symbol": "FROG",
       "name": "JFrog Ltd.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "FRT",
+      "name": "Federal Realty Investment Trust",
+      "sector": "Real Estate"
     },
     {
       "symbol": "FSLR",
@@ -2068,6 +2078,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "KYMR",
+      "name": "Kymera Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "L",
       "name": "Loews Corporation",
       "sector": "Financial Services"
@@ -2581,6 +2596,11 @@
       "symbol": "NYT",
       "name": "The New York Times Company",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "O",
+      "name": "Realty Income Corporation",
+      "sector": "Real Estate"
     },
     {
       "symbol": "OC",
@@ -3098,11 +3118,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "SARO",
-      "name": "StandardAero, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "SATA",
       "name": "Strive, Inc. Variable Rate Series A Perpetual Preferred Stock",
       "sector": "Financial Services"
@@ -3141,11 +3156,6 @@
       "symbol": "SF",
       "name": "Stifel Financial Corp",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SFD",
-      "name": "Smithfield Foods, Inc.",
-      "sector": "Consumer Defensive"
     },
     {
       "symbol": "SGI",
@@ -3201,11 +3211,6 @@
       "symbol": "SNA",
       "name": "Snap-on Incorporated",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "SNAP",
-      "name": "Snap Inc.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "SNDK",
@@ -3545,11 +3550,6 @@
     {
       "symbol": "TTC",
       "name": "The Toro Company",
-      "sector": "Industrials"
-    },
-    {
-      "symbol": "TTEK",
-      "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
     },
     {
