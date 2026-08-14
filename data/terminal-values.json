@@ -26,5 +26,9 @@
   "RZB": {
     "lastBarDate": "2026-06-16",
     "close": 25.34
+  },
+  "SATS": {
+    "lastBarDate": "2026-08-12",
+    "close": 92.5
   }
 }
