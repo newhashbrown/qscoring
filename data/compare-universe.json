@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T07:17:07.241Z",
+  "generatedAt": "2026-08-14T07:14:53.755Z",
   "universeSize": 800,
   "entries": [
     {
@@ -958,11 +958,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CYTK",
-      "name": "Cytokinetics, Incorporated",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -1383,11 +1378,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
@@ -1521,11 +1511,6 @@
       "symbol": "FPS",
       "name": "Forgent Power Solutions, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "FRHC",
-      "name": "Freedom Holding Corp.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "FROG",
@@ -1995,6 +1980,11 @@
     {
       "symbol": "JPM",
       "name": "JPMorgan Chase & Co.",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "JXN",
+      "name": "Jackson Financial Inc.",
       "sector": "Financial Services"
     },
     {
@@ -2733,6 +2723,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "PCOR",
+      "name": "Procore Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "PEG",
       "name": "Public Service Enterprise Group Incorporated",
       "sector": "Utilities"
@@ -3313,6 +3308,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "STE",
+      "name": "STERIS plc",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "STLD",
       "name": "Steel Dynamics, Inc.",
       "sector": "Basic Materials"
@@ -3548,8 +3548,8 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TTC",
-      "name": "The Toro Company",
+      "symbol": "TTEK",
+      "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
     },
     {
