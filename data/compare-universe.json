@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T07:14:53.755Z",
+  "generatedAt": "2026-08-15T06:25:26.357Z",
   "universeSize": 800,
   "entries": [
     {
@@ -351,11 +351,6 @@
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "AVTR",
-      "name": "Avantor, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "AVY",
@@ -993,11 +988,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "DDS",
-      "name": "Dillard's, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "DE",
       "name": "Deere & Company",
       "sector": "Industrials"
@@ -1376,6 +1366,11 @@
       "symbol": "FAST",
       "name": "Fastenal Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
+      "sector": "Financial Services"
     },
     {
       "symbol": "FCNCA",
@@ -2723,11 +2718,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "PCOR",
-      "name": "Procore Technologies, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "PEG",
       "name": "Public Service Enterprise Group Incorporated",
       "sector": "Utilities"
@@ -3113,6 +3103,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "SARO",
+      "name": "StandardAero, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "SATA",
       "name": "Strive, Inc. Variable Rate Series A Perpetual Preferred Stock",
       "sector": "Financial Services"
@@ -3433,11 +3428,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "TEM",
-      "name": "Tempus AI, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "TER",
       "name": "Teradyne, Inc.",
       "sector": "Technology"
@@ -3466,6 +3456,11 @@
       "symbol": "TKO",
       "name": "TKO Group Holdings, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "TKR",
+      "name": "The Timken Company",
+      "sector": "Industrials"
     },
     {
       "symbol": "TLN",
@@ -3546,6 +3541,11 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
     },
     {
       "symbol": "TTEK",
