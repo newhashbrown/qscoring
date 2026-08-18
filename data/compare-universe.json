@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-15T06:25:26.357Z",
+  "generatedAt": "2026-08-18T06:31:08.244Z",
   "universeSize": 800,
   "entries": [
     {
@@ -398,11 +398,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BAH",
-      "name": "Booz Allen Hamilton Holding Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "BALL",
       "name": "Ball Corporation",
       "sector": "Consumer Cyclical"
@@ -698,11 +693,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "CHYM",
       "name": "Chime Financial, Inc. Class A Common Stock",
       "sector": "Financial Services"
@@ -918,6 +908,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CTRE",
+      "name": "CareTrust REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
@@ -951,6 +946,11 @@
       "symbol": "CW",
       "name": "Curtiss-Wright Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CYTK",
+      "name": "Cytokinetics, Incorporated",
+      "sector": "Healthcare"
     },
     {
       "symbol": "D",
@@ -1141,11 +1141,6 @@
       "symbol": "DY",
       "name": "Dycom Industries, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "EA",
-      "name": "Electronic Arts Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "EAT",
@@ -1506,6 +1501,11 @@
       "symbol": "FPS",
       "name": "Forgent Power Solutions, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "FRHC",
+      "name": "Freedom Holding Corp.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "FROG",
@@ -2903,6 +2903,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "QNT",
+      "name": "Quantinuum Inc. Class A Common Stock",
+      "sector": "Technology"
+    },
+    {
       "symbol": "QSR",
       "name": "Restaurant Brands International Inc.",
       "sector": "Consumer Cyclical"
@@ -3101,11 +3106,6 @@
       "symbol": "SANM",
       "name": "Sanmina Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "SARO",
-      "name": "StandardAero, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "SATA",
