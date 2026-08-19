@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T06:31:08.244Z",
+  "generatedAt": "2026-08-19T06:32:07.249Z",
   "universeSize": 800,
   "entries": [
     {
@@ -338,11 +338,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "AVAV",
-      "name": "AeroVironment, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "AVB",
       "name": "AvalonBay Communities, Inc.",
       "sector": "Real Estate"
@@ -396,6 +391,11 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -693,9 +693,14 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "CHWY",
+      "name": "Chewy, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "CHYM",
       "name": "Chime Financial, Inc. Class A Common Stock",
-      "sector": "Financial Services"
+      "sector": "Technology"
     },
     {
       "symbol": "CI",
@@ -988,6 +993,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "DDS",
+      "name": "Dillard's, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "DE",
       "name": "Deere & Company",
       "sector": "Industrials"
@@ -1240,7 +1250,7 @@
     {
       "symbol": "EP-PC",
       "name": "El Paso Energy Capital Trust I PFD CV TR SECS",
-      "sector": "Energy"
+      "sector": "Financial Services"
     },
     {
       "symbol": "EPD",
@@ -1258,11 +1268,6 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "EQR",
-      "name": "Equity Residential",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "EQT",
       "name": "EQT Corporation",
       "sector": "Energy"
@@ -1276,11 +1281,6 @@
       "symbol": "ES",
       "name": "Eversource Energy",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "ESI",
-      "name": "Element Solutions Inc",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "ESS",
@@ -1520,7 +1520,7 @@
     {
       "symbol": "FSLR",
       "name": "First Solar, Inc.",
-      "sector": "Technology"
+      "sector": "Energy"
     },
     {
       "symbol": "FTAI",
@@ -1803,11 +1803,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "HUT",
-      "name": "Hut 8 Corp.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
@@ -1850,6 +1845,11 @@
     {
       "symbol": "ILMN",
       "name": "Illumina, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "IMVT",
+      "name": "Immunovant, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -1920,7 +1920,7 @@
     {
       "symbol": "IT",
       "name": "Gartner, Inc.",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "ITT",
@@ -2575,7 +2575,7 @@
     {
       "symbol": "NXT",
       "name": "Nextpower Inc.",
-      "sector": "Technology"
+      "sector": "Energy"
     },
     {
       "symbol": "NYT",
@@ -2680,7 +2680,7 @@
     {
       "symbol": "P",
       "name": "Everpure, Inc.",
-      "sector": "Industrials"
+      "sector": "Technology"
     },
     {
       "symbol": "PAA",
@@ -3388,6 +3388,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "SYRE",
+      "name": "Spyre Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "SYY",
       "name": "Sysco Corporation",
       "sector": "Consumer Defensive"
@@ -3456,11 +3461,6 @@
       "symbol": "TKO",
       "name": "TKO Group Holdings, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "TKR",
-      "name": "The Timken Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "TLN",
@@ -3875,7 +3875,7 @@
     {
       "symbol": "WMS",
       "name": "Advanced Drainage Systems, Inc.",
-      "sector": "Industrials"
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WMT",
