@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T06:32:07.249Z",
+  "generatedAt": "2026-08-20T06:34:19.397Z",
   "universeSize": 800,
   "entries": [
     {
@@ -338,14 +338,14 @@
       "sector": "Technology"
     },
     {
-      "symbol": "AVB",
-      "name": "AvalonBay Communities, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AVTR",
+      "name": "Avantor, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "AVY",
@@ -1483,11 +1483,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -1496,11 +1491,6 @@
       "symbol": "FOXA",
       "name": "Fox Corporation",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "FPS",
-      "name": "Forgent Power Solutions, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "FRHC",
@@ -1803,6 +1793,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "HUT",
+      "name": "Hut 8 Corp.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
@@ -1975,11 +1970,6 @@
     {
       "symbol": "JPM",
       "name": "JPMorgan Chase & Co.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "JXN",
-      "name": "Jackson Financial Inc.",
       "sector": "Financial Services"
     },
     {
@@ -2433,6 +2423,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "MTCH",
+      "name": "Match Group, Inc.",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "MTD",
       "name": "Mettler-Toledo International Inc.",
       "sector": "Healthcare"
@@ -2716,6 +2711,16 @@
       "symbol": "PCG",
       "name": "PG&E Corporation",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "PCOR",
+      "name": "Procore Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "PCVX",
+      "name": "Vaxcyte, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "PEG",
@@ -3248,11 +3253,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "SOLS",
-      "name": "Solstice Advanced Materials Inc.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "SOLV",
       "name": "Solventum Corporation",
       "sector": "Healthcare"
@@ -3423,13 +3423,13 @@
       "sector": "Technology"
     },
     {
-      "symbol": "TEAM",
-      "name": "Atlassian Corporation",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TECH",
       "name": "Bio-Techne Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "TEM",
+      "name": "Tempus AI, Inc.",
       "sector": "Healthcare"
     },
     {
