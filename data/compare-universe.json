@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T06:34:19.397Z",
+  "generatedAt": "2026-08-21T06:34:23.677Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,11 +11,6 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AAOI",
@@ -288,6 +283,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
@@ -508,6 +508,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BPOP",
+      "name": "Popular, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "BR",
       "name": "Broadridge Financial Solutions, Inc.",
       "sector": "Technology"
@@ -521,6 +526,11 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -1119,7 +1129,7 @@
     },
     {
       "symbol": "DTW",
-      "name": "DTE Energy Company JR SUB DB 2017 E",
+      "name": "DTE Energy Company 5.25 % Debentures 2017-01.12.77 Global",
       "sector": "Utilities"
     },
     {
@@ -1363,18 +1373,13 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
     },
     {
       "symbol": "FCNCN",
-      "name": "First Citizens BancShares, Inc. Depositary Shares, each representing a 1/40th interest in a share of 6.625% Non-Cumulative Perpetual Preferred Stock, Series E",
+      "name": "First Citizens BancShares Inc. Depositary Shs Repr 1/40th Non-Cum Perp Pfd Registered Shs Ser E",
       "sector": "Financial Services"
     },
     {
@@ -2254,7 +2259,7 @@
     },
     {
       "symbol": "MER-PK",
-      "name": "Merrill Lynch Capital Trust I GTD CAP 6.45%",
+      "name": "Bank of America Corp 6.45 % Notes 2018-15.12.66 Income Capital Obligations",
       "sector": "Financial Services"
     },
     {
@@ -2718,11 +2723,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "PCVX",
-      "name": "Vaxcyte, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "PEG",
       "name": "Public Service Enterprise Group Incorporated",
       "sector": "Utilities"
@@ -3114,7 +3114,7 @@
     },
     {
       "symbol": "SATA",
-      "name": "Strive, Inc. Variable Rate Series A Perpetual Preferred Stock",
+      "name": "Strive Inc. Perp. Pfd. Series A",
       "sector": "Financial Services"
     },
     {
