@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T06:34:23.677Z",
+  "generatedAt": "2026-08-22T06:27:54.224Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,6 +11,11 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAOI",
@@ -526,11 +531,6 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -1371,6 +1371,11 @@
       "symbol": "FAST",
       "name": "Fastenal Company",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
+      "sector": "Financial Services"
     },
     {
       "symbol": "FCNCA",
@@ -3711,11 +3716,6 @@
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "VICR",
-      "name": "Vicor Corporation",
-      "sector": "Technology"
     },
     {
       "symbol": "VIRT",
