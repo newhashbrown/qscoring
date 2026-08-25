@@ -23,6 +23,14 @@
       "fmpDate": "2026-06-01"
     }
   ],
+  "IESC": [
+    {
+      "date": "2026-08-24",
+      "numerator": 2,
+      "denominator": 1,
+      "fmpDate": "2026-08-24"
+    }
+  ],
   "KLAC": [
     {
       "date": "2026-06-12",
