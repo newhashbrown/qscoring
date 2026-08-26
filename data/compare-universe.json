@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T06:35:02.827Z",
+  "generatedAt": "2026-08-26T06:36:33.524Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,6 +11,11 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
@@ -498,11 +503,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BPOP",
-      "name": "Popular, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "BR",
       "name": "Broadridge Financial Solutions, Inc.",
       "sector": "Technology"
@@ -521,11 +521,6 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -1793,6 +1788,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "HUT",
+      "name": "Hut 8 Corp.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
@@ -2249,7 +2249,7 @@
     },
     {
       "symbol": "MER-PK",
-      "name": "Bank of America Corp 6.45 % Notes 2018-15.12.66 Income Capital Obligations",
+      "name": "Merrill Lynch Capital Trust I GTD CAP 6.45%",
       "sector": "Financial Services"
     },
     {
@@ -3538,11 +3538,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TTAN",
-      "name": "ServiceTitan, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TTC",
       "name": "The Toro Company",
       "sector": "Industrials"
@@ -3571,6 +3566,11 @@
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "TWST",
+      "name": "Twist Bioscience Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "TXN",
@@ -3741,6 +3741,11 @@
       "symbol": "VNOM",
       "name": "Viper Energy, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VOYA",
+      "name": "Voya Financial, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "VRSK",
@@ -3976,11 +3981,6 @@
       "symbol": "ZBRA",
       "name": "Zebra Technologies Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "ZG",
-      "name": "Zillow Group, Inc. Class A",
-      "sector": "Communication Services"
     },
     {
       "symbol": "ZION",
