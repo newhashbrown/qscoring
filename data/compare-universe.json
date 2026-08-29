@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-26T06:36:33.524Z",
+  "generatedAt": "2026-08-29T12:05:41.456Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,11 +11,6 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
@@ -283,11 +278,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ARE",
-      "name": "Alexandria Real Estate Equities, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
@@ -391,6 +381,11 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -753,6 +748,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "CMS-PB",
+      "name": "Consumers Energy Company",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "CMSA",
       "name": "CMS Energy Corporation 5.6% JRSUB NT 78",
       "sector": "Utilities"
@@ -903,6 +903,16 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CTA-PA",
+      "name": "EIDP, Inc.",
+      "sector": "Basic Materials"
+    },
+    {
+      "symbol": "CTA-PB",
+      "name": "EIDP, Inc. USD 4.50 Cum Pfd Registered Shs",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
@@ -948,11 +958,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CYTK",
-      "name": "Cytokinetics, Incorporated",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -971,6 +976,11 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1141,11 +1151,6 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "DY",
-      "name": "Dycom Industries, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "EAT",
@@ -1723,6 +1728,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "HLI",
+      "name": "Houlihan Lokey, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "HLT",
       "name": "Hilton Worldwide Holdings Inc.",
       "sector": "Consumer Cyclical"
@@ -1786,11 +1796,6 @@
       "symbol": "HUM",
       "name": "Humana Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "HUT",
-      "name": "Hut 8 Corp.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "HWM",
@@ -2096,11 +2101,6 @@
       "symbol": "LII",
       "name": "Lennox International Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "LINE",
-      "name": "Lineage, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "LITE",
@@ -2688,6 +2688,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PATH",
+      "name": "UiPath Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "PAYC",
       "name": "Paycom Software, Inc.",
       "sector": "Technology"
@@ -3248,6 +3253,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "SOLS",
+      "name": "Solstice Advanced Materials Inc.",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "SOLV",
       "name": "Solventum Corporation",
       "sector": "Healthcare"
@@ -3381,11 +3391,6 @@
       "symbol": "SYM",
       "name": "Symbotic Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "SYRE",
-      "name": "Spyre Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "SYY",
@@ -3538,6 +3543,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTAN",
+      "name": "ServiceTitan, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTC",
       "name": "The Toro Company",
       "sector": "Industrials"
@@ -3566,11 +3576,6 @@
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "TWST",
-      "name": "Twist Bioscience Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "TXN",
@@ -3701,11 +3706,6 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "VIAV",
-      "name": "Viavi Solutions Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VICI",
