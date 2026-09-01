@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T12:05:41.456Z",
+  "generatedAt": "2026-09-01T10:55:22.457Z",
   "universeSize": 800,
   "entries": [
     {
@@ -866,6 +866,11 @@
       "symbol": "CRM",
       "name": "Salesforce, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CRNX",
+      "name": "Crinetics Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "CRS",
@@ -3811,11 +3816,6 @@
       "symbol": "WBD",
       "name": "Warner Bros. Discovery, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "WBS",
-      "name": "Webster Financial Corporation",
-      "sector": "Financial Services"
     },
     {
       "symbol": "WCC",
