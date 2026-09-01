@@ -42,5 +42,9 @@
   "SATS": {
     "lastBarDate": "2026-08-12",
     "close": 92.5
+  },
+  "WBS": {
+    "lastBarDate": "2026-08-20",
+    "close": 77.57
   }
 }
