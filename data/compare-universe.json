@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:55:22.457Z",
+  "generatedAt": "2026-09-02T10:21:50.721Z",
   "universeSize": 800,
   "entries": [
     {
@@ -276,6 +276,11 @@
       "symbol": "ARCC",
       "name": "Ares Capital Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ARES",
@@ -981,11 +986,6 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "DBX",
-      "name": "Dropbox, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -3098,11 +3098,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SAIA",
-      "name": "Saia, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "SAIL",
       "name": "SailPoint, Inc.",
       "sector": "Technology"
@@ -3180,6 +3175,11 @@
     {
       "symbol": "SLB",
       "name": "Slb N.V.",
+      "sector": "Energy"
+    },
+    {
+      "symbol": "SM",
+      "name": "SM Energy Company",
       "sector": "Energy"
     },
     {
