@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T10:21:50.721Z",
+  "generatedAt": "2026-09-03T10:31:05.914Z",
   "universeSize": 800,
   "entries": [
     {
@@ -388,11 +388,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BAH",
-      "name": "Booz Allen Hamilton Holding Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "BALL",
       "name": "Ball Corporation",
       "sector": "Consumer Cyclical"
@@ -518,9 +513,19 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -941,11 +946,6 @@
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "CUBE",
-      "name": "CubeSmart",
-      "sector": "Real Estate"
     },
     {
       "symbol": "CVNA",
@@ -1801,6 +1801,11 @@
       "symbol": "HUM",
       "name": "Humana Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "HUT",
+      "name": "Hut 8 Corp.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "HWM",
@@ -3546,11 +3551,6 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TTAN",
-      "name": "ServiceTitan, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "TTC",
