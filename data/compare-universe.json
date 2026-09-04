@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T10:31:05.914Z",
+  "generatedAt": "2026-09-04T10:20:54.755Z",
   "universeSize": 800,
   "entries": [
     {
@@ -523,11 +523,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "BSX",
       "name": "Boston Scientific Corporation",
       "sector": "Healthcare"
@@ -878,11 +873,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CRNX",
-      "name": "Crinetics Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "CRS",
       "name": "Carpenter Technology Corporation",
       "sector": "Basic Materials"
@@ -948,6 +938,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "CUBE",
+      "name": "CubeSmart",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -968,6 +963,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CYTK",
+      "name": "Cytokinetics, Incorporated",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -986,6 +986,11 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -2918,11 +2923,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "QSR",
-      "name": "Restaurant Brands International Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "QXO",
       "name": "QXO, Inc.",
       "sector": "Industrials"
@@ -3101,6 +3101,11 @@
       "symbol": "RZC",
       "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SAIL",
@@ -3551,11 +3556,6 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TTC",
-      "name": "The Toro Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "TTEK",
