@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T10:20:54.755Z",
+  "generatedAt": "2026-09-05T09:47:30.489Z",
   "universeSize": 800,
   "entries": [
     {
@@ -91,6 +91,11 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "AGCO",
+      "name": "AGCO Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -513,14 +518,14 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -938,11 +943,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "CUBE",
-      "name": "CubeSmart",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -986,11 +986,6 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "DBX",
-      "name": "Dropbox, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1161,6 +1156,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "DY",
+      "name": "Dycom Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "EAT",
@@ -2038,6 +2038,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "KMX",
+      "name": "CarMax, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "KNX",
       "name": "Knight-Swift Transportation Holdings Inc.",
       "sector": "Industrials"
@@ -2703,11 +2708,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "PATH",
-      "name": "UiPath Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "PAYC",
       "name": "Paycom Software, Inc.",
       "sector": "Technology"
@@ -2726,11 +2726,6 @@
       "symbol": "PCG",
       "name": "PG&E Corporation",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "PCOR",
-      "name": "Procore Technologies, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "PEG",
@@ -2921,6 +2916,16 @@
       "symbol": "QNT",
       "name": "Quantinuum Inc. Class A Common Stock",
       "sector": "Technology"
+    },
+    {
+      "symbol": "QRVO",
+      "name": "Qorvo, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "QSR",
+      "name": "Restaurant Brands International Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "QXO",
@@ -3185,11 +3190,6 @@
     {
       "symbol": "SLB",
       "name": "Slb N.V.",
-      "sector": "Energy"
-    },
-    {
-      "symbol": "SM",
-      "name": "SM Energy Company",
       "sector": "Energy"
     },
     {
