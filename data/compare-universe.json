@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-05T09:47:30.489Z",
+  "generatedAt": "2026-09-09T10:33:59.810Z",
   "universeSize": 800,
   "entries": [
     {
@@ -91,11 +91,6 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "AGCO",
-      "name": "AGCO Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -281,11 +276,6 @@
       "symbol": "ARCC",
       "name": "Ares Capital Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "ARE",
-      "name": "Alexandria Real Estate Equities, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "ARES",
@@ -521,11 +511,6 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -941,6 +926,11 @@
       "symbol": "CTVA",
       "name": "Corteva, Inc.",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "CUBE",
+      "name": "CubeSmart",
+      "sector": "Real Estate"
     },
     {
       "symbol": "CVNA",
@@ -1648,11 +1638,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "GOOGL",
-      "name": "Alphabet Inc.",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "GPC",
       "name": "Genuine Parts Company",
       "sector": "Consumer Cyclical"
@@ -2036,11 +2021,6 @@
       "symbol": "KMI",
       "name": "Kinder Morgan, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "KMX",
-      "name": "CarMax, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "KNX",
@@ -2718,6 +2698,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "PBF",
+      "name": "PBF Energy Inc.",
+      "sector": "Energy"
+    },
+    {
       "symbol": "PCAR",
       "name": "PACCAR Inc",
       "sector": "Industrials"
@@ -3193,6 +3178,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "SM",
+      "name": "SM Energy Company",
+      "sector": "Energy"
+    },
+    {
       "symbol": "SMCI",
       "name": "Super Micro Computer, Inc.",
       "sector": "Technology"
@@ -3558,6 +3548,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTEK",
       "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
@@ -3711,6 +3706,11 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VICI",
