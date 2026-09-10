@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-09T10:33:59.810Z",
+  "generatedAt": "2026-09-10T10:22:35.149Z",
   "universeSize": 800,
   "entries": [
     {
@@ -91,6 +91,11 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "AGCO",
+      "name": "AGCO Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -513,6 +518,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "BSX",
       "name": "Boston Scientific Corporation",
       "sector": "Healthcare"
@@ -676,11 +686,6 @@
       "symbol": "CHTR",
       "name": "Charter Communications, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CHYM",
@@ -928,11 +933,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "CUBE",
-      "name": "CubeSmart",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -1146,11 +1146,6 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "DY",
-      "name": "Dycom Industries, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "EAT",
@@ -1374,7 +1369,7 @@
     },
     {
       "symbol": "FCNCN",
-      "name": "First Citizens BancShares Inc. Depositary Shs Repr 1/40th Non-Cum Perp Pfd Registered Shs Ser E",
+      "name": "First Citizens BancShares, Inc. Depositary Shares, each representing a 1/40th interest in a share of 6.625% Non-Cumulative Perpetual Preferred Stock, Series E",
       "sector": "Financial Services"
     },
     {
@@ -1481,6 +1476,11 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1620,6 +1620,11 @@
     {
       "symbol": "GM",
       "name": "General Motors Company",
+      "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "GME",
+      "name": "GameStop Corp.",
       "sector": "Consumer Cyclical"
     },
     {
@@ -2043,11 +2048,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "KTOS",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2249,7 +2249,7 @@
     },
     {
       "symbol": "MER-PK",
-      "name": "Merrill Lynch Capital Trust I GTD CAP 6.45%",
+      "name": "Bank of America Corp 6.45 % Notes 2018-15.12.66 Income Capital Obligations",
       "sector": "Financial Services"
     },
     {
