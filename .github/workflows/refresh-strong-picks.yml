@@ -165,7 +165,7 @@ jobs:
           EXPECTED: ${{ steps.guard.outputs.expected }}
         run: |
           # Stage all the daily-refresh data files (script writes five of them).
-          git add data/compare-universe.json data/strong-picks.json data/scoreboard.json data/market-strip.json data/snapshots/
+          git add data/compare-universe.json data/strong-picks.json data/scoreboard.json data/market-strip.json data/snapshots/ data/movers/
           if git diff --staged --quiet; then
             echo "No change to refresh data — skipping commit."
             echo "pushed=false" >> "$GITHUB_OUTPUT"
