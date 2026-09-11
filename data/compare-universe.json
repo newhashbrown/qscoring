@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-10T10:22:35.149Z",
+  "generatedAt": "2026-09-11T12:37:19.383Z",
   "universeSize": 800,
   "entries": [
     {
@@ -91,11 +91,6 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "AGCO",
-      "name": "AGCO Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -388,6 +383,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "BALL",
       "name": "Ball Corporation",
       "sector": "Consumer Cyclical"
@@ -516,11 +516,6 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -978,6 +973,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "DCI",
       "name": "Donaldson Company, Inc.",
       "sector": "Industrials"
@@ -1146,6 +1146,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "DY",
+      "name": "Dycom Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "EAT",
@@ -1476,11 +1481,6 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1821,6 +1821,11 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -3546,11 +3551,6 @@
       "symbol": "TSN",
       "name": "Tyson Foods, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TTC",
-      "name": "The Toro Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "TTEK",
