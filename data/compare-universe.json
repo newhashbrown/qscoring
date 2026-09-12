@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T12:37:19.383Z",
+  "generatedAt": "2026-09-12T09:54:15.088Z",
   "universeSize": 800,
   "entries": [
     {
@@ -2118,11 +2118,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "LLYVK",
-      "name": "Liberty Live Group",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "LMT",
       "name": "Lockheed Martin Corporation",
       "sector": "Industrials"
@@ -3716,6 +3711,11 @@
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "sector": "Technology"
     },
     {
       "symbol": "VIRT",
