@@ -1,6 +1,6 @@
 {
   "promptVersion": "v1",
-  "count": 862,
+  "count": 865,
   "levels": {
     "A": {
       "tariffs": "medium",
@@ -6897,6 +6897,30 @@
       "energy_regulation": "low",
       "antitrust": "medium",
       "china_supply_chain": "high"
+    },
+    "IDCC": {
+      "tariffs": "medium",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "medium",
+      "china_supply_chain": "medium"
+    },
+    "PBF": {
+      "tariffs": "medium",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "high",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "SM": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "high",
+      "energy_regulation": "high",
+      "antitrust": "low",
+      "china_supply_chain": "low"
     }
   }
 }
