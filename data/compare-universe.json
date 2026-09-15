@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T09:54:15.088Z",
+  "generatedAt": "2026-09-15T10:49:11.193Z",
   "universeSize": 800,
   "entries": [
     {
@@ -276,6 +276,11 @@
       "symbol": "ARCC",
       "name": "Ares Capital Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ARES",
@@ -683,6 +688,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "CHWY",
+      "name": "Chewy, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "CHYM",
       "name": "Chime Financial, Inc. Class A Common Stock",
       "sector": "Technology"
@@ -928,6 +938,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "CUBE",
+      "name": "CubeSmart",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -1146,11 +1161,6 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "DY",
-      "name": "Dycom Industries, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "EAT",
@@ -1823,11 +1833,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "IDCC",
-      "name": "InterDigital, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "IDXX",
       "name": "IDEXX Laboratories, Inc.",
       "sector": "Healthcare"
@@ -1881,11 +1886,6 @@
       "symbol": "IONQ",
       "name": "IonQ, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "IONS",
-      "name": "Ionis Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "IOT",
@@ -2053,6 +2053,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "KTOS",
+      "name": "Kratos Defense & Security Solutions, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2116,6 +2121,11 @@
       "symbol": "LLY",
       "name": "Eli Lilly and Company",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "LLYVK",
+      "name": "Liberty Live Group",
+      "sector": "Communication Services"
     },
     {
       "symbol": "LMT",
@@ -2698,11 +2708,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "PBF",
-      "name": "PBF Energy Inc.",
-      "sector": "Energy"
-    },
-    {
       "symbol": "PCAR",
       "name": "PACCAR Inc",
       "sector": "Industrials"
@@ -3006,11 +3011,6 @@
       "symbol": "RL",
       "name": "Ralph Lauren Corporation",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "RMBS",
-      "name": "Rambus Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "RMD",
@@ -3548,6 +3548,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTEK",
       "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
@@ -3571,6 +3576,11 @@
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "TXG",
+      "name": "10x Genomics, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "TXN",
@@ -3703,19 +3713,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "VIAV",
-      "name": "Viavi Solutions Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "VICR",
-      "name": "Vicor Corporation",
-      "sector": "Technology"
     },
     {
       "symbol": "VIRT",
