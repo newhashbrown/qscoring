@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-15T10:49:11.193Z",
+  "generatedAt": "2026-09-16T10:38:12.114Z",
   "universeSize": 800,
   "entries": [
     {
@@ -678,6 +678,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "CHRD",
+      "name": "Chord Energy Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "CHRW",
       "name": "C.H. Robinson Worldwide, Inc.",
       "sector": "Industrials"
@@ -963,11 +968,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CYTK",
-      "name": "Cytokinetics, Incorporated",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -1161,11 +1161,6 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "EAT",
-      "name": "Brinker International, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EBAY",
@@ -2353,11 +2348,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MP",
-      "name": "MP Materials Corp.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2708,6 +2698,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "PBF",
+      "name": "PBF Energy Inc.",
+      "sector": "Energy"
+    },
+    {
       "symbol": "PCAR",
       "name": "PACCAR Inc",
       "sector": "Industrials"
@@ -2838,11 +2833,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "PRAX",
-      "name": "Praxis Precision Medicines, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "PRI",
       "name": "Primerica, Inc.",
       "sector": "Financial Services"
@@ -2968,6 +2958,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3011,6 +3006,11 @@
       "symbol": "RL",
       "name": "Ralph Lauren Corporation",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "RMBS",
+      "name": "Rambus Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "RMD",
