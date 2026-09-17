@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T10:38:12.114Z",
+  "generatedAt": "2026-09-17T10:47:23.018Z",
   "universeSize": 800,
   "entries": [
     {
@@ -518,6 +518,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
@@ -678,11 +683,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "CHRD",
-      "name": "Chord Energy Corporation",
-      "sector": "Energy"
-    },
-    {
       "symbol": "CHRW",
       "name": "C.H. Robinson Worldwide, Inc.",
       "sector": "Industrials"
@@ -691,11 +691,6 @@
       "symbol": "CHTR",
       "name": "Charter Communications, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CHYM",
@@ -1163,6 +1158,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "EAT",
+      "name": "Brinker International, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "EBAY",
       "name": "eBay Inc.",
       "sector": "Consumer Cyclical"
@@ -1496,6 +1496,11 @@
       "symbol": "FOXA",
       "name": "Fox Corporation",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "FRHC",
@@ -3548,11 +3553,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TTC",
-      "name": "The Toro Company",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "TTEK",
       "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
@@ -3576,6 +3576,11 @@
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "TWST",
+      "name": "Twist Bioscience Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "TXG",
@@ -3931,11 +3936,6 @@
       "symbol": "WY",
       "name": "Weyerhaeuser Company",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "WYNN",
-      "name": "Wynn Resorts, Limited",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "XEL",
