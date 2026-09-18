@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T10:47:23.018Z",
+  "generatedAt": "2026-09-18T10:22:44.793Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1158,11 +1158,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "EAT",
-      "name": "Brinker International, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "EBAY",
       "name": "eBay Inc.",
       "sector": "Consumer Cyclical"
@@ -1826,6 +1821,11 @@
       "symbol": "IBM",
       "name": "International Business Machines Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "IBRX",
+      "name": "ImmunityBio, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ICE",
@@ -2963,11 +2963,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3721,6 +3716,11 @@
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "sector": "Technology"
     },
     {
       "symbol": "VIRT",
