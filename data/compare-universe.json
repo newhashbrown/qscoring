@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T10:22:44.793Z",
+  "generatedAt": "2026-09-19T10:06:14.689Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1483,6 +1483,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -2121,11 +2126,6 @@
       "symbol": "LLY",
       "name": "Eli Lilly and Company",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "LLYVK",
-      "name": "Liberty Live Group",
-      "sector": "Communication Services"
     },
     {
       "symbol": "LMT",
@@ -2983,6 +2983,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "RIOT",
+      "name": "Riot Platforms, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "RIVN",
       "name": "Rivian Automotive, Inc.",
       "sector": "Consumer Cyclical"
@@ -3175,11 +3180,6 @@
     {
       "symbol": "SLB",
       "name": "Slb N.V.",
-      "sector": "Energy"
-    },
-    {
-      "symbol": "SM",
-      "name": "SM Energy Company",
       "sector": "Energy"
     },
     {
@@ -3548,6 +3548,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTC",
+      "name": "The Toro Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TTEK",
       "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
@@ -3856,11 +3861,6 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "WLK",
-      "name": "Westlake Corporation",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
