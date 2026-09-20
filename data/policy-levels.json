@@ -1,6 +1,6 @@
 {
   "promptVersion": "v1",
-  "count": 865,
+  "count": 868,
   "levels": {
     "A": {
       "tariffs": "medium",
@@ -6921,6 +6921,30 @@
       "energy_regulation": "high",
       "antitrust": "low",
       "china_supply_chain": "low"
+    },
+    "RIOT": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "high",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "TWST": {
+      "tariffs": "low",
+      "drug_pricing": "low",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "TXG": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "low",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
     }
   }
 }
