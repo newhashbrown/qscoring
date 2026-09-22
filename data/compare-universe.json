@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T10:06:14.689Z",
+  "generatedAt": "2026-09-22T10:44:45.813Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,6 +11,11 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAPL",
@@ -1828,11 +1833,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "IBRX",
-      "name": "ImmunityBio, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
@@ -2128,6 +2128,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "LLYVK",
+      "name": "Liberty Live Group",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "LMT",
       "name": "Lockheed Martin Corporation",
       "sector": "Industrials"
@@ -2351,6 +2356,11 @@
       "symbol": "MOH",
       "name": "Molina Healthcare, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "MP",
+      "name": "MP Materials Corp.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "MPC",
@@ -2648,11 +2658,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OSK",
-      "name": "Oshkosh Corp",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2701,11 +2706,6 @@
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "PBF",
-      "name": "PBF Energy Inc.",
-      "sector": "Energy"
     },
     {
       "symbol": "PCAR",
@@ -3056,11 +3056,6 @@
       "symbol": "RPRX",
       "name": "Royalty Pharma plc",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "RRC",
-      "name": "Range Resources Corporation",
-      "sector": "Energy"
     },
     {
       "symbol": "RRX",
@@ -3716,6 +3711,11 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VICI",
