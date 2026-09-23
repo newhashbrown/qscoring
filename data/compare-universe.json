@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T10:44:45.813Z",
+  "generatedAt": "2026-09-23T10:35:32.900Z",
   "universeSize": 800,
   "entries": [
     {
@@ -588,6 +588,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "CAI",
+      "name": "Caris Life Sciences, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "CARR",
       "name": "Carrier Global Corporation",
       "sector": "Industrials"
@@ -943,11 +948,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "CUBE",
-      "name": "CubeSmart",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -986,11 +986,6 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "DBX",
-      "name": "Dropbox, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1161,6 +1156,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "EAT",
+      "name": "Brinker International, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EBAY",
@@ -1633,6 +1633,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "GLXY",
+      "name": "Galaxy Digital",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "GM",
       "name": "General Motors Company",
       "sector": "Consumer Cyclical"
@@ -1831,6 +1836,11 @@
       "symbol": "IBM",
       "name": "International Business Machines Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "IBRX",
+      "name": "ImmunityBio, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ICE",
@@ -2058,11 +2068,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "KTOS",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2166,11 +2171,6 @@
       "symbol": "LSCC",
       "name": "Lattice Semiconductor Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "LTH",
-      "name": "Life Time Group Holdings, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "LUV",
@@ -2838,11 +2838,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "PRI",
-      "name": "Primerica, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "PRU",
       "name": "Prudential Financial, Inc.",
       "sector": "Financial Services"
@@ -3056,6 +3051,11 @@
       "symbol": "RPRX",
       "name": "Royalty Pharma plc",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "RRC",
+      "name": "Range Resources Corporation",
+      "sector": "Energy"
     },
     {
       "symbol": "RRX",
@@ -3283,11 +3283,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SPXC",
-      "name": "SPX Technologies, Inc.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "SRE",
       "name": "Sempra",
       "sector": "Utilities"
@@ -3446,6 +3441,11 @@
       "symbol": "TGT",
       "name": "Target Corporation",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "TGTX",
+      "name": "TG Therapeutics, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "THC",
