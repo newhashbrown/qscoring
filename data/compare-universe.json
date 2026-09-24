@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T10:35:32.900Z",
+  "generatedAt": "2026-09-24T10:54:21.944Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1633,11 +1633,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "GLXY",
-      "name": "Galaxy Digital",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "GM",
       "name": "General Motors Company",
       "sector": "Consumer Cyclical"
@@ -2173,6 +2168,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "LTH",
+      "name": "Life Time Group Holdings, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "LUV",
       "name": "Southwest Airlines Co.",
       "sector": "Industrials"
@@ -2356,11 +2356,6 @@
       "symbol": "MOH",
       "name": "Molina Healthcare, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "MP",
-      "name": "MP Materials Corp.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "MPC",
@@ -2958,6 +2953,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3443,11 +3443,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "TGTX",
-      "name": "TG Therapeutics, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "THC",
       "name": "Tenet Healthcare Corporation",
       "sector": "Healthcare"
@@ -3861,6 +3856,11 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "WLK",
+      "name": "Westlake Corporation",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
