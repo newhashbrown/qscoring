@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T10:56:26.664Z",
+  "generatedAt": "2026-09-26T10:37:11.551Z",
   "universeSize": 800,
   "entries": [
     {
@@ -1288,6 +1288,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -2063,11 +2068,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "KTOS",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "KVUE",
       "name": "Kenvue Inc.",
       "sector": "Consumer Defensive"
@@ -2708,6 +2708,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "PBF",
+      "name": "PBF Energy Inc.",
+      "sector": "Energy"
+    },
+    {
       "symbol": "PCAR",
       "name": "PACCAR Inc",
       "sector": "Industrials"
@@ -3091,11 +3096,6 @@
       "symbol": "RZC",
       "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SAIA",
-      "name": "Saia, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "SAIL",
