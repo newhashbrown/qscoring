@@ -1,6 +1,6 @@
 {
   "promptVersion": "v1",
-  "count": 868,
+  "count": 870,
   "levels": {
     "A": {
       "tariffs": "medium",
@@ -4303,7 +4303,7 @@
       "drug_pricing": "none",
       "tax_policy": "high",
       "energy_regulation": "low",
-      "antitrust": "medium",
+      "antitrust": "low",
       "china_supply_chain": "low"
     },
     "PG": {
@@ -6945,6 +6945,22 @@
       "energy_regulation": "low",
       "antitrust": "low",
       "china_supply_chain": "medium"
+    },
+    "CAI": {
+      "tariffs": "low",
+      "drug_pricing": "low",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "TGTX": {
+      "tariffs": "low",
+      "drug_pricing": "medium",
+      "tax_policy": "low",
+      "energy_regulation": "none",
+      "antitrust": "low",
+      "china_supply_chain": "low"
     }
   }
 }
