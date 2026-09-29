@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T10:37:11.551Z",
+  "generatedAt": "2026-09-29T11:56:09.909Z",
   "universeSize": 800,
   "entries": [
     {
@@ -283,11 +283,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ARE",
-      "name": "Alexandria Real Estate Equities, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "ARES",
       "name": "Ares Management Corporation",
       "sector": "Financial Services"
@@ -391,11 +386,6 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BAH",
-      "name": "Booz Allen Hamilton Holding Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -531,6 +521,11 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -2358,11 +2353,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MP",
-      "name": "MP Materials Corp.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2843,6 +2833,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "PRI",
+      "name": "Primerica, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "PRU",
       "name": "Prudential Financial, Inc.",
       "sector": "Financial Services"
@@ -2983,11 +2978,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "RIOT",
-      "name": "Riot Platforms, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "RIVN",
       "name": "Rivian Automotive, Inc.",
       "sector": "Consumer Cyclical"
@@ -3096,6 +3086,11 @@
       "symbol": "RZC",
       "name": "Reinsurance Group of America, Incorporated",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "SAIA",
+      "name": "Saia, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SAIL",
@@ -3861,6 +3856,11 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "WLK",
+      "name": "Westlake Corporation",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
