@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T11:43:48.632Z",
+  "generatedAt": "2026-10-01T12:13:29.869Z",
   "universeSize": 800,
   "entries": [
     {
@@ -523,11 +523,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "BSX",
       "name": "Boston Scientific Corporation",
       "sector": "Healthcare"
@@ -986,6 +981,11 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -2958,11 +2958,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3281,6 +3276,11 @@
       "symbol": "SPGI",
       "name": "S&P Global Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "SPXC",
+      "name": "SPX Technologies, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "SRE",
