@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T12:13:29.869Z",
+  "generatedAt": "2026-10-02T11:42:32.739Z",
   "universeSize": 800,
   "entries": [
     {
@@ -16,6 +16,11 @@
       "symbol": "AAL",
       "name": "American Airlines Group Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "AAOI",
+      "name": "Applied Optoelectronics, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "AAPL",
@@ -388,6 +393,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "BALL",
       "name": "Ball Corporation",
       "sector": "Consumer Cyclical"
@@ -575,11 +585,6 @@
     {
       "symbol": "CAH",
       "name": "Cardinal Health, Inc.",
-      "sector": "Healthcare"
-    },
-    {
-      "symbol": "CAI",
-      "name": "Caris Life Sciences, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -931,11 +936,6 @@
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "CTVA",
-      "name": "Corteva, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "CUBE",
@@ -1841,6 +1841,11 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -3441,11 +3446,6 @@
       "symbol": "TGT",
       "name": "Target Corporation",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "TGTX",
-      "name": "TG Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "THC",
