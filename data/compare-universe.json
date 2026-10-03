@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T11:42:32.739Z",
+  "generatedAt": "2026-10-03T10:56:04.736Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,11 +11,6 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AAOI",
@@ -343,6 +338,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "AVT",
+      "name": "Avnet, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "AVTR",
       "name": "Avantor, Inc.",
       "sector": "Healthcare"
@@ -391,11 +391,6 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "BAH",
-      "name": "Booz Allen Hamilton Holding Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -938,11 +933,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "CUBE",
-      "name": "CubeSmart",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -1156,6 +1146,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "EAT",
+      "name": "Brinker International, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EBAY",
@@ -2456,6 +2451,11 @@
       "symbol": "MUSA",
       "name": "Murphy USA Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "MXL",
+      "name": "MaxLinear, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "NBIX",
