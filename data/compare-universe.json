@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T10:56:04.736Z",
+  "generatedAt": "2026-10-06T12:33:58.370Z",
   "universeSize": 800,
   "entries": [
     {
@@ -583,6 +583,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "CAI",
+      "name": "Caris Life Sciences, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "CARR",
       "name": "Carrier Global Corporation",
       "sector": "Industrials"
@@ -993,11 +998,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "DDS",
-      "name": "Dillard's, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "DE",
       "name": "Deere & Company",
       "sector": "Industrials"
@@ -1148,11 +1148,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "EAT",
-      "name": "Brinker International, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "EBAY",
       "name": "eBay Inc.",
       "sector": "Consumer Cyclical"
@@ -1286,11 +1281,6 @@
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "ET",
-      "name": "Energy Transfer LP",
-      "sector": "Energy"
     },
     {
       "symbol": "ETR",
@@ -1671,6 +1661,11 @@
       "symbol": "GSAT",
       "name": "Globalstar, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "GTLB",
+      "name": "GitLab Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "GWRE",
@@ -2718,6 +2713,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "PCVX",
+      "name": "Vaxcyte, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "PEG",
       "name": "Public Service Enterprise Group Incorporated",
       "sector": "Utilities"
@@ -3093,6 +3093,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "S",
+      "name": "SentinelOne, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3356,11 +3361,6 @@
       "symbol": "SUI",
       "name": "Sun Communities, Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "SUN",
-      "name": "Sunoco LP",
-      "sector": "Energy"
     },
     {
       "symbol": "SUNB",
