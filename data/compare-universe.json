@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-06T12:33:58.370Z",
+  "generatedAt": "2026-10-07T12:27:20.155Z",
   "universeSize": 800,
   "entries": [
     {
@@ -324,7 +324,7 @@
     },
     {
       "symbol": "AU",
-      "name": "AngloGold Ashanti plc",
+      "name": "AngloGold Ashanti Plc",
       "sector": "Basic Materials"
     },
     {
@@ -580,11 +580,6 @@
     {
       "symbol": "CAH",
       "name": "Cardinal Health, Inc.",
-      "sector": "Healthcare"
-    },
-    {
-      "symbol": "CAI",
-      "name": "Caris Life Sciences, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -938,6 +933,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "CTVA",
+      "name": "Corteva, Inc.",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -976,11 +976,6 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "DBX",
-      "name": "Dropbox, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1146,6 +1141,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "DY",
+      "name": "Dycom Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "EBAY",
@@ -2348,6 +2348,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "MP",
+      "name": "MP Materials Corp.",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2856,11 +2861,6 @@
       "symbol": "PSA",
       "name": "Public Storage",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "PSKY",
-      "name": "Paramount Skydance Corporation Class B Common Stock",
-      "sector": "Communication Services"
     },
     {
       "symbol": "PSX",
