@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-07T12:27:20.155Z",
+  "generatedAt": "2026-10-08T12:36:42.238Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,6 +11,11 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "AAL",
+      "name": "American Airlines Group Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "AAOI",
@@ -335,11 +340,6 @@
     {
       "symbol": "AVGO",
       "name": "Broadcom Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "AVT",
-      "name": "Avnet, Inc.",
       "sector": "Technology"
     },
     {
@@ -921,11 +921,6 @@
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "CTRE",
-      "name": "CareTrust REIT, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "CTSH",
@@ -1536,6 +1531,11 @@
       "symbol": "FWONK",
       "name": "Liberty Media Corporation",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "GAP",
+      "name": "The Gap, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "GD",
@@ -2348,11 +2348,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MP",
-      "name": "MP Materials Corp.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2651,6 +2646,11 @@
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "OSCR",
+      "name": "Oscar Health, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "OTIS",
@@ -3949,7 +3949,7 @@
     },
     {
       "symbol": "XOM",
-      "name": "Exxon Mobil Corporation",
+      "name": "Exxonmobil Holdings Corporation",
       "sector": "Energy"
     },
     {
