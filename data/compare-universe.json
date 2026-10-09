@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T12:36:42.238Z",
+  "generatedAt": "2026-10-09T12:24:07.990Z",
   "universeSize": 800,
   "entries": [
     {
@@ -391,6 +391,11 @@
       "symbol": "BAC",
       "name": "Bank of America Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BAH",
+      "name": "Booz Allen Hamilton Holding Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "BALL",
@@ -933,6 +938,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "CUBE",
+      "name": "CubeSmart",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CVNA",
       "name": "Carvana Co.",
       "sector": "Consumer Cyclical"
@@ -971,6 +981,11 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1136,11 +1151,6 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "DY",
-      "name": "Dycom Industries, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "EBAY",
@@ -1533,11 +1543,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "GAP",
-      "name": "The Gap, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "GD",
       "name": "General Dynamics Corporation",
       "sector": "Industrials"
@@ -1831,11 +1836,6 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "IDCC",
-      "name": "InterDigital, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -2903,11 +2903,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "QRVO",
-      "name": "Qorvo, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "QSR",
       "name": "Restaurant Brands International Inc.",
       "sector": "Consumer Cyclical"
@@ -2961,6 +2956,11 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
@@ -3183,6 +3183,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "SM",
+      "name": "SM Energy Company",
+      "sector": "Energy"
+    },
+    {
       "symbol": "SMCI",
       "name": "Super Micro Computer, Inc.",
       "sector": "Technology"
@@ -3288,11 +3293,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SPXC",
-      "name": "SPX Technologies, Inc.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "SRE",
       "name": "Sempra",
       "sector": "Utilities"
@@ -3361,6 +3361,11 @@
       "symbol": "SUI",
       "name": "Sun Communities, Inc.",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "SUN",
+      "name": "Sunoco LP",
+      "sector": "Energy"
     },
     {
       "symbol": "SUNB",
@@ -3821,11 +3826,6 @@
       "symbol": "WAT",
       "name": "Waters Corporation",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "WBD",
-      "name": "Warner Bros. Discovery, Inc.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "WCC",
