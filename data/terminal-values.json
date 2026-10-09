@@ -51,6 +51,10 @@
     "lastBarDate": "2026-10-05",
     "close": 9.78
   },
+  "QRVO": {
+    "lastBarDate": "2026-10-02",
+    "close": 114.17
+  },
   "RZB": {
     "lastBarDate": "2026-06-16",
     "close": 25.34
@@ -62,6 +66,10 @@
   "SUN": {
     "lastBarDate": "2026-10-05",
     "close": 69.89
+  },
+  "WBD": {
+    "lastBarDate": "2026-10-05",
+    "close": 30.95
   },
   "WBS": {
     "lastBarDate": "2026-08-20",
