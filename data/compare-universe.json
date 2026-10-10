@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T12:24:07.990Z",
+  "generatedAt": "2026-10-10T11:43:13.039Z",
   "universeSize": 800,
   "entries": [
     {
@@ -11,11 +11,6 @@
       "symbol": "AA",
       "name": "Alcoa Corporation",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AAL",
-      "name": "American Airlines Group Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "AAOI",
@@ -928,6 +923,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CTRE",
+      "name": "CareTrust REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
@@ -1836,6 +1836,11 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -2956,11 +2961,6 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
