@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T13:19:06.926Z",
+  "generatedAt": "2026-10-14T10:58:55.255Z",
   "universeSize": 800,
   "entries": [
     {
@@ -293,11 +293,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "ARWR",
-      "name": "Arrowhead Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ASTS",
       "name": "AST SpaceMobile, Inc.",
       "sector": "Communication Services"
@@ -361,11 +356,6 @@
       "symbol": "AXP",
       "name": "American Express Company",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "AXSM",
-      "name": "Axsome Therapeutics, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "AYI",
@@ -1153,6 +1143,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "EAT",
+      "name": "Brinker International, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "EBAY",
       "name": "eBay Inc.",
       "sector": "Consumer Cyclical"
@@ -1288,6 +1283,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "ET",
+      "name": "Energy Transfer LP",
+      "sector": "Energy"
+    },
+    {
       "symbol": "ETR",
       "name": "Entergy Corporation",
       "sector": "Utilities"
@@ -1365,11 +1365,6 @@
     {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FCNCN",
-      "name": "First Citizens BancShares, Inc. Depositary Shares, each representing a 1/40th interest in a share of 6.625% Non-Cumulative Perpetual Preferred Stock, Series E",
       "sector": "Financial Services"
     },
     {
@@ -2538,6 +2533,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "NTSK",
+      "name": "Netskope, Inc. Class A Common Stock",
+      "sector": "Technology"
+    },
+    {
       "symbol": "NUE",
       "name": "Nucor Corporation",
       "sector": "Basic Materials"
@@ -3093,11 +3093,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "S",
-      "name": "SentinelOne, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3291,6 +3286,11 @@
       "symbol": "SPGI",
       "name": "S&P Global Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "SPXC",
+      "name": "SPX Technologies, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "SRE",
