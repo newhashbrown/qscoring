@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T10:58:55.255Z",
+  "generatedAt": "2026-10-15T10:40:36.673Z",
   "universeSize": 800,
   "entries": [
     {
@@ -298,11 +298,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "ATH-PA",
-      "name": "Athene Holding Ltd.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "ATHS",
       "name": "Athene Holding Ltd. 7.250% Fixe",
       "sector": "Financial Services"
@@ -508,11 +503,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRKR",
-      "name": "Bruker Corporation",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
@@ -570,6 +560,11 @@
     {
       "symbol": "CAH",
       "name": "Cardinal Health, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "CAI",
+      "name": "Caris Life Sciences, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -953,6 +948,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CYTK",
+      "name": "Cytokinetics, Incorporated",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -971,11 +971,6 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "DBX",
-      "name": "Dropbox, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1738,6 +1733,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "HNGE",
+      "name": "Hinge Health, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "HON",
       "name": "Honeywell International Inc.",
       "sector": "Industrials"
@@ -1826,11 +1826,6 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "IDCC",
-      "name": "InterDigital, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -1951,11 +1946,6 @@
       "symbol": "JBL",
       "name": "Jabil Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "JEF",
-      "name": "Jefferies Financial Group Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "JKHY",
@@ -2218,6 +2208,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "MCHPP",
+      "name": "Microchip Technology Incorporated",
+      "sector": "Technology"
+    },
+    {
       "symbol": "MCK",
       "name": "McKesson Corporation",
       "sector": "Healthcare"
@@ -2326,11 +2321,6 @@
       "symbol": "MO",
       "name": "Altria Group, Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "MOD",
-      "name": "Modine Manufacturing Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "MOG-A",
@@ -2531,11 +2521,6 @@
       "symbol": "NTRS",
       "name": "Northern Trust Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "NTSK",
-      "name": "Netskope, Inc. Class A Common Stock",
-      "sector": "Technology"
     },
     {
       "symbol": "NUE",
@@ -3188,6 +3173,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "SMCIP",
+      "name": "Super Micro Computer, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SMMT",
       "name": "Summit Therapeutics Inc.",
       "sector": "Healthcare"
@@ -3286,11 +3276,6 @@
       "symbol": "SPGI",
       "name": "S&P Global Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SPXC",
-      "name": "SPX Technologies, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "SRE",
@@ -3480,6 +3465,16 @@
     {
       "symbol": "TMUS",
       "name": "T-Mobile US, Inc.",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "TMUSI",
+      "name": "T-Mobile USA Inc 5.5 % Notes 2025-01.06.70",
+      "sector": "Communication Services"
+    },
+    {
+      "symbol": "TMUSL",
+      "name": "T-Mobile US, Inc. 6.25 % Notes -01.09.69",
       "sector": "Communication Services"
     },
     {
@@ -3806,6 +3801,11 @@
       "symbol": "VTRS",
       "name": "Viatris Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "VYLR",
+      "name": "Vylor Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "VZ",
