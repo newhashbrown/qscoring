@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T10:40:36.673Z",
+  "generatedAt": "2026-10-16T10:27:41.411Z",
   "universeSize": 800,
   "entries": [
     {
@@ -298,11 +298,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "ATHS",
-      "name": "Athene Holding Ltd. 7.250% Fixe",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "ATI",
       "name": "ATI Inc.",
       "sector": "Industrials"
@@ -501,6 +496,11 @@
       "symbol": "BRK-B",
       "name": "Berkshire Hathaway Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "BRO",
@@ -1123,6 +1123,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "DUKU",
+      "name": "Duke Energy Corporation Units 1.08.29",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "DVA",
       "name": "DaVita Inc.",
       "sector": "Healthcare"
@@ -1478,11 +1483,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FPS",
-      "name": "Forgent Power Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "FRHC",
       "name": "Freedom Holding Corp.",
       "sector": "Financial Services"
@@ -1731,11 +1731,6 @@
       "symbol": "HLT",
       "name": "Hilton Worldwide Holdings Inc.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "HNGE",
-      "name": "Hinge Health, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "HON",
@@ -2703,6 +2698,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PCTY",
+      "name": "Paylocity Holding Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "PCVX",
       "name": "Vaxcyte, Inc.",
       "sector": "Healthcare"
@@ -2941,11 +2941,6 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
@@ -3438,6 +3433,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TGTX",
+      "name": "TG Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "THC",
       "name": "Tenet Healthcare Corporation",
       "sector": "Healthcare"
@@ -3753,6 +3753,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "VMRK",
+      "name": "Vivmark Residential",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "VNOM",
       "name": "Viper Energy, Inc.",
       "sector": "Energy"
@@ -3781,11 +3786,6 @@
       "symbol": "VRTX",
       "name": "Vertex Pharmaceuticals Incorporated",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "VSAT",
-      "name": "Viasat, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VST",
