@@ -8,6 +8,15 @@ export const metadata = {
   description:
     "Paste any portfolio of US stocks and see the aggregate QScore, factor exposure, signal mix, sector concentration, and strongest/weakest holdings. Stateless — we don't store your holdings.",
   alternates: { canonical: "https://qscoring.com/portfolio" },
+  openGraph: {
+    title: "Portfolio QScore Analysis — Factor Exposure for Your Holdings",
+    description:
+      "Paste any portfolio of US stocks and see the aggregate QScore, factor exposure, signal mix, and sector concentration.",
+    url: "https://qscoring.com/portfolio",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 const portfolioJsonLd = {
