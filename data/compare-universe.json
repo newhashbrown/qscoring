@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T09:59:19.175Z",
+  "generatedAt": "2026-10-20T10:46:48.167Z",
   "universeSize": 800,
   "entries": [
     {
@@ -693,11 +693,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "CHYM",
       "name": "Chime Financial, Inc. Class A Common Stock",
       "sector": "Technology"
@@ -1163,11 +1158,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "EAT",
-      "name": "Brinker International, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "EBAY",
       "name": "eBay Inc.",
       "sector": "Consumer Cyclical"
@@ -1483,6 +1473,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -1743,6 +1738,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "HNGE",
+      "name": "Hinge Health, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "HON",
       "name": "Honeywell International Inc.",
       "sector": "Industrials"
@@ -1951,11 +1951,6 @@
       "symbol": "JBL",
       "name": "Jabil Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "JEF",
-      "name": "Jefferies Financial Group Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "JKHY",
@@ -2638,6 +2633,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "OSCR",
+      "name": "Oscar Health, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2868,6 +2868,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "PTGX",
+      "name": "Protagonist Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "PWR",
       "name": "Quanta Services, Inc.",
       "sector": "Industrials"
@@ -2946,11 +2951,6 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
@@ -3319,11 +3319,6 @@
     },
     {
       "symbol": "STRC",
-      "name": "Strategy Inc",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "STRD",
       "name": "Strategy Inc",
       "sector": "Technology"
     },
@@ -3716,6 +3711,11 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VICI",
