@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T10:58:28.075Z",
+  "generatedAt": "2026-10-22T10:57:36.308Z",
   "universeSize": 800,
   "entries": [
     {
@@ -503,11 +503,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BRX",
-      "name": "Brixmor Property Group Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "BSX",
       "name": "Boston Scientific Corporation",
       "sector": "Healthcare"
@@ -913,19 +908,9 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CTRE",
-      "name": "CareTrust REIT, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "CTVA",
-      "name": "Corteva, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "CUBE",
@@ -1463,6 +1448,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -1818,6 +1808,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "IDXX",
       "name": "IDEXX Laboratories, Inc.",
       "sector": "Healthcare"
@@ -1936,11 +1931,6 @@
       "symbol": "JBL",
       "name": "Jabil Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "JEF",
-      "name": "Jefferies Financial Group Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "JKHY",
@@ -2523,6 +2513,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "NTSK",
+      "name": "Netskope, Inc. Class A Common Stock",
+      "sector": "Technology"
+    },
+    {
       "symbol": "NUE",
       "name": "Nucor Corporation",
       "sector": "Basic Materials"
@@ -2948,11 +2943,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3166,6 +3156,11 @@
       "symbol": "SJM",
       "name": "The J. M. Smucker Company",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "sector": "Communication Services"
     },
     {
       "symbol": "SLB",
@@ -3786,6 +3781,11 @@
       "symbol": "VRTX",
       "name": "Vertex Pharmaceuticals Incorporated",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "VSAT",
+      "name": "Viasat, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VST",
