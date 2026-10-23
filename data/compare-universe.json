@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T10:57:36.308Z",
+  "generatedAt": "2026-10-23T10:50:31.528Z",
   "universeSize": 800,
   "entries": [
     {
@@ -231,6 +231,11 @@
       "symbol": "ANET",
       "name": "Arista Networks, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "AOS",
+      "name": "A. O. Smith Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "APA",
@@ -501,6 +506,11 @@
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BRX",
+      "name": "Brixmor Property Group Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "BSX",
@@ -783,6 +793,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "COLB",
+      "name": "Columbia Banking System, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "COO",
       "name": "The Cooper Companies, Inc.",
       "sector": "Healthcare"
@@ -908,9 +923,19 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "CTRE",
+      "name": "CareTrust REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CTVA",
+      "name": "Corteva, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "CUBE",
@@ -1258,11 +1283,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "ESI",
-      "name": "Element Solutions Inc",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1336,11 +1356,6 @@
       "symbol": "FAST",
       "name": "Fastenal Company",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
     },
     {
       "symbol": "FCNCA",
@@ -1446,11 +1461,6 @@
       "symbol": "FNF",
       "name": "Fidelity National Financial, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "FOX",
@@ -1778,11 +1788,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "HUT",
-      "name": "Hut 8 Corp.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
@@ -1931,6 +1936,11 @@
       "symbol": "JBL",
       "name": "Jabil Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "JEF",
+      "name": "Jefferies Financial Group Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "JKHY",
@@ -2323,6 +2333,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "MORN",
+      "name": "Morningstar, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2676,6 +2691,11 @@
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "PB",
+      "name": "Prosperity Bancshares, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "PBF",
@@ -3085,11 +3105,6 @@
     {
       "symbol": "SAIL",
       "name": "SailPoint, Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "SANM",
-      "name": "Sanmina Corporation",
       "sector": "Technology"
     },
     {
@@ -3553,11 +3568,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "TTMI",
-      "name": "TTM Technologies, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Technology"
@@ -3713,19 +3723,9 @@
       "sector": "Energy"
     },
     {
-      "symbol": "VIAV",
-      "name": "Viavi Solutions Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "VICR",
-      "name": "Vicor Corporation",
-      "sector": "Technology"
     },
     {
       "symbol": "VLO",
@@ -3781,11 +3781,6 @@
       "symbol": "VRTX",
       "name": "Vertex Pharmaceuticals Incorporated",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "VSAT",
-      "name": "Viasat, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VST",
@@ -3980,6 +3975,11 @@
     {
       "symbol": "ZBRA",
       "name": "Zebra Technologies Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ZETA",
+      "name": "Zeta Global Holdings Corp.",
       "sector": "Technology"
     },
     {
