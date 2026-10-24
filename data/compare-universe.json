@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T10:50:31.528Z",
+  "generatedAt": "2026-10-24T10:05:22.119Z",
   "universeSize": 800,
   "entries": [
     {
@@ -673,6 +673,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "CHRD",
+      "name": "Chord Energy Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "CHRW",
       "name": "C.H. Robinson Worldwide, Inc.",
       "sector": "Industrials"
@@ -931,11 +936,6 @@
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "CTVA",
-      "name": "Corteva, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "CUBE",
@@ -1753,6 +1753,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "HQY",
+      "name": "HealthEquity, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "HRL",
       "name": "Hormel Foods Corporation",
       "sector": "Consumer Defensive"
@@ -2016,11 +2021,6 @@
       "symbol": "KMI",
       "name": "Kinder Morgan, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "KNSL",
-      "name": "Kinsale Capital Group, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "KNX",
@@ -2638,11 +2638,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OSCR",
-      "name": "Oscar Health, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2691,11 +2686,6 @@
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "PB",
-      "name": "Prosperity Bancshares, Inc.",
-      "sector": "Financial Services"
     },
     {
       "symbol": "PBF",
@@ -2963,6 +2953,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "RF",
       "name": "Regions Financial Corporation",
       "sector": "Financial Services"
@@ -3106,11 +3101,6 @@
       "symbol": "SAIL",
       "name": "SailPoint, Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "SATA",
-      "name": "Strive Inc. Perp. Pfd. Series A",
-      "sector": "Financial Services"
     },
     {
       "symbol": "SBAC",
@@ -3393,11 +3383,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "SYRE",
-      "name": "Spyre Therapeutics, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "SYY",
       "name": "Sysco Corporation",
       "sector": "Consumer Defensive"
@@ -3558,6 +3543,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTAN",
+      "name": "ServiceTitan, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTC",
       "name": "The Toro Company",
       "sector": "Industrials"
@@ -3566,6 +3556,11 @@
       "symbol": "TTEK",
       "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "TTMI",
+      "name": "TTM Technologies, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "TTWO",
@@ -3781,6 +3776,11 @@
       "symbol": "VRTX",
       "name": "Vertex Pharmaceuticals Incorporated",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "VSAT",
+      "name": "Viasat, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VST",
