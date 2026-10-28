@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T11:23:13.477Z",
+  "generatedAt": "2026-10-28T11:56:33.929Z",
   "universeSize": 800,
   "entries": [
     {
@@ -433,11 +433,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "BIP",
-      "name": "Brookfield Infrastructure Partners L.P.",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "BIPI",
       "name": "BIP Bermuda Holdings I Limited",
       "sector": "Industrials"
@@ -671,11 +666,6 @@
       "symbol": "CHD",
       "name": "Church & Dwight Co., Inc.",
       "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "CHRD",
-      "name": "Chord Energy Corporation",
-      "sector": "Energy"
     },
     {
       "symbol": "CHRW",
@@ -1283,6 +1273,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1753,11 +1748,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "HQY",
-      "name": "HealthEquity, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "HRL",
       "name": "Hormel Foods Corporation",
       "sector": "Consumer Defensive"
@@ -1808,9 +1798,19 @@
       "sector": "Technology"
     },
     {
+      "symbol": "IBRX",
+      "name": "ImmunityBio, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -2323,11 +2323,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MORN",
-      "name": "Morningstar, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "MPC",
       "name": "Marathon Petroleum Corporation",
       "sector": "Energy"
@@ -2376,11 +2371,6 @@
       "symbol": "MSFT",
       "name": "Microsoft Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "MSGS",
-      "name": "Madison Square Garden Sports Corp.",
-      "sector": "Communication Services"
     },
     {
       "symbol": "MSI",
@@ -3163,6 +3153,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "SKYD",
+      "name": "Skydance Corporation",
+      "sector": "Communication Services"
+    },
+    {
       "symbol": "SLB",
       "name": "Slb N.V.",
       "sector": "Energy"
@@ -3438,6 +3433,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TGTX",
+      "name": "TG Therapeutics, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "THC",
       "name": "Tenet Healthcare Corporation",
       "sector": "Healthcare"
@@ -3623,11 +3623,6 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "UGI",
-      "name": "UGI Corporation",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "UHAL",
       "name": "U-Haul Holding Company",
       "sector": "Industrials"
@@ -3743,6 +3738,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "VMI",
+      "name": "Valmont Industries, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "VMRK",
       "name": "Vivmark Residential",
       "sector": "Real Estate"
@@ -3856,6 +3856,11 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "WLK",
+      "name": "Westlake Corporation",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
@@ -3975,11 +3980,6 @@
     {
       "symbol": "ZBRA",
       "name": "Zebra Technologies Corporation",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "ZETA",
-      "name": "Zeta Global Holdings Corp.",
       "sector": "Technology"
     },
     {
