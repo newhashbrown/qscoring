@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T11:56:33.929Z",
+  "generatedAt": "2026-10-29T12:05:21.685Z",
   "universeSize": 800,
   "entries": [
     {
@@ -228,11 +228,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "AOS",
-      "name": "A. O. Smith Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "APA",
       "name": "APA Corporation",
       "sector": "Energy"
@@ -291,6 +286,11 @@
       "symbol": "ARW",
       "name": "Arrow Electronics, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "ARWR",
+      "name": "Arrowhead Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ASTS",
@@ -678,11 +678,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "CHWY",
-      "name": "Chewy, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "CHYM",
       "name": "Chime Financial, Inc. Class A Common Stock",
       "sector": "Technology"
@@ -918,11 +913,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CTRE",
-      "name": "CareTrust REIT, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
@@ -1146,6 +1136,11 @@
       "symbol": "DXCM",
       "name": "DexCom, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "EAT",
+      "name": "Brinker International, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EBAY",
@@ -1458,6 +1453,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "FORM",
+      "name": "FormFactor, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -1466,6 +1466,11 @@
       "symbol": "FOXA",
       "name": "Fox Corporation",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "FRHC",
@@ -1783,6 +1788,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "HUT",
+      "name": "Hut 8 Corp.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
@@ -1806,11 +1816,6 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "IDCC",
-      "name": "InterDigital, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -2618,6 +2623,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "OSK",
+      "name": "Oshkosh Corp",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2666,6 +2676,11 @@
       "symbol": "PAYX",
       "name": "Paychex, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "PB",
+      "name": "Prosperity Bancshares, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "PBF",
@@ -2931,11 +2946,6 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "REXR",
-      "name": "Rexford Industrial Realty, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
@@ -3738,11 +3748,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "VMI",
-      "name": "Valmont Industries, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "VMRK",
       "name": "Vivmark Residential",
       "sector": "Real Estate"
@@ -3856,11 +3861,6 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "WLK",
-      "name": "Westlake Corporation",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
