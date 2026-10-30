@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T12:05:21.685Z",
+  "generatedAt": "2026-10-30T11:57:34.660Z",
   "universeSize": 800,
   "entries": [
     {
@@ -228,6 +228,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "AOS",
+      "name": "A. O. Smith Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "APA",
       "name": "APA Corporation",
       "sector": "Energy"
@@ -288,11 +293,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "ARWR",
-      "name": "Arrowhead Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ASTS",
       "name": "AST SpaceMobile, Inc.",
       "sector": "Communication Services"
@@ -311,11 +311,6 @@
       "symbol": "AU",
       "name": "AngloGold Ashanti Plc",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AUR",
-      "name": "Aurora Innovation, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "AVGO",
@@ -586,6 +581,11 @@
       "symbol": "CAT",
       "name": "Caterpillar Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CBC",
+      "name": "Central Bancompany",
+      "sector": "Financial Services"
     },
     {
       "symbol": "CBRE",
@@ -911,6 +911,11 @@
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CTRE",
+      "name": "CareTrust REIT, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "CTSH",
@@ -1453,11 +1458,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "FORM",
-      "name": "FormFactor, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "FOX",
       "name": "Fox Corporation",
       "sector": "Communication Services"
@@ -1788,11 +1788,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "HUT",
-      "name": "Hut 8 Corp.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "HWM",
       "name": "Howmet Aerospace Inc.",
       "sector": "Industrials"
@@ -1816,6 +1811,11 @@
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "IDXX",
@@ -2073,6 +2073,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "LEVI",
+      "name": "Levi Strauss & Co.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "LFUS",
       "name": "Littelfuse, Inc.",
       "sector": "Technology"
@@ -2274,11 +2279,6 @@
     },
     {
       "symbol": "MKC",
-      "name": "McCormick & Company, Incorporated",
-      "sector": "Consumer Defensive"
-    },
-    {
-      "symbol": "MKC-V",
       "name": "McCormick & Company, Incorporated",
       "sector": "Consumer Defensive"
     },
@@ -2623,11 +2623,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OSK",
-      "name": "Oshkosh Corp",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "OTIS",
       "name": "Otis Worldwide Corporation",
       "sector": "Industrials"
@@ -2946,6 +2941,11 @@
       "symbol": "REGN",
       "name": "Regeneron Pharmaceuticals, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "REXR",
+      "name": "Rexford Industrial Realty, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "RF",
