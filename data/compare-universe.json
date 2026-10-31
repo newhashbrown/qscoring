@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-30T11:57:34.660Z",
+  "generatedAt": "2026-10-31T11:31:28.515Z",
   "universeSize": 800,
   "entries": [
     {
@@ -306,6 +306,11 @@
       "symbol": "ATO",
       "name": "Atmos Energy Corporation",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "ATR",
+      "name": "AptarGroup, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "AU",
@@ -668,6 +673,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "CHRD",
+      "name": "Chord Energy Corporation",
+      "sector": "Energy"
+    },
+    {
       "symbol": "CHRW",
       "name": "C.H. Robinson Worldwide, Inc.",
       "sector": "Industrials"
@@ -676,6 +686,11 @@
       "symbol": "CHTR",
       "name": "Charter Communications, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "CHWY",
+      "name": "Chewy, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "CHYM",
@@ -1273,11 +1288,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "ESI",
-      "name": "Element Solutions Inc",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1466,11 +1476,6 @@
       "symbol": "FOXA",
       "name": "Fox Corporation",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "FPS",
-      "name": "Forgent Power Solutions, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "FRHC",
@@ -1813,19 +1818,9 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "IDCC",
-      "name": "InterDigital, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "IDXX",
       "name": "IDEXX Laboratories, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "IESC",
-      "name": "IES Holdings, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "IEX",
@@ -2621,6 +2616,11 @@
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "OSK",
+      "name": "Oshkosh Corp",
+      "sector": "Industrials"
     },
     {
       "symbol": "OTIS",
@@ -3588,11 +3588,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "TXG",
-      "name": "10x Genomics, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "TXN",
       "name": "Texas Instruments Incorporated",
       "sector": "Technology"
@@ -3861,6 +3856,11 @@
       "symbol": "WFC",
       "name": "Wells Fargo & Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "WLK",
+      "name": "Westlake Corporation",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "WM",
