@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T13:25:13.962Z",
+  "generatedAt": "2026-11-04T13:36:55.193Z",
   "universeSize": 800,
   "entries": [
     {
@@ -38,9 +38,19 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "ACM",
+      "name": "Aecom",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "ADBE",
       "name": "Adobe Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "ADC",
+      "name": "Agree Realty Corporation",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ADI",
@@ -120,11 +130,6 @@
     {
       "symbol": "AIZ",
       "name": "Assurant, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "AIZN",
-      "name": "Assurant, Inc. 5.25% Subordinat",
       "sector": "Financial Services"
     },
     {
@@ -263,11 +268,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "APOS",
-      "name": "Apollo Global Management, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "APP",
       "name": "AppLovin Corporation",
       "sector": "Technology"
@@ -296,6 +296,11 @@
       "symbol": "ARW",
       "name": "Arrow Electronics, Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "ARWR",
+      "name": "Arrowhead Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "ASTS",
@@ -463,11 +468,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BMNP",
-      "name": "Bitmine Immersion Technologies, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "BMNR",
       "name": "Bitmine Immersion Technologies, Inc.",
       "sector": "Financial Services"
@@ -503,9 +503,19 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "BRKR",
+      "name": "Bruker Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "BRO",
       "name": "Brown & Brown, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "BROS",
+      "name": "Dutch Bros Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "BRX",
@@ -623,11 +633,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "CCZ",
-      "name": "Comcast Holdings Corp.",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "CDE",
       "name": "Coeur Mining, Inc.",
       "sector": "Basic Materials"
@@ -718,6 +723,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "CLF",
+      "name": "Cleveland-Cliffs Inc.",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "CLH",
       "name": "Clean Harbors, Inc.",
       "sector": "Industrials"
@@ -758,11 +768,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "CMSA",
-      "name": "CMS Energy Corporation 5.6% JRSUB NT 78",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "CNA",
       "name": "CNA Financial Corporation",
       "sector": "Financial Services"
@@ -771,6 +776,11 @@
       "symbol": "CNC",
       "name": "Centene Corp.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "CNM",
+      "name": "Core & Main, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "CNP",
@@ -918,11 +928,6 @@
       "sector": "Basic Materials"
     },
     {
-      "symbol": "CTA-PB",
-      "name": "EIDP, Inc. USD 4.50 Cum Pfd Registered Shs",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "CTAS",
       "name": "Cintas Corporation",
       "sector": "Industrials"
@@ -976,6 +981,11 @@
       "symbol": "DAL",
       "name": "Delta Air Lines, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "DAR",
+      "name": "Darling Ingredients Inc.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "DASH",
@@ -1118,23 +1128,8 @@
       "sector": "Energy"
     },
     {
-      "symbol": "DTW",
-      "name": "DTE Energy Company 5.25 % Debentures 2017-01.12.77 Global",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "DUK",
       "name": "Duke Energy Corporation",
-      "sector": "Utilities"
-    },
-    {
-      "symbol": "DUKB",
-      "name": "Duke Energy Corporation 5.625%",
-      "sector": "Utilities"
-    },
-    {
-      "symbol": "DUKU",
-      "name": "Duke Energy Corporation Units 1.08.29",
       "sector": "Utilities"
     },
     {
@@ -1283,6 +1278,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1358,6 +1358,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "FCFS",
+      "name": "FirstCash Holdings, Inc",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "FCNCA",
       "name": "First Citizens BancShares, Inc.",
       "sector": "Financial Services"
@@ -1389,7 +1394,7 @@
     },
     {
       "symbol": "FERG",
-      "name": "Ferguson plc",
+      "name": "Ferguson Enterprises Inc.",
       "sector": "Industrials"
     },
     {
@@ -1424,11 +1429,6 @@
     },
     {
       "symbol": "FITB",
-      "name": "Fifth Third Bancorp",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "FITB-PA",
       "name": "Fifth Third Bancorp",
       "sector": "Financial Services"
     },
@@ -1468,9 +1468,9 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FOXA",
-      "name": "Fox Corporation",
-      "sector": "Communication Services"
+      "symbol": "FPS",
+      "name": "Forgent Power Solutions, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "FRHC",
@@ -1510,11 +1510,6 @@
     {
       "symbol": "FWONA",
       "name": "Formula One Group",
-      "sector": "Communication Services"
-    },
-    {
-      "symbol": "FWONK",
-      "name": "Liberty Media Corporation",
       "sector": "Communication Services"
     },
     {
@@ -1808,6 +1803,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "IBRX",
+      "name": "ImmunityBio, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
@@ -1818,9 +1818,19 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "IDCC",
+      "name": "InterDigital, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "IDXX",
       "name": "IDEXX Laboratories, Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "IESC",
+      "name": "IES Holdings, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "IEX",
@@ -2038,11 +2048,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "KVUE",
-      "name": "Kenvue Inc.",
-      "sector": "Consumer Defensive"
-    },
-    {
       "symbol": "KYMR",
       "name": "Kymera Therapeutics, Inc.",
       "sector": "Healthcare"
@@ -2098,6 +2103,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "LINE",
+      "name": "Lineage, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "LITE",
       "name": "Lumentum Holdings Inc.",
       "sector": "Technology"
@@ -2116,6 +2126,11 @@
       "symbol": "LMT",
       "name": "Lockheed Martin Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "LNC",
+      "name": "Lincoln National Corporation",
+      "sector": "Financial Services"
     },
     {
       "symbol": "LNG",
@@ -2263,19 +2278,9 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "MGRB",
-      "name": "Affiliated Managers Group, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MGRD",
-      "name": "Affiliated Managers Group, Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "MGRE",
-      "name": "Affiliated Managers Group, Inc.",
-      "sector": "Financial Services"
+      "symbol": "METAM",
+      "name": "Meta Platforms, Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock",
+      "sector": "Technology"
     },
     {
       "symbol": "MHK",
@@ -2438,6 +2443,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "NCLH",
+      "name": "Norwegian Cruise Line Holdings Ltd.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "NDAQ",
       "name": "Nasdaq, Inc.",
       "sector": "Financial Services"
@@ -2548,11 +2558,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "NWSA",
-      "name": "News Corporation",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "NXT",
       "name": "Nextpower Inc.",
       "sector": "Energy"
@@ -2631,6 +2636,11 @@
       "symbol": "ORLY",
       "name": "O'Reilly Automotive, Inc.",
       "sector": "Consumer Cyclical"
+    },
+    {
+      "symbol": "OSCR",
+      "name": "Oscar Health, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "OSK",
@@ -2753,11 +2763,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "PFH",
-      "name": "Prudential Financial, Inc. 4.125% Junior Subordinated Notes due 2060",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "PG",
       "name": "The Procter & Gamble Company",
       "sector": "Consumer Defensive"
@@ -2833,11 +2838,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "PPLC",
-      "name": "PPL Corporation",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "PR",
       "name": "Permian Resources Corporation",
       "sector": "Energy"
@@ -2895,6 +2895,11 @@
     {
       "symbol": "QCOM",
       "name": "QUALCOMM Incorporated",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "QNT",
+      "name": "Quantinuum Inc. Class A Common Stock",
       "sector": "Technology"
     },
     {
@@ -2980,6 +2985,11 @@
     {
       "symbol": "RHP",
       "name": "Ryman Hospitality Properties, Inc.",
+      "sector": "Real Estate"
+    },
+    {
+      "symbol": "RITM-PE",
+      "name": "Rithm Capital Corp.",
       "sector": "Real Estate"
     },
     {
@@ -3088,11 +3098,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "RZC",
-      "name": "Reinsurance Group of America, Incorporated",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3106,6 +3111,11 @@
       "symbol": "SANM",
       "name": "Sanmina Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "SARO",
+      "name": "StandardAero, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "SBAC",
@@ -3248,21 +3258,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SOJC",
-      "name": "The Southern Company JR 2017B NT 77",
-      "sector": "Utilities"
-    },
-    {
-      "symbol": "SOJD",
-      "name": "Southern Company (The) Series 2",
-      "sector": "Utilities"
-    },
-    {
-      "symbol": "SOJE",
-      "name": "Southern Company (The) Series 2",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "SOLS",
       "name": "Solstice Advanced Materials Inc.",
       "sector": "Basic Materials"
@@ -3271,11 +3266,6 @@
       "symbol": "SOLV",
       "name": "Solventum Corporation",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "SOMN",
-      "name": "The Southern Company",
-      "sector": "Utilities"
     },
     {
       "symbol": "SPCX",
@@ -3293,12 +3283,12 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "SRE",
-      "name": "Sempra",
-      "sector": "Utilities"
+      "symbol": "SPXC",
+      "name": "SPX Technologies, Inc.",
+      "sector": "Basic Materials"
     },
     {
-      "symbol": "SREA",
+      "symbol": "SRE",
       "name": "Sempra",
       "sector": "Utilities"
     },
@@ -3306,6 +3296,11 @@
       "symbol": "SSB",
       "name": "SouthState Bank Corp.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "SSD",
+      "name": "Simpson Manufacturing Co., Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "SSNC",
@@ -3321,21 +3316,6 @@
       "symbol": "STLD",
       "name": "Steel Dynamics, Inc.",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "STRC",
-      "name": "Strategy Inc",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "STRF",
-      "name": "MicroStrategy Incorporated 10.00% Series A Perpetual Strife Preferred Stock",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "STRK",
-      "name": "Strategy Inc",
-      "sector": "Technology"
     },
     {
       "symbol": "STRL",
@@ -3400,11 +3380,6 @@
     {
       "symbol": "T",
       "name": "AT&T Inc.",
-      "sector": "Communication Services"
-    },
-    {
-      "symbol": "TBB",
-      "name": "AT&T Inc. 5.35% GLB NTS 66",
       "sector": "Communication Services"
     },
     {
@@ -3473,6 +3448,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "TKR",
+      "name": "The Timken Company",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "TLN",
       "name": "Talen Energy Corporation",
       "sector": "Utilities"
@@ -3485,11 +3465,6 @@
     {
       "symbol": "TMUS",
       "name": "T-Mobile US, Inc.",
-      "sector": "Communication Services"
-    },
-    {
-      "symbol": "TMUSI",
-      "name": "T-Mobile USA Inc 5.5 % Notes 2025-01.06.70",
       "sector": "Communication Services"
     },
     {
@@ -3563,6 +3538,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "TTAN",
+      "name": "ServiceTitan, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTC",
       "name": "The Toro Company",
       "sector": "Industrials"
@@ -3571,6 +3551,11 @@
       "symbol": "TTEK",
       "name": "Tetra Tech, Inc.",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "TTMI",
+      "name": "TTM Technologies, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "TTWO",
@@ -3586,6 +3571,11 @@
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "TWST",
+      "name": "Twist Bioscience Corporation",
+      "sector": "Healthcare"
     },
     {
       "symbol": "TXN",
@@ -3628,6 +3618,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "UGI",
+      "name": "UGI Corporation",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "UHAL",
       "name": "U-Haul Holding Company",
       "sector": "Industrials"
@@ -3665,11 +3660,6 @@
     {
       "symbol": "UNM",
       "name": "Unum Group",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "UNMA",
-      "name": "Unum Group 6.250% JR NT58",
       "sector": "Financial Services"
     },
     {
@@ -3723,6 +3713,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "VICR",
+      "name": "Vicor Corporation",
+      "sector": "Technology"
+    },
+    {
       "symbol": "VLO",
       "name": "Valero Energy Corporation",
       "sector": "Energy"
@@ -3736,6 +3731,11 @@
       "symbol": "VMC",
       "name": "Vulcan Materials Company",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "VMI",
+      "name": "Valmont Industries, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "VMRK",
@@ -3781,6 +3781,11 @@
       "symbol": "VST",
       "name": "Vistra Corp.",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "VSXY",
+      "name": "Victoria's Secret & Company",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "VTR",
@@ -3940,11 +3945,6 @@
     {
       "symbol": "XEL",
       "name": "Xcel Energy Inc.",
-      "sector": "Utilities"
-    },
-    {
-      "symbol": "XELLL",
-      "name": "Xcel Energy Inc. 6.25% Junior Subordinated Notes, Series due 2085",
       "sector": "Utilities"
     },
     {
