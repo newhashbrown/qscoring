@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-04T13:36:55.193Z",
+  "generatedAt": "2026-11-05T13:50:01.102Z",
   "universeSize": 800,
   "entries": [
     {
@@ -273,6 +273,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "APPF",
+      "name": "AppFolio Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "AR",
       "name": "Antero Resources Corporation",
       "sector": "Energy"
@@ -485,6 +490,11 @@
     {
       "symbol": "BNY",
       "name": "Bank of New York Mellon Corp",
+      "sector": "Financial Services"
+    },
+    {
+      "symbol": "BOKF",
+      "name": "BOK Financial Corporation",
       "sector": "Financial Services"
     },
     {
@@ -723,11 +733,6 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "CLF",
-      "name": "Cleveland-Cliffs Inc.",
-      "sector": "Basic Materials"
-    },
-    {
       "symbol": "CLH",
       "name": "Clean Harbors, Inc.",
       "sector": "Industrials"
@@ -941,6 +946,11 @@
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CTVA",
+      "name": "Corteva, Inc.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "CUBE",
@@ -1293,6 +1303,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ETSY",
+      "name": "Etsy, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "EVR",
       "name": "Evercore Inc.",
       "sector": "Financial Services"
@@ -1468,11 +1483,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "FPS",
-      "name": "Forgent Power Solutions, Inc.",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "FRHC",
       "name": "Freedom Holding Corp.",
       "sector": "Financial Services"
@@ -1511,6 +1521,11 @@
       "symbol": "FWONA",
       "name": "Formula One Group",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "GAP",
+      "name": "The Gap, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "GD",
@@ -1818,19 +1833,9 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "IDCC",
-      "name": "InterDigital, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "IDXX",
       "name": "IDEXX Laboratories, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "IESC",
-      "name": "IES Holdings, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "IEX",
@@ -2128,11 +2133,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "LNC",
-      "name": "Lincoln National Corporation",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "LNG",
       "name": "Cheniere Energy, Inc.",
       "sector": "Energy"
@@ -2281,6 +2281,11 @@
       "symbol": "METAM",
       "name": "Meta Platforms, Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock",
       "sector": "Technology"
+    },
+    {
+      "symbol": "MGM",
+      "name": "MGM Resorts International",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "MHK",
@@ -3098,6 +3103,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "S",
+      "name": "SentinelOne, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3105,11 +3115,6 @@
     {
       "symbol": "SAIL",
       "name": "SailPoint, Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "SANM",
-      "name": "Sanmina Corporation",
       "sector": "Technology"
     },
     {
@@ -3185,11 +3190,6 @@
     {
       "symbol": "SLB",
       "name": "Slb N.V.",
-      "sector": "Energy"
-    },
-    {
-      "symbol": "SM",
-      "name": "SM Energy Company",
       "sector": "Energy"
     },
     {
@@ -3281,11 +3281,6 @@
       "symbol": "SPGI",
       "name": "S&P Global Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SPXC",
-      "name": "SPX Technologies, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "SRE",
@@ -3383,6 +3378,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "TAP",
+      "name": "Molson Coors Beverage Company",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "TCPA",
       "name": "TransCanada PipeLines Limited 6",
       "sector": "Energy"
@@ -3446,11 +3446,6 @@
       "symbol": "TKO",
       "name": "TKO Group Holdings, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "TKR",
-      "name": "The Timken Company",
-      "sector": "Industrials"
     },
     {
       "symbol": "TLN",
@@ -3553,11 +3548,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "TTMI",
-      "name": "TTM Technologies, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Technology"
@@ -3575,6 +3565,11 @@
     {
       "symbol": "TWST",
       "name": "Twist Bioscience Corporation",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "TXG",
+      "name": "10x Genomics, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -3703,6 +3698,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "VFC",
+      "name": "V.F. Corporation",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
@@ -3711,11 +3711,6 @@
       "symbol": "VICI",
       "name": "VICI Properties Inc.",
       "sector": "Real Estate"
-    },
-    {
-      "symbol": "VICR",
-      "name": "Vicor Corporation",
-      "sector": "Technology"
     },
     {
       "symbol": "VLO",
@@ -3941,6 +3936,11 @@
       "symbol": "WY",
       "name": "Weyerhaeuser Company",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "WYNN",
+      "name": "Wynn Resorts, Limited",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "XEL",
