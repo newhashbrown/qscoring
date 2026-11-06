@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T13:50:01.102Z",
+  "generatedAt": "2026-11-06T13:34:06.589Z",
   "universeSize": 800,
   "entries": [
     {
@@ -76,11 +76,6 @@
       "symbol": "AEE",
       "name": "Ameren Corporation",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "AEIS",
-      "name": "Advanced Energy Industries, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "AEP",
@@ -213,11 +208,6 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "AMKR",
-      "name": "Amkor Technology, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "AMP",
       "name": "Ameriprise Financial, Inc.",
       "sector": "Financial Services"
@@ -286,6 +276,11 @@
       "symbol": "ARCC",
       "name": "Ares Capital Corporation",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "ARE",
+      "name": "Alexandria Real Estate Equities, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "ARES",
@@ -361,6 +356,11 @@
       "symbol": "AXP",
       "name": "American Express Company",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "AXTA",
+      "name": "Axalta Coating Systems Ltd.",
+      "sector": "Basic Materials"
     },
     {
       "symbol": "AYI",
@@ -523,11 +523,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "BROS",
-      "name": "Dutch Bros Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "BRX",
       "name": "Brixmor Property Group Inc.",
       "sector": "Real Estate"
@@ -588,11 +583,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "CAI",
-      "name": "Caris Life Sciences, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "CARR",
       "name": "Carrier Global Corporation",
       "sector": "Industrials"
@@ -626,6 +616,11 @@
       "symbol": "CBRS",
       "name": "Cerebras Systems Inc.",
       "sector": "Technology"
+    },
+    {
+      "symbol": "CBSH",
+      "name": "Commerce Bancshares, Inc.",
+      "sector": "Financial Services"
     },
     {
       "symbol": "CCI",
@@ -1003,6 +998,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "DCI",
       "name": "Donaldson Company, Inc.",
       "sector": "Industrials"
@@ -1258,6 +1258,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "EPAM",
+      "name": "EPAM Systems, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "EPD",
       "name": "Enterprise Products Partners L.P.",
       "sector": "Energy"
@@ -1286,11 +1291,6 @@
       "symbol": "ES",
       "name": "Eversource Energy",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "ESI",
-      "name": "Element Solutions Inc",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "ESS",
@@ -2498,6 +2498,11 @@
       "sector": "Real Estate"
     },
     {
+      "symbol": "NNN",
+      "name": "NNN REIT, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "NOC",
       "name": "Northrop Grumman Corporation",
       "sector": "Industrials"
@@ -2623,11 +2628,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "ONTO",
-      "name": "Onto Innovation Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "ORCL",
       "name": "Oracle Corporation",
       "sector": "Technology"
@@ -2681,6 +2681,11 @@
       "symbol": "PAA",
       "name": "Plains All American Pipeline, L.P.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "PACS",
+      "name": "PACS Group, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "PAG",
@@ -2833,6 +2838,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "POOL",
+      "name": "Pool Corporation",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2851,6 +2861,11 @@
       "symbol": "PRI",
       "name": "Primerica, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "PRMB",
+      "name": "Primo Brands Corporation",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "PRU",
@@ -3023,11 +3038,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "RMBS",
-      "name": "Rambus Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "RMD",
       "name": "ResMed Inc.",
       "sector": "Healthcare"
@@ -3103,11 +3113,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "S",
-      "name": "SentinelOne, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3156,6 +3161,11 @@
       "symbol": "SF",
       "name": "Stifel Financial Corp",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "SFD",
+      "name": "Smithfield Foods, Inc.",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "SGI",
@@ -3311,11 +3321,6 @@
       "symbol": "STLD",
       "name": "Steel Dynamics, Inc.",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "STRL",
-      "name": "Sterling Infrastructure, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "STT",
@@ -3568,11 +3573,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "TXG",
-      "name": "10x Genomics, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "TXN",
       "name": "Texas Instruments Incorporated",
       "sector": "Technology"
@@ -3723,14 +3723,14 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "VLY",
+      "name": "Valley National Bancorp",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "VMC",
       "name": "Vulcan Materials Company",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "VMI",
-      "name": "Valmont Industries, Inc.",
-      "sector": "Industrials"
     },
     {
       "symbol": "VMRK",
