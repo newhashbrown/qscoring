@@ -108,5 +108,13 @@
       "denominator": 2,
       "fmpDate": "2026-07-20"
     }
+  ],
+  "SOXX": [
+    {
+      "date": "2026-11-05",
+      "numerator": 3,
+      "denominator": 1,
+      "fmpDate": "2026-11-05"
+    }
   ]
 }
