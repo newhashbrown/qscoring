@@ -76,8 +76,10 @@ function PositioningBlock({ insider }: { insider: InsiderSummary | null }) {
       ) : (
         <p className="as-detail">No recent open-market insider transactions.</p>
       )}
+      {/* Customer-facing roadmap note — never expose internal vendor/plan
+          language here (the old copy leaked "data-plan upgrade"). */}
       <p className="as-detail as-muted">
-        Short interest, days-to-cover, and institutional-ownership change require a data-plan upgrade (not yet available).
+        Additional positioning data coming soon.
       </p>
     </div>
   );

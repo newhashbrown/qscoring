@@ -68,7 +68,7 @@ export default function DemoCarousel({ picks, generatedAt }: DemoCarouselProps) 
 
       {generatedAt && (
         <p className="demo-caption">
-          Quant snapshot from {marketCloseLabel(generatedAt)} · refreshed daily
+          Quant snapshot as of {marketCloseLabel(generatedAt)} · updated after each NYSE session
         </p>
       )}
     </div>
