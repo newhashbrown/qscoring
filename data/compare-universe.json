@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T13:34:06.589Z",
+  "generatedAt": "2026-11-07T12:14:46.861Z",
   "universeSize": 800,
   "entries": [
     {
@@ -76,6 +76,11 @@
       "symbol": "AEE",
       "name": "Ameren Corporation",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "AEIS",
+      "name": "Advanced Energy Industries, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "AEP",
@@ -206,6 +211,11 @@
       "symbol": "AMH",
       "name": "American Homes 4 Rent",
       "sector": "Real Estate"
+    },
+    {
+      "symbol": "AMKR",
+      "name": "Amkor Technology, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "AMP",
@@ -658,6 +668,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "CELH",
+      "name": "Celsius Holdings, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "CF",
       "name": "CF Industries Holdings, Inc.",
       "sector": "Basic Materials"
@@ -811,6 +826,11 @@
       "symbol": "COLB",
       "name": "Columbia Banking System, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "COMP",
+      "name": "Compass, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "COO",
@@ -973,11 +993,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CYTK",
-      "name": "Cytokinetics, Incorporated",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -996,11 +1011,6 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "DBX",
-      "name": "Dropbox, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1521,11 +1531,6 @@
       "symbol": "FWONA",
       "name": "Formula One Group",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "GAP",
-      "name": "The Gap, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "GD",
@@ -2263,11 +2268,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "MER-PK",
-      "name": "Bank of America Corp 6.45 % Notes 2018-15.12.66 Income Capital Obligations",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "MET",
       "name": "MetLife, Inc.",
       "sector": "Financial Services"
@@ -2276,11 +2276,6 @@
       "symbol": "META",
       "name": "Meta Platforms, Inc.",
       "sector": "Communication Services"
-    },
-    {
-      "symbol": "METAM",
-      "name": "Meta Platforms, Inc. Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock",
-      "sector": "Technology"
     },
     {
       "symbol": "MGM",
@@ -2628,6 +2623,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "ONTO",
+      "name": "Onto Innovation Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "ORCL",
       "name": "Oracle Corporation",
       "sector": "Technology"
@@ -2838,11 +2838,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "POOL",
-      "name": "Pool Corporation",
-      "sector": "Industrials"
-    },
-    {
       "symbol": "PPG",
       "name": "PPG Industries, Inc.",
       "sector": "Basic Materials"
@@ -2856,6 +2851,11 @@
       "symbol": "PR",
       "name": "Permian Resources Corporation",
       "sector": "Energy"
+    },
+    {
+      "symbol": "PRAX",
+      "name": "Praxis Precision Medicines, Inc.",
+      "sector": "Healthcare"
     },
     {
       "symbol": "PRI",
@@ -3038,6 +3038,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "RMBS",
+      "name": "Rambus Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "RMD",
       "name": "ResMed Inc.",
       "sector": "Healthcare"
@@ -3161,11 +3166,6 @@
       "symbol": "SF",
       "name": "Stifel Financial Corp",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SFD",
-      "name": "Smithfield Foods, Inc.",
-      "sector": "Consumer Defensive"
     },
     {
       "symbol": "SGI",
@@ -3383,11 +3383,6 @@
       "sector": "Communication Services"
     },
     {
-      "symbol": "TAP",
-      "name": "Molson Coors Beverage Company",
-      "sector": "Consumer Defensive"
-    },
-    {
       "symbol": "TCPA",
       "name": "TransCanada PipeLines Limited 6",
       "sector": "Energy"
@@ -3465,11 +3460,6 @@
     {
       "symbol": "TMUS",
       "name": "T-Mobile US, Inc.",
-      "sector": "Communication Services"
-    },
-    {
-      "symbol": "TMUSL",
-      "name": "T-Mobile US, Inc. 6.25 % Notes -01.09.69",
       "sector": "Communication Services"
     },
     {
@@ -3733,6 +3723,11 @@
       "sector": "Basic Materials"
     },
     {
+      "symbol": "VMI",
+      "name": "Valmont Industries, Inc.",
+      "sector": "Industrials"
+    },
+    {
       "symbol": "VMRK",
       "name": "Vivmark Residential",
       "sector": "Real Estate"
@@ -3980,6 +3975,11 @@
     {
       "symbol": "ZBRA",
       "name": "Zebra Technologies Corporation",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ZETA",
+      "name": "Zeta Global Holdings Corp.",
       "sector": "Technology"
     },
     {
