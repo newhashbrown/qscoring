@@ -1,6 +1,6 @@
 {
   "promptVersion": "v1",
-  "count": 897,
+  "count": 917,
   "levels": {
     "A": {
       "tariffs": "medium",
@@ -863,7 +863,7 @@
       "drug_pricing": "none",
       "tax_policy": "high",
       "energy_regulation": "low",
-      "antitrust": "none",
+      "antitrust": "low",
       "china_supply_chain": "low"
     },
     "BSX": {
@@ -3261,8 +3261,8 @@
     "LINE": {
       "tariffs": "low",
       "drug_pricing": "none",
-      "tax_policy": "high",
-      "energy_regulation": "medium",
+      "tax_policy": "medium",
+      "energy_regulation": "high",
       "antitrust": "low",
       "china_supply_chain": "low"
     },
@@ -3907,7 +3907,7 @@
       "china_supply_chain": "none"
     },
     "NNN": {
-      "tariffs": "none",
+      "tariffs": "low",
       "drug_pricing": "none",
       "tax_policy": "high",
       "energy_regulation": "low",
@@ -7177,6 +7177,166 @@
       "energy_regulation": "low",
       "antitrust": "low",
       "china_supply_chain": "none"
+    },
+    "APPF": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "low",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "AXTA": {
+      "tariffs": "medium",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "medium",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "BOKF": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "medium",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "CBSH": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "high",
+      "energy_regulation": "low",
+      "antitrust": "medium",
+      "china_supply_chain": "low"
+    },
+    "CELH": {
+      "tariffs": "medium",
+      "drug_pricing": "low",
+      "tax_policy": "low",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "CNM": {
+      "tariffs": "medium",
+      "drug_pricing": "none",
+      "tax_policy": "low",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "COMP": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "EPAM": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "ETSY": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "medium",
+      "china_supply_chain": "low"
+    },
+    "IDA": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "high",
+      "energy_regulation": "high",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "KNSL": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "none"
+    },
+    "MHK": {
+      "tariffs": "high",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "medium",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "PACS": {
+      "tariffs": "low",
+      "drug_pricing": "medium",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "RITM-PE": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "high",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "SSD": {
+      "tariffs": "medium",
+      "drug_pricing": "none",
+      "tax_policy": "low",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "medium"
+    },
+    "THG": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "none"
+    },
+    "UGI": {
+      "tariffs": "low",
+      "drug_pricing": "none",
+      "tax_policy": "high",
+      "energy_regulation": "high",
+      "antitrust": "low",
+      "china_supply_chain": "low"
+    },
+    "VFC": {
+      "tariffs": "high",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "high"
+    },
+    "VLY": {
+      "tariffs": "none",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "none"
+    },
+    "VSXY": {
+      "tariffs": "high",
+      "drug_pricing": "none",
+      "tax_policy": "medium",
+      "energy_regulation": "low",
+      "antitrust": "low",
+      "china_supply_chain": "high"
     }
   }
 }
