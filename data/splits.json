@@ -116,5 +116,13 @@
       "denominator": 1,
       "fmpDate": "2026-11-05"
     }
+  ],
+  "SPGI": [
+    {
+      "date": "2026-07-08",
+      "numerator": 2643,
+      "denominator": 2500,
+      "fmpDate": "2026-07-01"
+    }
   ]
 }
