@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07T12:14:46.861Z",
+  "generatedAt": "2026-11-10T14:05:05.372Z",
   "universeSize": 800,
   "entries": [
     {
@@ -106,6 +106,11 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "AGCO",
+      "name": "AGCO Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -308,11 +313,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "ARWR",
-      "name": "Arrowhead Pharmaceuticals, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ASTS",
       "name": "AST SpaceMobile, Inc.",
       "sector": "Communication Services"
@@ -336,6 +336,11 @@
       "symbol": "AU",
       "name": "AngloGold Ashanti Plc",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "AUR",
+      "name": "Aurora Innovation, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "AVGO",
@@ -778,11 +783,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "CMS-PB",
-      "name": "Consumers Energy Company",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "CNA",
       "name": "CNA Financial Corporation",
       "sector": "Financial Services"
@@ -941,11 +941,6 @@
       "symbol": "CSX",
       "name": "CSX Corporation",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "CTA-PA",
-      "name": "EIDP, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "CTAS",
@@ -1223,11 +1218,6 @@
       "sector": "Healthcare"
     },
     {
-      "symbol": "ELC",
-      "name": "Entergy Louisiana, LLC COLLATERAL TR MT",
-      "sector": "Utilities"
-    },
-    {
       "symbol": "ELS",
       "name": "Equity LifeStyle Properties, Inc.",
       "sector": "Real Estate"
@@ -1261,11 +1251,6 @@
       "symbol": "EOG",
       "name": "EOG Resources, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "EP-PC",
-      "name": "El Paso Energy Capital Trust I PFD CV TR SECS",
-      "sector": "Financial Services"
     },
     {
       "symbol": "EPAM",
@@ -1303,6 +1288,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "ESI",
+      "name": "Element Solutions Inc",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "ESS",
       "name": "Essex Property Trust, Inc.",
       "sector": "Real Estate"
@@ -1311,11 +1301,6 @@
       "symbol": "ETR",
       "name": "Entergy Corporation",
       "sector": "Utilities"
-    },
-    {
-      "symbol": "ETSY",
-      "name": "Etsy, Inc.",
-      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EVR",
@@ -1823,11 +1808,6 @@
       "sector": "Technology"
     },
     {
-      "symbol": "IBRX",
-      "name": "ImmunityBio, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "ICE",
       "name": "Intercontinental Exchange, Inc.",
       "sector": "Financial Services"
@@ -2013,11 +1993,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "KKRS",
-      "name": "KKR Group Finance Co. IX LLC 4.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "KLAC",
       "name": "KLA Corporation",
       "sector": "Technology"
@@ -2138,6 +2113,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "LNC",
+      "name": "Lincoln National Corporation",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "LNG",
       "name": "Cheniere Energy, Inc.",
       "sector": "Energy"
@@ -2183,6 +2163,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "LW",
+      "name": "Lamb Weston Holdings, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "LYV",
       "name": "Live Nation Entertainment, Inc.",
       "sector": "Communication Services"
@@ -2224,11 +2209,6 @@
     },
     {
       "symbol": "MCHP",
-      "name": "Microchip Technology Incorporated",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "MCHPP",
       "name": "Microchip Technology Incorporated",
       "sector": "Technology"
     },
@@ -2683,11 +2663,6 @@
       "sector": "Energy"
     },
     {
-      "symbol": "PACS",
-      "name": "PACS Group, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "PAG",
       "name": "Penske Automotive Group, Inc.",
       "sector": "Consumer Cyclical"
@@ -2836,6 +2811,11 @@
       "symbol": "PODD",
       "name": "Insulet Corp.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "POOL",
+      "name": "Pool Corporation",
+      "sector": "Industrials"
     },
     {
       "symbol": "PPG",
@@ -3008,11 +2988,6 @@
       "sector": "Real Estate"
     },
     {
-      "symbol": "RITM-PE",
-      "name": "Rithm Capital Corp.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "RIVN",
       "name": "Rivian Automotive, Inc.",
       "sector": "Consumer Cyclical"
@@ -3118,6 +3093,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "S",
+      "name": "SentinelOne, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3125,6 +3105,11 @@
     {
       "symbol": "SAIL",
       "name": "SailPoint, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "SANM",
+      "name": "Sanmina Corporation",
       "sector": "Technology"
     },
     {
@@ -3204,11 +3189,6 @@
     },
     {
       "symbol": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "sector": "Technology"
-    },
-    {
-      "symbol": "SMCIP",
       "name": "Super Micro Computer, Inc.",
       "sector": "Technology"
     },
@@ -3321,6 +3301,11 @@
       "symbol": "STLD",
       "name": "Steel Dynamics, Inc.",
       "sector": "Basic Materials"
+    },
+    {
+      "symbol": "STRL",
+      "name": "Sterling Infrastructure, Inc.",
+      "sector": "Industrials"
     },
     {
       "symbol": "STT",
@@ -3543,6 +3528,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "TTMI",
+      "name": "TTM Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Technology"
@@ -3683,6 +3673,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "VCTR",
+      "name": "Victory Capital Holdings, Inc.",
+      "sector": "Financial Services"
+    },
+    {
       "symbol": "VEEV",
       "name": "Veeva Systems Inc.",
       "sector": "Technology"
@@ -3696,6 +3691,11 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VICI",
