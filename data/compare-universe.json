@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T14:05:05.372Z",
+  "generatedAt": "2026-11-11T13:22:22.182Z",
   "universeSize": 800,
   "entries": [
     {
@@ -828,11 +828,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "COMP",
-      "name": "Compass, Inc.",
-      "sector": "Real Estate"
-    },
-    {
       "symbol": "COO",
       "name": "The Cooper Companies, Inc.",
       "sector": "Healthcare"
@@ -986,6 +981,11 @@
       "symbol": "CW",
       "name": "Curtiss-Wright Corporation",
       "sector": "Industrials"
+    },
+    {
+      "symbol": "CYTK",
+      "name": "Cytokinetics, Incorporated",
+      "sector": "Healthcare"
     },
     {
       "symbol": "D",
@@ -2663,6 +2663,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "PACS",
+      "name": "PACS Group, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "PAG",
       "name": "Penske Automotive Group, Inc.",
       "sector": "Consumer Cyclical"
@@ -2918,6 +2923,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "RAL",
+      "name": "Ralliant Corp",
+      "sector": "Technology"
+    },
+    {
       "symbol": "RBA",
       "name": "RB Global, Inc.",
       "sector": "Industrials"
@@ -3028,11 +3038,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "ROKU",
-      "name": "Roku, Inc.",
-      "sector": "Communication Services"
-    },
-    {
       "symbol": "ROL",
       "name": "Rollins, Inc.",
       "sector": "Industrials"
@@ -3090,6 +3095,11 @@
     {
       "symbol": "RVTY",
       "name": "Revvity, Inc.",
+      "sector": "Healthcare"
+    },
+    {
+      "symbol": "RYTM",
+      "name": "Rhythm Pharmaceuticals, Inc.",
       "sector": "Healthcare"
     },
     {
@@ -3528,11 +3538,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "TTMI",
-      "name": "TTM Technologies, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Technology"
@@ -3691,11 +3696,6 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "VIAV",
-      "name": "Viavi Solutions Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VICI",
