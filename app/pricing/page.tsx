@@ -6,6 +6,15 @@ export const metadata = {
   description:
     "Start free. Every QScore is free to see — Pro unlocks the full five-factor breakdown behind the number. $19.99/mo, cancel anytime, with a founding-member rate for early users.",
   alternates: { canonical: "https://qscoring.com/pricing" },
+  openGraph: {
+    title: "Pricing — QScoring",
+    description:
+      "Start free. Every QScore is free to see — Pro unlocks the full five-factor breakdown behind the number.",
+    url: "https://qscoring.com/pricing",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 /* Thin-line icons (no icon dependency in the repo — inline SVG, matching ScoreView). */

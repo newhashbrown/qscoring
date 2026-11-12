@@ -157,7 +157,7 @@ export default async function CompareTickersPage({
           </h1>
           <p className="method-lede">
             QScore side-by-side for {a.companyName} ({a.ticker}) and {b.companyName} ({b.ticker}).
-            Snapshot from {dateLabel} · refreshed daily.
+            As of {dateLabel} · updated after each NYSE session.
           </p>
         </header>
 
