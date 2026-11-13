@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T13:22:22.182Z",
+  "generatedAt": "2026-11-13T13:44:54.645Z",
   "universeSize": 800,
   "entries": [
     {
@@ -336,11 +336,6 @@
       "symbol": "AU",
       "name": "AngloGold Ashanti Plc",
       "sector": "Basic Materials"
-    },
-    {
-      "symbol": "AUR",
-      "name": "Aurora Innovation, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "AVGO",
@@ -688,11 +683,6 @@
       "sector": "Financial Services"
     },
     {
-      "symbol": "CFR",
-      "name": "Cullen/Frost Bankers, Inc.",
-      "sector": "Financial Services"
-    },
-    {
       "symbol": "CG",
       "name": "The Carlyle Group Inc.",
       "sector": "Financial Services"
@@ -706,6 +696,11 @@
       "symbol": "CHD",
       "name": "Church & Dwight Co., Inc.",
       "sector": "Consumer Defensive"
+    },
+    {
+      "symbol": "CHRD",
+      "name": "Chord Energy Corporation",
+      "sector": "Energy"
     },
     {
       "symbol": "CHRW",
@@ -951,11 +946,6 @@
       "symbol": "CTSH",
       "name": "Cognizant Technology Solutions Corporation",
       "sector": "Technology"
-    },
-    {
-      "symbol": "CTVA",
-      "name": "Corteva, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "CUBE",
@@ -1301,6 +1291,11 @@
       "symbol": "ETR",
       "name": "Entergy Corporation",
       "sector": "Utilities"
+    },
+    {
+      "symbol": "ETSY",
+      "name": "Etsy, Inc.",
+      "sector": "Consumer Cyclical"
     },
     {
       "symbol": "EVR",
@@ -2161,11 +2156,6 @@
       "symbol": "LVS",
       "name": "Las Vegas Sands Corp.",
       "sector": "Consumer Cyclical"
-    },
-    {
-      "symbol": "LW",
-      "name": "Lamb Weston Holdings, Inc.",
-      "sector": "Consumer Defensive"
     },
     {
       "symbol": "LYV",
@@ -3198,6 +3188,11 @@
       "sector": "Energy"
     },
     {
+      "symbol": "SM",
+      "name": "SM Energy Company",
+      "sector": "Energy"
+    },
+    {
       "symbol": "SMCI",
       "name": "Super Micro Computer, Inc.",
       "sector": "Technology"
@@ -3538,6 +3533,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "TTMI",
+      "name": "TTM Technologies, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Technology"
@@ -3551,11 +3551,6 @@
       "symbol": "TWLO",
       "name": "Twilio Inc.",
       "sector": "Technology"
-    },
-    {
-      "symbol": "TWST",
-      "name": "Twist Bioscience Corporation",
-      "sector": "Healthcare"
     },
     {
       "symbol": "TXN",
@@ -3696,6 +3691,11 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
+    },
+    {
+      "symbol": "VIAV",
+      "name": "Viavi Solutions Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "VICI",
