@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T13:44:54.645Z",
+  "generatedAt": "2026-11-14T12:49:13.801Z",
   "universeSize": 800,
   "entries": [
     {
@@ -291,11 +291,6 @@
       "symbol": "ARCC",
       "name": "Ares Capital Corporation",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "ARE",
-      "name": "Alexandria Real Estate Equities, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "ARES",
@@ -821,6 +816,11 @@
       "symbol": "COLB",
       "name": "Columbia Banking System, Inc.",
       "sector": "Financial Services"
+    },
+    {
+      "symbol": "COMP",
+      "name": "Compass, Inc.",
+      "sector": "Real Estate"
     },
     {
       "symbol": "COO",
@@ -2158,6 +2158,11 @@
       "sector": "Consumer Cyclical"
     },
     {
+      "symbol": "LW",
+      "name": "Lamb Weston Holdings, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "LYV",
       "name": "Live Nation Entertainment, Inc.",
       "sector": "Communication Services"
@@ -2913,11 +2918,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "RAL",
-      "name": "Ralliant Corp",
-      "sector": "Technology"
-    },
-    {
       "symbol": "RBA",
       "name": "RB Global, Inc.",
       "sector": "Industrials"
@@ -3091,11 +3091,6 @@
       "symbol": "RYTM",
       "name": "Rhythm Pharmaceuticals, Inc.",
       "sector": "Healthcare"
-    },
-    {
-      "symbol": "S",
-      "name": "SentinelOne, Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "SAIA",
@@ -3278,6 +3273,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "SPXC",
+      "name": "SPX Technologies, Inc.",
+      "sector": "Basic Materials"
+    },
+    {
       "symbol": "SRE",
       "name": "Sempra",
       "sector": "Utilities"
@@ -3371,6 +3371,11 @@
       "symbol": "T",
       "name": "AT&T Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "TAP",
+      "name": "Molson Coors Beverage Company",
+      "sector": "Consumer Defensive"
     },
     {
       "symbol": "TCPA",
@@ -3691,11 +3696,6 @@
       "symbol": "VG",
       "name": "Venture Global, Inc.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "VIAV",
-      "name": "Viavi Solutions Inc.",
-      "sector": "Technology"
     },
     {
       "symbol": "VICI",
