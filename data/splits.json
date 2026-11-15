@@ -107,6 +107,14 @@
       "fmpDate": "2026-11-03"
     }
   ],
+  "SEEGX": [
+    {
+      "date": "2026-10-26",
+      "numerator": 118,
+      "denominator": 125,
+      "fmpDate": "2026-10-26"
+    }
+  ],
   "SNEX": [
     {
       "date": "2026-07-23",
