@@ -52,7 +52,7 @@ export function TopMoversStripSkeleton() {
     <section className="movers-section">
       <div className="movers-label">
         <span className="movers-pulse" style={{ opacity: 0.3, animationPlayState: "paused" }} />
-        QScore Movers · Today
+        QScore Movers
       </div>
       <div className="movers-grid">
         <SkeletonMoverCard />
@@ -78,7 +78,10 @@ export default async function TopMoversStrip() {
   return (
     <section className="movers-section">
       <div className="movers-label">
-        <span className="movers-pulse" /> QScore Movers · Today
+        {/* No hardcoded "Today" — movers reflect the last completed session,
+            which on weekends/holidays is not today. The as-of timestamp is
+            the data-driven freshness claim. */}
+        <span className="movers-pulse" /> QScore Movers
         <span className="movers-timestamp" title={generatedAt}>
           as of {formatBatchTimestamp(generatedAt)}
         </span>

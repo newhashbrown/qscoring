@@ -579,7 +579,7 @@ export default function MethodologyPage() {
               <tr><td>Score page (CDN cache)</td><td>15 minutes</td></tr>
               <tr><td>Real-time quote (FMP)</td><td>15 minutes (matches the page-level cache)</td></tr>
               <tr><td>End-of-day price history (FMP)</td><td>6 hours (FMP only updates this once per US market close)</td></tr>
-              <tr><td>Company profile, TTM ratios &amp; key metrics, growth (FMP)</td><td>24 hours (these only change on quarterly filings — caching them aggressively keeps us under FMP&apos;s rate limit during traffic spikes without affecting score freshness)</td></tr>
+              <tr><td>Company profile, TTM ratios &amp; key metrics, growth (FMP)</td><td>24 hours (these only change on quarterly filings, so aggressive caching never affects score freshness)</td></tr>
               <tr><td>Universe stats (sector means/stds)</td><td>Nightly cron at 02:00 UTC (post-close); commits the refreshed file to public source control if anything changed</td></tr>
               <tr><td>AI commentary</td><td>Regenerated whenever the score changes</td></tr>
             </tbody>

@@ -6,6 +6,15 @@ export const metadata = {
   description:
     "QScoring is an independent quantitative stock-scoring tool. Learn what the QScore is, the five factors behind it, and how it produces a clear buy, hold, or short signal for any US-listed stock.",
   alternates: { canonical: "https://qscoring.com/about" },
+  openGraph: {
+    title: "About QScoring — Quantitative Stock Scoring",
+    description:
+      "What the QScore is, the five factors behind it, and how it produces a clear buy, hold, or short signal for any US-listed stock.",
+    url: "https://qscoring.com/about",
+    siteName: "QScoring",
+    type: "website",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function AboutPage() {
