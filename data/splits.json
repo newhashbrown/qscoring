@@ -115,6 +115,14 @@
       "fmpDate": "2026-10-26"
     }
   ],
+  "SNDK": [
+    {
+      "date": "2026-11-20",
+      "numerator": 8,
+      "denominator": 1,
+      "fmpDate": "2026-11-20"
+    }
+  ],
   "SNEX": [
     {
       "date": "2026-07-23",
