@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T12:49:13.801Z",
+  "generatedAt": "2026-11-21T13:59:20.228Z",
   "universeSize": 800,
   "entries": [
     {
@@ -106,11 +106,6 @@
       "symbol": "AFRM",
       "name": "Affirm Holdings, Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "AGCO",
-      "name": "AGCO Corporation",
-      "sector": "Industrials"
     },
     {
       "symbol": "AGNC",
@@ -228,6 +223,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "AMRX",
+      "name": "Amneal Pharmaceuticals, Inc.",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "AMT",
       "name": "American Tower Corporation",
       "sector": "Real Estate"
@@ -240,6 +240,11 @@
     {
       "symbol": "ANET",
       "name": "Arista Networks, Inc.",
+      "sector": "Technology"
+    },
+    {
+      "symbol": "ANT",
+      "name": "Anthropic PBC",
       "sector": "Technology"
     },
     {
@@ -693,6 +698,11 @@
       "sector": "Consumer Defensive"
     },
     {
+      "symbol": "CHE",
+      "name": "Chemed Corporation",
+      "sector": "Healthcare"
+    },
+    {
       "symbol": "CHRD",
       "name": "Chord Energy Corporation",
       "sector": "Energy"
@@ -773,6 +783,11 @@
       "sector": "Utilities"
     },
     {
+      "symbol": "CMS-PB",
+      "name": "Consumers Energy Company",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "CNA",
       "name": "CNA Financial Corporation",
       "sector": "Financial Services"
@@ -835,11 +850,6 @@
     {
       "symbol": "COR",
       "name": "Cencora, Inc.",
-      "sector": "Healthcare"
-    },
-    {
-      "symbol": "CORT",
-      "name": "Corcept Therapeutics Incorporated",
       "sector": "Healthcare"
     },
     {
@@ -973,11 +983,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "CYTK",
-      "name": "Cytokinetics, Incorporated",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "D",
       "name": "Dominion Energy, Inc.",
       "sector": "Utilities"
@@ -996,6 +1001,11 @@
       "symbol": "DASH",
       "name": "DoorDash, Inc.",
       "sector": "Communication Services"
+    },
+    {
+      "symbol": "DBX",
+      "name": "Dropbox, Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "DCI",
@@ -1208,6 +1218,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "ELC",
+      "name": "Entergy Louisiana, LLC COLLATERAL TR MT",
+      "sector": "Utilities"
+    },
+    {
       "symbol": "ELS",
       "name": "Equity LifeStyle Properties, Inc.",
       "sector": "Real Estate"
@@ -1293,11 +1308,6 @@
       "sector": "Utilities"
     },
     {
-      "symbol": "ETSY",
-      "name": "Etsy, Inc.",
-      "sector": "Consumer Cyclical"
-    },
-    {
       "symbol": "EVR",
       "name": "Evercore Inc.",
       "sector": "Financial Services"
@@ -1361,11 +1371,6 @@
       "symbol": "FAST",
       "name": "Fastenal Company",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "FCFS",
-      "name": "FirstCash Holdings, Inc",
-      "sector": "Financial Services"
     },
     {
       "symbol": "FCNCA",
@@ -1513,6 +1518,11 @@
       "sector": "Communication Services"
     },
     {
+      "symbol": "GAP",
+      "name": "The Gap, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "GD",
       "name": "General Dynamics Corporation",
       "sector": "Industrials"
@@ -1613,7 +1623,7 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "GOOG",
+      "symbol": "GOOGL",
       "name": "Alphabet Inc.",
       "sector": "Communication Services"
     },
@@ -1701,11 +1711,6 @@
       "symbol": "HII",
       "name": "Huntington Ingalls Industries, Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "HL",
-      "name": "Hecla Mining Company",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "HLI",
@@ -1918,6 +1923,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "JAN",
+      "name": "Janus Living, Inc.",
+      "sector": "Real Estate"
+    },
+    {
       "symbol": "JBHT",
       "name": "J.B. Hunt Transport Services, Inc.",
       "sector": "Industrials"
@@ -2081,11 +2091,6 @@
       "symbol": "LII",
       "name": "Lennox International Inc.",
       "sector": "Industrials"
-    },
-    {
-      "symbol": "LINE",
-      "name": "Lineage, Inc.",
-      "sector": "Real Estate"
     },
     {
       "symbol": "LITE",
@@ -2368,6 +2373,11 @@
       "sector": "Technology"
     },
     {
+      "symbol": "MSGK",
+      "name": "MSG Knickerbockers Corp. Class A",
+      "sector": "Technology"
+    },
+    {
       "symbol": "MSI",
       "name": "Motorola Solutions, Inc.",
       "sector": "Technology"
@@ -2618,11 +2628,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "OSCR",
-      "name": "Oscar Health, Inc.",
-      "sector": "Healthcare"
-    },
-    {
       "symbol": "OSK",
       "name": "Oshkosh Corp",
       "sector": "Industrials"
@@ -2656,11 +2661,6 @@
       "symbol": "PAA",
       "name": "Plains All American Pipeline, L.P.",
       "sector": "Energy"
-    },
-    {
-      "symbol": "PACS",
-      "name": "PACS Group, Inc.",
-      "sector": "Healthcare"
     },
     {
       "symbol": "PAG",
@@ -3013,11 +3013,6 @@
       "sector": "Consumer Cyclical"
     },
     {
-      "symbol": "RMBS",
-      "name": "Rambus Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "RMD",
       "name": "ResMed Inc.",
       "sector": "Healthcare"
@@ -3093,6 +3088,11 @@
       "sector": "Healthcare"
     },
     {
+      "symbol": "S",
+      "name": "SentinelOne, Inc.",
+      "sector": "Technology"
+    },
+    {
       "symbol": "SAIA",
       "name": "Saia, Inc.",
       "sector": "Industrials"
@@ -3148,6 +3148,11 @@
       "sector": "Financial Services"
     },
     {
+      "symbol": "SFD",
+      "name": "Smithfield Foods, Inc.",
+      "sector": "Consumer Defensive"
+    },
+    {
       "symbol": "SGI",
       "name": "Somnigroup International Inc",
       "sector": "Consumer Cyclical"
@@ -3173,18 +3178,13 @@
       "sector": "Consumer Defensive"
     },
     {
-      "symbol": "SKYD",
-      "name": "Skydance Corporation",
-      "sector": "Communication Services"
+      "symbol": "SLAB",
+      "name": "Silicon Laboratories Inc.",
+      "sector": "Technology"
     },
     {
       "symbol": "SLB",
       "name": "Slb N.V.",
-      "sector": "Energy"
-    },
-    {
-      "symbol": "SM",
-      "name": "SM Energy Company",
       "sector": "Energy"
     },
     {
@@ -3271,11 +3271,6 @@
       "symbol": "SPGI",
       "name": "S&P Global Inc.",
       "sector": "Financial Services"
-    },
-    {
-      "symbol": "SPXC",
-      "name": "SPX Technologies, Inc.",
-      "sector": "Basic Materials"
     },
     {
       "symbol": "SRE",
@@ -3538,11 +3533,6 @@
       "sector": "Industrials"
     },
     {
-      "symbol": "TTMI",
-      "name": "TTM Technologies, Inc.",
-      "sector": "Technology"
-    },
-    {
       "symbol": "TTWO",
       "name": "Take-Two Interactive Software, Inc.",
       "sector": "Technology"
@@ -3653,6 +3643,11 @@
       "sector": "Industrials"
     },
     {
+      "symbol": "URBN",
+      "name": "Urban Outfitters, Inc.",
+      "sector": "Consumer Cyclical"
+    },
+    {
       "symbol": "URI",
       "name": "United Rentals, Inc.",
       "sector": "Industrials"
@@ -3675,11 +3670,6 @@
     {
       "symbol": "V",
       "name": "Visa Inc.",
-      "sector": "Financial Services"
-    },
-    {
-      "symbol": "VCTR",
-      "name": "Victory Capital Holdings, Inc.",
       "sector": "Financial Services"
     },
     {
@@ -3820,6 +3810,11 @@
     {
       "symbol": "WCC",
       "name": "WESCO International, Inc.",
+      "sector": "Industrials"
+    },
+    {
+      "symbol": "WCN",
+      "name": "Waste Connections, Inc.",
       "sector": "Industrials"
     },
     {
@@ -4001,6 +3996,11 @@
       "symbol": "ZTS",
       "name": "Zoetis Inc.",
       "sector": "Healthcare"
+    },
+    {
+      "symbol": "ZWS",
+      "name": "Zurn Elkay Water Solutions Corporation",
+      "sector": "Industrials"
     }
   ]
 }
